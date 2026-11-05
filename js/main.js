@@ -266,3 +266,56 @@ document.addEventListener('click', function (e) {
         }
     }
 });
+
+/* ==========================================================================
+   TELEGRAM CONTACT FORM HANDLER (Cloudflare Edge Worker Integration)
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const tgForm = document.getElementById('telegram-contact-form');
+    if (!tgForm) return;
+
+    tgForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('tg-submit-btn');
+        const status = document.getElementById('tg-status-text');
+        const nameInput = document.getElementById('tg-name');
+        const contactInput = document.getElementById('tg-contact');
+        const messageInput = document.getElementById('tg-message');
+
+        const originalBtnText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span>Mengirim...</span>';
+        status.innerText = 'Mengirim pesan ke Telegram...';
+        status.className = 'text-[11px] text-blue-600 font-medium';
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: nameInput.value,
+                    phone: contactInput.value,
+                    message: messageInput.value,
+                    subject: 'Konsultasi Web Portofolio'
+                })
+            });
+
+            const data = await res.json();
+            if (res.ok && data.success) {
+                status.innerText = '✅ Pesan berhasil dikirim langsung ke Telegram!';
+                status.className = 'text-[11px] text-emerald-600 font-bold';
+                tgForm.reset();
+            } else {
+                status.innerText = '❌ ' + (data.error || 'Gagal mengirim pesan.');
+                status.className = 'text-[11px] text-rose-600 font-bold';
+            }
+        } catch (err) {
+            status.innerText = '❌ Gagal terhubung ke server edge.';
+            status.className = 'text-[11px] text-rose-600 font-bold';
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalBtnText;
+            if (window.lucide) lucide.createIcons();
+        }
+    });
+});

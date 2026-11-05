@@ -1,7 +1,7 @@
 # 🏛️ Official Digital Portfolio - Dr. Ilham Pradani C.L.
 **S.H., M.TI. | Systems Architect, AI Expert & Cybersecurity Researcher**
 
-[![Live Demo](https://img.shields.io/badge/Live-Vercel-black?style=for-the-badge&logo=vercel)](https://ilham-pradani-portofolio-connect.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Vercel-black?style=for-the-badge&logo=vercel)](https://ilhampradani.chainasiaconnect.co.id/)
 [![Tech Stack](https://img.shields.io/badge/HTML5_&_JS-Vanilla-F38020?style=for-the-badge&logo=javascript)](#)
 [![Styling](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=for-the-badge&logo=tailwindcss)](#)
 

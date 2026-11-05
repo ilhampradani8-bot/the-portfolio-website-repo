@@ -1,3 +1,6 @@
 /robots.txt
 /sitemap.xml
-scratch/
+scratch/.wrangler/
+deploy.sh
+.env
+.env.*
