@@ -4,3 +4,4 @@ scratch/.wrangler/
 deploy.sh
 .env
 .env.*
+.wrangler/
