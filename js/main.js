@@ -203,6 +203,16 @@ async function loadComponent(id, file) {
             }
             if (id === 'header-placeholder') {
                 window.setLoadingProgress(15);
+                // Trigger animasi navbar meluncur turun dari atas ke bawah
+                const nav = document.getElementById('top-navbar');
+                if (nav) {
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            nav.style.opacity = '1';
+                            nav.style.transform = 'translateY(0)';
+                        }, 50);
+                    });
+                }
             }
         }
     } catch (e) { console.error("Component Error:", e); }
