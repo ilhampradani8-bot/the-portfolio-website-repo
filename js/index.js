@@ -1001,8 +1001,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initClassicSwipers();
     initClassicScrollSpy();
     initScrollAnimations();
-    initGravatarHovercard();
-    loadWikidataStatus();
 
     // 2. Load cached articles & portfolio immediately (0ms first-paint, updates in background)
     loadArtikel();
@@ -1173,63 +1171,3 @@ function renderHomePenelitianCards(papers) {
     if (window.applyTranslations) window.applyTranslations();
     if (window.lucide) lucide.createIcons();
 }
-
-// 5. Gravatar Hovercard Interactive Drawer Handler
-function initGravatarHovercard() {
-    document.querySelectorAll('.gravatar-hovercard__inner').forEach((container) => {
-        container.querySelectorAll('.gravatar-hovercard__button').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                const selector = '.gravatar-hovercard__drawer[data-drawer-name="' + el.dataset.targetDrawer + '"]';
-                const drawer = container.querySelector(selector);
-                drawer?.classList.add('gravatar-hovercard__drawer--open');
-            });
-        });
-        container.querySelectorAll('.gravatar-hovercard__drawer-close').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                const selector = '.gravatar-hovercard__drawer[data-drawer-name="' + el.dataset.targetDrawer + '"]';
-                const drawer = container.querySelector(selector);
-                drawer?.classList.add('gravatar-hovercard__drawer--closing');
-                drawer?.classList.remove('gravatar-hovercard__drawer--open');
-                setTimeout(() => {
-                    drawer?.classList.remove('gravatar-hovercard__drawer--closing');
-                }, 300);
-            });
-        });
-        container.querySelectorAll('.gravatar-hovercard__drawer-backdrop').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                const selector = '.gravatar-hovercard__drawer[data-drawer-name="' + el.dataset.targetDrawer + '"]';
-                const drawer = container.querySelector(selector);
-                drawer?.classList.add('gravatar-hovercard__drawer--closing');
-                drawer?.classList.remove('gravatar-hovercard__drawer--open');
-                setTimeout(() => {
-                    drawer?.classList.remove('gravatar-hovercard__drawer--closing');
-                }, 300);
-            });
-        });
-    });
-}
-
-// 6. Dynamic Wikidata Entity Description Loader (Item Q142066161)
-function loadWikidataStatus() {
-    const el = document.getElementById('wikidata-status');
-    if (!el) return;
-
-    fetch('https://www.wikidata.org/wiki/Special:EntityData/Q142066161.json')
-        .then(res => res.ok ? res.json() : null)
-        .then(data => {
-            const descriptions = data?.entities?.Q142066161?.descriptions;
-            if (!descriptions) return;
-            const lang = localStorage.getItem('preferred_lang') || 'id';
-            const desc = descriptions[lang]?.value || descriptions['id']?.value || descriptions['en']?.value;
-            if (desc) {
-                el.textContent = desc;
-            }
-        })
-        .catch(err => {
-            console.debug('Wikidata live status fallback active:', err);
-        });
-}
-window.loadWikidataStatus = loadWikidataStatus;

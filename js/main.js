@@ -403,6 +403,51 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================================== */
 (function initExternalRedirectModal() {
     let activeRedirectUrl = '';
+    let activeTargetId = '';
+
+    // Copy helper dengan visual feedback
+    function handleCopy(textToCopy, btn, labelEl, defaultLabel) {
+        if (!textToCopy || !btn) return;
+
+        const originalBtnHtml = btn.innerHTML;
+
+        const onSuccess = () => {
+            btn.classList.add('!bg-emerald-600', '!text-white', '!border-emerald-600', 'shadow-emerald-500/30');
+            btn.innerHTML = `
+                <svg class="w-3.5 h-3.5 text-white shrink-0 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>Tersalin!</span>
+            `;
+            setTimeout(() => {
+                btn.innerHTML = originalBtnHtml;
+                btn.classList.remove('!bg-emerald-600', '!text-white', '!border-emerald-600', 'shadow-emerald-500/30');
+            }, 1800);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(textToCopy).then(onSuccess).catch(() => {
+                fallbackCopy(textToCopy);
+                onSuccess();
+            });
+        } else {
+            fallbackCopy(textToCopy);
+            onSuccess();
+        }
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+    }
 
     // Buat elemen modal ke DOM bila belum ada
     function createModalElement() {
@@ -412,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div id="external-redirect-modal" 
              class="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
             <div id="external-modal-card" 
-                 class="relative w-full max-w-sm sm:max-w-md p-6 sm:p-8 rounded-3xl bg-white/85 dark:bg-slate-900/85 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] transform scale-95 transition-all duration-300 text-center overflow-hidden">
+                 class="relative w-full max-w-sm sm:max-w-md p-6 sm:p-7 rounded-3xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] transform scale-95 transition-all duration-300 text-center overflow-hidden">
                 
                 <!-- Ambient Glass Glow -->
                 <div id="ext-glow" class="absolute -top-16 -left-16 w-44 h-44 rounded-full blur-3xl pointer-events-none opacity-40"></div>
@@ -437,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span id="ext-badge-text">Direct Link</span>
                 </div>
 
-                <!-- Verified Account Handle Container (Muncul jika ada akun terverifikasi seperti Instagram) -->
+                <!-- Verified Account Handle Container -->
                 <div id="ext-account-container" class="hidden items-center justify-center gap-1.5 mb-3 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 w-fit mx-auto shadow-sm">
                     <span id="ext-account-handle" class="font-extrabold text-gray-900 dark:text-white text-xs sm:text-sm">@ilhampradani_official</span>
                     <svg class="w-4 h-4 text-[#0095f6] shrink-0 fill-current" viewBox="0 0 24 24" aria-label="Verified">
@@ -449,16 +494,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3 id="ext-title" class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight mb-2">
                     Buka Aplikasi Luar?
                 </h3>
-                <p id="ext-desc" class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
+                <p id="ext-desc" class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-4 font-medium">
                     Anda akan dialihkan ke situs/aplikasi eksternal. Apakah Anda ingin melanjutkan?
                 </p>
 
-                <!-- Target URL Preview -->
-                <div class="px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-[11px] font-mono text-gray-500 dark:text-gray-400 truncate mb-6 text-left flex items-center gap-2">
-                    <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                    </svg>
-                    <span id="ext-url-preview" class="truncate font-semibold">https://...</span>
+                <!-- Link & ID Container with 2 Copy Views -->
+                <div class="mb-5 rounded-2xl bg-black/[0.04] dark:bg-white/[0.05] border border-black/5 dark:border-white/10 p-3 sm:p-3.5 text-left">
+                    
+                    <!-- Link View -->
+                    <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-black/5 dark:border-white/5">
+                        <div class="flex items-center gap-1.5 min-w-0 flex-1 text-[11px] font-mono text-gray-600 dark:text-gray-300">
+                            <svg class="w-3.5 h-3.5 shrink-0 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                            </svg>
+                            <span id="ext-url-preview" class="truncate font-semibold select-all">https://...</span>
+                        </div>
+                    </div>
+
+                    <!-- ID View -->
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-1.5 min-w-0 flex-1 text-[11px] text-gray-600 dark:text-gray-300">
+                            <span class="text-[9px] font-black uppercase tracking-wider text-gray-400 dark:text-gray-500">Target ID:</span>
+                            <span id="ext-id-preview" class="font-mono font-bold text-gray-900 dark:text-white truncate select-all">@handle</span>
+                        </div>
+                    </div>
+
+                    <!-- 2 Copy Options: ID Saja & Full Link -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <!-- Button 1: Copy ID Aja -->
+                        <button type="button" id="ext-btn-copy-id" 
+                                class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:border-blue-500 text-gray-800 dark:text-gray-100 font-extrabold text-[10.5px] uppercase tracking-wider transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 group"
+                                title="Salin ID / Username Saja">
+                            <svg class="w-3.5 h-3.5 text-blue-600 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+                            </svg>
+                            <span id="ext-btn-copy-id-label">Salin ID</span>
+                        </button>
+
+                        <!-- Button 2: Copy Full Link -->
+                        <button type="button" id="ext-btn-copy-link" 
+                                class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:border-blue-500 text-gray-800 dark:text-gray-100 font-extrabold text-[10.5px] uppercase tracking-wider transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 group"
+                                title="Salin Full Link / URL Lengkap">
+                            <svg class="w-3.5 h-3.5 text-blue-600 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            <span id="ext-btn-copy-link-label">Full Link</span>
+                        </button>
+                    </div>
+
                 </div>
 
                 <!-- Action Buttons -->
@@ -485,6 +568,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeBtn = document.getElementById('ext-modal-close');
         const cancelBtn = document.getElementById('ext-btn-cancel');
         const confirmBtn = document.getElementById('ext-btn-confirm');
+        const copyIdBtn = document.getElementById('ext-btn-copy-id');
+        const copyIdLabel = document.getElementById('ext-btn-copy-id-label');
+        const copyLinkBtn = document.getElementById('ext-btn-copy-link');
+        const copyLinkLabel = document.getElementById('ext-btn-copy-link-label');
 
         function closeModal() {
             if (!modal) return;
@@ -501,6 +588,17 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelBtn?.addEventListener('click', closeModal);
         modal?.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
+        });
+
+        // Copy events
+        copyIdBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleCopy(activeTargetId, copyIdBtn, copyIdLabel, 'Salin ID');
+        });
+
+        copyLinkBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleCopy(activeRedirectUrl, copyLinkBtn, copyLinkLabel, 'Full Link');
         });
 
         document.addEventListener('keydown', (e) => {
@@ -534,6 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = document.getElementById('ext-title');
         const desc = document.getElementById('ext-desc');
         const urlPreview = document.getElementById('ext-url-preview');
+        const idPreview = document.getElementById('ext-id-preview');
         const confirmBtn = document.getElementById('ext-btn-confirm');
         const btnLabel = document.getElementById('ext-btn-label');
 
@@ -555,6 +654,13 @@ document.addEventListener('DOMContentLoaded', () => {
             desc.textContent = "Anda akan dialihkan ke situs/aplikasi WhatsApp untuk memulai komunikasi langsung dengan Sir Ilham Pradani.";
             confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-emerald-500/25 hover:from-emerald-600 hover:to-emerald-700";
             btnLabel.textContent = "Buka WhatsApp";
+
+            // Extract Target ID
+            const match = url.match(/(?:\/|\=)(\+?[0-9]{8,16})/);
+            const digits = match ? match[1].replace(/[^0-9]/g, '') : '6288971071138';
+            activeTargetId = digits === '6288971071138' ? '+6288971071138' : (digits.startsWith('62') ? '+' + digits : digits);
+            if (idPreview) idPreview.textContent = digits === '6288971071138' ? '+62 889-7107-1138' : activeTargetId;
+
         } else if (type === 'telegram') {
             glow.className = "absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40 bg-sky-500";
             iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300 p-3 sm:p-4 bg-sky-50 dark:bg-sky-950/40 border border-sky-200/80 dark:border-sky-700/50";
@@ -567,6 +673,12 @@ document.addEventListener('DOMContentLoaded', () => {
             desc.textContent = "Anda akan dialihkan ke Telegram untuk terhubung langsung dengan akun resmi @ilhampradani_sh.";
             confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-sky-500 to-sky-600 shadow-sky-500/25 hover:from-sky-600 hover:to-sky-700";
             btnLabel.textContent = "Buka Telegram";
+
+            // Extract Target ID
+            const match = url.match(/t\.me\/([a-zA-Z0-9_]+)/);
+            activeTargetId = match ? '@' + match[1].replace(/^@/, '') : '@ilhampradani_sh';
+            if (idPreview) idPreview.textContent = activeTargetId;
+
         } else if (type === 'instagram') {
             glow.className = "absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40 bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600";
             iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300 p-3 sm:p-4 bg-gradient-to-tr from-pink-50 to-purple-50 dark:from-pink-950/40 dark:to-purple-950/40 border border-pink-200/80 dark:border-pink-700/50";
@@ -584,6 +696,14 @@ document.addEventListener('DOMContentLoaded', () => {
             desc.textContent = "Anda akan dialihkan ke situs/aplikasi Instagram untuk mengunjungi profil resmi terverifikasi Sir Ilham Pradani.";
             confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 shadow-pink-500/25 hover:opacity-95";
             btnLabel.textContent = "Buka Instagram";
+
+            // Extract Target ID
+            const match = url.match(/instagram\.com\/([a-zA-Z0-9_\.]+)/);
+            activeTargetId = match ? '@' + match[1].replace(/^@/, '') : '@ilhampradani_official';
+            if (idPreview) idPreview.textContent = activeTargetId;
+        } else {
+            activeTargetId = url;
+            if (idPreview) idPreview.textContent = url;
         }
 
         // Tampilkan modal
