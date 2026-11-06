@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EasyMarket - Pusat Produk Digital & Akun Premium</title>
-    <meta name="description" content="EasyMarket menyediakan akun premium streaming, lisensi software Windows & Office, Canva Pro, ChatGPT Plus, dan VPN dengan sistem bot aktif 24jam, harga terjangkau, serta garansi terpercaya.">
-    <meta name="keywords" content="EasyMarket, Akun Premium, Netflix Premium, Canva Pro, Spotify Premium, Lisensi Windows, Office 2021, VPN Murah, Produk Digital">
+    <title>MallDigital & SirkelHub | Ekosistem Produk Digital & Social Commerce (Evolusi EasyMarket)</title>
+    <meta name="description" content="MallDigital (malldigital.tech) & SirkelHub: Pusat belanja 200+ produk digital instan 24 jam, streaming premium, lisensi software, pulsa, token PLN, game top-up, dan social commerce oleh PT CHAIN ASIA CONECT & PT EASYMALL SOFTWARE DEVELOPMENT.">
+    <meta name="keywords" content="MallDigital, SirkelHub, EasyMarket, Akun Premium, Netflix Premium, Canva Pro, Spotify Premium, Lisensi Windows, Office 2021, VPN Murah, Top Up Game, PT CHAIN ASIA CONECT">
     
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
     <script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
@@ -38,13 +38,6 @@
         body.dark-mode {
             background-color: var(--bg-dark);
             color: var(--text-dark);
-        }
-
-        /* Pin top-navbar to very top */
-        #top-navbar {
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
         }
 
         /* Custom buttons styling for flat list (NO card shape, NO shadows, NO rounded borders) */
@@ -242,6 +235,13 @@
                         <span class="lang-zh hidden">分销商合作</span>
                     </button>
 
+                    <button onclick="switchTab('arsip')" id="tab-arsip" class="tab-btn px-4 py-3.5 text-xs font-bold flex items-center gap-3 w-auto lg:w-full justify-start shrink-0 text-amber-600 dark:text-amber-400">
+                        <i data-lucide="archive" class="w-4 h-4 shrink-0"></i>
+                        <span class="lang-id">Arsip EasyMarket</span>
+                        <span class="lang-en hidden">EasyMarket Archive</span>
+                        <span class="lang-zh hidden">历史档案</span>
+                    </button>
+
                     <a href="career.html" class="tab-btn px-4 py-3.5 text-xs font-bold flex items-center gap-3 w-auto lg:w-full justify-start shrink-0 hover:text-blue-600 dark:hover:text-[#38bdf8]">
                         <i data-lucide="briefcase" class="w-4 h-4 shrink-0"></i>
                         <span class="lang-id">Career / Loker</span>
@@ -258,75 +258,122 @@
                 <div id="content-pengenalan" class="space-y-8">
                     <!-- Title & Description -->
                     <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-[11px] font-bold">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+                            <span>Evolusi Resmi: EasyMarket &rarr; MallDigital (malldigital.tech) &amp; SirkelHub</span>
+                        </div>
                         <div>
-                            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">EasyMarket</h1>
-                            <p class="text-blue-600 font-bold text-xs uppercase tracking-widest mt-2">Official Page of PT Easymall Software Development</p>
+                            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">MallDigital &amp; SirkelHub</h1>
+                            <p class="text-blue-600 dark:text-[#38bdf8] font-bold text-xs uppercase tracking-widest mt-2">
+                                Official Digital Ecosystem of PT CHAIN ASIA CONECT &amp; PT EASYMALL SOFTWARE DEVELOPMENT
+                            </p>
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl lang-id">
-                            Pusat Layanan Digital & Kebutuhan IT Serba Ada. Layani pembelian Pulsa, Token Listrik, Top Up Game, Aplikasi Premium, hingga Solusi IT Spesialis secara instan 24 jam via Automated Bot.
+                        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl lang-id">
+                            Pusat Ekosistem Produk Digital &amp; Social Commerce Terpadu. Menghubungkan platform belanja instan <strong>MallDigital (malldigital.tech)</strong> dengan komunitas kreator <strong>SirkelHub</strong>. Melayani lebih dari 200+ produk digital: Streaming, AI &amp; Produktivitas, Lisensi Windows/Office, Top-up Game, Pulsa, Token Listrik, hingga Jasa IT Spesialis otomatis 24 jam dengan Gateway QRIS resmi DOKU.
                         </p>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl lang-en hidden">
-                            One-Stop Digital Service & IT Needs Center. Serving purchases of Mobile Credit (Pulsa), Electricity Tokens, Game Top-ups, Premium Apps, to Specialist IT Solutions instantly 24 hours via Automated Bot.
+                        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl lang-en hidden">
+                            Unified Digital Product Ecosystem &amp; Social Commerce Center. Connecting instant shopping on <strong>MallDigital (malldigital.tech)</strong> with creator community <strong>SirkelHub</strong>. Offering over 200+ digital items: Streaming, AI &amp; Productivity, Software Licenses, Game Top-ups, Mobile Credit, Electricity Tokens, and custom IT specialist bots 24/7 with official DOKU QRIS gateway.
                         </p>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl lang-zh hidden">
-                            一站式数字服务与IT需求中心。通过自动化机器人24小时即时提供话费充值、电费代缴、游戏充值、高级应用订阅及专业IT解决方案。
+                        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl lang-zh hidden">
+                            一体化数字产品生态与社交电商中心。连接 <strong>MallDigital (malldigital.tech)</strong> 即时购物与 <strong>SirkelHub</strong> 创作者社区。提供超过200多种数字产品：流媒体、AI与生产力、软件授权、游戏充值、话费、电费代缴及专业IT自动化机器人，全天候24小时通过DOKU官方QRIS秒级交付。
                         </p>
                     </div>
 
-                    <!-- Visual Section & Logo Display -->
-                    <div class="flex flex-col md:flex-row items-center gap-8 py-6">
-                        <div class="shrink-0 w-32 h-32 md:w-40 md:h-40 flex items-center justify-center">
-                            <img src="documents/Logo/easyfastlogotransaparan.webp" alt="EasyMarket Logo" class="w-full h-full object-contain">
+                    <!-- Dual Brand Logos & Live Statistics -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50/60 to-indigo-50/40 dark:from-slate-800/60 dark:to-slate-900/40 border border-blue-100 dark:border-white/10">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 p-2 shadow-sm border border-gray-200/80 dark:border-white/10 flex items-center justify-center shrink-0">
+                                <img src="https://malldigital.tech/gambar/logo-bulat-ring-sirkel.png" alt="MallDigital Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='documents/Logo/easyfastlogotransaparan.webp';">
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-sm text-gray-900 dark:text-white">MallDigital.tech</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">200+ Produk Instan 24 Jam</p>
+                            </div>
                         </div>
-                        <div class="space-y-3">
-                            <h3 class="text-lg font-bold lang-id">Keunggulan Utama (Powered by EasyFast System):</h3>
-                            <h3 class="text-lg font-bold lang-en hidden">Key Advantages (Powered by EasyFast System):</h3>
-                            <h3 class="text-lg font-bold lang-zh hidden">核心优势 (由 EasyFast 系统驱动):</h3>
-                            <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
-                                <li class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                                    <span class="lang-id">Sistem Bot Aktif 24 Jam Non-Stop (Transaksi Otomatis via QRIS)</span>
-                                    <span class="lang-en hidden">24-Hour Non-Stop Active Bot System (Automated QRIS Transactions)</span>
-                                    <span class="lang-zh hidden">24小时全天候自动机器人系统（通过 QRIS 自动交易）</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                                    <span class="lang-id">Customer Service (CS) Manusia Aktif & Responsif untuk Solusi IT Specialist</span>
-                                    <span class="lang-en hidden">Active & Responsive Human Customer Service (CS) for IT Specialist Solutions</span>
-                                    <span class="lang-zh hidden">活跃且快速响应的人工客服（CS），为您提供专业 IT 技术支持</span>
-                                </li>
-                            </ul>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 p-2 shadow-sm border border-gray-200/80 dark:border-white/10 flex items-center justify-center shrink-0">
+                                <img src="documents/Logo/easyfastlogotransaparan.webp" alt="EasyMarket Archive" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-sm text-gray-900 dark:text-white">EasyMarket (Legacy)</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Pondasi Awal &amp; Data Arsip</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 p-2 shadow-sm border border-emerald-200/80 dark:border-emerald-800/40 flex items-center justify-center shrink-0 text-emerald-600 dark:text-emerald-400">
+                                <i data-lucide="shield-check" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-sm text-gray-900 dark:text-white">DOKU QRIS Live</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Verifikasi Otomatis Detik</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Direct Bot Links -->
-                    <div class="space-y-3 pt-4 border-t border-gray-200/60 dark:border-white/10">
-                        <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300 lang-id">Akses Bot & Kontak Resmi:</h4>
-                        <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300 lang-en hidden">Official Bot Access & Contacts:</h4>
-                        <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300 lang-zh hidden">官方机器人通道与联系方式：</h4>
-                        <div class="flex flex-wrap gap-4">
-                            <a href="https://wa.me/6288971071138" target="_blank" class="px-5 py-3 bg-[#0d9488] text-white font-bold rounded-xl text-xs hover:bg-teal-700 transition flex items-center gap-2 shadow-sm">
-                                <i data-lucide="message-square" class="w-4 h-4"></i>
-                                <span class="lang-id">WhatsApp Bot: wa.me/6288971071138 (Ketik "Menu" untuk memulai)</span>
-                                <span class="lang-en hidden">WhatsApp Bot: wa.me/6288971071138 (Type "Menu" to start)</span>
-                                <span class="lang-zh hidden">WhatsApp 机器人: wa.me/6288971071138 (输入 "Menu" 开始)</span>
+                    <!-- Direct Action Buttons -->
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-xs font-black uppercase tracking-wider text-gray-400 lang-id">Akses Cepat &amp; Layanan Resmi:</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="https://malldigital.tech" target="_blank" rel="noopener" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                <i data-lucide="globe" class="w-4 h-4"></i>
+                                <span>Buka Web Store (malldigital.tech)</span>
                             </a>
-                            <a href="https://t.me/safemarketfast_bot" target="_blank" class="px-5 py-3 bg-[#0066cc] text-white font-bold rounded-xl text-xs hover:bg-blue-700 transition flex items-center gap-2 shadow-sm">
-                                <i data-lucide="send" class="w-4 h-4"></i> Telegram Bot: t.me/safemarketfast_bot
+                            <a href="https://malldigital.tech/sirkelhub" target="_blank" rel="noopener" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                                <span>Komunitas SirkelHub</span>
                             </a>
-                            <a href="https://www.instagram.com/easycompany_officiall/" target="_blank" class="px-5 py-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-bold rounded-xl text-xs hover:opacity-90 transition flex items-center gap-2 shadow-sm">
-                                <i data-lucide="instagram" class="w-4 h-4"></i> Instagram: @easycompany_officiall
+                            <a href="https://wa.me/6288971071138" target="_blank" rel="noopener" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                <span>WhatsApp Bot (+62 889-7107-1138)</span>
                             </a>
+                            <button onclick="switchTab('arsip')" class="px-5 py-3 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 font-bold rounded-xl text-xs transition flex items-center gap-2 border border-amber-300/40">
+                                <i data-lucide="archive" class="w-4 h-4 text-amber-500"></i>
+                                <span>Lihat Arsip EasyMarket (2024-2025)</span>
+                            </button>
                         </div>
-                        <p class="text-xs text-gray-400 font-medium pt-2 lang-id">
-                            Telegram Owner: <a href="https://t.me/ilhampradani_sh" target="_blank" class="text-[#0066cc] dark:text-[#38bdf8] hover:underline font-bold">@ilhampradani_sh</a>
-                        </p>
-                        <p class="text-xs text-gray-400 font-medium pt-2 lang-en hidden">
-                            Telegram Owner: <a href="https://t.me/ilhampradani_sh" target="_blank" class="text-[#0066cc] dark:text-[#38bdf8] hover:underline font-bold">@ilhampradani_sh</a>
-                        </p>
-                        <p class="text-xs text-gray-400 font-medium pt-2 lang-zh hidden">
-                            电报负责人: <a href="https://t.me/ilhampradani_sh" target="_blank" class="text-[#0066cc] dark:text-[#38bdf8] hover:underline font-bold">@ilhampradani_sh</a>
-                        </p>
+                    </div>
+
+                    <!-- Keunggulan Utama (4 Pillars) -->
+                    <div class="space-y-4 pt-4 border-t border-gray-200/60 dark:border-white/10">
+                        <h3 class="text-base font-extrabold text-gray-900 dark:text-white lang-id">4 Pilar Utama Ekosistem:</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 space-y-2">
+                                <div class="flex items-center gap-2 font-bold text-xs text-blue-600 dark:text-[#38bdf8]">
+                                    <i data-lucide="zap" class="w-4 h-4"></i>
+                                    <span>1. Aktivasi Instan 24 Jam Non-Stop</span>
+                                </div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                    Transaksi otomatis terhubung dengan API penyedia dan sistem bot. Saldo, akun, pulsa, atau token terkirim otomatis detik setelah pembayaran terverifikasi.
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 space-y-2">
+                                <div class="flex items-center gap-2 font-bold text-xs text-indigo-600 dark:text-indigo-400">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                    <span>2. Payment Gateway Resmi DOKU &amp; QRIS</span>
+                                </div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                    Dukungan QRIS Realtime, BCA, Mandiri, BRI, BNI, OVO, GoPay, ShopeePay, DANA melalui integrasi payment gateway resmi berlisensi Bank Indonesia.
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 space-y-2">
+                                <div class="flex items-center gap-2 font-bold text-xs text-emerald-600 dark:text-emerald-400">
+                                    <i data-lucide="layers" class="w-4 h-4"></i>
+                                    <span>3. 200+ Katalog Produk Terlengkap</span>
+                                </div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                    Mulai dari kebutuhan hiburan, produktivitas kerja (Canva, Office, Windows, Kiro AI), hingga kebutuhan harian kuota dan listrik PLN dalam satu pintu.
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 space-y-2">
+                                <div class="flex items-center gap-2 font-bold text-xs text-amber-600 dark:text-amber-400">
+                                    <i data-lucide="users" class="w-4 h-4"></i>
+                                    <span>4. Ekosistem Social Commerce SirkelHub</span>
+                                </div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                    Wadah reseller, vendor digital, dan kreator konten untuk membuka toko digital mandiri dengan sistem dropship dan komisi otomatis.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -518,144 +565,56 @@
                 </div>
 
                 <!-- TAB 2.5: DAFTAR HARGA & ORDER (Flat Search & Minimal List Layout) -->
-                <div id="content-harga" class="hidden space-y-8">
+                <div id="content-harga" class="hidden space-y-6">
                     <div class="space-y-2">
-                            <h2 class="text-2xl font-bold tracking-tight">
-                                <span class="lang-id">Daftar Harga & Order Instan</span>
-                                <span class="lang-en hidden">Instant Price List & Order</span>
-                                <span class="lang-zh hidden">即时价格表与订购</span>
-                            </h2>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">
-                                <span class="lang-id">Cari produk digital atau layanan IT Specialist, bandingkan harga, dan klik untuk order instan via WhatsApp Bot.</span>
-                                <span class="lang-en hidden">Search digital products or IT Specialist services, compare prices, and click to order instantly via WhatsApp Bot.</span>
-                                <span class="lang-zh hidden">搜索数字产品或 IT 技术服务，对比价格，点击即可通过 WhatsApp 机器人即时下单。</span>
-                            </p>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    <span class="lang-id">Katalog &amp; Daftar Harga MallDigital</span>
+                                    <span class="lang-en hidden">MallDigital Product Catalog &amp; Prices</span>
+                                    <span class="lang-zh hidden">MallDigital 产品目录与价格</span>
+                                </h2>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    <span class="lang-id">Sinkronisasi langsung dengan inventori resmi <strong>malldigital.tech</strong>. Pilih produk, cek varian, beli mandiri atau order via WhatsApp.</span>
+                                </p>
+                            </div>
+                            <span id="product-count-badge" class="px-3.5 py-1.5 rounded-full text-xs font-black bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 self-start sm:self-auto shrink-0 shadow-sm">
+                                Memuat produk...
+                            </span>
                         </div>
+                    </div>
 
-                        <!-- Search and Filters Panel (Flat, bounded by borders) -->
-                    <div class="border-y border-gray-200/60 dark:border-white/10 py-5 space-y-4 mt-8">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-sm font-extrabold text-gray-800 dark:text-gray-100 flex items-center gap-2">
-                                <i data-lucide="search" class="w-4 h-4 text-blue-600 dark:text-[#38bdf8]"></i>
-                                <span class="lang-id">Cari Produk & Daftar Harga Instan</span>
-                                <span class="lang-en hidden">Search Products & Instant Price List</span>
-                                <span class="lang-zh hidden">智能产品检索与价格单</span>
-                            </h3>
-                        </div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <!-- Search and Filters Panel -->
+                    <div class="border-y border-gray-200/60 dark:border-white/10 py-4 space-y-3.5">
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                             <!-- Search Input -->
                             <div class="relative flex-grow max-w-md">
-                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
-                                <input type="text" id="product-search" placeholder="Cari Canva, Office, Netflix..." class="w-full pl-9 pr-4 py-2 text-xs bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066cc] dark:focus:ring-[#38bdf8] transition">
+                                <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" id="product-search" placeholder="Cari Canva, Netflix, ChatGPT, Windows, Game..." class="w-full pl-9 pr-4 py-2.5 text-xs bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-[#38bdf8] transition shadow-sm">
                             </div>
                             
                             <!-- Sort Filter -->
-                            <div class="flex items-center gap-2 text-xs font-semibold">
-                                <span class="text-gray-400 lang-id">Urutan:</span>
-                                <span class="text-gray-400 lang-en hidden">Sort:</span>
-                                <span class="text-gray-400 lang-zh hidden">排序方式:</span>
-                                <select id="sort-select" onchange="applyFilters()" class="bg-transparent border-none text-[#0066cc] dark:text-[#38bdf8] focus:ring-0 cursor-pointer text-xs p-0 font-bold">
-                                    <option value="default">Default</option>
+                            <div class="flex items-center gap-2 text-xs font-semibold shrink-0">
+                                <span class="text-gray-400">Urutkan:</span>
+                                <select id="sort-select" onchange="applyFilters()" class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 rounded-xl text-xs py-2 px-3 focus:outline-none font-bold">
+                                    <option value="default">Rekomendasi</option>
                                     <option value="price-asc">Harga Terendah</option>
                                     <option value="price-desc">Harga Tertinggi</option>
+                                    <option value="name-asc">Nama A-Z</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Category Tabs -->
+                        <!-- Category Tabs (Populated dynamically by js/easymarket.js) -->
                         <div class="flex overflow-x-auto gap-2 pb-1 scrollbar-none whitespace-nowrap" id="category-filters">
-                            <button onclick="filterCategory('All')" data-category="All" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-[#0066cc]/10 text-[#0066cc] dark:bg-[#38bdf8]/10 dark:text-[#38bdf8] active">
-                                <span class="lang-id">Semua</span>
-                                <span class="lang-en hidden">All</span>
-                                <span class="lang-zh hidden">全部</span>
-                            </button>
-                            <button onclick="filterCategory('Streaming')" data-category="Streaming" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Streaming & Hiburan</span>
-                                <span class="lang-en hidden">Streaming & Entertainment</span>
-                                <span class="lang-zh hidden">流媒体与娱乐</span>
-                            </button>
-                            <button onclick="filterCategory('Creative')" data-category="Creative" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Desain & Kreatif</span>
-                                <span class="lang-en hidden">Design & Creative</span>
-                                <span class="lang-zh hidden">设计与创意</span>
-                            </button>
-                            <button onclick="filterCategory('Productivity')" data-category="Productivity" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">AI & Produktivitas</span>
-                                <span class="lang-en hidden">AI & Productivity</span>
-                                <span class="lang-zh hidden">AI 与生产力</span>
-                            </button>
-                            <button onclick="filterCategory('OS & Office')" data-category="OS & Office" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Lisensi OS & Office</span>
-                                <span class="lang-en hidden">OS & Office Licenses</span>
-                                <span class="lang-zh hidden">系统与办公软件授权</span>
-                            </button>
-                            <button onclick="filterCategory('VPN & Security')" data-category="VPN & Security" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">VPN & Keamanan</span>
-                                <span class="lang-en hidden">VPN & Security</span>
-                                <span class="lang-zh hidden">VPN 与网络安全</span>
-                            </button>
-                            <button onclick="filterCategory('Pulsa & Paket Data')" data-category="Pulsa & Paket Data" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Pulsa & Paket Data</span>
-                                <span class="lang-en hidden">Credit & Data Bundle</span>
-                                <span class="lang-zh hidden">手机话费与流量</span>
-                            </button>
-                            <button onclick="filterCategory('Token Listrik (PLN)')" data-category="Token Listrik (PLN)" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Token Listrik (PLN)</span>
-                                <span class="lang-en hidden">PLN Electricity Token</span>
-                                <span class="lang-zh hidden">电力代缴 Token</span>
-                            </button>
-                            <button onclick="filterCategory('Top Up Game')" data-category="Top Up Game" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Top Up Game</span>
-                                <span class="lang-en hidden">Game Top Up</span>
-                                <span class="lang-zh hidden">游戏充值</span>
-                            </button>
-                            <button onclick="filterCategory('Jasa Unlock IMEI')" data-category="Jasa Unlock IMEI" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Jasa Unlock IMEI</span>
-                                <span class="lang-en hidden">IMEI Unlock Service</span>
-                                <span class="lang-zh hidden">IMEI 解锁服务</span>
-                            </button>
-                            <button onclick="filterCategory('Layanan IT Specialist')" data-category="Layanan IT Specialist" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Layanan IT Specialist</span>
-                                <span class="lang-en hidden">IT Specialist Services</span>
-                                <span class="lang-zh hidden">专业 IT 技术服务</span>
-                            </button>
-                            <button onclick="filterCategory('Sertifikat SSL (Otomatis)')" data-category="Sertifikat SSL (Otomatis)" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Sertifikat SSL (Otomatis)</span>
-                                <span class="lang-en hidden">Automated SSL</span>
-                                <span class="lang-zh hidden">自动化 SSL 证书</span>
-                            </button>
-                            <button onclick="filterCategory('Produk Digital Manual')" data-category="Produk Digital Manual" class="category-btn px-4 py-1.5 text-xs font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-gray-500 dark:text-gray-300">
-                                <span class="lang-id">Produk Digital Manual</span>
-                                <span class="lang-en hidden">Manual Digital Products</span>
-                                <span class="lang-zh hidden">人工客服数字产品</span>
-                            </button>
-                        </div>
-
-                        <!-- Subcategory Tabs -->
-                        <div class="flex overflow-x-auto gap-2 pb-1 pt-2 scrollbar-none whitespace-nowrap hidden" id="subcategory-filters">
-                            <!-- Populated dynamically by JS -->
                         </div>
                     </div>
 
-                    <!-- Products Table/List Layout (Flat bordered layout, no rounded corners, no cards) -->
-                    <div class="border-t border-gray-200/60 dark:border-white/10 mt-6">
-                        <!-- Table Headings -->
-                        <div class="grid grid-cols-12 gap-2 px-4 py-3 bg-gray-50/50 dark:bg-slate-800/20 text-[10px] uppercase tracking-wider font-extrabold text-gray-400">
-                            <div class="col-span-8">
-                                <span class="lang-id">Nama Produk / Layanan</span>
-                                <span class="lang-en hidden">Product / Service Name</span>
-                                <span class="lang-zh hidden">产品/服务名称</span>
-                            </div>
-                            <div class="col-span-4 text-right">
-                                <span class="lang-id">Harga</span>
-                                <span class="lang-en hidden">Price</span>
-                                <span class="lang-zh hidden">价格</span>
-                            </div>
-                        </div>
-
+                    <!-- Products Table/List Layout -->
+                    <div class="border-t border-gray-200/60 dark:border-white/10">
                         <!-- Table Rows Container -->
                         <div id="product-list-container" class="divide-y divide-gray-100 dark:divide-white/5">
-                            <!-- Rendered by JS -->
+                            <div class="py-12 text-center text-gray-400 text-xs">Memuat katalog dari MallDigital...</div>
                         </div>
                     </div>
                 </div>
@@ -1679,6 +1638,33 @@
                             <li><strong>API 接口对接：</strong> 将您的机器人服务与我们的供应商 API 直接连接，实现自动交付。</li>
                             <li><strong>战略联合供应：</strong> 合法数字商品供应合作，提供联合保障。</li>
                         </ul>
+                    </div>
+                </div>
+
+                <!-- TAB 9: ARSIP EASYMARKET (LEGACY) -->
+                <div id="content-arsip" class="hidden space-y-6">
+                    <div class="p-5 rounded-2xl bg-amber-500/10 border border-amber-300/40 dark:border-amber-500/30 space-y-2">
+                        <div class="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-extrabold text-sm">
+                            <i data-lucide="archive" class="w-5 h-5"></i>
+                            <span>Arsip Resmi Katalog EasyMarket (Periode 2024 - Awal 2026)</span>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Data di bawah ini adalah rekaman arsip historis produk digital EasyMarket sebelum diintegrasikan penuh ke dalam ekosistem <strong>MallDigital (malldigital.tech)</strong> dan <strong>SirkelHub</strong>. Tersedia 113 item produk warisan yang disimpan permanen untuk transparansi rekam jejak, referensi pelanggan lama, dan dokumentasi portfolio.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+                        <div class="relative w-full sm:max-w-md">
+                            <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                            <input type="text" id="legacy-search" placeholder="Cari dalam arsip produk lama..." class="w-full pl-9 pr-4 py-2.5 text-xs bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 transition shadow-sm">
+                        </div>
+                        <span class="text-xs font-bold text-gray-500 dark:text-gray-400 shrink-0">113 Produk Terarsip</span>
+                    </div>
+
+                    <div class="border-t border-gray-200/60 dark:border-white/10 mt-2">
+                        <div id="legacy-product-list" class="divide-y divide-gray-100 dark:divide-white/5">
+                            <div class="py-6 text-center text-gray-400 text-xs">Memuat arsip produk...</div>
+                        </div>
                     </div>
                 </div>
 

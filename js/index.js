@@ -6,106 +6,134 @@ let allJournalsData = [];
 let isShowAllJournals = false;
 let currentJournalCategory = 'Semua';
 
+function renderArticlesHTML(data) {
+    const gridContainer = document.getElementById('artikel-container');
+    if (!gridContainer || !Array.isArray(data) || data.length === 0) return;
+
+    const getVal = (item, k) => {
+        const key = Object.keys(item).find(key => key.trim().toLowerCase() === k);
+        return item[key] || '';
+    };
+
+    let gridHtml = '';
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    data.slice(0, 6).forEach(item => {
+        const itemDate = parseDate(getVal(item, 'tanggal'));
+        const isToday = itemDate.getTime() === now.getTime();
+        const labelText = getTranslatedLabel('badge_new', 'NEW');
+        const label = isToday ? `<span class="absolute top-4 right-4 px-2 py-1 bg-red-600 text-white text-[9px] font-black rounded-sm animate-pulse z-10">${labelText}</span>` : '';
+
+        gridHtml += `
+            <a href="baca.html?id=${item.id}" class="swiper-slide neu-card group relative bg-[#ecf0f3] overflow-hidden hover:scale-[1.01] transition-all duration-500 reveal-el flex flex-col sm:flex-row h-auto sm:h-56 w-full">
+                ${label}
+                <div class="w-full sm:w-2/5 h-36 sm:h-full overflow-hidden bg-gray-200 relative shrink-0">
+                    <img src="${getVal(item, 'gambar')}" 
+                         alt="${getVal(item, 'judul')}" 
+                         onerror="this.src='https://placehold.co/1200x600/ecf0f3/2563eb?text=No+Image'; this.className='w-full h-full object-cover opacity-30';"
+                         class="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                </div>
+                <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between overflow-hidden">
+                    <div>
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] text-gray-500 font-semibold mb-2">
+                            <div class="flex items-center gap-1.5 hover:text-blue-600 transition-colors">
+                                <i data-lucide="user" class="w-3 h-3"></i>
+                                <span>Dr. Ilham Pradani C.L.</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                <span>${getVal(item, 'tanggal')}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 hover:text-blue-600 transition-colors">
+                                <i data-lucide="tag" class="w-3 h-3"></i>
+                                <span>${getVal(item, 'kategori')}</span>
+                            </div>
+                        </div>
+                        <h3 class="text-base sm:text-md font-extrabold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                            ${getVal(item, 'judul')}
+                        </h3>
+                        <p class="text-gray-600 text-xs line-clamp-2 leading-relaxed mb-4 font-medium">
+                            ${getVal(item, 'kutipan')}
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-200/50">
+                        <button class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-[10px] font-black text-white uppercase tracking-widest rounded-lg shadow-[2px_2px_5px_rgba(59,130,246,0.3)] transition-all">
+                            Read More &raquo;
+                        </button>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all"></i>
+                    </div>
+                </div>
+            </a>`;
+    });
+    gridContainer.innerHTML = gridHtml;
+
+    renderJournalCategories();
+    renderJournalList();
+
+    if (window.lucide) lucide.createIcons();
+    initScrollAnimations();
+
+    if (window.Swiper && document.querySelector('.articles-swiper')) {
+        if (window.articlesSwiperInstance) {
+            try { window.articlesSwiperInstance.destroy(true, true); } catch (_) {}
+        }
+        window.articlesSwiperInstance = new Swiper('.articles-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                }
+            },
+            pagination: {
+                el: '.articles-pagination',
+                clickable: true
+            }
+        });
+    }
+}
+
 async function loadArtikel() {
+    // 1. Instant Cache Load (0ms)
+    const cached = localStorage.getItem('ilham_journals_cache');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                allJournalsData = parsed;
+                renderArticlesHTML(parsed);
+            }
+        } catch (_) {}
+    }
+
+    // 2. Non-blocking Background Fetch
     try {
         const sheetId = '1eD1ElFcjBpVrS8DGShVlPrmuLI1bZIo4QEcxG1kBCAc';
-        const res = await fetch(`https://opensheet.elk.sh/${sheetId}/Sheet1`);
-        const data = await res.json();
-        
-        data.sort((a, b) => parseDate(b.tanggal || b.Tanggal) - parseDate(a.tanggal || a.Tanggal));
-        allJournalsData = data;
-
-        const gridContainer = document.getElementById('artikel-container');
-        if (!gridContainer) return;
-
-        const getVal = (item, k) => {
-            const key = Object.keys(item).find(key => key.trim().toLowerCase() === k);
-            return item[key] || '';
-        };
-
-        let gridHtml = '';
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-
-        data.slice(0, 6).forEach(item => {
-            const itemDate = parseDate(getVal(item, 'tanggal'));
-            const isToday = itemDate.getTime() === now.getTime();
-            const labelText = getTranslatedLabel('badge_new', 'NEW');
-            const label = isToday ? `<span class="absolute top-4 right-4 px-2 py-1 bg-red-600 text-white text-[9px] font-black rounded-sm animate-pulse z-10">${labelText}</span>` : '';
-
-            gridHtml += `
-                <a href="baca.html?id=${item.id}" class="swiper-slide neu-card group relative bg-[#ecf0f3] overflow-hidden hover:scale-[1.01] transition-all duration-500 reveal-el flex flex-col sm:flex-row h-auto sm:h-56 w-full">
-                    ${label}
-                    <div class="w-full sm:w-2/5 h-36 sm:h-full overflow-hidden bg-gray-200 relative shrink-0">
-                        <img src="${getVal(item, 'gambar')}" 
-                             alt="${getVal(item, 'judul')}" 
-                             onerror="this.src='https://placehold.co/1200x600/ecf0f3/2563eb?text=No+Image'; this.className='w-full h-full object-cover opacity-30';"
-                             class="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
-                    </div>
-                    <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between overflow-hidden">
-                        <div>
-                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] text-gray-500 font-semibold mb-2">
-                                <div class="flex items-center gap-1.5 hover:text-blue-600 transition-colors">
-                                    <i data-lucide="user" class="w-3 h-3"></i>
-                                    <span>Dr. Ilham Pradani C.L.</span>
-                                </div>
-                                <div class="flex items-center gap-1.5">
-                                    <i data-lucide="calendar" class="w-3 h-3"></i>
-                                    <span>${getVal(item, 'tanggal')}</span>
-                                </div>
-                                <div class="flex items-center gap-1.5 hover:text-blue-600 transition-colors">
-                                    <i data-lucide="tag" class="w-3 h-3"></i>
-                                    <span>${getVal(item, 'kategori')}</span>
-                                </div>
-                            </div>
-                            <h3 class="text-base sm:text-md font-extrabold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                                ${getVal(item, 'judul')}
-                            </h3>
-                            <p class="text-gray-600 text-xs line-clamp-2 leading-relaxed mb-4 font-medium">
-                                ${getVal(item, 'kutipan')}
-                            </p>
-                        </div>
-                        <div class="flex items-center justify-between pt-3 border-t border-gray-200/50">
-                            <button class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-[10px] font-black text-white uppercase tracking-widest rounded-lg shadow-[2px_2px_5px_rgba(59,130,246,0.3)] transition-all">
-                                Read More &raquo;
-                            </button>
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all"></i>
-                        </div>
-                    </div>
-                </a>`;
-        });
-        gridContainer.innerHTML = gridHtml;
-
-        renderJournalCategories();
-        renderJournalList();
-
-        if (window.lucide) lucide.createIcons();
-        initScrollAnimations();
-
-        // Initialize Swiper for articles
-        if (window.Swiper) {
-            new Swiper('.articles-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                loop: true,
-                autoplay: {
-                    delay: 3500,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 30
-                    }
-                },
-                pagination: {
-                    el: '.articles-pagination',
-                    clickable: true
-                }
-            });
+        let res;
+        try {
+            res = await fetch('/api/sheets?tab=Sheet1');
+            if (!res.ok) throw new Error('local api fallback');
+        } catch (_) {
+            res = await fetch(`https://opensheet.elk.sh/${sheetId}/Sheet1`);
         }
-    } catch (e) { console.error("Article Error:", e); }
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+            data.sort((a, b) => parseDate(b.tanggal || b.Tanggal) - parseDate(a.tanggal || a.Tanggal));
+            allJournalsData = data;
+            localStorage.setItem('ilham_journals_cache', JSON.stringify(data));
+            renderArticlesHTML(data);
+        }
+    } catch (e) {
+        console.warn("Background Journal Fetch Error:", e);
+    }
 }
 
 function renderJournalCategories() {
@@ -256,13 +284,7 @@ function initCategoryDetailsTabs(tabsListId, contentPanelId, bgImages) {
                 c.style.backgroundImage = 'none';
             });
             card.classList.remove('hidden');
-            card.className = "neu-card w-full h-full p-4 sm:p-8 bg-[#ecf0f3] flex flex-col justify-center reveal-el transition-all duration-300 relative overflow-hidden";
- 
-            if (bgImages[index]) {
-                card.style.backgroundImage = `linear-gradient(rgba(236, 240, 243, 0.92), rgba(236, 240, 243, 0.92)), url('${bgImages[index]}')`;
-                card.style.backgroundSize = 'cover';
-                card.style.backgroundPosition = 'center';
-            }
+            card.className = "w-full h-full py-2 sm:py-4 px-1 sm:px-4 flex flex-col justify-center reveal-el transition-all duration-300 relative";
 
             if (bgOverlay && bgImages[index]) {
                 bgOverlay.style.backgroundImage = `url('${bgImages[index]}')`;
@@ -285,12 +307,7 @@ function initCategoryDetailsTabs(tabsListId, contentPanelId, bgImages) {
         if (index > 0) {
             card.classList.add('hidden');
         } else {
-            card.className = "neu-card w-full h-full p-4 sm:p-8 bg-[#ecf0f3] flex flex-col justify-center reveal-el transition-all duration-300 relative overflow-hidden";
-            if (bgImages[0]) {
-                card.style.backgroundImage = `linear-gradient(rgba(236, 240, 243, 0.92), rgba(236, 240, 243, 0.92)), url('${bgImages[0]}')`;
-                card.style.backgroundSize = 'cover';
-                card.style.backgroundPosition = 'center';
-            }
+            card.className = "w-full h-full py-2 sm:py-4 px-1 sm:px-4 flex flex-col justify-center reveal-el transition-all duration-300 relative";
         }
     });
 
@@ -400,140 +417,201 @@ window.switchCategoryTab = function(category) {
     }
 }
 
-function initParallaxScroll() {
+function initClassicSwipers() {
+    if (!window.Swiper) return;
+
+    // 1. Award Slider
+    if (document.querySelector('.blog-slider')) {
+        new Swiper('.blog-slider', {
+            spaceBetween: 0,
+            effect: 'fade',
+            loop: true,
+            autoHeight: true,
+            navigation: {
+                nextEl: '.award-next',
+                prevEl: '.award-prev',
+            },
+            pagination: {
+                el: '.blog-slider__pagination',
+                clickable: true,
+            }
+        });
+    }
+
+    // 2. Partnership Slider
+    if (document.querySelector('.partnership-swiper')) {
+        new Swiper('.partnership-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 16,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            navigation: {
+                nextEl: '.partnership-next',
+                prevEl: '.partnership-prev',
+            },
+            pagination: {
+                el: '.partnership-swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 24 }
+            }
+        });
+    }
+
+    // 3. Google Reviews Slider
+    if (document.querySelector('.reviews-swiper')) {
+        new Swiper('.reviews-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 12,
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            navigation: {
+                nextEl: '.reviews-next',
+                prevEl: '.reviews-prev',
+            },
+            pagination: {
+                el: '.reviews-swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: { spaceBetween: 16 },
+                1150: { spaceBetween: 20 }
+            }
+        });
+    }
+}
+
+function initClassicScrollSpy() {
     const sections = Array.from(document.querySelectorAll('main > section'));
-    
-    sections.forEach((section, index) => {
-        section.style.zIndex = index + 1;
-        section.classList.add('scroll-section');
+    if (!sections.length) return;
+
+    // Reset transform on all sections for pure Classic Mode (100% natural, buttery smooth scroll)
+    sections.forEach(sec => {
+        sec.style.transform = '';
+        const inner = sec.querySelector('.section-inner');
+        if (inner) {
+            inner.style.transform = '';
+            inner.style.opacity = '';
+        }
     });
 
-    let sectionOffsets = [];
-    const calculateOffsets = () => {
-        const scrollTop = window.scrollY;
-        sectionOffsets = sections.map(sec => {
-            const rect = sec.getBoundingClientRect();
-            return {
-                top: rect.top + scrollTop,
-                height: rect.height
-            };
-        });
-    };
-    calculateOffsets();
-    window.addEventListener('resize', calculateOffsets);
+    const navbar = document.getElementById('top-navbar');
+    const mainTrigger = document.querySelector('[data-t="nav_main_menu"]');
+    const contactTrigger = document.querySelector('[data-t="nav_contact"]');
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
 
-    const handleScroll = () => {
-        const scrollTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        
-        // 1. Transparent/Glassmorphic Header in Hero section
-        const navbar = document.getElementById('top-navbar');
+    let isScrolledPast60 = false;
+    let scrollTicking = false;
+
+    const onScroll = () => {
+        const scrollTop = window.scrollY || window.pageYOffset;
+
+        // Navbar glass shadow elevation (handled by #top-navbar-glass-bg)
         if (navbar) {
-            if (scrollTop < 80) {
-                navbar.className = "fixed w-full z-50 bg-[#ecf0f3]/40 backdrop-blur-md border-b border-white/20 shadow-none transition-all duration-300";
-            } else {
-                navbar.className = "fixed w-full z-50 bg-[#ecf0f3] shadow-[0_4px_20px_rgba(163,177,198,0.35)] border-transparent transition-all duration-300";
+            const isScrolled = scrollTop >= 60;
+            if (isScrolled !== isScrolledPast60) {
+                isScrolledPast60 = isScrolled;
             }
         }
 
-        // 2. Active Section Navigation Link Highlight (Scroll Spy)
-        let currentIndex = 0;
-        let minDiff = Infinity;
-        const viewportCenter = scrollTop + viewportHeight / 2;
-        sectionOffsets.forEach((offset, idx) => {
-            const secCenter = offset.top + offset.height / 2;
-            const diff = Math.abs(secCenter - viewportCenter);
-            if (diff < minDiff) {
-                minDiff = diff;
-                currentIndex = idx;
-            }
-        });
-        const activeSection = sections[currentIndex];
-        const activeId = activeSection ? activeSection.getAttribute('id') : '';
-
-        // Highlight Top-Level triggers
-        const mainTrigger = document.querySelector('[data-t="nav_main_menu"]');
-        if (mainTrigger) {
-            const isMainActive = ['services', 'partnership', 'teacher', 'portofolio', 'reviews', 'daftar-jurnal', 'awards'].includes(activeId);
-            if (isMainActive) {
-                mainTrigger.className = "hover:text-blue-600 transition-colors flex items-center gap-1.5 uppercase h-full text-blue-600 font-black";
-            } else {
-                mainTrigger.className = "hover:text-blue-600 transition-colors flex items-center gap-1.5 uppercase h-full text-gray-600 font-bold";
+        // Section Spy
+        const scrollPosition = scrollTop + 160;
+        let currentSectionId = '';
+        for (let i = 0; i < sections.length; i++) {
+            const sec = sections[i];
+            const top = sec.offsetTop;
+            const height = sec.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+                currentSectionId = sec.getAttribute('id') || '';
+                break;
             }
         }
 
-        const contactTrigger = document.querySelector('[data-t="nav_contact"]');
-        if (contactTrigger) {
-            if (activeId === 'contact') {
-                contactTrigger.className = "hover:text-blue-600 transition-colors flex items-center gap-1.5 uppercase h-full text-blue-600 font-black";
-            } else {
-                contactTrigger.className = "hover:text-blue-600 transition-colors flex items-center gap-1.5 uppercase h-full text-gray-600 font-bold";
-            }
-        }
-
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            const secId = link.getAttribute('data-section');
-            if (secId === activeId) {
-                link.className = "nav-link hover:text-blue-600 transition-all duration-300 px-2.5 py-1.5 rounded-full text-blue-600 font-extrabold shadow-[inset_1.5px_1.5px_3px_#b8bec9,inset_-1.5px_-1.5px_3px_#ffffff] flex items-center gap-2 text-xs";
-            } else {
-                link.className = "nav-link hover:text-blue-600 transition-all duration-300 px-2.5 py-1.5 rounded-full text-gray-700 font-bold flex items-center gap-2 text-xs";
-            }
-        });
-
-        const mNavLinks = document.querySelectorAll('.m-nav-link');
-        mNavLinks.forEach(link => {
-            const secId = link.getAttribute('data-section');
-            if (secId === activeId) {
-                link.className = "m-nav-link text-blue-600 hover:text-blue-600 font-black transition-colors flex items-center gap-2 text-[11px]";
-            } else {
-                link.className = "m-nav-link text-gray-700 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 text-[11px]";
-            }
-        });
-
-        sections.forEach((section, index) => {
-            const inner = section.querySelector('.section-inner');
-            if (inner) {
-                if (window.innerWidth < 1024) {
-                    inner.style.transform = '';
-                    inner.style.opacity = '';
-                    return;
-                }
-                const sectionTop = index * viewportHeight;
-                const relativeScroll = scrollTop - sectionTop;
-                if (relativeScroll > 0 && relativeScroll < viewportHeight) {
-                    const progress = relativeScroll / viewportHeight; // 0 to 1
-                    const scale = 1 - (0.06 * progress); // Scale from 1 to 0.94
-                    const translateY = -15 * progress; // Translate up to -15vh
-                    const opacity = 1 - (0.5 * progress); // Fade from 1 to 0.5
-                    inner.style.transform = `translateY(${translateY}vh) scale(${scale})`;
-                    inner.style.opacity = `${opacity}`;
-                } else if (relativeScroll >= viewportHeight) {
-                    inner.style.transform = `translateY(-15vh) scale(0.94)`;
-                    inner.style.opacity = `0.5`;
+        if (currentSectionId) {
+            if (mainTrigger) {
+                const isMainActive = ['services', 'partnership', 'teacher', 'portofolio', 'reviews', 'daftar-jurnal', 'awards'].includes(currentSectionId);
+                if (isMainActive) {
+                    mainTrigger.classList.add('text-blue-600', 'font-black');
                 } else {
-                    inner.style.transform = `translateY(0) scale(1)`;
-                    inner.style.opacity = `1`;
+                    mainTrigger.classList.remove('text-blue-600', 'font-black');
                 }
             }
-        });
+            if (contactTrigger) {
+                if (currentSectionId === 'contact') {
+                    contactTrigger.classList.add('text-blue-600', 'font-black');
+                } else {
+                    contactTrigger.classList.remove('text-blue-600', 'font-black');
+                }
+            }
+            navLinks.forEach(link => {
+                const secId = link.getAttribute('data-section');
+                if (secId === currentSectionId) {
+                    link.classList.add('text-blue-600', 'font-extrabold');
+                } else {
+                    link.classList.remove('text-blue-600', 'font-extrabold');
+                }
+            });
+        }
+
+        scrollTicking = false;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
-    handleScroll();
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            requestAnimationFrame(onScroll);
+            scrollTicking = true;
+        }
+    }, { passive: true });
+
+    onScroll();
 }
 
 let allPortfolioData = [];
 
 async function loadPortofolio() {
+    // 1. Instant Cache Load (0ms)
+    const cached = localStorage.getItem('ilham_portfolio_cache');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                allPortfolioData = parsed;
+                renderPortfolioTabs(parsed);
+                renderPortfolioGrid(parsed);
+            }
+        } catch (_) {}
+    }
+
+    // 2. Non-blocking Background Fetch
     try {
         const sheetId = '1eD1ElFcjBpVrS8DGShVlPrmuLI1bZIo4QEcxG1kBCAc';
-        const res = await fetch(`https://opensheet.elk.sh/${sheetId}/Portofolio`);
-        allPortfolioData = await res.json();
-        renderPortfolioTabs(allPortfolioData);
-        renderPortfolioGrid(allPortfolioData);
-    } catch (e) { console.error("Portfolio Error:", e); }
+        let res;
+        try {
+            res = await fetch('/api/sheets?tab=Portofolio');
+            if (!res.ok) throw new Error('local api fallback');
+        } catch (_) {
+            res = await fetch(`https://opensheet.elk.sh/${sheetId}/Portofolio`);
+        }
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+            allPortfolioData = data;
+            localStorage.setItem('ilham_portfolio_cache', JSON.stringify(data));
+            renderPortfolioTabs(data);
+            renderPortfolioGrid(data);
+        }
+    } catch (e) {
+        console.warn("Background Portfolio Fetch Error:", e);
+    }
 }
 
 function renderPortfolioTabs(data) {
@@ -873,22 +951,7 @@ function initPageNavIndicator() {
         container.appendChild(btn);
     });
 
-    const updateActiveDot = () => {
-        const scrollTop = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const viewportCenter = scrollTop + viewportHeight / 2;
-
-        let currentIndex = 0;
-        let minDiff = Infinity;
-        sectionOffsets.forEach((offset, idx) => {
-            const secCenter = offset.top + offset.height / 2;
-            const diff = Math.abs(secCenter - viewportCenter);
-            if (diff < minDiff) {
-                minDiff = diff;
-                currentIndex = idx;
-            }
-        });
-
+    window.updateActiveDotByIndex = (currentIndex) => {
         const buttons = container.querySelectorAll('button');
         buttons.forEach((btn, idx) => {
             const dot = btn.querySelector('span');
@@ -902,114 +965,28 @@ function initPageNavIndicator() {
         });
     };
 
-    window.addEventListener('scroll', updateActiveDot, { passive: true });
-    updateActiveDot();
+    window.updateActiveDotByIndex(0);
 }
 
-// EXECUTION
-document.addEventListener('DOMContentLoaded', async () => {
-    if (window.setLoadingProgress) window.setLoadingProgress(5);
-    await loadComponent('header-placeholder', 'include/header.html');
-    if (window.setLoadingProgress) window.setLoadingProgress(25);
-    await loadComponent('footer-placeholder', 'include/footer.html');
-    if (window.setLoadingProgress) window.setLoadingProgress(45);
+// EXECUTION (Mode Classic: Instant First-Paint & Zero-Blocking UI)
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Instant UI & Slider Initialization (0ms delay)
     initServicesTabs();
-    await applyTranslations();
-    if (window.setLoadingProgress) window.setLoadingProgress(55);
-    await loadArtikel();
-    if (window.setLoadingProgress) window.setLoadingProgress(75);
-    await loadPortofolio();
-    if (window.setLoadingProgress) window.setLoadingProgress(85);
-    
-    // Initialize Swiper sliders
-    if (window.Swiper) {
-        // Award Slider
-        new Swiper('.blog-slider', {
-            spaceBetween: 0,
-            effect: 'fade',
-            loop: true,
-            autoHeight: true,
-            mousewheel: {
-                invert: false,
-            },
-            navigation: {
-                nextEl: '.award-next',
-                prevEl: '.award-prev',
-            },
-            pagination: {
-                el: '.blog-slider__pagination',
-                clickable: true,
-            }
-        });
+    initClassicSwipers();
+    initClassicScrollSpy();
+    initScrollAnimations();
 
-        // Partnership Slider
-        new Swiper('.partnership-swiper', {
-            slidesPerView: 1,
-            spaceBetween: 16,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            navigation: {
-                nextEl: '.partnership-next',
-                prevEl: '.partnership-prev',
-            },
-            pagination: {
-                el: '.partnership-swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 24,
-                }
-            }
-        });
+    // 2. Load cached articles & portfolio immediately (0ms first-paint, updates in background)
+    loadArtikel();
+    loadPortofolio();
+    loadPenelitian();
 
-        // Google Reviews Slider
-        new Swiper('.reviews-swiper', {
-            slidesPerView: 'auto',
-            spaceBetween: 12,
-            loop: true,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            navigation: {
-                nextEl: '.reviews-next',
-                prevEl: '.reviews-prev',
-            },
-            pagination: {
-                el: '.reviews-swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                768: {
-                    spaceBetween: 16,
-                },
-                1150: {
-                    spaceBetween: 20,
-                }
-            }
-        });
-    }
+    // 3. Components & Translations in parallel
+    loadComponent('header-placeholder', 'include/header.html');
+    loadComponent('footer-placeholder', 'include/footer.html');
+    applyTranslations();
 
-    // Initialize Parallax Scroll Stack Effect
-    initParallaxScroll();
-
-    // Initialize Floating Page Navigation Indicator
-    initPageNavIndicator();
-
-    if (window.setLoadingProgress) window.setLoadingProgress(100);
-
-    // Journal Scroll Navigation
+    // 4. Journal Scroll Navigation
     const jUpBtn = document.getElementById('journal-scroll-up');
     const jDownBtn = document.getElementById('journal-scroll-down');
     const jContainer = document.getElementById('jurnal-list-container');
@@ -1065,3 +1042,106 @@ window.switchPartnerTab = function(tabName) {
         );
     }
 };
+
+async function loadPenelitian() {
+    const grid = document.getElementById('penelitian-cards-grid');
+    if (!grid) return;
+
+    // 1. Instant Cache Render (0ms)
+    const cached = localStorage.getItem('ilham_zenodo_cache');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                renderHomePenelitianCards(parsed);
+            }
+        } catch (_) {}
+    }
+
+    // 2. Fetch Fresh Data from Cloudflare Pages API (/api/zenodo)
+    try {
+        const res = await fetch('/api/zenodo');
+        if (res.ok) {
+            const json = await res.json();
+            if (json && Array.isArray(json.data) && json.data.length > 0) {
+                localStorage.setItem('ilham_zenodo_cache', JSON.stringify(json.data));
+                renderHomePenelitianCards(json.data);
+            }
+        }
+    } catch (e) {
+        console.warn('Home penelitian sync note:', e);
+    }
+}
+
+function renderHomePenelitianCards(papers) {
+    const grid = document.getElementById('penelitian-cards-grid');
+    if (!grid || !papers.length) return;
+
+    const topPapers = papers.slice(0, 4);
+    grid.innerHTML = topPapers.map((paper, idx) => {
+        const doi = paper.doi || '';
+        const doiUrl = paper.doi_url || (doi ? `https://doi.org/${doi}` : paper.url);
+        const year = paper.year || '2026';
+        const title = paper.title || 'Karya Ilmiah';
+        const abstract = paper.abstract || 'Kajian ilmiah terverifikasi oleh Dr. Ilham Pradani C.L. Terdaftar resmi di Zenodo (CERN / OpenAIRE) dengan DOI.';
+        
+        let catId = 'Hukum Siber & AI';
+        let catEn = 'Cyber Law & AI';
+        let catZh = '网络法与人工智能';
+        let catColor = 'text-blue-600 bg-blue-50 border-blue-200/50';
+        const lower = title.toLowerCase();
+        if (lower.includes('arbitrage') || lower.includes('futures') || lower.includes('token')) {
+            catId = 'Fintech & DeFi';
+            catEn = 'Fintech & DeFi';
+            catZh = '金融科技与DeFi';
+            catColor = 'text-emerald-700 bg-emerald-50 border-emerald-200/50';
+        } else if (lower.includes('thermal') || lower.includes('twin')) {
+            catId = 'Forensik & Digital-Twin';
+            catEn = 'Forensics & Digital-Twin';
+            catZh = '数字取证与数字孪生';
+            catColor = 'text-purple-700 bg-purple-50 border-purple-200/50';
+        } else if (lower.includes('logistik') || lower.includes('kontrak')) {
+            catId = 'Hukum Kontrak 3T';
+            catEn = '3T Contract Law';
+            catZh = '3T合同法与物流';
+            catColor = 'text-amber-700 bg-amber-50 border-amber-200/50';
+        }
+
+        return `
+        <div class="border-b border-gray-300/70 pb-4 pt-2 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="text-[9px] font-black uppercase tracking-wider ${catColor} px-2 py-0.5 rounded border">
+                        <span class="lang-id">${catId}</span>
+                        <span class="lang-en hidden">${catEn}</span>
+                        <span class="lang-zh hidden">${catZh}</span>
+                    </span>
+                    <span class="text-[10px] font-mono font-bold text-gray-500">${year} • Zenodo DOI</span>
+                </div>
+                <h3 class="text-sm sm:text-base font-extrabold text-gray-900 mb-1.5 leading-snug line-clamp-2" title="${title}">
+                    ${title}
+                </h3>
+                <p class="text-xs text-gray-600 leading-relaxed font-medium mb-3 line-clamp-3">
+                    ${abstract}
+                </p>
+            </div>
+            <div class="pt-2 border-t border-gray-300/40 flex items-center justify-between">
+                <span class="text-[10px] font-mono text-gray-500 font-semibold truncate max-w-[55%]">
+                    <span class="lang-id">Penulis: Dr. Ilham Pradani C.L.</span>
+                    <span class="lang-en hidden">Author: Dr. Ilham Pradani C.L.</span>
+                    <span class="lang-zh hidden">作者: Ilham Pradani C.L. 博士</span>
+                </span>
+                <a href="${doiUrl}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-[#ecf0f3] text-blue-600 hover:text-blue-800 text-xs font-bold shadow-[2px_2px_4px_#b8bec9,-2px_-2px_4px_#ffffff] active:shadow-[inset_1px_1px_2px_#b8bec9] transition-all flex items-center gap-1 shrink-0 cursor-pointer">
+                    <span class="lang-id">Lihat di Zenodo</span>
+                    <span class="lang-en hidden">View on Zenodo</span>
+                    <span class="lang-zh hidden">在 Zenodo 查看</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+        </div>
+        `;
+    }).join('');
+
+    if (window.applyTranslations) window.applyTranslations();
+    if (window.lucide) lucide.createIcons();
+}

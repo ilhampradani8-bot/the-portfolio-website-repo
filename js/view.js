@@ -12,15 +12,15 @@ window.switchLang = function (lang) {
                 activeLangLabel.textContent = lang.toUpperCase();
             }
 
-            // 2. Mobile buttons
+            // 2. Mobile buttons (Glassmorphism Pill Bubbles)
             const langList = ['id', 'en', 'zh', 'ja', 'ko', 'ru', 'fr'];
             langList.forEach(l => {
                 const mBtn = document.getElementById(`m-btn-${l}`);
                 if (mBtn) {
                     if (l === lang) {
-                        mBtn.className = "text-[10px] font-black text-blue-600 px-3 py-2 bg-[#ecf0f3] shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff] rounded-lg transition-all";
+                        mBtn.className = "text-[10px] font-black text-blue-600 px-3 py-1.5 bg-white/80 backdrop-blur-md border border-blue-300/80 shadow-[0_4px_12px_rgba(37,99,235,0.14),inset_0_1px_1px_rgba(255,255,255,0.95)] rounded-full cursor-pointer transition-all";
                     } else {
-                        mBtn.className = "text-[10px] font-black text-gray-700 px-3 py-2 bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] rounded-lg transition-all";
+                        mBtn.className = "text-[10px] font-black text-gray-700 px-3 py-1.5 bg-white/45 backdrop-blur-md border border-white/85 shadow-[0_2px_8px_rgba(15,23,42,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] rounded-full cursor-pointer transition-all";
                     }
                 }
             });
@@ -59,7 +59,7 @@ window.switchLang = function (lang) {
             const el = document.getElementById(id);
             if (!el) return;
             try {
-                const res = await fetch(file);
+                const res = await fetch(file + `?t=${Date.now()}`, { cache: 'no-cache' });
                 if (res.ok) {
                     el.innerHTML = await res.text();
                     if (window.lucide) lucide.createIcons();

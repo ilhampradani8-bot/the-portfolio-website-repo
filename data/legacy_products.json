@@ -1,0 +1,847 @@
+[
+  {
+    "name": "Alight Motion",
+    "variant": "1 Tahun - 1 Pcs",
+    "price": 22500,
+    "category": "Streaming",
+    "brand": "alight"
+  },
+  {
+    "name": "Apple Music",
+    "variant": "Head 1 Bulan",
+    "price": 21300,
+    "category": "Streaming",
+    "brand": "apple"
+  },
+  {
+    "name": "BStation",
+    "variant": "1 Bulan Sharing",
+    "price": 12500,
+    "category": "Streaming",
+    "brand": "bstation"
+  },
+  {
+    "name": "Disney",
+    "variant": "1 Bulan Sharing 6 User",
+    "price": 43800,
+    "category": "Streaming",
+    "brand": "disney"
+  },
+  {
+    "name": "HBO Max Premium",
+    "variant": "Sharing Ultimate",
+    "price": 32300,
+    "category": "Streaming",
+    "brand": "hbo"
+  },
+  {
+    "name": "iQIYI",
+    "variant": "1 Bulan Premium",
+    "price": 16300,
+    "category": "Streaming",
+    "brand": "iqiyi"
+  },
+  {
+    "name": "iQIYI",
+    "variant": "3 Bulan Premium",
+    "price": 18800,
+    "category": "Streaming",
+    "brand": "iqiyi"
+  },
+  {
+    "name": "iQIYI",
+    "variant": "12 Bulan Premium",
+    "price": 25000,
+    "category": "Streaming",
+    "brand": "iqiyi"
+  },
+  {
+    "name": "Netflix Premium",
+    "variant": "1 User 1 Profil",
+    "price": 51300,
+    "category": "Streaming",
+    "brand": "netflix"
+  },
+  {
+    "name": "Netflix Premium",
+    "variant": "1 Day",
+    "price": 7500,
+    "category": "Streaming",
+    "brand": "netflix"
+  },
+  {
+    "name": "Netflix Premium",
+    "variant": "3 Day",
+    "price": 10000,
+    "category": "Streaming",
+    "brand": "netflix"
+  },
+  {
+    "name": "Netflix Premium",
+    "variant": "7 Day",
+    "price": 17500,
+    "category": "Streaming",
+    "brand": "netflix"
+  },
+  {
+    "name": "Netflix Premium",
+    "variant": "2 User 1 Profil",
+    "price": 27500,
+    "category": "Streaming",
+    "brand": "netflix"
+  },
+  {
+    "name": "Prime Video",
+    "variant": "Private 1 Bulan",
+    "price": 10000,
+    "category": "Streaming",
+    "brand": "prime"
+  },
+  {
+    "name": "Spotify",
+    "variant": "Individual 3 Bulan",
+    "price": 23200,
+    "category": "Streaming",
+    "brand": "spotify"
+  },
+  {
+    "name": "Vidplat",
+    "variant": "All Device 1Pcs",
+    "price": 50000,
+    "category": "Streaming",
+    "brand": "vidplat"
+  },
+  {
+    "name": "Vidplat",
+    "variant": "Mobile Only 1Pcs",
+    "price": 40000,
+    "category": "Streaming",
+    "brand": "vidplat"
+  },
+  {
+    "name": "Viu Premium",
+    "variant": "1 Tahun",
+    "price": 12500,
+    "category": "Streaming",
+    "brand": "viu"
+  },
+  {
+    "name": "Viu Premium",
+    "variant": "Lifetime",
+    "price": 18800,
+    "category": "Streaming",
+    "brand": "viu"
+  },
+  {
+    "name": "WeTV",
+    "variant": "Private",
+    "price": 41300,
+    "category": "Streaming",
+    "brand": "wetv"
+  },
+  {
+    "name": "WeTV",
+    "variant": "WeTV Sharing 1B",
+    "price": 15000,
+    "category": "Streaming",
+    "brand": "wetv"
+  },
+  {
+    "name": "YouTube",
+    "variant": "3 Bulan",
+    "price": 43800,
+    "category": "Streaming",
+    "brand": "youtube"
+  },
+  {
+    "name": "YouTube",
+    "variant": "Famhead",
+    "price": 25000,
+    "category": "Streaming",
+    "brand": "youtube"
+  },
+  {
+    "name": "YouTube",
+    "variant": "Individual 1 Bulan",
+    "price": 27500,
+    "category": "Streaming",
+    "brand": "youtube"
+  },
+  {
+    "name": "Canva",
+    "variant": "1 Bulan Pro (Invite)",
+    "price": 6300,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "Canva",
+    "variant": "Lifetime Garansi 1 Tahun",
+    "price": 27500,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "Canva",
+    "variant": "Head 1 Bulan",
+    "price": 10000,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "Canva",
+    "variant": "Lifetime Garansi 6 Bulan",
+    "price": 25000,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "Canva",
+    "variant": "6 Bulan Edu Garansi 3 Bulan",
+    "price": 10000,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "Canva",
+    "variant": "1 Tahun Edu Garansi 6 Bulan",
+    "price": 18800,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "Canva",
+    "variant": "Head Lifetime",
+    "price": 37500,
+    "category": "Creative",
+    "brand": "canva"
+  },
+  {
+    "name": "CapCut Private",
+    "variant": "30 Days",
+    "price": 52500,
+    "category": "Creative",
+    "brand": "capcut"
+  },
+  {
+    "name": "Picsart",
+    "variant": "Famhead 1 Bulan",
+    "price": 15000,
+    "category": "Creative",
+    "brand": "picsart"
+  },
+  {
+    "name": "ChatGPT",
+    "variant": "Head 1 Bulan",
+    "price": 26300,
+    "category": "Productivity",
+    "brand": "chatgpt"
+  },
+  {
+    "name": "ChatGPT",
+    "variant": "Private Plus 1B",
+    "price": 50000,
+    "category": "Productivity",
+    "brand": "chatgpt"
+  },
+  {
+    "name": "Kiro AI",
+    "variant": "Pro+ - 2000 Credits",
+    "price": 37500,
+    "category": "Productivity",
+    "brand": "kiro"
+  },
+  {
+    "name": "Scribd",
+    "variant": "1 Bulan",
+    "price": 18800,
+    "category": "Productivity",
+    "brand": "scribd"
+  },
+  {
+    "name": "Zoom Pro",
+    "variant": "Zoom 14D",
+    "price": 10000,
+    "category": "Productivity",
+    "brand": "zoom"
+  },
+  {
+    "name": "Lisensi Windows",
+    "variant": "Office 2016 Professional Plus",
+    "price": 37500,
+    "category": "OS & Office",
+    "brand": "windows"
+  },
+  {
+    "name": "Lisensi Windows",
+    "variant": "Office 2019 Professional Plus",
+    "price": 37500,
+    "category": "OS & Office",
+    "brand": "windows"
+  },
+  {
+    "name": "Lisensi Windows",
+    "variant": "Office 2021 Professional Plus",
+    "price": 37500,
+    "category": "OS & Office",
+    "brand": "windows"
+  },
+  {
+    "name": "Lisensi Windows",
+    "variant": "Office 365 Random",
+    "price": 31300,
+    "category": "OS & Office",
+    "brand": "windows"
+  },
+  {
+    "name": "Lisensi Windows",
+    "variant": "Windows 10 Pro",
+    "price": 37500,
+    "category": "OS & Office",
+    "brand": "windows"
+  },
+  {
+    "name": "Lisensi Windows",
+    "variant": "Windows 11 Pro",
+    "price": 37500,
+    "category": "OS & Office",
+    "brand": "windows"
+  },
+  {
+    "name": "VPN",
+    "variant": "Express 1 Bulan",
+    "price": 18800,
+    "category": "VPN & Security",
+    "brand": "vpn"
+  },
+  {
+    "name": "VPN",
+    "variant": "HMA 1 Bulan",
+    "price": 18800,
+    "category": "VPN & Security",
+    "brand": "vpn"
+  },
+  {
+    "name": "VPN",
+    "variant": "Surfshark 3B",
+    "price": 50000,
+    "category": "VPN & Security",
+    "brand": "vpn"
+  },
+  {
+    "name": "Telepon Unlimited Sesama 14Hr",
+    "variant": "Axis Pulsa Reguler (Gangguan)",
+    "price": 4500,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "MASA AKTIF AXIS 30HARI",
+    "variant": "Axis Pulsa Reguler (Gangguan)",
+    "price": 7200,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 5K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 7500,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "Telepon 30 Menit All Operator 7 Hari",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 11400,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 10K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 13800,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 15K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 19000,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 25K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 31500,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "Telepon 100 Menit All Operator 30 Hari",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 31700,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 30K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 37800,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 50K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 62800,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 100K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 125300,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 150K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 188100,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 200K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 250100,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 300K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 377200,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "AXIS 500K",
+    "variant": "Axis Pulsa Reguler (Tersedia)",
+    "price": 627700,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 3GB 1Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 9100,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 1GB 3Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 13200,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 3,5GB + Lokal 5Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 16500,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 6GB + Lokal 3Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 17500,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 7GB + Lokal 7Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 29200,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 5GB + Lokal 15Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 35100,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "VOUCHER AIGO MINI 11,5GB + Lokal 15Hr",
+    "variant": "Axis Paket Data (Tersedia)",
+    "price": 57500,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "AXIS",
+    "brand": "axis"
+  },
+  {
+    "name": "Layanan Indosat Ooredoo",
+    "variant": "Pulsa & Paket Data Indosat (Tersedia)",
+    "price": 0,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "INDOSAT",
+    "brand": "indosat"
+  },
+  {
+    "name": "Layanan Smartfren",
+    "variant": "Pulsa & Paket Data Smartfren (Tersedia)",
+    "price": 0,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "SMARTFREN",
+    "brand": "smartfren"
+  },
+  {
+    "name": "Layanan Telkomsel",
+    "variant": "Pulsa & Paket Data Telkomsel (Tersedia)",
+    "price": 0,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "TELKOMSEL",
+    "brand": "telkomsel"
+  },
+  {
+    "name": "Layanan Tri (3)",
+    "variant": "Pulsa & Paket Data Tri (Tersedia)",
+    "price": 0,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "TRI (3)",
+    "brand": "tri"
+  },
+  {
+    "name": "Layanan XL Axiata",
+    "variant": "Pulsa & Paket Data XL (Tersedia)",
+    "price": 0,
+    "category": "Pulsa & Paket Data",
+    "subcategory": "XL",
+    "brand": "xl"
+  },
+  {
+    "name": "Token PLN 5000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 8800,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 10000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 15000,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 15000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 21200,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 20000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 27500,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 50000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 65000,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 100000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 127500,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 200000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 252500,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 500000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 627500,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Token PLN 1000000",
+    "variant": "Token Listrik PLN (Tersedia)",
+    "price": 1252500,
+    "category": "Token Listrik (PLN)",
+    "brand": "pln"
+  },
+  {
+    "name": "Free Fire 5 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 1400,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 12 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 2700,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 20 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 4700,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 30 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 6800,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 50 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 8400,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 70 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 12300,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 75 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 13000,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 140 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 22500,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 355 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 53800,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 720 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 110000,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 1450 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 237500,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 2000 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 320400,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 2180 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 354400,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Free Fire 3640 Diamond",
+    "variant": "Top Up Free Fire (Tersedia)",
+    "price": 575900,
+    "category": "Top Up Game",
+    "subcategory": "Free Fire",
+    "brand": "freefire"
+  },
+  {
+    "name": "Mobile Legends (ML)",
+    "variant": "Top Up Diamond / Weekly Pass (Tersedia)",
+    "price": 0,
+    "category": "Top Up Game",
+    "subcategory": "Mobile Legends",
+    "brand": "ml"
+  },
+  {
+    "name": "PUBG Mobile (PU)",
+    "variant": "Top Up Unknown Cash (Tersedia)",
+    "price": 0,
+    "category": "Top Up Game",
+    "subcategory": "PUBG Mobile",
+    "brand": "pubg"
+  },
+  {
+    "name": "Garena Shell (GR)",
+    "variant": "Top Up Garena Shell Voucher (Tersedia)",
+    "price": 0,
+    "category": "Top Up Game",
+    "subcategory": "Garena Shell",
+    "brand": "garena"
+  },
+  {
+    "name": "Unlock IMEI 3 Bulan Garansi",
+    "variant": "Layanan Garansi 3 Bulan",
+    "price": 275000,
+    "category": "Jasa Unlock IMEI",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Unlock IMEI 3 Bulan No Garansi",
+    "variant": "Layanan No Garansi",
+    "price": 187500,
+    "category": "Jasa Unlock IMEI",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Bot Automation Project",
+    "variant": "WhatsApp, Telegram, Discord Automation (Tersedia)",
+    "price": 0,
+    "category": "Layanan IT Specialist",
+    "subcategory": "Bot Automation",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Website Development Project",
+    "variant": "Online Shop, Landing Page, Company Profile (Tersedia)",
+    "price": 0,
+    "category": "Layanan IT Specialist",
+    "subcategory": "Website Development",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Backend Developer Project",
+    "variant": "API Development & Database Integration (Tersedia)",
+    "price": 0,
+    "category": "Layanan IT Specialist",
+    "subcategory": "Backend Developer",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Software Engineer Project",
+    "variant": "Desktop & Custom Software Systems (Tersedia)",
+    "price": 0,
+    "category": "Layanan IT Specialist",
+    "subcategory": "Software Engineer",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Web3 Developer Project",
+    "variant": "Smart Contracts & Decentralized Apps (Tersedia)",
+    "price": 0,
+    "category": "Layanan IT Specialist",
+    "subcategory": "Web3 Developer",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Aplikasi Mobile / APK Project",
+    "variant": "Android & iOS Apps Development (Tersedia)",
+    "price": 0,
+    "category": "Layanan IT Specialist",
+    "subcategory": "Aplikasi Mobile",
+    "brand": "it-spec"
+  },
+  {
+    "name": "Sectigo PositiveSSL",
+    "variant": "1 Tahun - Cocok untuk personal / blog",
+    "price": 247500,
+    "category": "Sertifikat SSL (Otomatis)",
+    "subcategory": "Sectigo / Comodo",
+    "brand": "ssl"
+  },
+  {
+    "name": "Sectigo PositiveSSL Wildcard",
+    "variant": "1 Tahun - Mengamankan seluruh subdomain",
+    "price": 1134400,
+    "category": "Sertifikat SSL (Otomatis)",
+    "subcategory": "Sectigo / Comodo",
+    "brand": "ssl"
+  },
+  {
+    "name": "RapidSSL Standard",
+    "variant": "1 Tahun - Penerbitan kilat < 5 menit",
+    "price": 206300,
+    "category": "Sertifikat SSL (Otomatis)",
+    "subcategory": "RapidSSL",
+    "brand": "ssl"
+  },
+  {
+    "name": "RapidSSL Wildcard",
+    "variant": "1 Tahun - Mengamankan domain & subdomain termurah",
+    "price": 990000,
+    "category": "Sertifikat SSL (Otomatis)",
+    "subcategory": "RapidSSL",
+    "brand": "ssl"
+  },
+  {
+    "name": "Produk Digital Manual",
+    "variant": "Layanan Pemesanan Berbagai Kebutuhan Manual",
+    "price": 0,
+    "category": "Produk Digital Manual",
+    "brand": "manual"
+  }
+]

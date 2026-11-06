@@ -2,7 +2,7 @@ async function loadComponent(id, file) {
     const el = document.getElementById(id);
     if (!el) return;
     try {
-        const res = await fetch(file);
+        const res = await fetch(file + `?t=${Date.now()}`, { cache: 'no-cache' });
         if (res.ok) {
             el.innerHTML = await res.text();
             if (window.lucide) lucide.createIcons();

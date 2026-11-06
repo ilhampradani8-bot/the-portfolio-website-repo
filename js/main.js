@@ -81,21 +81,25 @@ window.toggleAccordion = function (id) {
 function updateLangUI() {
     const lang = localStorage.getItem('preferred_lang') || 'id';
 
-    // 1. Desktop dropdown label
+    // 1. Desktop dropdown label / capsule text
+    const currentLangText = document.getElementById('current-lang-text');
+    if (currentLangText) {
+        currentLangText.textContent = lang.toUpperCase();
+    }
     const activeLangLabel = document.getElementById('active-lang-label');
     if (activeLangLabel) {
         activeLangLabel.textContent = lang.toUpperCase();
     }
 
-    // 2. Mobile buttons
+    // 2. Mobile buttons (Glassmorphism Pill Bubbles)
     const langList = ['id', 'en', 'zh', 'ja', 'ko', 'ru', 'fr'];
     langList.forEach(l => {
         const mBtn = document.getElementById(`m-btn-${l}`);
         if (mBtn) {
             if (l === lang) {
-                mBtn.className = "text-[10px] font-black text-blue-600 px-3 py-2 bg-[#ecf0f3] shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff] rounded-lg transition-all";
+                mBtn.className = "text-[10px] font-black text-blue-600 px-3 py-1.5 bg-white/80 backdrop-blur-md border border-blue-300/80 shadow-[0_4px_12px_rgba(37,99,235,0.14),inset_0_1px_1px_rgba(255,255,255,0.95)] rounded-full cursor-pointer transition-all";
             } else {
-                mBtn.className = "text-[10px] font-black text-gray-700 px-3 py-2 bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] rounded-lg transition-all";
+                mBtn.className = "text-[10px] font-black text-gray-700 px-3 py-1.5 bg-white/45 backdrop-blur-md border border-white/85 shadow-[0_2px_8px_rgba(15,23,42,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] rounded-full cursor-pointer transition-all";
             }
         }
     });
@@ -117,20 +121,38 @@ function updateLangUI() {
     });
 }
 
+let cachedTranslations = null;
+let cachedLang = null;
+
 async function applyTranslations() {
     const lang = localStorage.getItem('preferred_lang') || 'id';
+
+    // 1. Instant Synchronous Language Toggle for .lang-* classes (No network delay)
+    const isId = lang === 'id';
+    const isZh = lang === 'zh';
+    const isEn = !isId && !isZh;
+
+    document.querySelectorAll('.lang-id').forEach(el => el.classList.toggle('hidden', !isId));
+    document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', !isEn));
+    document.querySelectorAll('.lang-zh').forEach(el => el.classList.toggle('hidden', !isZh));
+
+    // 2. Fetch and apply dictionary [data-t] translations
     try {
-        const isDev = window.location.hostname === 'localhost' || 
-                      window.location.hostname === '127.0.0.1' || 
-                      window.location.port === '5501' || 
-                      window.location.hostname.includes('139.59.122.230');
-        const url = `lang/${lang}.json` + (isDev ? `?t=${Date.now()}` : '');
-        const response = await fetch(url);
-        if (!response.ok) return;
-        const t = await response.json();
+        if (!cachedTranslations || cachedLang !== lang) {
+            const isDev = window.location.hostname === 'localhost' || 
+                          window.location.hostname === '127.0.0.1' || 
+                          window.location.port === '5501' || 
+                          window.location.hostname.includes('139.59.122.230');
+            const url = `lang/${lang}.json` + (isDev ? `?t=${Date.now()}` : '');
+            const response = await fetch(url);
+            if (!response.ok) return;
+            cachedTranslations = await response.json();
+            cachedLang = lang;
+        }
+        const t = cachedTranslations;
         document.querySelectorAll('[data-t]').forEach(el => {
             const key = el.getAttribute('data-t');
-            if (t[key]) {
+            if (t && t[key]) {
                 const icon = el.querySelector('i[data-lucide], svg.lucide');
                 if (icon) {
                     const iconHTML = icon.outerHTML;
@@ -144,9 +166,11 @@ async function applyTranslations() {
                 }
             }
         });
-        if (window.lucide) lucide.createIcons();
-    } catch (e) { console.error("Translation Error:", e); }
+    } catch (e) {
+        console.warn("Translation Notice:", e);
+    }
 }
+window.applyTranslations = applyTranslations;
 
 window.setLoadingProgress = function(percentage) {
     const bar = document.getElementById('nav-loading-bar');
@@ -168,17 +192,15 @@ async function loadComponent(id, file) {
     const el = document.getElementById(id);
     if (!el) return;
     try {
-        const isDev = window.location.hostname === 'localhost' || 
-                      window.location.hostname === '127.0.0.1' || 
-                      window.location.port === '5501' || 
-                      window.location.hostname.includes('139.59.122.230');
-        const url = file + (isDev ? `?t=${Date.now()}` : '');
-        const res = await fetch(url);
+        const url = file + `?t=${Date.now()}`;
+        const res = await fetch(url, { cache: 'no-cache' });
         if (res.ok) {
             el.innerHTML = await res.text();
-            if (window.lucide) lucide.createIcons();
             updateLangUI();
             await applyTranslations();
+            if (window.lucide) {
+                lucide.createIcons();
+            }
             if (id === 'header-placeholder') {
                 window.setLoadingProgress(15);
             }
@@ -186,7 +208,8 @@ async function loadComponent(id, file) {
     } catch (e) { console.error("Component Error:", e); }
 }
 
-// Alias for compatibility
+// Global Aliases for Compatibility
+window.loadComponent = loadComponent;
 window.loadPart = loadComponent;
 
 window.setTheme = function(theme) {
@@ -222,48 +245,94 @@ if (typeof Lenis !== 'undefined') {
     requestAnimationFrame(raf);
 }
 
-// Global Event Delegation for Anchor Hash Navigation
+// Global Event Delegation for Anchor Navigation & Dropdown Controls
 document.addEventListener('click', function (e) {
+    // 1. Dropdown Toggle Click (Mobile & Touch Support)
+    const dropdownTrigger = e.target.closest('.nav-dropdown-btn');
+    const allDropdowns = document.querySelectorAll('.nav-dropdown-menu');
+
+    if (dropdownTrigger) {
+        e.preventDefault();
+        e.stopPropagation();
+        const container = dropdownTrigger.closest('.nav-dropdown-container');
+        const menu = container ? container.querySelector('.nav-dropdown-menu') : null;
+
+        allDropdowns.forEach(d => {
+            if (d !== menu) d.classList.remove('dropdown-open');
+        });
+
+        if (menu) {
+            menu.classList.toggle('dropdown-open');
+        }
+        return;
+    } else {
+        // Close dropdowns if clicking outside dropdown menus
+        if (!e.target.closest('.nav-dropdown-menu')) {
+            allDropdowns.forEach(d => d.classList.remove('dropdown-open'));
+        }
+    }
+
+    // 2. Global Anchor Navigation
     const anchor = e.target.closest('a[href*="#"]');
     if (!anchor) return;
 
-    const href = anchor.getAttribute('href');
-    if (!href) return;
-    
-    const hashIndex = href.indexOf('#');
+    const rawHref = anchor.getAttribute('href');
+    if (!rawHref || rawHref === '#' || rawHref.startsWith('javascript:')) return;
+
+    const hashIndex = rawHref.indexOf('#');
     if (hashIndex === -1) return;
-    const hash = href.substring(hashIndex);
-    
-    const path = window.location.pathname;
-    const isIndexPage = path === '/' || 
-                        path.endsWith('/index.html') || 
-                        path === '' ||
-                        (!path.endsWith('.html') && 
-                         !path.includes('/view.html') && 
-                         !path.includes('/baca.html') && 
-                         !path.includes('/certified.html') && 
-                         !path.includes('/easymarket.html') && 
-                         !path.includes('/tradingsafe.html') && 
-                         !path.includes('/ojekasia.html'));
-    
-    if (!isIndexPage) {
+
+    const hash = rawHref.substring(hashIndex);
+    const targetId = hash.substring(1);
+    if (!targetId) return;
+
+    // Check if target element exists in CURRENT DOM
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+        // Element exists on current page -> smooth scroll
         e.preventDefault();
-        window.location.href = 'index.html' + hash;
+        if (typeof window.toggleMobileMenu === 'function') {
+            window.toggleMobileMenu(false);
+        }
+        allDropdowns.forEach(d => d.classList.remove('dropdown-open'));
+
+        if (window.lenis) {
+            window.lenis.scrollTo(targetEl, {
+                offset: -80,
+                duration: 1.0,
+            });
+        } else {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, hash);
+        }
     } else {
-        if (hash) {
-            const targetEl = document.getElementById(hash.substring(1));
+        // Target does NOT exist on current page -> redirect to index.html with target hash
+        const urlBeforeHash = rawHref.substring(0, hashIndex);
+        if (urlBeforeHash === '' || urlBeforeHash === 'index.html' || urlBeforeHash === '/' || urlBeforeHash.endsWith('index.html')) {
+            e.preventDefault();
+            window.location.href = 'index.html#' + targetId;
+        }
+    }
+});
+
+// Auto-scroll to hash on initial load (e.g., when arriving at index.html#services)
+window.addEventListener('DOMContentLoaded', () => {
+    applyTranslations();
+    if (window.location.hash) {
+        const hashId = window.location.hash.substring(1);
+        setTimeout(() => {
+            const targetEl = document.getElementById(hashId);
             if (targetEl) {
-                e.preventDefault();
                 if (window.lenis) {
-                    window.lenis.scrollTo(targetEl, {
-                        offset: -80,
-                        duration: 1.2,
-                    });
+                    window.lenis.scrollTo(targetEl, { offset: -80, duration: 0.8 });
                 } else {
                     targetEl.scrollIntoView({ behavior: 'smooth' });
                 }
             }
-        }
+        }, 350);
     }
 });
 
