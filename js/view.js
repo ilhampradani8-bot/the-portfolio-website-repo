@@ -75,7 +75,8 @@ window.switchLang = function (lang) {
             const container = document.getElementById('content-container');
             
             try {
-                const res = await fetch(`include/komponent_footer/${page}.html`);
+                // Use clean URL path to avoid 308 redirects on Cloudflare Pages
+                const res = await fetch(`include/komponent_footer/${page}`);
                 if (res.ok) {
                     container.innerHTML = await res.text();
                     

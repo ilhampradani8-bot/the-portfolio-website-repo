@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tentang Saya | Dr. Ilham Pradani, S.H. - Systems Architect &amp; Cyber Law Specialist</title>
+    <meta name="description" content="Profil akademik, kepemimpinan eksekutif, sertifikasi keamanan siber (OSCP, CompTIA Security+, CC ISC2), riset ORCID, dan kredensial hukum teknologi informasi Dr. Ilham Pradani, S.H., C.L.">
+    <meta name="author" content="Dr. Ilham Pradani, S.H., C.L.">
+    <link rel="canonical" href="https://ilhampradani.me/about.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Tentang Saya | Dr. Ilham Pradani, S.H. - Systems Architect &amp; Cyber Law Specialist">
+    <meta property="og:description" content="Profil, rekam jejak kepemimpinan, dan sertifikasi Dr. Ilham Pradani, S.H., C.L. - President Director PT Chain Asia Connect.">
+    <meta property="og:url" content="https://ilhampradani.me/about.html">
+    <meta property="og:image" content="https://ilhampradani.me/image/hero.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="image/favicon.png">
+
+    <!-- Schema.org JSON-LD for ProfilePage & Person Entity -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Ilham Pradani",
+        "alternateName": "Dr. Ilham Pradani C.L.",
+        "honorificPrefix": "Dr.",
+        "honorificSuffix": "S.H., C.L.",
+        "jobTitle": "Systems Architect & Legal Researcher",
+        "url": "https://ilhampradani.me/",
+        "image": "https://ilhampradani.me/image/hero.jpg",
+        "sameAs": [
+          "https://www.wikidata.org/wiki/Q142066161",
+          "https://orcid.org/0009-0008-1310-6169",
+          "https://scholar.google.com/citations?user=otmJfaIAAAAJ&hl=id",
+          "https://www.researchgate.net/profile/Ilham-Pradani",
+          "https://zenodo.org/records/19446487",
+          "https://gravatar.com/serene3de877f2f7",
+          "https://www.linkedin.com/in/ilham-pradani-s-h-%E2%98%91%EF%B8%8F-6818aa445",
+          "https://github.com/ilhampradani8-bot",
+          "https://t.me/ilhampradani_sh",
+          "https://www.instagram.com/ilhampradani8",
+          "https://x.com/ilhampradani8",
+          "https://www.threads.net/@ilhampradani8",
+          "https://hackerone.com/ilhampradani8",
+          "https://journal.chainasiaconnect.co.id/index.php/jic/article/view/17",
+          "https://ip-lawfirm.com"
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ecf0f3; color: #1f2937; scroll-behavior: smooth; }
+        .solid-card { background-color: #ecf0f3; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 8px 8px 16px #b8bec9, -8px -8px 16px #ffffff; border-radius: 1.5rem; transition: all 0.3s ease; }
+    </style>
+</head>
+
+<body class="bg-[#ecf0f3] overflow-x-hidden text-gray-800">
+    <div id="header-placeholder"></div>
+
+    <main class="pt-24 md:pt-32 pb-16 md:pb-24 px-4 sm:px-6 min-h-screen">
+        <div id="content-container" class="max-w-5xl mx-auto">
+            <!-- Included Component Content -->
+            <div id="about-content">
+                <!-- Dynamically or statically populated -->
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.loadComponent) {
+                await loadComponent('header-placeholder', 'include/header');
+                await loadComponent('footer-placeholder', 'include/footer');
+            }
+            try {
+                const res = await fetch('include/komponent_footer/about');
+                if (res.ok) {
+                    const container = document.getElementById('about-content');
+                    container.innerHTML = await res.text();
+                    
+                    // Execute scripts inside loaded content
+                    const scripts = container.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+
+                    if (window.lucide) lucide.createIcons();
+                }
+            } catch (e) {
+                console.error("Gagal memuat konten about:", e);
+            }
+        });
+    </script>
+</body>
+</html>
