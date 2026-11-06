@@ -388,3 +388,194 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+/* ==========================================================================
+   GLASSMORPHISM EXTERNAL REDIRECT CONFIRMATION POPUP (WhatsApp & Telegram)
+   ========================================================================== */
+(function initExternalRedirectModal() {
+    let activeRedirectUrl = '';
+
+    // Buat elemen modal ke DOM bila belum ada
+    function createModalElement() {
+        if (document.getElementById('external-redirect-modal')) return;
+
+        const modalHtml = `
+        <div id="external-redirect-modal" 
+             class="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+            <div id="external-modal-card" 
+                 class="relative w-full max-w-sm sm:max-w-md p-6 sm:p-8 rounded-3xl bg-white/85 dark:bg-slate-900/85 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] transform scale-95 transition-all duration-300 text-center overflow-hidden">
+                
+                <!-- Ambient Glass Glow -->
+                <div id="ext-glow" class="absolute -top-16 -left-16 w-44 h-44 rounded-full blur-3xl pointer-events-none opacity-40"></div>
+                
+                <!-- Close Button -->
+                <button type="button" id="ext-modal-close" 
+                        class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer"
+                        aria-label="Tutup">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+
+                <!-- Icon Container -->
+                <div id="ext-icon-box" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300 p-3 sm:p-4">
+                    <img id="ext-icon-img" src="" alt="Icon" class="w-full h-full object-contain">
+                </div>
+
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-3 border" id="ext-badge">
+                    <span class="w-1.5 h-1.5 rounded-full animate-ping" id="ext-badge-dot"></span>
+                    <span id="ext-badge-text">Direct Link</span>
+                </div>
+
+                <!-- Title & Description -->
+                <h3 id="ext-title" class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight mb-2">
+                    Buka Aplikasi Luar?
+                </h3>
+                <p id="ext-desc" class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
+                    Anda akan dialihkan ke situs/aplikasi eksternal. Apakah Anda ingin melanjutkan?
+                </p>
+
+                <!-- Target URL Preview -->
+                <div class="px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-[11px] font-mono text-gray-500 dark:text-gray-400 truncate mb-6 text-left flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    <span id="ext-url-preview" class="truncate font-semibold">https://...</span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-end gap-3">
+                    <button type="button" id="ext-btn-cancel" 
+                            class="w-1/2 py-3 px-4 rounded-2xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer">
+                        Batal
+                    </button>
+                    <button type="button" id="ext-btn-confirm" 
+                            class="w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer">
+                        <span id="ext-btn-label">Lanjutkan</span>
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        // Bind events
+        const modal = document.getElementById('external-redirect-modal');
+        const closeBtn = document.getElementById('ext-modal-close');
+        const cancelBtn = document.getElementById('ext-btn-cancel');
+        const confirmBtn = document.getElementById('ext-btn-confirm');
+
+        function closeModal() {
+            if (!modal) return;
+            const card = document.getElementById('external-modal-card');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            if (card) {
+                card.classList.remove('scale-100');
+                card.classList.add('scale-95');
+            }
+        }
+
+        closeBtn?.addEventListener('click', closeModal);
+        cancelBtn?.addEventListener('click', closeModal);
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && modal.classList.contains('opacity-100')) {
+                closeModal();
+            }
+        });
+
+        confirmBtn?.addEventListener('click', () => {
+            if (activeRedirectUrl) {
+                window.open(activeRedirectUrl, '_blank', 'noopener,noreferrer');
+            }
+            closeModal();
+        });
+    }
+
+    function openRedirectModal(url, type) {
+        createModalElement();
+        activeRedirectUrl = url;
+
+        const modal = document.getElementById('external-redirect-modal');
+        const card = document.getElementById('external-modal-card');
+        const glow = document.getElementById('ext-glow');
+        const iconBox = document.getElementById('ext-icon-box');
+        const iconImg = document.getElementById('ext-icon-img');
+        const badge = document.getElementById('ext-badge');
+        const badgeDot = document.getElementById('ext-badge-dot');
+        const badgeText = document.getElementById('ext-badge-text');
+        const title = document.getElementById('ext-title');
+        const desc = document.getElementById('ext-desc');
+        const urlPreview = document.getElementById('ext-url-preview');
+        const confirmBtn = document.getElementById('ext-btn-confirm');
+        const btnLabel = document.getElementById('ext-btn-label');
+
+        urlPreview.textContent = url;
+
+        if (type === 'whatsapp') {
+            glow.className = "absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40 bg-emerald-500";
+            iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300 p-3 sm:p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-700/50";
+            iconImg.src = "image/wa_clean.svg";
+            iconImg.alt = "WhatsApp";
+            badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-3 border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800";
+            badgeDot.className = "w-1.5 h-1.5 rounded-full animate-ping bg-emerald-500";
+            badgeText.textContent = "WhatsApp Bisnis";
+            title.textContent = "Membuka WhatsApp?";
+            desc.textContent = "Anda akan dialihkan ke situs/aplikasi WhatsApp untuk memulai komunikasi langsung dengan Sir Ilham Pradani.";
+            confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-emerald-500/25 hover:from-emerald-600 hover:to-emerald-700";
+            btnLabel.textContent = "Buka WhatsApp";
+        } else if (type === 'telegram') {
+            glow.className = "absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40 bg-sky-500";
+            iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300 p-3 sm:p-4 bg-sky-50 dark:bg-sky-950/40 border border-sky-200/80 dark:border-sky-700/50";
+            iconImg.src = "image/tg_clean.png";
+            iconImg.alt = "Telegram";
+            badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-3 border bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-800";
+            badgeDot.className = "w-1.5 h-1.5 rounded-full animate-ping bg-sky-500";
+            badgeText.textContent = "Telegram Official";
+            title.textContent = "Membuka Telegram?";
+            desc.textContent = "Anda akan dialihkan ke Telegram untuk terhubung langsung dengan akun resmi @ilhampradani_sh.";
+            confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-sky-500 to-sky-600 shadow-sky-500/25 hover:from-sky-600 hover:to-sky-700";
+            btnLabel.textContent = "Buka Telegram";
+        }
+
+        // Tampilkan modal
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100', 'pointer-events-auto');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+    }
+
+    // Intercept semua klik pada link yang mengarah ke WA atau Telegram
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        const href = (link.getAttribute('href') || '').trim();
+        if (!href) return;
+
+        // Cek WhatsApp
+        if (href.includes('wa.me') || href.includes('api.whatsapp.com') || href.includes('whatsapp.com')) {
+            e.preventDefault();
+            e.stopPropagation();
+            openRedirectModal(href, 'whatsapp');
+            return;
+        }
+
+        // Cek Telegram
+        if (href.includes('t.me') || href.includes('telegram.me')) {
+            e.preventDefault();
+            e.stopPropagation();
+            openRedirectModal(href, 'telegram');
+            return;
+        }
+    }, true); // useCapture true agar diprioritaskan sebelum listener lain
+})();
+
