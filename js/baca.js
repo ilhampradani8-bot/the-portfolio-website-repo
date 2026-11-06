@@ -515,6 +515,15 @@ async function renderFullContent() {
 }
 
 function initScrollAnimations() {
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent);
+    if (isBot) {
+        document.querySelectorAll('.reveal-el').forEach(el => {
+            el.classList.remove('opacity-0', 'translate-y-10');
+            el.classList.add('opacity-100', 'translate-y-0');
+        });
+        return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -523,19 +532,33 @@ function initScrollAnimations() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
+
+    const winHeight = window.innerHeight || 800;
     document.querySelectorAll('.reveal-el').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < winHeight && rect.bottom > 0) {
+            el.classList.add('opacity-100', 'translate-y-0');
+            return;
+        }
         el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
         observer.observe(el);
     });
+
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-el.opacity-0').forEach(el => {
+            el.classList.remove('opacity-0', 'translate-y-10');
+            el.classList.add('opacity-100', 'translate-y-0');
+        });
+    }, 1200);
 }
 
 // EXECUTION
 document.addEventListener('DOMContentLoaded', async () => {
     if (window.setLoadingProgress) window.setLoadingProgress(5);
-    await loadComponent('header-placeholder', 'include/header.html');
+    await loadComponent('header-placeholder', 'include/header');
     if (window.setLoadingProgress) window.setLoadingProgress(35);
-    await loadComponent('footer-placeholder', 'include/footer.html');
+    await loadComponent('footer-placeholder', 'include/footer');
     if (window.setLoadingProgress) window.setLoadingProgress(55);
     applyTranslations();
     updateLangUI();

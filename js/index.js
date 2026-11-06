@@ -231,6 +231,16 @@ window.addEventListener('resize', () => {
 });
 
 function initScrollAnimations() {
+    // Check if bot / crawler (Googlebot, Lighthouse, Bingbot, headless Chrome)
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent);
+    if (isBot) {
+        document.querySelectorAll('.reveal-el').forEach(el => {
+            el.classList.remove('opacity-0', 'translate-y-10');
+            el.classList.add('opacity-100', 'translate-y-0');
+        });
+        return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -239,11 +249,27 @@ function initScrollAnimations() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
+
+    const winHeight = window.innerHeight || 800;
     document.querySelectorAll('.reveal-el').forEach(el => {
+        // Do not hide above-the-fold elements or elements already in viewport on initial load
+        const rect = el.getBoundingClientRect();
+        if (rect.top < winHeight && rect.bottom > 0) {
+            el.classList.add('opacity-100', 'translate-y-0');
+            return;
+        }
         el.classList.add('opacity-0', 'translate-y-10', 'transition-[opacity,transform]', 'duration-700');
         observer.observe(el);
     });
+
+    // Safety timeout: ensure everything reveals even if IntersectionObserver fails to fire
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-el.opacity-0').forEach(el => {
+            el.classList.remove('opacity-0', 'translate-y-10');
+            el.classList.add('opacity-100', 'translate-y-0');
+        });
+    }, 1200);
 }
 
 function initCategoryDetailsTabs(tabsListId, contentPanelId, bgImages) {
@@ -982,8 +1008,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPenelitian();
 
     // 3. Components & Translations in parallel
-    loadComponent('header-placeholder', 'include/header.html');
-    loadComponent('footer-placeholder', 'include/footer.html');
+    loadComponent('header-placeholder', 'include/header');
+    loadComponent('footer-placeholder', 'include/footer');
     applyTranslations();
 
     // 4. Journal Scroll Navigation

@@ -11,7 +11,7 @@ async function loadComponent(id, file) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadComponent('header-placeholder', 'include/header.html');
+    await loadComponent('header-placeholder', 'include/header');
     if (window.lucide) lucide.createIcons();
 });
 

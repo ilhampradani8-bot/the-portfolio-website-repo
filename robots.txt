@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ilhampradani.chainasiaconnect.co.id/sitemap.xml
+Sitemap: https://ilhampradani.me/sitemap.xml
 
 

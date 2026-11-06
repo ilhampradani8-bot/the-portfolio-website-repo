@@ -9,7 +9,7 @@
     <meta name="description" content="Profil akademik, riset, dan portofolio teknologi Dr. Ilham Pradani C.L. - Pakar Hukum Siber, AI Governance, dan Arsitektur Sistem Terdistribusi. ORCID: 0009-0008-1310-6169.">
     <meta name="author" content="Dr. Ilham Pradani C.L.">
     <meta name="keywords" content="Dr. Ilham Pradani, Ilham Pradani, Cyber Law, Hukum Siber, AI Specialist, ORCID 0009-0008-1310-6169, PKP OJS, Chain Asia Connect">
-    <link rel="canonical" href="https://ilhampradani.chainasiaconnect.co.id/">
+    <link rel="canonical" href="https://ilhampradani.me/">
 
     <!-- SCHOLARLY & RESEARCHER STRUCTURED DATA (Google & Academic Indexing) -->
     <script type="application/ld+json">
@@ -18,13 +18,13 @@
       "@graph": [
         {
           "@type": "Person",
-          "@id": "https://ilhampradani.chainasiaconnect.co.id/#person",
+          "@id": "https://ilhampradani.me/#person",
           "name": "Dr. Ilham Pradani C.L.",
           "alternateName": ["Ilham Pradani", "Dr. Ilham Pradani", "Ilham Pradani C.L."],
           "honorificPrefix": "Dr.",
           "jobTitle": "Doktor Ilmu Hukum, Peneliti Hukum Siber & AI Architect",
-          "url": "https://ilhampradani.chainasiaconnect.co.id/",
-          "image": "https://ilhampradani.chainasiaconnect.co.id/image/hero.jpg",
+          "url": "https://ilhampradani.me/",
+          "image": "https://ilhampradani.me/image/hero-removebg-preview.png",
           "sameAs": [
             "https://orcid.org/0009-0008-1310-6169",
             "https://journal.chainasiaconnect.co.id",
@@ -56,11 +56,11 @@
         },
         {
           "@type": "WebSite",
-          "@id": "https://ilhampradani.chainasiaconnect.co.id/#website",
-          "url": "https://ilhampradani.chainasiaconnect.co.id/",
-          "name": "Dr. Ilham Pradani C.L. - Official Academic & Technology Portfolio",
+          "@id": "https://ilhampradani.me/#website",
+          "url": "https://ilhampradani.me/",
+          "name": "Ilham Pradani - Official Academic & Technology Portfolio",
           "publisher": {
-            "@id": "https://ilhampradani.chainasiaconnect.co.id/#person"
+            "@id": "https://ilhampradani.me/#person"
           }
         }
       ]
@@ -1014,17 +1014,12 @@
             animation: heroFloatUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Hero Name reveal on user interaction (mouse move / touch / hover) */
+        /* Hero Name styling: Fully visible for SEO, Googlebot & instant high-contrast render */
         #hero-name-block {
-            opacity: 0;
-            transform: translateY(22px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        #hero-name-block.revealed {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            will-change: opacity, transform;
         }
     </style>
 </head>
@@ -1049,7 +1044,7 @@
                 <div class="max-w-7xl mx-auto w-full relative z-30 flex flex-col items-center justify-end pt-0 sm:pt-0">
 
                     <!-- Container Foto Hero (Besar Full ke Bawah & Sampai Batas Atas) -->
-                    <div class="relative w-full flex justify-center items-end reveal-el hero-float-up" style="animation-delay: 100ms;">
+                    <div class="relative w-full flex justify-center items-end hero-float-up">
                         <!-- Gambar Hero Besar Menempel ke Dasar Section (Maksimal Full ke Atas) -->
                         <div class="relative w-[380px] xs:w-[440px] sm:w-[540px] md:w-[680px] lg:w-[820px] xl:w-[920px] max-w-full flex justify-center items-end leading-none">
                             <img src="image/hero-removebg-preview.png" alt="Ilham Pradani"
@@ -1077,6 +1072,233 @@
 
             <!-- Garis Biru Fullwidth di Bagian Bawah Hero -->
             <div class="w-full h-[3px] sm:h-1 bg-gradient-to-r from-blue-500/20 via-blue-600 to-blue-500/20 shadow-[0_2px_10px_rgba(37,99,235,0.45)] relative z-30"></div>
+        </section>
+
+        <!-- Section About (Profil & Dedikasi) -->
+        <section id="about" class="scroll-section">
+            <div class="section-inner px-4 sm:px-6 py-10 sm:py-16">
+                <div class="max-w-7xl mx-auto w-full flex flex-col justify-center min-h-0">
+                    
+                    <!-- Section Header -->
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 reveal-el">
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-600 bg-[#ecf0f3] shadow-[inset_1px_1px_3px_#b8bec9,inset_-1px_-1px_3px_#ffffff] mb-2 border border-blue-200/50">
+                                <i data-lucide="shield-check" class="w-3 h-3 text-blue-600"></i>
+                                <span class="lang-id">Profil &amp; Dedikasi</span>
+                                <span class="lang-en hidden">Profile &amp; Dedication</span>
+                            </span>
+                            <h2 class="text-2xl sm:text-3xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+                                <span class="lang-id">Arsitek Sistem &amp; Pakar Hukum Siber.</span>
+                                <span class="lang-en hidden">Systems Architect &amp; Cyber Law Specialist.</span>
+                            </h2>
+                            <p class="text-gray-600 text-xs sm:text-sm md:text-base font-medium max-w-2xl mt-1.5 leading-relaxed">
+                                <span class="lang-id">Menjembatani rekayasa perangkat lunak berkinerja tinggi, kecerdasan buatan terdistribusi, serta kepastian regulasi hukum teknologi informasi.</span>
+                                <span class="lang-en hidden">Bridging high-performance software engineering, distributed artificial intelligence, and digital information technology regulatory compliance.</span>
+                            </p>
+                        </div>
+
+                        <!-- Quick Action Pills -->
+                        <div class="flex items-center gap-2 shrink-0">
+                            <a href="cv.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider text-blue-600 bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] hover:shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff] hover:scale-[1.02] transition-all">
+                                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                                <span class="lang-id">Curriculum Vitae</span>
+                                <span class="lang-en hidden">Curriculum Vitae</span>
+                            </a>
+                            <a href="penelitian.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider text-emerald-700 bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] hover:shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff] hover:scale-[1.02] transition-all">
+                                <i data-lucide="microscope" class="w-3.5 h-3.5"></i>
+                                <span>ORCID</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid Content -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+                        
+                        <!-- Left Column: Identity & Credential Showcase Card (5 cols) -->
+                        <div class="lg:col-span-5 flex flex-col gap-5 reveal-el">
+                            
+                            <!-- Master Card -->
+                            <div class="neu-card p-6 sm:p-7 relative overflow-hidden flex flex-col">
+                                <!-- Top Accent Glow -->
+                                <div class="absolute -top-12 -right-12 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                                <!-- Status Badge (Availability) -->
+                                <div class="flex items-center justify-between gap-2 mb-5 pb-4 border-b border-gray-300/50">
+                                    <div class="flex items-center gap-2">
+                                        <span class="relative flex h-2.5 w-2.5">
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                                        </span>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-700">
+                                            <span class="lang-id">Status: Aktif Konsultasi &amp; Riset</span>
+                                            <span class="lang-en hidden">Status: Active Consulting &amp; Research</span>
+                                        </span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-gray-500 font-bold">2026 Edition</span>
+                                </div>
+
+                                <!-- Profile Mini Banner -->
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div class="w-14 h-14 rounded-2xl p-1 bg-[#ecf0f3] shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff] shrink-0 overflow-hidden">
+                                        <img src="image/hero.jpg" alt="Dr. Ilham Pradani" class="w-full h-full object-cover rounded-xl">
+                                    </div>
+                                    <div>
+                                        <h3 class="text-base sm:text-lg font-black text-gray-900 leading-tight">Ilham Pradani, S.H.</h3>
+                                        <p class="text-[11px] font-bold text-blue-600 tracking-tight">Lead Developer &amp; Systems Architect</p>
+                                        <p class="text-[10px] font-semibold text-gray-500">Cyber Law &amp; Distributed AI Specialist</p>
+                                    </div>
+                                </div>
+
+                                <!-- Structured Credentials List -->
+                                <div class="space-y-3 mb-6">
+                                    <!-- Education -->
+                                    <div class="p-3 rounded-xl bg-white/40 border border-white/60 flex items-start gap-3 shadow-sm">
+                                        <div class="p-2 rounded-lg bg-blue-50 text-blue-600 shrink-0 mt-0.5">
+                                            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="text-xs font-black text-gray-900">Bachelor of Laws (LL.B.) / Sarjana Hukum</h4>
+                                            <p class="text-[11px] font-medium text-gray-600 leading-snug">Universitas Terbuka • Spesialisasi Legal-Tech Compliance, UU PDP &amp; Keamanan Siber</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Security Certifications -->
+                                    <div class="p-3 rounded-xl bg-white/40 border border-white/60 flex items-start gap-3 shadow-sm">
+                                        <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600 shrink-0 mt-0.5">
+                                            <i data-lucide="award" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="text-xs font-black text-gray-900">Sertifikasi Keamanan Terverifikasi</h4>
+                                            <p class="text-[11px] font-medium text-gray-600 leading-snug">OSCP (OffSec) • CompTIA Security+ • Certified in Cybersecurity (ISC2)</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Research & ORCID -->
+                                    <div class="p-3 rounded-xl bg-white/40 border border-white/60 flex items-start gap-3 shadow-sm">
+                                        <div class="p-2 rounded-lg bg-emerald-50 text-emerald-600 shrink-0 mt-0.5">
+                                            <i data-lucide="book-marked" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="text-xs font-black text-gray-900">Riset &amp; Publikasi Internasional</h4>
+                                            <p class="text-[11px] font-mono text-emerald-800 font-bold leading-snug">ORCID: 0009-0008-1310-6169</p>
+                                            <p class="text-[10px] text-gray-500 font-medium">10+ Kajian Yuridis AI, UU ITE, &amp; Sistem Finansial</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Location & Reach -->
+                                    <div class="p-3 rounded-xl bg-white/40 border border-white/60 flex items-start gap-3 shadow-sm">
+                                        <div class="p-2 rounded-lg bg-amber-50 text-amber-600 shrink-0 mt-0.5">
+                                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="text-xs font-black text-gray-900">Lokasi &amp; Jangkauan Kolaborasi</h4>
+                                            <p class="text-[11px] font-medium text-gray-600 leading-snug">Krui, Pesisir Barat, Lampung • Kemitraan Internasional (Malaysia, SG, Global Remote)</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Link Inside Card -->
+                                <div class="pt-4 border-t border-gray-300/50 flex items-center justify-between gap-3 mt-auto">
+                                    <a href="https://wa.me/6288971071138" target="_blank" rel="noopener noreferrer"
+                                        class="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-black text-center shadow-[0_4px_12px_rgba(37,99,235,0.25)] hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-1.5">
+                                        <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+                                        <span class="lang-id">Hubungi WhatsApp</span>
+                                        <span class="lang-en hidden">Contact WhatsApp</span>
+                                    </a>
+                                    <a href="#contact"
+                                        class="py-2.5 px-3.5 rounded-xl bg-[#ecf0f3] text-gray-800 text-xs font-black shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff] hover:shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff] transition-all flex items-center gap-1">
+                                        <span>Direct Mail</span>
+                                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Narrative Biography & Philosophy (7 cols) -->
+                        <div class="lg:col-span-7 flex flex-col gap-5 reveal-el">
+                            
+                            <!-- Story Card 1: Sinergi Hukum & Rekayasa -->
+                            <div class="neu-card p-6 sm:p-7 relative overflow-hidden">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-[#ecf0f3] shadow-[inset_1.5px_1.5px_3px_#b8bec9,inset_-1.5px_-1.5px_3px_#ffffff] flex items-center justify-center text-blue-600">
+                                        <i data-lucide="scale" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-sm sm:text-base font-black text-gray-900 uppercase tracking-tight">
+                                        <span class="lang-id">Sinergi Unik: Legal-Tech &amp; Cyber Law Architecture</span>
+                                        <span class="lang-en hidden">Unique Synergy: Legal-Tech &amp; Cyber Law</span>
+                                    </h3>
+                                </div>
+                                <p class="text-xs sm:text-sm text-gray-655 font-medium leading-relaxed mb-3">
+                                    <span class="lang-id">
+                                        Di era digital modern, kecepatan menulis kode tidak lagi cukup. Sebuah arsitektur enterprise harus kokoh dari sisi <strong>rekayasa sistem (security-by-design)</strong> sekaligus selaras dengan ketentuan <strong>yuridis kepatuhan digital</strong>. Sebagai praktisi hukum siber dan arsitek sistem, saya merancang solusi digital yang kebal dari celah keamanan dan sepenuhnya siap menghadapi audit regulasi (seperti UU Perlindungan Data Pribadi / UU PDP serta kepatuhan internasional).
+                                    </span>
+                                    <span class="lang-en hidden">
+                                        In the modern digital era, engineering speed alone is no longer enough. An enterprise architecture must be rock-solid in <strong>systems engineering (security-by-design)</strong> while strictly aligned with <strong>digital legal compliance</strong>. As a cyber law practitioner and systems architect, I design digital solutions that are robust against vulnerabilities and fully audit-ready for data privacy frameworks (UU PDP / GDPR).
+                                    </span>
+                                </p>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="text-[9.5px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-50/70 border border-blue-200/60 text-blue-700">UU PDP Compliance</span>
+                                    <span class="text-[9.5px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-50/70 border border-blue-200/60 text-blue-700">AI Governance</span>
+                                    <span class="text-[9.5px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-50/70 border border-blue-200/60 text-blue-700">Zero-Trust Security</span>
+                                </div>
+                            </div>
+
+                            <!-- Story Card 2: Jejak Kepemimpinan Eksekutif -->
+                            <div class="neu-card p-6 sm:p-7 relative overflow-hidden">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-[#ecf0f3] shadow-[inset_1.5px_1.5px_3px_#b8bec9,inset_-1.5px_-1.5px_3px_#ffffff] flex items-center justify-center text-indigo-600">
+                                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-sm sm:text-base font-black text-gray-900 uppercase tracking-tight">
+                                        <span class="lang-id">Rekam Jejak Kepemimpinan Eksekutif &amp; Startup</span>
+                                        <span class="lang-en hidden">Executive Leadership &amp; Startup Track Record</span>
+                                    </h3>
+                                </div>
+                                <p class="text-xs sm:text-sm text-gray-655 font-medium leading-relaxed mb-3">
+                                    <span class="lang-id">
+                                        Menjabat sebagai <strong>Lead Developer di GRAFISA COMPANY</strong> mengarahkan sistem terintegrasi dan deployment VPS/Docker berkinerja tinggi, sebelumnya dipercaya sebagai <strong>Chief Technology Officer (CTO) di Tech Agency Malaysia</strong> untuk memimpin tim engineer regional, serta pengalaman memimpin strategi pasar sebagai <strong>Chief Marketing Officer (CMO) di SOLVTECH ID</strong> dan mendirikan <strong>CV ALIIP INC</strong>. Rekam jejak kepemimpinan multidimensi ini memberikan perspektif 360 derajat antara kebutuhan bisnis, keindahan kode, dan efisiensi operasional.
+                                    </span>
+                                    <span class="lang-en hidden">
+                                        Serving as <strong>Lead Developer at GRAFISA COMPANY</strong> orchestrating high-performance VPS/Docker deployments, previously appointed as <strong>Chief Technology Officer (CTO) at a Malaysian Tech Agency</strong> leading regional engineering teams, alongside executive marketing leadership as <strong>Chief Marketing Officer (CMO) at SOLVTECH ID</strong> and founding <strong>CV ALIIP INC</strong>. This multi-dimensional track record offers a complete 360-degree synthesis of business goals, clean code, and operational efficiency.
+                                    </span>
+                                </p>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="text-[9.5px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-indigo-50/70 border border-indigo-200/60 text-indigo-700">Grafisa Company</span>
+                                    <span class="text-[9.5px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-indigo-50/70 border border-indigo-200/60 text-indigo-700">Malaysia Tech Agency CTO</span>
+                                    <span class="text-[9.5px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-indigo-50/70 border border-indigo-200/60 text-indigo-700">Solvtech ID</span>
+                                </div>
+                            </div>
+
+                            <!-- 4 Key Stat Pillars -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5">
+                                <div class="p-4 rounded-2xl bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] text-center flex flex-col justify-center">
+                                    <span class="text-xl sm:text-2xl font-black text-blue-600 tracking-tight leading-none">10+</span>
+                                    <span class="text-[10px] sm:text-[11px] font-black text-gray-800 uppercase tracking-wider mt-1.5 leading-tight">Publikasi Riset</span>
+                                    <span class="text-[9px] text-gray-500 font-mono mt-0.5">ORCID Indexed</span>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] text-center flex flex-col justify-center">
+                                    <span class="text-xl sm:text-2xl font-black text-indigo-600 tracking-tight leading-none">50+</span>
+                                    <span class="text-[10px] sm:text-[11px] font-black text-gray-800 uppercase tracking-wider mt-1.5 leading-tight">Polyglot Stack</span>
+                                    <span class="text-[9px] text-gray-500 font-mono mt-0.5">Rust, TS, Python</span>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] text-center flex flex-col justify-center">
+                                    <span class="text-xl sm:text-2xl font-black text-emerald-600 tracking-tight leading-none">100%</span>
+                                    <span class="text-[10px] sm:text-[11px] font-black text-gray-800 uppercase tracking-wider mt-1.5 leading-tight">Compliance</span>
+                                    <span class="text-[9px] text-gray-500 font-mono mt-0.5">Security &amp; Legal</span>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-[#ecf0f3] shadow-[3px_3px_6px_#b8bec9,-3px_-3px_6px_#ffffff] text-center flex flex-col justify-center">
+                                    <span class="text-xl sm:text-2xl font-black text-blue-800 tracking-tight leading-none">Global</span>
+                                    <span class="text-[10px] sm:text-[11px] font-black text-gray-800 uppercase tracking-wider mt-1.5 leading-tight">Operations</span>
+                                    <span class="text-[9px] text-gray-500 font-mono mt-0.5">ID, MY, Remote</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
         </section>
 
         <!-- Section Partner -->
@@ -1222,7 +1444,7 @@
 
                                 <!-- Telegram -->
                                 <div class="flex items-center justify-center h-14 sm:h-16 md:h-20 px-2 hover:scale-105 transition-transform duration-300 shrink-0">
-                                    <img src="https://miro.medium.com/1*YVTFl1UEkt3_rkez-DIU9w.png" alt="Telegram"
+                                    <img src="image/telegram_logo.png" alt="Telegram"
                                         class="max-h-10 sm:max-h-12 md:max-h-14 w-auto object-contain">
                                 </div>
 
@@ -1345,7 +1567,7 @@
 
                                 <!-- Telegram -->
                                 <div class="flex items-center justify-center h-14 sm:h-16 md:h-20 px-2 hover:scale-105 transition-transform duration-300 shrink-0">
-                                    <img src="https://miro.medium.com/1*YVTFl1UEkt3_rkez-DIU9w.png" alt="Telegram"
+                                    <img src="image/telegram_logo.png" alt="Telegram"
                                         class="max-h-10 sm:max-h-12 md:max-h-14 w-auto object-contain">
                                 </div>
 
@@ -2956,48 +3178,6 @@
     <script src="js/main.js?v=20261106e"></script>
     <script src="js/index.js?v=20261106e"></script>
 
-    <script>
-        // Hero Name Block Interaction: Saat loading awal tidak muncul sama sekali.
-        // Hanya muncul ketika kursor pengguna terdeteksi bergerak (mousemove), disentuh di mobile (touchmove/touchstart), atau di-scroll.
-        (function() {
-            const heroNameBlock = document.getElementById('hero-name-block');
-            if (!heroNameBlock) return;
-
-            let isRevealed = false;
-            let lastX = null;
-            let lastY = null;
-
-            function triggerReveal() {
-                if (isRevealed) return;
-                isRevealed = true;
-                heroNameBlock.classList.add('revealed');
-                window.removeEventListener('mousemove', onMouseMove);
-                window.removeEventListener('touchmove', triggerReveal);
-                window.removeEventListener('touchstart', triggerReveal);
-                window.removeEventListener('scroll', triggerReveal);
-            }
-
-            function onMouseMove(e) {
-                // Pastikan kursor benar-benar bergerak (bukan browser initial trigger)
-                if (lastX === null || lastY === null) {
-                    lastX = e.clientX;
-                    lastY = e.clientY;
-                    return;
-                }
-                const dx = Math.abs(e.clientX - lastX);
-                const dy = Math.abs(e.clientY - lastY);
-                if (dx > 3 || dy > 3) {
-                    triggerReveal();
-                }
-            }
-
-            // Pasang event listener deteksi gerakan kursor aktif
-            window.addEventListener('mousemove', onMouseMove, { passive: true });
-            window.addEventListener('touchmove', triggerReveal, { passive: true, once: true });
-            window.addEventListener('touchstart', triggerReveal, { passive: true, once: true });
-            window.addEventListener('scroll', triggerReveal, { passive: true, once: true });
-        })();
-    </script>
 </body>
 
 </html>

@@ -524,9 +524,9 @@
             if (window.setLoadingProgress) window.setLoadingProgress(5);
             
             if (window.loadComponent) {
-                await loadComponent('header-placeholder', 'include/header.html');
+                await loadComponent('header-placeholder', 'include/header');
                 if (window.setLoadingProgress) window.setLoadingProgress(40);
-                await loadComponent('footer-placeholder', 'include/footer.html');
+                await loadComponent('footer-placeholder', 'include/footer');
                 if (window.setLoadingProgress) window.setLoadingProgress(70);
             }
             

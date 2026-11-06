@@ -192,8 +192,16 @@ async function loadComponent(id, file) {
     const el = document.getElementById(id);
     if (!el) return;
     try {
-        const url = file + `?t=${Date.now()}`;
-        const res = await fetch(url, { cache: 'no-cache' });
+        // Strip .html when served over HTTP/HTTPS to prevent Cloudflare Pages 308 clean-URL redirect (Google Search Console error)
+        let targetFile = file;
+        if (targetFile.endsWith('.html') && typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
+            targetFile = targetFile.replace(/\.html$/, '');
+        }
+        let res = await fetch(targetFile, { cache: 'no-cache' });
+        // Fallback to original file if clean URL returns 404 (e.g. static local server)
+        if (!res.ok && targetFile !== file) {
+            res = await fetch(file, { cache: 'no-cache' });
+        }
         if (res.ok) {
             el.innerHTML = await res.text();
             updateLangUI();

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
             if (window.setLoadingProgress) window.setLoadingProgress(10);
-            await loadComponent('header-placeholder', 'include/header.html');
+            await loadComponent('header-placeholder', 'include/header');
             if (window.setLoadingProgress) window.setLoadingProgress(50);
-            await loadComponent('footer-placeholder', 'include/footer.html');
+            await loadComponent('footer-placeholder', 'include/footer');
             if (window.setLoadingProgress) window.setLoadingProgress(80);
             applyTranslations();
             updateLangUI();
