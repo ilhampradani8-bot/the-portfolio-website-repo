@@ -642,30 +642,34 @@
             }
         }
 
-        /* Google Reviews Card Styling */
+        /* Google Reviews Card Styling - Compact Framed Outline (ala CodePen) */
         .google-reviews-card {
             background-color: #ecf0f3;
-            box-shadow: 6px 6px 12px #b8c4df, -6px -6px 12px #ffffff;
-            border-radius: 24px;
-            padding: 20px;
+            border: 2.5px solid #ffffff;
+            box-shadow: 4px 4px 10px #c8d0e7, -4px -4px 10px #ffffff;
+            border-radius: 26px;
+            padding: 18px 20px;
             width: 100%;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            transition: all 0.3s ease;
+            justify-content: space-between;
+            gap: 10px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            contain: layout style;
         }
 
         @media screen and (min-width: 640px) {
             .google-reviews-card {
-                padding: 28px;
-                width: 100%;
-                gap: 16px;
+                padding: 20px 22px;
+                gap: 12px;
             }
         }
 
         .google-reviews-card:hover {
-            box-shadow: 10px 10px 20px #b8c4df, -10px -10px 20px #ffffff;
+            border-color: rgba(66, 133, 244, 0.4);
+            box-shadow: 6px 6px 14px #b8c4df, -6px -6px 14px #ffffff;
             transform: translateY(-2px);
         }
 
@@ -1961,246 +1965,282 @@
                     <div class="swiper-wrapper">
 
                         <!-- Review Card 1 -->
-                        <div class="swiper-slide w-[310px] md:w-[360px] h-auto">
+                        <div class="swiper-slide w-[290px] sm:w-[330px] md:w-[350px] h-auto">
                             <div class="google-reviews-card h-full flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center mb-4">
-                                        <div class="google-reviews__left shrink-0">
-                                            <span
-                                                class="text-base font-extrabold text-[#4285F4] font-sans select-none">G</span>
+                                    <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-gray-200/50">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 border border-gray-100">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.09C3.25 21.36 7.34 24 12 24z"/>
+                                                    <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.59H1.26C.46 8.18 0 9.99 0 12s.46 3.82 1.26 5.41l4.02-3.09z"/>
+                                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.25 2.64 1.26 6.59l4.02 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xs font-bold text-gray-800">Google Review</span>
+                                                    <span class="text-[9px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded-full">5.0</span>
+                                                </div>
+                                                <p class="text-[9px] text-gray-400 font-medium">Terverifikasi</p>
+                                            </div>
                                         </div>
-                                        <div class="google-reviews__right google-reviews-content">
-                                            <div class="google-reviews-content__top">
-                                                <p class="google-reviews-content__txt">Google</p>
-                                                <p class="google-reviews-content__rating">5.0</p>
-                                                <span
-                                                    class="text-yellow-500 font-extrabold text-sm select-none tracking-wider">★★★★★</span>
-                                            </div>
-                                            <div class="google-reviews-content__bottom">
-                                                <p class="google-reviews-content__info">Ulasan Terverifikasi Google</p>
-                                            </div>
+                                        <div class="text-amber-400 text-xs tracking-tight font-bold select-none">
+                                            ★★★★★
                                         </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed italic mb-4">
-                                        "Sangat puas dengan layanan Aliip IT Consultant Inc. Produk software yang mereka
-                                        kembangkan punya standar internasional dan sangat user-friendly. Sebagai
-                                        partner, mereka sangat profesional dalam menangani proyek skala global.
-                                        Recommended!!"
+                                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3">
+                                        Sangat puas dengan layanan Aliip IT Consultant Inc. Produk software yang mereka kembangkan punya standar internasional dan sangat user-friendly. Sebagai partner, mereka sangat profesional dalam menangani proyek skala global. Recommended!
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 pt-4 border-t border-gray-200/50 mt-auto">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        SJ</div>
-                                    <div>
-                                        <h4 class="text-gray-900 font-bold text-xs uppercase tracking-widest">Sarah
-                                            Jenkins</h4>
-                                        <span class="text-[9px] text-gray-500 font-bold uppercase">Local Guide</span>
+                                <div class="flex items-center gap-2.5 pt-2 border-t border-gray-200/50 mt-auto">
+                                    <div class="relative shrink-0">
+                                        <img src="image/reviews/sarah.jpg" alt="Sarah Jenkins" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" loading="lazy">
+                                        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-white ring-1.5 ring-white">
+                                            <svg class="w-2 h-2 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-gray-900 font-bold text-xs truncate">Sarah Jenkins</h4>
+                                        <p class="text-[10px] text-gray-500 font-medium truncate flex items-center gap-1">
+                                            <span class="text-amber-500">★</span> Local Guide • 14 Reviews
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Review Card 2 -->
-                        <div class="swiper-slide w-[310px] md:w-[360px] h-auto">
+                        <div class="swiper-slide w-[290px] sm:w-[330px] md:w-[350px] h-auto">
                             <div class="google-reviews-card h-full flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center mb-4">
-                                        <div class="google-reviews__left shrink-0">
-                                            <span
-                                                class="text-base font-extrabold text-[#4285F4] font-sans select-none">G</span>
+                                    <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-gray-200/50">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 border border-gray-100">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.09C3.25 21.36 7.34 24 12 24z"/>
+                                                    <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.59H1.26C.46 8.18 0 9.99 0 12s.46 3.82 1.26 5.41l4.02-3.09z"/>
+                                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.25 2.64 1.26 6.59l4.02 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xs font-bold text-gray-800">Google Review</span>
+                                                    <span class="text-[9px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded-full">5.0</span>
+                                                </div>
+                                                <p class="text-[9px] text-gray-400 font-medium">Terverifikasi</p>
+                                            </div>
                                         </div>
-                                        <div class="google-reviews__right google-reviews-content">
-                                            <div class="google-reviews-content__top">
-                                                <p class="google-reviews-content__txt">Google</p>
-                                                <p class="google-reviews-content__rating">5.0</p>
-                                                <span
-                                                    class="text-yellow-500 font-extrabold text-sm select-none tracking-wider">★★★★★</span>
-                                            </div>
-                                            <div class="google-reviews-content__bottom">
-                                                <p class="google-reviews-content__info">Ulasan Terverifikasi Google</p>
-                                            </div>
+                                        <div class="text-amber-400 text-xs tracking-tight font-bold select-none">
+                                            ★★★★★
                                         </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed italic mb-4">
-                                        "Sangat merekomendasikan Aliip IT Consultant Inc. untuk jasa pembuatan website
-                                        portofolio Malaysia. Saya sangat terkesan dengan struktur kodenya yang rapi
-                                        (clean code) dan alur kerja yang sangat jelas. Hasil webnya premium!"
+                                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3">
+                                        Sangat merekomendasikan Aliip IT Consultant Inc. untuk jasa pembuatan website portofolio Malaysia. Saya sangat terkesan dengan struktur kodenya yang rapi (clean code) dan alur kerja yang sangat jelas. Hasil webnya premium!
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 pt-4 border-t border-gray-200/50 mt-auto">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        AH</div>
-                                    <div>
-                                        <h4 class="text-gray-900 font-bold text-xs uppercase tracking-widest">Alexander
-                                            Hayes</h4>
-                                        <span class="text-[9px] text-gray-500 font-bold uppercase">Project
-                                            Manager</span>
+                                <div class="flex items-center gap-2.5 pt-2 border-t border-gray-200/50 mt-auto">
+                                    <div class="relative shrink-0">
+                                        <img src="image/reviews/alexander.jpg" alt="Alexander Hayes" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" loading="lazy">
+                                        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-white ring-1.5 ring-white">
+                                            <svg class="w-2 h-2 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-gray-900 font-bold text-xs truncate">Alexander Hayes</h4>
+                                        <p class="text-[10px] text-gray-500 font-medium truncate flex items-center gap-1">
+                                            Project Manager • Verified Client
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Review Card 3 -->
-                        <div class="swiper-slide w-[310px] md:w-[360px] h-auto">
+                        <div class="swiper-slide w-[290px] sm:w-[330px] md:w-[350px] h-auto">
                             <div class="google-reviews-card h-full flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center mb-4">
-                                        <div class="google-reviews__left shrink-0">
-                                            <span
-                                                class="text-base font-extrabold text-[#4285F4] font-sans select-none">G</span>
+                                    <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-gray-200/50">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 border border-gray-100">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.09C3.25 21.36 7.34 24 12 24z"/>
+                                                    <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.59H1.26C.46 8.18 0 9.99 0 12s.46 3.82 1.26 5.41l4.02-3.09z"/>
+                                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.25 2.64 1.26 6.59l4.02 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xs font-bold text-gray-800">Google Review</span>
+                                                    <span class="text-[9px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded-full">5.0</span>
+                                                </div>
+                                                <p class="text-[9px] text-gray-400 font-medium">Terverifikasi</p>
+                                            </div>
                                         </div>
-                                        <div class="google-reviews__right google-reviews-content">
-                                            <div class="google-reviews-content__top">
-                                                <p class="google-reviews-content__txt">Google</p>
-                                                <p class="google-reviews-content__rating">5.0</p>
-                                                <span
-                                                    class="text-yellow-500 font-extrabold text-sm select-none tracking-wider">★★★★★</span>
-                                            </div>
-                                            <div class="google-reviews-content__bottom">
-                                                <p class="google-reviews-content__info">Ulasan Terverifikasi Google</p>
-                                            </div>
+                                        <div class="text-amber-400 text-xs tracking-tight font-bold select-none">
+                                            ★★★★★
                                         </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed italic mb-4">
-                                        "Puas sekali dengan layanan keamanan digital. Mereka menerapkan standar Cyber
-                                        Security internasional. Penanganan celah keamanan dilakukan dengan sangat teknis
-                                        dan terstruktur. Benar-benar profesional."
+                                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3">
+                                        Puas sekali dengan layanan keamanan digital. Mereka menerapkan standar Cyber Security internasional. Penanganan celah keamanan dilakukan dengan sangat teknis dan terstruktur. Benar-benar profesional.
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 pt-4 border-t border-gray-200/50 mt-auto">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        N</div>
-                                    <div>
-                                        <h4 class="text-gray-900 font-bold text-xs uppercase tracking-widest">Nobartri3
-                                        </h4>
-                                        <span class="text-[9px] text-gray-500 font-bold uppercase">Security
-                                            Analyst</span>
+                                <div class="flex items-center gap-2.5 pt-2 border-t border-gray-200/50 mt-auto">
+                                    <div class="relative shrink-0">
+                                        <img src="image/reviews/nobartri.jpg" alt="Nobartri3" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" loading="lazy">
+                                        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-white ring-1.5 ring-white">
+                                            <svg class="w-2 h-2 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-gray-900 font-bold text-xs truncate">Nobartri3</h4>
+                                        <p class="text-[10px] text-gray-500 font-medium truncate flex items-center gap-1">
+                                            Security Analyst • Verified Client
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Review Card 4 -->
-                        <div class="swiper-slide w-[310px] md:w-[360px] h-auto">
+                        <div class="swiper-slide w-[290px] sm:w-[330px] md:w-[350px] h-auto">
                             <div class="google-reviews-card h-full flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center mb-4">
-                                        <div class="google-reviews__left shrink-0">
-                                            <span
-                                                class="text-base font-extrabold text-[#4285F4] font-sans select-none">G</span>
+                                    <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-gray-200/50">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 border border-gray-100">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.09C3.25 21.36 7.34 24 12 24z"/>
+                                                    <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.59H1.26C.46 8.18 0 9.99 0 12s.46 3.82 1.26 5.41l4.02-3.09z"/>
+                                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.25 2.64 1.26 6.59l4.02 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xs font-bold text-gray-800">Google Review</span>
+                                                    <span class="text-[9px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded-full">5.0</span>
+                                                </div>
+                                                <p class="text-[9px] text-gray-400 font-medium">Terverifikasi</p>
+                                            </div>
                                         </div>
-                                        <div class="google-reviews__right google-reviews-content">
-                                            <div class="google-reviews-content__top">
-                                                <p class="google-reviews-content__txt">Google</p>
-                                                <p class="google-reviews-content__rating">5.0</p>
-                                                <span
-                                                    class="text-yellow-500 font-extrabold text-sm select-none tracking-wider">★★★★★</span>
-                                            </div>
-                                            <div class="google-reviews-content__bottom">
-                                                <p class="google-reviews-content__info">Ulasan Terverifikasi Google</p>
-                                            </div>
+                                        <div class="text-amber-400 text-xs tracking-tight font-bold select-none">
+                                            ★★★★★
                                         </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed italic mb-4">
-                                        "Baru kali ini ketemu partner IT yang bener-bener peduli sama keindahan kode.
-                                        Clean code-nya bikin sistem e-commerce kami yang pakai private server jadi
-                                        ringan dan gampang di-maintenance. Puas banget!"
+                                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3">
+                                        Baru kali ini ketemu partner IT yang bener-bener peduli sama keindahan kode. Clean code-nya bikin sistem e-commerce kami yang pakai private server jadi ringan dan gampang di-maintenance. Puas banget!
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 pt-4 border-t border-gray-200/50 mt-auto">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        AT</div>
-                                    <div>
-                                        <h4 class="text-gray-900 font-bold text-xs uppercase tracking-widest">Algojo3
-                                            Tiga</h4>
-                                        <span class="text-[9px] text-gray-500 font-bold uppercase">E-commerce
-                                            Owner</span>
+                                <div class="flex items-center gap-2.5 pt-2 border-t border-gray-200/50 mt-auto">
+                                    <div class="relative shrink-0">
+                                        <img src="image/reviews/algojo3.jpg" alt="Algojo3 Tiga" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" loading="lazy">
+                                        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-white ring-1.5 ring-white">
+                                            <svg class="w-2 h-2 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-gray-900 font-bold text-xs truncate">Algojo3 Tiga</h4>
+                                        <p class="text-[10px] text-gray-500 font-medium truncate flex items-center gap-1">
+                                            E-commerce Owner • Verified Client
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Review Card 5 -->
-                        <div class="swiper-slide w-[310px] md:w-[360px] h-auto">
+                        <div class="swiper-slide w-[290px] sm:w-[330px] md:w-[350px] h-auto">
                             <div class="google-reviews-card h-full flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center mb-4">
-                                        <div class="google-reviews__left shrink-0">
-                                            <span
-                                                class="text-base font-extrabold text-[#4285F4] font-sans select-none">G</span>
+                                    <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-gray-200/50">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 border border-gray-100">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.09C3.25 21.36 7.34 24 12 24z"/>
+                                                    <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.59H1.26C.46 8.18 0 9.99 0 12s.46 3.82 1.26 5.41l4.02-3.09z"/>
+                                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.25 2.64 1.26 6.59l4.02 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xs font-bold text-gray-800">Google Review</span>
+                                                    <span class="text-[9px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded-full">5.0</span>
+                                                </div>
+                                                <p class="text-[9px] text-gray-400 font-medium">Terverifikasi</p>
+                                            </div>
                                         </div>
-                                        <div class="google-reviews-content__right google-reviews-content">
-                                            <div class="google-reviews-content__top">
-                                                <p class="google-reviews-content__txt">Google</p>
-                                                <p class="google-reviews-content__rating">5.0</p>
-                                                <span
-                                                    class="text-yellow-500 font-extrabold text-sm select-none tracking-wider">★★★★★</span>
-                                            </div>
-                                            <div class="google-reviews-content__bottom">
-                                                <p class="google-reviews-content__info">Ulasan Terverifikasi Google</p>
-                                            </div>
+                                        <div class="text-amber-400 text-xs tracking-tight font-bold select-none">
+                                            ★★★★★
                                         </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed italic mb-4">
-                                        "Sebagai penyedia jasa web service ini yang paling bagus sih pelayanan nya, dan
-                                        hasilnya manual kode, web Portofolio yang di layani juga go internasional sampai
-                                        ke Malaysia, soo good luck ,."
+                                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3">
+                                        Sebagai penyedia jasa web service ini yang paling bagus sih pelayanan nya, dan hasilnya manual kode, web Portofolio yang di layani juga go internasional sampai ke Malaysia, soo good luck!
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 pt-4 border-t border-gray-200/50 mt-auto">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        AD</div>
-                                    <div>
-                                        <h4 class="text-gray-900 font-bold text-xs uppercase tracking-widest">Algojo2
-                                            Dua</h4>
-                                        <span class="text-[9px] text-gray-500 font-bold uppercase">Web Service
-                                            Partner</span>
+                                <div class="flex items-center gap-2.5 pt-2 border-t border-gray-200/50 mt-auto">
+                                    <div class="relative shrink-0">
+                                        <img src="image/reviews/algojo2.jpg" alt="Algojo2 Dua" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" loading="lazy">
+                                        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-white ring-1.5 ring-white">
+                                            <svg class="w-2 h-2 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-gray-900 font-bold text-xs truncate">Algojo2 Dua</h4>
+                                        <p class="text-[10px] text-gray-500 font-medium truncate flex items-center gap-1">
+                                            Web Service Partner • Verified Client
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Review Card 6 -->
-                        <div class="swiper-slide w-[310px] md:w-[360px] h-auto">
+                        <div class="swiper-slide w-[290px] sm:w-[330px] md:w-[350px] h-auto">
                             <div class="google-reviews-card h-full flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center mb-4">
-                                        <div class="google-reviews__left shrink-0">
-                                            <span
-                                                class="text-base font-extrabold text-[#4285F4] font-sans select-none">G</span>
+                                    <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-gray-200/50">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 border border-gray-100">
+                                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.88c2.27-2.09 3.665-5.17 3.665-9.09z"/>
+                                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.09C3.25 21.36 7.34 24 12 24z"/>
+                                                    <path fill="#FBBC05" d="M5.28 14.32c-.25-.72-.38-1.49-.38-2.32s.13-1.6.38-2.32V6.59H1.26C.46 8.18 0 9.99 0 12s.46 3.82 1.26 5.41l4.02-3.09z"/>
+                                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.25 2.64 1.26 6.59l4.02 3.09c.95-2.83 3.6-4.93 6.72-4.93z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-xs font-bold text-gray-800">Google Review</span>
+                                                    <span class="text-[9px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded-full">5.0</span>
+                                                </div>
+                                                <p class="text-[9px] text-gray-400 font-medium">Terverifikasi</p>
+                                            </div>
                                         </div>
-                                        <div class="google-reviews__right google-reviews-content">
-                                            <div class="google-reviews-content__top">
-                                                <p class="google-reviews-content__txt">Google</p>
-                                                <p class="google-reviews-content__rating">5.0</p>
-                                                <span
-                                                    class="text-yellow-500 font-extrabold text-sm select-none tracking-wider">★★★★★</span>
-                                            </div>
-                                            <div class="google-reviews-content__bottom">
-                                                <p class="google-reviews-content__info">Ulasan Terverifikasi Google</p>
-                                            </div>
+                                        <div class="text-amber-400 text-xs tracking-tight font-bold select-none">
+                                            ★★★★★
                                         </div>
                                     </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed italic mb-4">
-                                        "Lagi cari partner pengembang software dan ketemu Aliip. Yang paling menonjol
-                                        itu struktur kerja mereka yang tertata, progresnya jelas, dan komunikasinya
-                                        enak. Kualitas kodenya terjaga!"
+                                    <p class="text-gray-700 text-xs sm:text-sm leading-relaxed mb-3">
+                                        Lagi cari partner pengembang software dan ketemu Aliip. Yang paling menonjol itu struktur kerja mereka yang tertata, progresnya jelas, dan komunikasinya enak. Kualitas kodenya terjaga!
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 pt-4 border-t border-gray-200/50 mt-auto">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        WB</div>
-                                    <div>
-                                        <h4 class="text-gray-900 font-bold text-xs uppercase tracking-widest">Warung
-                                            Bornok</h4>
-                                        <span class="text-[9px] text-gray-500 font-bold uppercase">Software
-                                            Partner</span>
+                                <div class="flex items-center gap-2.5 pt-2 border-t border-gray-200/50 mt-auto">
+                                    <div class="relative shrink-0">
+                                        <img src="image/reviews/bornok.jpg" alt="Warung Bornok" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" loading="lazy">
+                                        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-white ring-1.5 ring-white">
+                                            <svg class="w-2 h-2 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                                        </span>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-gray-900 font-bold text-xs truncate">Warung Bornok</h4>
+                                        <p class="text-[10px] text-gray-500 font-medium truncate flex items-center gap-1">
+                                            Software Partner • Verified Client
+                                        </p>
                                     </div>
                                 </div>
                             </div>
