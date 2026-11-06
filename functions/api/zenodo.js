@@ -33,14 +33,62 @@ export async function onRequestGet({ request, env }) {
   let publications = [];
   let source = "zenodo";
 
-  // 2. Coba ambil dari Zenodo API (Deposit / Records)
-  if (zenodoToken) {
+  // 2. Ambil dari Zenodo Public Records API (InvenioRDM)
+  try {
+    const zenodoSearchUrl = "https://zenodo.org/api/records?q=metadata.creators.person_or_org.name:%22Pradani,%20Ilham%22&sort=-mostrecent&size=50";
+    const headers = {
+      "Accept": "application/json",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    };
+    if (zenodoToken) {
+      headers["Authorization"] = `Bearer ${zenodoToken}`;
+    }
+
+    const zenodoRes = await fetch(zenodoSearchUrl, {
+      headers: headers,
+      cf: { cacheTtl: 600, cacheEverything: true },
+    });
+
+    if (zenodoRes.ok) {
+      const json = await zenodoRes.json();
+      const hits = (json.hits && json.hits.hits) || [];
+      if (Array.isArray(hits) && hits.length > 0) {
+        publications = hits.map((item) => {
+          const meta = item.metadata || {};
+          const doi = item.doi || (item.doi_url ? item.doi_url.replace("https://doi.org/", "") : "");
+          const creators = meta.creators || [];
+          const authors = creators.map((c) => c.name || "Dr. Ilham Pradani C.L.");
+
+          return {
+            id: String(item.id || item.record_id || ""),
+            title: meta.title || "Karya Ilmiah",
+            doi: doi,
+            doi_url: item.doi_url || (doi ? `https://doi.org/${doi}` : `https://zenodo.org/records/${item.id}`),
+            url: item.links?.self_html || item.links?.html || item.doi_url || `https://zenodo.org/records/${item.id}`,
+            publication_date: meta.publication_date || item.created?.split("T")[0] || "2026",
+            year: meta.publication_date ? meta.publication_date.split("-")[0] : "2026",
+            journal_title: meta.journal?.title || meta.journal_title || (meta.resource_type && meta.resource_type.title) || "Zenodo Open Access",
+            authors: authors.length > 0 ? authors : ["Dr. Ilham Pradani C.L."],
+            abstract: meta.description ? meta.description.replace(/<[^>]+>/g, "").trim() : "",
+            keywords: meta.keywords || [],
+            source: "zenodo",
+          };
+        });
+        source = "zenodo";
+      }
+    }
+  } catch (e) {
+    console.warn("Zenodo search API fetch note:", e);
+  }
+
+  // 2b. Coba ambil dari Zenodo Deposit API jika search records kosong
+  if (publications.length === 0 && zenodoToken) {
     try {
       const zenodoRes = await fetch("https://zenodo.org/api/deposit/depositions?size=50", {
         headers: {
           "Authorization": `Bearer ${zenodoToken}`,
           "Accept": "application/json",
-          "User-Agent": "IlhamPradani-EdgeBot/1.0 (+https://ilhampradani.chainasiaconnect.co.id)",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         },
         cf: { cacheTtl: 600, cacheEverything: true },
       });
@@ -59,8 +107,8 @@ export async function onRequestGet({ request, env }) {
                 id: String(item.id || item.record_id || ""),
                 title: meta.title || "Karya Ilmiah",
                 doi: doi,
-                doi_url: item.doi_url || (doi ? `https://doi.org/${doi}` : `https://zenodo.org/record/${item.id}`),
-                url: item.links?.record_html || item.doi_url || `https://zenodo.org/record/${item.id}`,
+                doi_url: item.doi_url || (doi ? `https://doi.org/${doi}` : `https://zenodo.org/records/${item.id}`),
+                url: item.links?.record_html || item.doi_url || `https://zenodo.org/records/${item.id}`,
                 publication_date: meta.publication_date || item.created?.split("T")[0] || "2026",
                 year: meta.publication_date ? meta.publication_date.split("-")[0] : "2026",
                 journal_title: meta.journal_title || meta.publication_type || "Zenodo Open Access",
@@ -70,6 +118,7 @@ export async function onRequestGet({ request, env }) {
                 source: "zenodo",
               };
             });
+          source = "zenodo";
         }
       }
     } catch (e) {
