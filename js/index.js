@@ -1001,6 +1001,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initClassicSwipers();
     initClassicScrollSpy();
     initScrollAnimations();
+    initGravatarHovercard();
 
     // 2. Load cached articles & portfolio immediately (0ms first-paint, updates in background)
     loadArtikel();
@@ -1170,4 +1171,42 @@ function renderHomePenelitianCards(papers) {
 
     if (window.applyTranslations) window.applyTranslations();
     if (window.lucide) lucide.createIcons();
+}
+
+// 5. Gravatar Hovercard Interactive Drawer Handler
+function initGravatarHovercard() {
+    document.querySelectorAll('.gravatar-hovercard__inner').forEach((container) => {
+        container.querySelectorAll('.gravatar-hovercard__button').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selector = '.gravatar-hovercard__drawer[data-drawer-name="' + el.dataset.targetDrawer + '"]';
+                const drawer = container.querySelector(selector);
+                drawer?.classList.add('gravatar-hovercard__drawer--open');
+            });
+        });
+        container.querySelectorAll('.gravatar-hovercard__drawer-close').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selector = '.gravatar-hovercard__drawer[data-drawer-name="' + el.dataset.targetDrawer + '"]';
+                const drawer = container.querySelector(selector);
+                drawer?.classList.add('gravatar-hovercard__drawer--closing');
+                drawer?.classList.remove('gravatar-hovercard__drawer--open');
+                setTimeout(() => {
+                    drawer?.classList.remove('gravatar-hovercard__drawer--closing');
+                }, 300);
+            });
+        });
+        container.querySelectorAll('.gravatar-hovercard__drawer-backdrop').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selector = '.gravatar-hovercard__drawer[data-drawer-name="' + el.dataset.targetDrawer + '"]';
+                const drawer = container.querySelector(selector);
+                drawer?.classList.add('gravatar-hovercard__drawer--closing');
+                drawer?.classList.remove('gravatar-hovercard__drawer--open');
+                setTimeout(() => {
+                    drawer?.classList.remove('gravatar-hovercard__drawer--closing');
+                }, 300);
+            });
+        });
+    });
 }
