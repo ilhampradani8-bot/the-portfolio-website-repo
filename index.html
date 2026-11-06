@@ -995,8 +995,7 @@
             will-change: opacity, transform;
         }
 
-        #hero-name-block.revealed,
-        #home:hover #hero-name-block {
+        #hero-name-block.revealed {
             opacity: 1;
             transform: translateY(0);
         }
@@ -2878,25 +2877,45 @@
     <script src="js/index.js?v=20261106b"></script>
 
     <script>
-        // Hero Name Block Interaction: Saat loading tidak muncul, muncul saat kursor bergerak / disentuh
+        // Hero Name Block Interaction: Saat loading awal tidak muncul sama sekali.
+        // Hanya muncul ketika kursor pengguna terdeteksi bergerak (mousemove), disentuh di mobile (touchmove/touchstart), atau di-scroll.
         (function() {
             const heroNameBlock = document.getElementById('hero-name-block');
             if (!heroNameBlock) return;
 
             let isRevealed = false;
-            function revealHeroName() {
+            let lastX = null;
+            let lastY = null;
+
+            function triggerReveal() {
                 if (isRevealed) return;
                 isRevealed = true;
                 heroNameBlock.classList.add('revealed');
-                window.removeEventListener('mousemove', revealHeroName);
-                window.removeEventListener('touchstart', revealHeroName);
-                window.removeEventListener('scroll', revealHeroName);
+                window.removeEventListener('mousemove', onMouseMove);
+                window.removeEventListener('touchmove', triggerReveal);
+                window.removeEventListener('touchstart', triggerReveal);
+                window.removeEventListener('scroll', triggerReveal);
             }
 
-            // Trigger saat kursor bergerak, layar disentuh, atau di-scroll
-            window.addEventListener('mousemove', revealHeroName, { passive: true, once: true });
-            window.addEventListener('touchstart', revealHeroName, { passive: true, once: true });
-            window.addEventListener('scroll', revealHeroName, { passive: true, once: true });
+            function onMouseMove(e) {
+                // Pastikan kursor benar-benar bergerak (bukan browser initial trigger)
+                if (lastX === null || lastY === null) {
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                    return;
+                }
+                const dx = Math.abs(e.clientX - lastX);
+                const dy = Math.abs(e.clientY - lastY);
+                if (dx > 3 || dy > 3) {
+                    triggerReveal();
+                }
+            }
+
+            // Pasang event listener deteksi gerakan kursor aktif
+            window.addEventListener('mousemove', onMouseMove, { passive: true });
+            window.addEventListener('touchmove', triggerReveal, { passive: true, once: true });
+            window.addEventListener('touchstart', triggerReveal, { passive: true, once: true });
+            window.addEventListener('scroll', triggerReveal, { passive: true, once: true });
         })();
     </script>
 </body>
