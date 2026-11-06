@@ -61,6 +61,17 @@ export async function onRequestPost({ request, env }) {
       body = await request.json().catch(() => ({}));
     }
 
+    // Anti-Bot Honeypot: jika input tersembunyi terisi, tandanya bot otomatis
+    if (body.website || body._gotcha || body.hp_field) {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: "Pesan Anda berhasil dikirim langsung ke Telegram Dr. Ilham Pradani!",
+        }),
+        { status: 200, headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
     const name = (body.name || "Anonim").trim();
     const email = (body.email || "-").trim();
     const phone = (body.phone || body.whatsapp || "-").trim();
@@ -79,6 +90,7 @@ export async function onRequestPost({ request, env }) {
     const country = request.headers.get("cf-ipcountry") || "Unknown";
     const city = request.headers.get("cf-ipcity") || "";
     const locationStr = city ? `${city}, ${country}` : country;
+    const host = request.headers.get("host") || "ilhampradani.me";
 
     const now = new Date().toLocaleString("id-ID", {
       timeZone: "Asia/Jakarta",
@@ -100,7 +112,7 @@ export async function onRequestPost({ request, env }) {
 ───────────────────
 🌐 <b>IP:</b> <code>${ip}</code> (${locationStr})
 🕒 <b>Waktu:</b> ${now} WIB
-🚀 <b>Host:</b> ilhampradani.chainasiaconnect.co.id`;
+🚀 <b>Host:</b> ${host}`;
 
     // Kirim pesan ke Telegram Bot
     const telegramResp = await fetch(

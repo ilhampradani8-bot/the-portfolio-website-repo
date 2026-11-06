@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ilhampradani.me/sitemap.xml
+Sitemap: https://ilhampradani.me/sitemap_web.xml
 
 

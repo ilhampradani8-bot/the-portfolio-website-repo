@@ -1,0 +1,29 @@
+# Global security headers for all routes
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# HTML files - always revalidate for instant updates
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Static Assets - 1 year immutable cache
+/image/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/documents/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# JavaScript and CSS - 7 days cache with stale-while-revalidate
+/js/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# JSON Data files
+/data/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
