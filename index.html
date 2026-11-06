@@ -162,7 +162,6 @@
         body {
             margin: 0;
             padding: 0;
-            scroll-behavior: smooth;
             overflow-x: clip;
         }
 
@@ -255,14 +254,18 @@
         /* GPU Layer optimization for hardware accelerated carousel animations */
         .google-reviews-card,
         .blog-slider,
-        .swiper-slide,
         .reviews-swiper {
-            will-change: transform;
-            transform: translate3d(0, 0, 0);
+            transform: translateZ(0);
             backface-visibility: hidden;
+            contain: layout style;
         }
 
-        /* Infinite Marquee Styles */
+        /* Performance Composite for Reveal Animations: isolate transition to composite layer only */
+        .reveal-el {
+            transition-property: opacity, transform !important;
+        }
+
+        /* Infinite Marquee Styles (Isolated Paint Layer) */
         @keyframes marquee {
             0% {
                 transform: translate3d(0, 0, 0);
@@ -277,6 +280,8 @@
             display: flex;
             width: max-content;
             animation: marquee 30s linear infinite;
+            will-change: transform;
+            contain: layout paint;
         }
 
         .animate-marquee:hover {
@@ -871,6 +876,7 @@
             overflow: visible;
             touch-action: pan-y;
             user-select: none;
+            contain: layout;
         }
 
         .portfolio-3d-item {
@@ -891,8 +897,9 @@
             box-shadow: 8px 8px 16px #b8bec9, -8px -8px 16px #ffffff;
             background: #ecf0f3;
             pointer-events: all;
-            transition: transform .8s cubic-bezier(0, 0.02, 0, 1), opacity .8s, z-index .8s;
+            transition: transform .65s cubic-bezier(0.16, 1, 0.3, 1), opacity .65s, z-index .65s;
             cursor: pointer;
+            contain: layout style;
 
             /* Fix Webkit/Chrome border-radius flashing bug during GPU transitions */
             will-change: transform, opacity;
@@ -2906,8 +2913,8 @@
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/main.js?v=20261106d"></script>
-    <script src="js/index.js?v=20261106b"></script>
+    <script src="js/main.js?v=20261106e"></script>
+    <script src="js/index.js?v=20261106e"></script>
 
     <script>
         // Hero Name Block Interaction: Saat loading awal tidak muncul sama sekali.

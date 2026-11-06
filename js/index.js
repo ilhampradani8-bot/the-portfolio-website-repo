@@ -241,7 +241,7 @@ function initScrollAnimations() {
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-el').forEach(el => {
-        el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+        el.classList.add('opacity-0', 'translate-y-10', 'transition-[opacity,transform]', 'duration-700');
         observer.observe(el);
     });
 }
