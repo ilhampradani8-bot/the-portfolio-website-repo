@@ -428,6 +428,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span id="ext-badge-text">Direct Link</span>
                 </div>
 
+                <!-- Verified Account Handle Container (Muncul jika ada akun terverifikasi seperti Instagram) -->
+                <div id="ext-account-container" class="hidden items-center justify-center gap-1.5 mb-3 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 w-fit mx-auto shadow-sm">
+                    <span id="ext-account-handle" class="font-extrabold text-gray-900 dark:text-white text-xs sm:text-sm">@ilhampradani_official</span>
+                    <svg class="w-4 h-4 text-[#0095f6] shrink-0 fill-current" viewBox="0 0 24 24" aria-label="Verified">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+
                 <!-- Title & Description -->
                 <h3 id="ext-title" class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight mb-2">
                     Buka Aplikasi Luar?
@@ -512,6 +520,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const badge = document.getElementById('ext-badge');
         const badgeDot = document.getElementById('ext-badge-dot');
         const badgeText = document.getElementById('ext-badge-text');
+        const accountBox = document.getElementById('ext-account-container');
+        const accountHandle = document.getElementById('ext-account-handle');
         const title = document.getElementById('ext-title');
         const desc = document.getElementById('ext-desc');
         const urlPreview = document.getElementById('ext-url-preview');
@@ -519,6 +529,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnLabel = document.getElementById('ext-btn-label');
 
         urlPreview.textContent = url;
+        if (accountBox) {
+            accountBox.classList.add('hidden');
+            accountBox.classList.remove('flex');
+        }
 
         if (type === 'whatsapp') {
             glow.className = "absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40 bg-emerald-500";
@@ -544,6 +558,23 @@ document.addEventListener('DOMContentLoaded', () => {
             desc.textContent = "Anda akan dialihkan ke Telegram untuk terhubung langsung dengan akun resmi @ilhampradani_sh.";
             confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-sky-500 to-sky-600 shadow-sky-500/25 hover:from-sky-600 hover:to-sky-700";
             btnLabel.textContent = "Buka Telegram";
+        } else if (type === 'instagram') {
+            glow.className = "absolute -top-16 -left-16 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40 bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600";
+            iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300 p-3 sm:p-4 bg-gradient-to-tr from-pink-50 to-purple-50 dark:from-pink-950/40 dark:to-purple-950/40 border border-pink-200/80 dark:border-pink-700/50";
+            iconImg.src = "image/ig_clean.png";
+            iconImg.alt = "Instagram";
+            badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-2 border bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-800";
+            badgeDot.className = "w-1.5 h-1.5 rounded-full animate-ping bg-pink-500";
+            badgeText.textContent = "Instagram Official";
+            title.textContent = "Membuka Instagram?";
+            if (accountBox && accountHandle) {
+                accountBox.classList.remove('hidden');
+                accountBox.classList.add('flex');
+                accountHandle.textContent = "@ilhampradani_official";
+            }
+            desc.textContent = "Anda akan dialihkan ke situs/aplikasi Instagram untuk mengunjungi profil resmi terverifikasi Sir Ilham Pradani.";
+            confirmBtn.className = "w-1/2 py-3 px-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 cursor-pointer bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 shadow-pink-500/25 hover:opacity-95";
+            btnLabel.textContent = "Buka Instagram";
         }
 
         // Tampilkan modal
@@ -553,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.add('scale-100');
     }
 
-    // Intercept semua klik pada link yang mengarah ke WA atau Telegram
+    // Intercept semua klik pada link yang mengarah ke WA, Telegram, atau Instagram
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (!link) return;
@@ -574,6 +605,14 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
             openRedirectModal(href, 'telegram');
+            return;
+        }
+
+        // Cek Instagram
+        if (href.includes('instagram.com')) {
+            e.preventDefault();
+            e.stopPropagation();
+            openRedirectModal(href, 'instagram');
             return;
         }
     }, true); // useCapture true agar diprioritaskan sebelum listener lain
