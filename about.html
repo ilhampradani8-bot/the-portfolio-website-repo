@@ -19,8 +19,13 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="image/favicon.png">
+
+    <!-- GSAP & ScrollTrigger (Hardware-Accelerated 3D Parallax Engine) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
     <!-- Schema.org JSON-LD for ProfilePage & Person Entity -->
     <script type="application/ld+json">
@@ -58,19 +63,164 @@
     </script>
 
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ecf0f3; color: #1f2937; scroll-behavior: smooth; }
-        .solid-card { background-color: #ecf0f3; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 8px 8px 16px #b8bec9, -8px -8px 16px #ffffff; border-radius: 1.5rem; transition: all 0.3s ease; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #ecf0f3; 
+            color: #1f2937; 
+            scroll-behavior: smooth;
+        }
+
+        .solid-card { 
+            background-color: #ecf0f3; 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            box-shadow: 8px 8px 16px #b8bec9, -8px -8px 16px #ffffff; 
+            border-radius: 1.5rem; 
+            transition: all 0.3s ease; 
+        }
+
+        /* 3D Cloud Parallax Styles (Optimized GPU Acceleration) */
+        .sky, .mountBg, .mountMg, .mountFg {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        .parallax-wrapper {
+            position: relative;
+            width: 100%;
+            background: #ffffff;
+            overflow: hidden;
+            opacity: 0;
+            animation: hero-fade-in 0.8s 0.15s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes hero-fade-in {
+            to { opacity: 1; }
+        }
+
+        .scrollDist {
+            width: 100%;
+            height: 200vh; /* Smooth scroll travel distance */
+        }
+
+        .parallax-main {
+            position: fixed;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            z-index: 1;
+            background: #ffffff;
+            margin: 0 !important;
+            padding: 0 !important;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .parallax-svg {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: visible !important;
+        }
+
+        .parallax-text-main {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 900;
+            font-size: 80px;
+            letter-spacing: 5px;
+        }
+
+        .parallax-text-sub-desc {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.88;
+        }
+
+        .parallax-section {
+            position: relative;
+            z-index: 10;
+            background: #ecf0f3;
+            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 992px) {
+            .parallax-text-main { font-size: 52px; font-weight: 900; letter-spacing: 3px; }
+            .parallax-text-sub-desc { font-size: 13px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 768px) {
+            .parallax-text-main { font-size: 40px; font-weight: 900; letter-spacing: 2px; }
+            .parallax-text-sub-desc { font-size: 10.5px; letter-spacing: 1.5px; }
+            .scrollDist { height: 160vh !important; }
+        }
+
+        @media (max-width: 480px) {
+            .parallax-text-main { font-size: 32px; letter-spacing: 1.5px; }
+            .parallax-text-sub-desc { font-size: 8.5px; letter-spacing: 1px; }
+        }
     </style>
 </head>
 
 <body class="bg-[#ecf0f3] overflow-x-hidden text-gray-800">
     <div id="header-placeholder"></div>
 
-    <main class="pt-24 md:pt-32 pb-16 md:pb-24 px-4 sm:px-6 min-h-screen">
+    <!-- 3D Cloud Parallax Hero (Adapted from ABMalaya Architecture) -->
+    <div class="parallax-wrapper">
+        <div class="scrollDist"></div>
+        <div class="parallax-main">
+            <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" class="parallax-svg" preserveAspectRatio="xMidYMid slice">
+                
+                <!-- Cloud Mask Layer for Dynamic Scroll Text Peeling -->
+                <mask id="m">
+                    <g class="cloud1">
+                        <rect fill="#fff" width="100%" height="801" y="799" />
+                        <image xlink:href="image/about3D/cloud1Mask.jpg" width="1200" height="800"/>
+                    </g>
+                </mask>
+
+                <!-- Natural Scenery & Cloud Parallax Depth Layers -->
+                <image class="sky" xlink:href="image/about3D/sky.webp" x="-300" y="-100" width="1800" height="1300" preserveAspectRatio="xMidYMid slice" />
+                <image class="mountBg" xlink:href="image/about3D/mountBg1.webp" x="-60" y="-100" width="1320" height="980" preserveAspectRatio="xMidYMid slice" />    
+                <image class="mountMg" xlink:href="image/about3D/mountMg3.webp" x="-60" y="-100" width="1320" height="980" preserveAspectRatio="xMidYMid slice" />    
+                <image class="cloud2" xlink:href="image/about3D/cloud2.png" width="1200" height="800" preserveAspectRatio="xMidYMid slice" />    
+                <image class="mountFg" xlink:href="image/about3D/mountFg.webp" x="-60" y="-100" width="1320" height="1040" preserveAspectRatio="xMidYMid slice" />
+                <image class="cloud1" xlink:href="image/about3D/cloud1.png" width="1200" height="800" preserveAspectRatio="xMidYMid slice" />
+                <image class="cloud3" xlink:href="image/about3D/cloud3.png" width="1200" height="800" preserveAspectRatio="xMidYMid slice" />
+                
+                <!-- 1. Base Layer (Behind Cloud Mask) -->
+                <text fill="#093863" x="50%" y="255" text-anchor="middle" class="parallax-text-main">ABOUT ME</text>
+                <text fill="#ffffff" x="50%" y="325" text-anchor="middle" class="parallax-text-sub-desc">DR. ILHAM PRADANI, S.H., C.L.</text>
+                <polyline class="arrow" fill="#90caf9" points="599,390 599,429 590,419 590,422 600,432 610,422 610,419 601,429 601,390" />
+                
+                <!-- 2. Dynamic Masked Reveal Layer (Reveals as Clouds Part on Scroll) -->
+                <g mask="url(#m)">
+                    <rect fill="#fff" width="100%" height="100%" />      
+                    <text x="50%" y="255" text-anchor="middle" fill="#093863" class="parallax-text-main">SYSTEMS ARCHITECT</text>
+                    <text x="50%" y="325" text-anchor="middle" fill="#0f172a" class="parallax-text-sub-desc">
+                        <tspan x="50%" dy="0">Bridging Law, Artificial Intelligence</tspan>
+                        <tspan x="50%" dy="26">& Cybersecurity Governance.</tspan>
+                    </text>
+                    <polyline class="arrow-reveal" fill="#0f172a" points="599,390 599,429 590,419 590,422 600,432 610,422 610,419 601,429 601,390" />
+                </g>
+                
+                <!-- Interactive Down Arrow Button -->
+                <rect id="arrow-btn" width="120" height="100" opacity="0" x="540" y="380" style="cursor:pointer"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main Content Section (Slides up smoothly over the 3D Parallax Hero) -->
+    <main id="content-section" class="parallax-section pt-16 md:pt-24 pb-16 md:pb-24 px-4 sm:px-6 min-h-screen">
         <div id="content-container" class="max-w-5xl mx-auto">
             <!-- Included Component Content -->
             <div id="about-content">
-                <!-- Dynamically or statically populated -->
+                <!-- Dynamically populated from include/komponent_footer/about.html -->
             </div>
         </div>
     </main>
@@ -80,12 +230,18 @@
     <script src="js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            // Load global header and footer
             if (window.loadComponent) {
                 await loadComponent('header-placeholder', 'include/header');
                 await loadComponent('footer-placeholder', 'include/footer');
             }
+
+            // Load about body content with robust fallback
             try {
-                const res = await fetch('include/komponent_footer/about');
+                let res = await fetch('include/komponent_footer/about.html');
+                if (!res.ok) {
+                    res = await fetch('include/komponent_footer/about');
+                }
                 if (res.ok) {
                     const container = document.getElementById('about-content');
                     container.innerHTML = await res.text();
@@ -103,6 +259,81 @@
                 }
             } catch (e) {
                 console.error("Gagal memuat konten about:", e);
+            }
+
+            // Initialize 3D Parallax Cloud Animation Engine (GSAP + ScrollTrigger)
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+                gsap.config({ force3D: true });
+
+                const mm = gsap.matchMedia();
+
+                mm.add({
+                    isDesktop: "(min-width: 769px)",
+                    isMobile: "(max-width: 768px)"
+                }, (context) => {
+                    const { isDesktop, isMobile } = context.conditions;
+
+                    let skyStart = 0, skyEnd = -40;
+                    let cloud1Start = 160, cloud1End = -700;
+                    let cloud2Start = -80, cloud2End = -420;
+                    let cloud3Start = 20, cloud3End = -560;
+                    let mountBgStart = 0, mountBgEnd = -15;
+                    let mountMgStart = 0, mountMgEnd = -35;
+                    let mountFgStart = 0, mountFgEnd = -60;
+
+                    let skyScale = 1, mountBgScale = 1, mountMgScale = 1, mountFgScale = 1;
+
+                    if (isMobile) {
+                        skyStart = 0; skyEnd = -30;
+                        cloud1Start = 140; cloud1End = -580;
+                        cloud2Start = 40; cloud2End = -280;
+                        cloud3Start = 160; cloud3End = -460;
+                        mountBgStart = 0; mountBgEnd = -15;
+                        mountMgStart = 0; mountMgEnd = -35;
+                        mountFgStart = 0; mountFgEnd = -60;
+                    }
+
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '.parallax-wrapper',
+                            start: 'top top',
+                            end: 'bottom top',
+                            scrub: 0.5,
+                            pin: false,
+                            pinSpacing: false
+                        }
+                    });
+
+                    // Synchronized 3D depth animation
+                    tl.fromTo('.sky', { y: skyStart }, { y: skyEnd, ease: 'none', duration: 5 }, 0)
+                      .fromTo('.cloud1', { y: cloud1Start }, { y: cloud1End, ease: 'none', duration: 4 }, 0)
+                      .fromTo('.cloud2', { y: cloud2Start }, { y: cloud2End, ease: 'none', duration: 5 }, 0)
+                      .fromTo('.cloud3', { y: cloud3Start }, { y: cloud3End, ease: 'none', duration: 5 }, 0)
+                      .fromTo('.mountBg', { y: mountBgStart, scale: mountBgScale, transformOrigin: '50% 100%' }, { y: mountBgEnd, scale: mountBgScale, transformOrigin: '50% 100%', ease: 'none', duration: 5 }, 0)
+                      .fromTo('.mountMg', { y: mountMgStart, scale: mountMgScale, transformOrigin: '50% 100%' }, { y: mountMgEnd, scale: mountMgScale, transformOrigin: '50% 100%', ease: 'none', duration: 5 }, 0)
+                      .fromTo('.mountFg', { y: mountFgStart, scale: mountFgScale, transformOrigin: '50% 100%' }, { y: mountFgEnd, scale: mountFgScale, transformOrigin: '50% 100%', ease: 'none', duration: 5 }, 0);
+
+                    return () => {
+                        tl.kill();
+                    };
+                });
+
+                // Interactive bouncing chevron arrow
+                const arrowBtn = document.querySelector('#arrow-btn');
+                if (arrowBtn) {
+                    arrowBtn.addEventListener('mouseenter', () => {
+                        gsap.to('.arrow', { y: 10, duration: 0.8, ease: 'back.inOut(3)', overwrite: 'auto' });
+                        gsap.to('.arrow-reveal', { y: 10, duration: 0.8, ease: 'back.inOut(3)', overwrite: 'auto' });
+                    });
+                    arrowBtn.addEventListener('mouseleave', () => {
+                        gsap.to('.arrow', { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+                        gsap.to('.arrow-reveal', { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+                    });
+                    arrowBtn.addEventListener('click', () => {
+                        gsap.to(window, { scrollTo: '#content-section', duration: 1.4, ease: 'power2.inOut' });
+                    });
+                }
             }
         });
     </script>
