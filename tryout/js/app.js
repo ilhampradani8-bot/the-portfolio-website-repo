@@ -793,6 +793,7 @@ async function loadBankData() {
 
     loadLocalSettingsAndProgress();
     updateMasteryDashboardUI();
+    updateDrillCardCounts();
 
     // Async sync with Cloudflare D1
     syncUserProgressWithBackend();
@@ -956,6 +957,62 @@ function getSubtypeLabel(subtype) {
 }
 
 // 6C. SMART QUESTION SELECTION ALGORITHM
+function getSubtypeAvailableQuestions(targetSubtype, category = null) {
+  if (!bankData || !bankData.questions) return [];
+  return bankData.questions.filter(q => {
+    if (!q || !q.question || q.question.trim().length < 10 || !q.options || Object.keys(q.options).length < 4) {
+      return false;
+    }
+    if (category && q.category !== category) return false;
+    if (targetSubtype && targetSubtype !== 'ALL') {
+      const sub = getQuestionSubtype(q);
+      if (targetSubtype === 'drill_figural') {
+        return sub === 'drill_figural' && !!q.image;
+      }
+      return sub === targetSubtype;
+    }
+    return true;
+  });
+}
+
+function updateDrillCardCounts() {
+  if (!bankData || !bankData.questions) return;
+  const drills = [
+    { id: 'drill-count-numerik', subtype: 'drill_numerik' },
+    { id: 'drill-count-silogisme', subtype: 'drill_silogisme' },
+    { id: 'drill-count-figural', subtype: 'drill_figural' },
+    { id: 'drill-count-verbal', subtype: 'drill_verbal' },
+    { id: 'drill-count-analitis', subtype: 'drill_analitis' },
+    { id: 'drill-count-pilar', subtype: 'drill_pilar_negara' }
+  ];
+  drills.forEach(d => {
+    const el = document.getElementById(d.id);
+    if (el) {
+      const count = getSubtypeAvailableQuestions(d.subtype).length;
+      el.textContent = `${count} Soal`;
+    }
+  });
+
+  // Also update pre-exam subtype dropdown option labels with live counts
+  const subSelect = document.getElementById('pre-exam-subtype-select');
+  if (subSelect) {
+    const opts = [
+      { val: 'ALL', label: `Semua Jenis Soal (${bankData.questions.length} Soal)` },
+      { val: 'drill_numerik', label: `🔢 Khusus Numerik & Berhitung (${getSubtypeAvailableQuestions('drill_numerik').length} Soal)` },
+      { val: 'drill_silogisme', label: `🌲 Khusus Silogisme & Logika (${getSubtypeAvailableQuestions('drill_silogisme').length} Soal)` },
+      { val: 'drill_figural', label: `🧩 Khusus Penalaran Figural / Gambar (${getSubtypeAvailableQuestions('drill_figural').length} Soal)` },
+      { val: 'drill_verbal', label: `📖 Khusus Verbal & Analogi Kata (${getSubtypeAvailableQuestions('drill_verbal').length} Soal)` },
+      { val: 'drill_analitis', label: `📊 Khusus Penalaran Analitis & Posisi (${getSubtypeAvailableQuestions('drill_analitis').length} Soal)` },
+      { val: 'drill_pilar_negara', label: `🇮🇩 Khusus Pilar Negara & UUD 1945 (${getSubtypeAvailableQuestions('drill_pilar_negara').length} Soal)` },
+      { val: 'drill_integritas', label: `🛡️ Khusus Integritas & Bela Negara (${getSubtypeAvailableQuestions('drill_integritas').length} Soal)` }
+    ];
+    opts.forEach(o => {
+      const optEl = subSelect.querySelector(`option[value="${o.val}"]`);
+      if (optEl) optEl.textContent = o.label;
+    });
+  }
+}
+
 function selectQuestionsForCategory(category, requiredCount, options = {}) {
   if (!bankData || !bankData.questions) return [];
 
@@ -1057,9 +1114,11 @@ function selectQuestionsForCategory(category, requiredCount, options = {}) {
     }
   }
 
-  // Jika tetap kurang dari target, ambil sembarang yang ada di kategori
-  if (selected.length < requiredCount && catAll.length > 0) {
-    selected = catAll.slice(0, requiredCount);
+  // Jika tetap kurang dari target dan bukan mode sub-tipe spesifik (drill), ambil sembarang yang ada di kategori
+  if (!targetSubtype || targetSubtype === 'ALL') {
+    if (selected.length < requiredCount && catAll.length > 0) {
+      selected = catAll.slice(0, requiredCount);
+    }
   }
 
   return selected;
@@ -1091,31 +1150,50 @@ function startExam(packetType, customOptions = {}) {
     } else if (packetType === 'drill_tkp') {
       cat = 'TKP';
     }
-    const drillCount = targetQCount || (packetType === 'drill_figural' ? 10 : (packetType === 'drill_silogisme' || packetType === 'drill_analitis' ? 15 : 20));
+    const maxAvailable = getSubtypeAvailableQuestions(subtype, cat).length;
+    const drillCount = targetQCount 
+      ? Math.min(targetQCount, maxAvailable || targetQCount) 
+      : (packetType === 'drill_figural' ? Math.min(10, maxAvailable) : (packetType === 'drill_silogisme' || packetType === 'drill_analitis' ? Math.min(15, maxAvailable) : Math.min(20, maxAvailable)));
     questions = selectQuestionsForCategory(cat, drillCount, { remedialOnly, editionMode, includeMastered, subtype });
   } else if (packetType === 'twk_only') {
-    questions = selectQuestionsForCategory('TWK', targetQCount || 30, { remedialOnly, editionMode, includeMastered, subtype });
+    const maxAvailable = getSubtypeAvailableQuestions(subtype, 'TWK').length;
+    const count = targetQCount ? (subtype !== 'ALL' ? Math.min(targetQCount, maxAvailable) : targetQCount) : 30;
+    questions = selectQuestionsForCategory('TWK', count, { remedialOnly, editionMode, includeMastered, subtype });
   } else if (packetType === 'tiu_only') {
-    questions = selectQuestionsForCategory('TIU', targetQCount || 35, { remedialOnly, editionMode, includeMastered, subtype });
+    const maxAvailable = getSubtypeAvailableQuestions(subtype, 'TIU').length;
+    const count = targetQCount ? (subtype !== 'ALL' ? Math.min(targetQCount, maxAvailable) : targetQCount) : 35;
+    questions = selectQuestionsForCategory('TIU', count, { remedialOnly, editionMode, includeMastered, subtype });
   } else if (packetType === 'tkp_only') {
-    questions = selectQuestionsForCategory('TKP', targetQCount || 45, { remedialOnly, editionMode, includeMastered, subtype });
+    const maxAvailable = getSubtypeAvailableQuestions(subtype, 'TKP').length;
+    const count = targetQCount ? (subtype !== 'ALL' ? Math.min(targetQCount, maxAvailable) : targetQCount) : 45;
+    questions = selectQuestionsForCategory('TKP', count, { remedialOnly, editionMode, includeMastered, subtype });
   } else {
     // Multi-category (Full Simulation, Posttest, Prediksi, dll)
-    let twkCount = 30;
-    let tiuCount = 35;
-    let tkpCount = 45;
+    if (subtype && subtype !== 'ALL') {
+      // Jika user memilih drill spesifik di dalam paket simulasi (misal filter figural)
+      let cat = 'TIU';
+      if (subtype === 'drill_pilar_negara' || subtype === 'drill_integritas') cat = 'TWK';
+      else if (subtype === 'drill_tkp') cat = 'TKP';
+      const maxAvailable = getSubtypeAvailableQuestions(subtype, cat).length;
+      const count = Math.min(targetQCount || 110, maxAvailable || targetQCount);
+      questions = selectQuestionsForCategory(cat, count, { remedialOnly, editionMode, includeMastered, subtype });
+    } else {
+      let twkCount = 30;
+      let tiuCount = 35;
+      let tkpCount = 45;
 
-    if (targetQCount !== 110) {
-      twkCount = Math.max(1, Math.round(targetQCount * (30 / 110)));
-      tiuCount = Math.max(1, Math.round(targetQCount * (35 / 110)));
-      tkpCount = Math.max(1, targetQCount - twkCount - tiuCount);
+      if (targetQCount !== 110) {
+        twkCount = Math.max(1, Math.round(targetQCount * (30 / 110)));
+        tiuCount = Math.max(1, Math.round(targetQCount * (35 / 110)));
+        tkpCount = Math.max(1, targetQCount - twkCount - tiuCount);
+      }
+
+      const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode, includeMastered, subtype });
+      const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode, includeMastered, subtype });
+      const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode, includeMastered, subtype });
+
+      questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
     }
-
-    const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode, includeMastered, subtype });
-    const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode, includeMastered, subtype });
-    const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode, includeMastered, subtype });
-
-    questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
   }
 
   currentExam = {
@@ -2477,9 +2555,10 @@ function openPreExamModal(packetType) {
     packetName = 'Latihan Terarah: Silogisme & Logika';
     if (subSelect) subSelect.value = 'drill_silogisme';
   } else if (packetType === 'drill_figural') {
+    const maxAvailable = getSubtypeAvailableQuestions('drill_figural').length;
     defaultDuration = 15;
-    defaultCount = 10;
-    packetName = 'Latihan Terarah: Penalaran Figural (Pola Gambar)';
+    defaultCount = maxAvailable || 8;
+    packetName = `Latihan Terarah: Penalaran Figural (Pola Gambar • ${maxAvailable} Soal)`;
     if (subSelect) subSelect.value = 'drill_figural';
   } else if (packetType === 'drill_verbal') {
     defaultDuration = 20;
@@ -2514,6 +2593,9 @@ function openPreExamModal(packetType) {
   const includeMasteredCb = document.getElementById('pre-exam-include-mastered');
   if (includeMasteredCb) includeMasteredCb.checked = !!examSettings.includeMastered;
   if (edSelect) edSelect.value = examSettings.editionMode || 'PRIORITY_2027';
+
+  // Update dynamic question hint and quick buttons based on subtype
+  updatePreExamLimitsForSubtype();
 
   // Card official vs custom time setting toggle
   const officialTimeCard = document.getElementById('pre-exam-official-time-card');
@@ -2571,6 +2653,68 @@ function toggleUntimedMode(checkbox) {
     if (durInput) durInput.disabled = false;
     if (timerWrapper) timerWrapper.classList.remove('opacity-40', 'pointer-events-none');
     if (hint) hint.textContent = 'Standar BKN: 100 menit untuk umum, 130 menit untuk formasi disabilitas.';
+  }
+}
+
+function updatePreExamLimitsForSubtype() {
+  const subSelect = document.getElementById('pre-exam-subtype-select');
+  const subtype = subSelect ? subSelect.value : 'ALL';
+  const qInput = document.getElementById('pre-exam-qcount-input');
+  const qDisplay = document.getElementById('pre-exam-qcount-display');
+  const hint = document.getElementById('pre-exam-distribution-hint');
+  const quickContainer = document.getElementById('pre-exam-quick-qcount-buttons');
+
+  let maxAvailable = 110;
+  if (!bankData || !bankData.questions) return;
+
+  if (subtype && subtype !== 'ALL') {
+    let cat = null;
+    if (subtype === 'drill_pilar_negara' || subtype === 'drill_integritas') cat = 'TWK';
+    else if (subtype === 'drill_tkp') cat = 'TKP';
+    else if (subtype.startsWith('drill_')) cat = 'TIU';
+    
+    maxAvailable = getSubtypeAvailableQuestions(subtype, cat).length;
+    if (qInput) {
+      qInput.max = maxAvailable;
+      if (parseInt(qInput.value) > maxAvailable) {
+        qInput.value = maxAvailable;
+        if (qDisplay) qDisplay.textContent = `${maxAvailable} Soal`;
+      }
+    }
+    if (hint) {
+      hint.innerHTML = `<span class="text-blue-600 dark:text-blue-400 font-bold">Mode Drill Khusus:</span> Tersedia total <strong>${maxAvailable} Soal</strong> pada kategori ini. Anda dapat mengerjakan seluruhnya atau memilih jumlah parsial.`;
+    }
+    if (quickContainer) {
+      if (maxAvailable <= 10) {
+        quickContainer.innerHTML = `
+          <button type="button" onclick="setPreExamQCount(Math.min(5, ${maxAvailable}))" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">5 Soal</button>
+          <button type="button" onclick="setPreExamQCount(${maxAvailable})" class="col-span-3 py-2 px-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/50 hover:bg-purple-100 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 font-bold transition">Semua Soal (${maxAvailable} Figural Full)</button>
+        `;
+      } else {
+        quickContainer.innerHTML = `
+          <button type="button" onclick="setPreExamQCount(15)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">15 Soal</button>
+          <button type="button" onclick="setPreExamQCount(Math.min(30, ${maxAvailable}))" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">30 Soal</button>
+          <button type="button" onclick="setPreExamQCount(Math.min(50, ${maxAvailable}))" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">50 Soal</button>
+          <button type="button" onclick="setPreExamQCount(${maxAvailable})" class="py-2 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 font-bold transition">Semua (${maxAvailable} Soal)</button>
+        `;
+      }
+    }
+  } else {
+    maxAvailable = 110;
+    if (qInput) {
+      qInput.max = 110;
+    }
+    if (hint) {
+      hint.textContent = 'Proporsi otomatis: 30 TWK • 35 TIU • 45 TKP (atau proporsional jika jumlah disesuaikan).';
+    }
+    if (quickContainer) {
+      quickContainer.innerHTML = `
+        <button type="button" onclick="setPreExamQCount(15)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">15 Soal</button>
+        <button type="button" onclick="setPreExamQCount(30)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">30 Soal</button>
+        <button type="button" onclick="setPreExamQCount(50)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">50 Soal</button>
+        <button type="button" onclick="setPreExamQCount(110)" class="py-2 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 font-bold transition">110 (Full CAT)</button>
+      `;
+    }
   }
 }
 
