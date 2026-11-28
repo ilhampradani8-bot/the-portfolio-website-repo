@@ -1885,6 +1885,7 @@ function switchToScreen(screenName) {
   const headerStatus = document.getElementById('header-exam-status');
   const navTabs = document.getElementById('header-nav-tabs');
   const mobNavTabs = document.getElementById('mobile-nav-tabs');
+  const mainHeader = document.getElementById('main-header');
 
   lobby.classList.add('hidden');
   if (confirmation) confirmation.classList.add('hidden');
@@ -1893,6 +1894,15 @@ function switchToScreen(screenName) {
   headerStatus.classList.add('hidden');
   if (navTabs) navTabs.classList.add('hidden');
   if (mobNavTabs) mobNavTabs.classList.add('hidden');
+
+  // Otomatis mengecilkan navbar 50% saat Mode CAT aktif
+  if (mainHeader) {
+    if (screenName === 'exam') {
+      mainHeader.classList.add('cat-mode-navbar');
+    } else {
+      mainHeader.classList.remove('cat-mode-navbar');
+    }
+  }
 
   if (screenName === 'lobby') {
     lobby.classList.remove('hidden');
