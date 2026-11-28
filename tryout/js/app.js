@@ -1840,20 +1840,24 @@ function switchToScreen(screenName) {
   const exam = document.getElementById('screen-exam');
   const result = document.getElementById('screen-result');
   const headerStatus = document.getElementById('header-exam-status');
+  const navTabs = document.getElementById('header-nav-tabs');
 
   lobby.classList.add('hidden');
   exam.classList.add('hidden');
   result.classList.add('hidden');
   headerStatus.classList.add('hidden');
+  if (navTabs) navTabs.classList.add('hidden');
 
   if (screenName === 'lobby') {
     lobby.classList.remove('hidden');
+    if (navTabs) navTabs.classList.remove('hidden');
   } else if (screenName === 'exam') {
     exam.classList.remove('hidden');
     headerStatus.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else if (screenName === 'result') {
     result.classList.remove('hidden');
+    if (navTabs) navTabs.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

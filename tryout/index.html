@@ -157,8 +157,8 @@
       <!-- Left: Logo & Title -->
       <div class="flex items-center gap-3">
         <a href="https://tryout.ilhampradani.me" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition">
-            <i class="ph-bold ph-graduation-cap text-2xl"></i>
+          <div class="w-10 h-10 rounded-xl overflow-hidden bg-white shadow-md ring-1 ring-slate-200 dark:ring-slate-700 flex items-center justify-center p-0.5 group-hover:scale-105 transition">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5JAlrVz9vd9IingQ8dQYX6PHLYSVGVg8qEHiVGSM7IQ&s=10" alt="Logo Resmi BKN CAT CPNS" class="w-full h-full object-contain">
           </div>
           <div>
             <div class="flex items-center gap-2">
@@ -207,9 +207,35 @@
         </button>
       </div>
 
-      <!-- Right: User Profile, Google Sign-In, Accessibility Buttons -->
+      <!-- Right: Search Engines, User Profile, Google Sign-In, Accessibility Buttons -->
       <div class="flex items-center gap-2">
         
+        <!-- Search Engine & Browser Quick Links (Professional SVG Icons) -->
+        <div class="hidden lg:flex items-center gap-1.5 mr-1 py-1 px-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 text-xs text-slate-500">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Cari Di:</span>
+          <!-- Google Search -->
+          <a href="https://www.google.com/search?q=Tryout+CPNS+2027+Resmi+BKN+Dr+Ilham+Pradani" target="_blank" rel="noopener noreferrer" title="Cari di Google Search" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition flex items-center justify-center">
+            <svg class="w-4 h-4" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+          </a>
+          <!-- Microsoft Bing Search -->
+          <a href="https://www.bing.com/search?q=Tryout+CPNS+2027+Resmi+BKN+Dr+Ilham+Pradani" target="_blank" rel="noopener noreferrer" title="Cari di Microsoft Bing" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition flex items-center justify-center">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+              <path d="M5 3v18l5.5-3.5V11l6.5 4.5 3-1.5-10-8.5L5 3z" fill="#008373"/>
+              <path d="M10.5 17.5L5 21V3l5 2.5v12z" fill="#00A4EF"/>
+              <path d="M10.5 5.5l9.5 3-3 1.5-6.5-4.5z" fill="#2B579A"/>
+            </svg>
+          </a>
+          <!-- Web Browser Standard Icon -->
+          <a href="https://tryout.ilhampradani.me" title="Portal Web Browser Standar" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition flex items-center justify-center">
+            <i class="ph-bold ph-globe text-sm"></i>
+          </a>
+        </div>
+
         <!-- Toggle Aksesibilitas Disabilitas Kontras Tinggi -->
         <button id="btn-toggle-contrast" onclick="toggleHighContrast()" title="Mode Aksesibilitas Kontras Tinggi" class="p-2 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
           <i class="ph-bold ph-eye text-xl"></i>
@@ -249,28 +275,35 @@
     <!-- 1. SCREEN: WELCOME / LOBBY (PILIH PAKET UJIAN & PROFIL FORMASI) -->
     <section id="screen-lobby" class="space-y-8 animate-fade-in">
       
-      <!-- Hero Banner -->
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-700 via-indigo-700 to-sky-800 text-white p-6 sm:p-10 shadow-xl shadow-blue-950/10">
-        <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- Hero Banner dengan Peta Indonesia Background & Lambang Garuda Resmi -->
+      <div class="relative overflow-hidden rounded-3xl text-white p-6 sm:p-10 shadow-xl shadow-blue-950/20 border border-blue-500/30" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 58, 138, 0.88) 50%, rgba(3, 105, 161, 0.85) 100%), url('https://imgcdn.espos.id/@espos/images/2015/04/Peta_indonesia.jpg') center/cover no-repeat;">
+        <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="relative z-10 max-w-3xl space-y-4">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-medium text-sky-100 border border-white/20">
-              <i class="ph-fill ph-sparkle text-amber-300"></i> Standar KepmenPAN-RB & BKN 2026/2027
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold text-sky-100 border border-white/20">
+              <i class="ph-bold ph-shield-check text-amber-300"></i> Standar KepmenPAN-RB & BKN 2026/2027
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md text-xs font-medium text-emerald-200 border border-emerald-400/30">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 backdrop-blur-md text-xs font-semibold text-emerald-200 border border-emerald-400/30">
               <i class="ph-bold ph-wheelchair"></i> Ramah Disabilitas (130 Menit + Audio TTS)
             </span>
           </div>
 
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-            Simulasi Resmi SKD CAT CPNS 2027
-          </h1>
-          <p class="text-sky-100 text-sm sm:text-base leading-relaxed">
-            Bank materi dan soal teruji dari Buku Paten CPNS: <strong>Tes Wawasan Kebangsaan (TWK)</strong>, <strong>Tes Intelegensia Umum (TIU)</strong>, dan <strong>Tes Karakteristik Pribadi (TKP)</strong> dengan perhitungan nilai ambang batas real-time, pilihan jalur formasi, dan pembaca audio interaktif.
-          </p>
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2 shrink-0 hidden sm:flex items-center justify-center shadow-lg">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5JAlrVz9vd9IingQ8dQYX6PHLYSVGVg8qEHiVGSM7IQ&s=10" alt="Garuda Pancasila BKN" class="w-full h-full object-contain">
+            </div>
+            <div>
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+                Simulasi Resmi SKD CAT CPNS 2027
+              </h1>
+              <p class="text-sky-100 text-sm sm:text-base leading-relaxed mt-2">
+                Bank materi dan soal teruji dari Buku Paten CPNS: <strong>Tes Wawasan Kebangsaan (TWK)</strong>, <strong>Tes Intelegensia Umum (TIU)</strong>, dan <strong>Tes Karakteristik Pribadi (TKP)</strong> dengan perhitungan nilai ambang batas real-time, pilihan jalur formasi, dan pembaca audio interaktif.
+              </p>
+            </div>
+          </div>
 
           <!-- Action Bar: Google Sign In & Profil Peserta -->
-          <div class="pt-3 flex flex-wrap items-center gap-3">
+          <div class="pt-2 flex flex-wrap items-center gap-3">
             <button onclick="openProfileModal()" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm shadow-md transition flex items-center gap-2">
               <i class="ph-bold ph-user-gear text-base"></i> Atur Profil & Jalur Formasi
             </button>
@@ -605,6 +638,18 @@
 
       <!-- VIEW 2: RIWAYAT SESI TRYOUT PER AKUN (D1 PERSISTED) -->
       <div id="view-riwayat" class="hidden animate-fade-in space-y-6">
+        <!-- Breadcrumb & Back Button -->
+        <div class="flex items-center justify-between">
+          <button onclick="switchView('simulasi')" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm">
+            <i class="ph-bold ph-arrow-left"></i>
+            <span>Kembali ke Beranda</span>
+          </button>
+          <div class="inline-flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+            <span>/</span>
+            <span class="text-blue-600 dark:text-blue-400 font-bold">riwayat</span>
+          </div>
+        </div>
+
         <div id="section-session-history" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
@@ -649,6 +694,18 @@
 
       <!-- VIEW 3: PAPAN PERINGKAT NASIONAL (LEADERBOARD CAT CPNS) -->
       <div id="view-peringkat" class="hidden animate-fade-in space-y-6">
+        <!-- Breadcrumb & Back Button -->
+        <div class="flex items-center justify-between">
+          <button onclick="switchView('simulasi')" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm">
+            <i class="ph-bold ph-arrow-left"></i>
+            <span>Kembali ke Beranda</span>
+          </button>
+          <div class="inline-flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+            <span>/</span>
+            <span class="text-blue-600 dark:text-blue-400 font-bold">peringkat</span>
+          </div>
+        </div>
+
         <div id="section-leaderboard" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
@@ -709,6 +766,18 @@
 
       <!-- VIEW 4: PENGATURAN & INFORMASI AKUN -->
       <div id="view-pengaturan" class="hidden animate-fade-in space-y-6">
+        <!-- Breadcrumb & Back Button -->
+        <div class="flex items-center justify-between">
+          <button onclick="switchView('simulasi')" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm">
+            <i class="ph-bold ph-arrow-left"></i>
+            <span>Kembali ke Beranda</span>
+          </button>
+          <div class="inline-flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+            <span>/</span>
+            <span class="text-blue-600 dark:text-blue-400 font-bold">pengaturan</span>
+          </div>
+        </div>
+
         <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
           <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
