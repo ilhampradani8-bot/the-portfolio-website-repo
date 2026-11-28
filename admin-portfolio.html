@@ -645,61 +645,90 @@
     }
 
     function openAddModal() {
-      document.getElementById('form-id').value = '';
-      document.getElementById('form-judul').value = '';
-      document.getElementById('form-kategori').value = '';
-      document.getElementById('form-deskripsi').value = '';
-      document.getElementById('form-gambar').value = '';
-      document.getElementById('form-link').value = '';
-      document.getElementById('form-tech').value = '';
-      document.getElementById('form-order').value = portfolioData.length + 1;
-      document.getElementById('form-active').checked = true;
+      try {
+        const form = document.getElementById('portfolio-form');
+        if (form) form.reset();
 
-      document.getElementById('modal-title').textContent = 'Tambah Karya Baru';
-      document.getElementById('form-submit-label').textContent = 'Simpan ke Database';
-      updateModalPreviewImg();
+        document.getElementById('form-id').value = '';
+        document.getElementById('form-judul').value = '';
+        document.getElementById('form-kategori').value = '';
+        document.getElementById('form-deskripsi').value = '';
+        document.getElementById('form-gambar').value = '';
+        document.getElementById('form-link').value = '';
+        document.getElementById('form-tech').value = '';
+        document.getElementById('form-order').value = (Array.isArray(portfolioData) ? portfolioData.length : 0) + 1;
+        document.getElementById('form-active').checked = true;
 
-      document.getElementById('item-modal').classList.remove('hidden');
-      lucide.createIcons();
+        const modalTitle = document.getElementById('modal-title');
+        if (modalTitle) modalTitle.textContent = 'Tambah Karya Baru';
+
+        const submitLabel = document.getElementById('form-submit-label');
+        if (submitLabel) submitLabel.textContent = 'Simpan ke Database';
+
+        updateModalPreviewImg();
+
+        const modal = document.getElementById('item-modal');
+        if (modal) {
+          modal.classList.remove('hidden');
+        }
+        lucide.createIcons();
+      } catch (err) {
+        console.error('Error opening add modal:', err);
+      }
     }
 
     function openEditModal(id) {
-      const item = portfolioData.find(x => x.id === id);
-      if (!item) return;
+      try {
+        const item = portfolioData.find(x => x.id === id);
+        if (!item) return;
 
-      document.getElementById('form-id').value = item.id;
-      document.getElementById('form-judul').value = item.judul || '';
-      document.getElementById('form-kategori').value = item.kategori || '';
-      document.getElementById('form-deskripsi').value = item.deskripsi || '';
-      document.getElementById('form-gambar').value = item.gambar || '';
-      document.getElementById('form-link').value = item.link || '';
-      document.getElementById('form-tech').value = item.tech || '';
-      document.getElementById('form-order').value = item.order_index || 0;
-      document.getElementById('form-active').checked = item.is_active == 1;
+        document.getElementById('form-id').value = item.id;
+        document.getElementById('form-judul').value = item.judul || '';
+        document.getElementById('form-kategori').value = item.kategori || '';
+        document.getElementById('form-deskripsi').value = item.deskripsi || '';
+        document.getElementById('form-gambar').value = item.gambar || '';
+        document.getElementById('form-link').value = item.link || '';
+        document.getElementById('form-tech').value = item.tech || '';
+        document.getElementById('form-order').value = item.order_index || 0;
+        document.getElementById('form-active').checked = item.is_active == 1;
 
-      document.getElementById('modal-title').textContent = `Edit Karya: ${item.judul}`;
-      document.getElementById('form-submit-label').textContent = 'Perbarui Data';
-      updateModalPreviewImg();
+        const modalTitle = document.getElementById('modal-title');
+        if (modalTitle) modalTitle.textContent = `Edit Karya: ${item.judul}`;
 
-      document.getElementById('item-modal').classList.remove('hidden');
-      lucide.createIcons();
+        const submitLabel = document.getElementById('form-submit-label');
+        if (submitLabel) submitLabel.textContent = 'Perbarui Data';
+
+        updateModalPreviewImg();
+
+        const modal = document.getElementById('item-modal');
+        if (modal) {
+          modal.classList.remove('hidden');
+        }
+        lucide.createIcons();
+      } catch (err) {
+        console.error('Error opening edit modal:', err);
+      }
     }
 
     function closeModal() {
-      document.getElementById('item-modal').classList.add('hidden');
+      const modal = document.getElementById('item-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
     function updateModalPreviewImg() {
-      const url = document.getElementById('form-gambar').value.trim();
+      const imgInput = document.getElementById('form-gambar');
+      const url = imgInput ? imgInput.value.trim() : '';
       const img = document.getElementById('modal-preview-img');
       const srcTxt = document.getElementById('modal-preview-src');
 
+      if (!img) return;
+
       if (url) {
         img.src = url;
-        srcTxt.textContent = url;
+        if (srcTxt) srcTxt.textContent = url;
       } else {
         img.src = 'image/hero.jpg';
-        srcTxt.textContent = 'Belum ada URL gambar';
+        if (srcTxt) srcTxt.textContent = 'Belum ada URL gambar';
       }
     }
 
@@ -724,8 +753,10 @@
         payload.id = parseInt(id, 10);
       }
 
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Menyimpan...</span>';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Menyimpan...</span>';
+      }
 
       try {
         const resp = await fetch(API_ENDPOINT, {
@@ -748,9 +779,11 @@
       } catch (err) {
         showToast('Error: ' + err.message, 'error');
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>' + (isEdit ? 'Perbarui Data' : 'Simpan ke Database') + '</span>';
-        lucide.createIcons();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span id="form-submit-label">${isEdit ? 'Perbarui Data' : 'Simpan ke Database'}</span>`;
+          lucide.createIcons();
+        }
       }
     }
 
