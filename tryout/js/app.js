@@ -801,6 +801,17 @@ async function loadBankData() {
   }
 }
 
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[m]);
+}
+
 // 6B. QUESTION SUBTYPE CLASSIFIER & DRILL FILTER
 function getQuestionSubtype(q) {
   if (!q) return 'other';
@@ -809,20 +820,18 @@ function getQuestionSubtype(q) {
   const text = (rawQ + ' ' + (q.explanation || '')).toLowerCase();
 
   if (cat === 'TIU') {
+    // 0. Figural jika memiliki gambar diagram atau kata kunci pola visual
+    if (q.image || (q.id && (q.id.includes('fig') || q.id.includes('to1-28') || q.id.includes('to1-29') || q.id.includes('to1-30') || q.id.includes('to2-28') || q.id.includes('to2-29') || q.id.includes('to2-30')))) {
+      return 'drill_figural';
+    }
+
     // 1. Figural (Pola gambar, rotasi, pencerminan, kubus, bentuk)
+    const textWithoutMenggambarkan = text.replace(/menggambarkan/g, '');
     if (
-      text.includes('gambar') ||
-      text.includes('rotasi') ||
+      /\b(gambar|figural|rotasi|cermin|pencerminan|kubus|jaring-jaring|simetri)\b/.test(textWithoutMenggambarkan) ||
       text.includes('pola gambar') ||
-      text.includes('cermin') ||
-      text.includes('pencerminan') ||
-      text.includes('kubus') ||
-      text.includes('jaring-jaring') ||
-      text.includes('figural') ||
-      text.includes('pola bentuk') ||
-      text.includes('simetri') ||
-      text.includes('segi lima') ||
-      text.includes('segi enam')
+      text.includes('analogi gambar') ||
+      text.includes('pola bentuk')
     ) {
       return 'drill_figural';
     }
@@ -961,7 +970,13 @@ function selectQuestionsForCategory(category, requiredCount, options = {}) {
 
   // Jika sub-tipe spesifik dipilih (Numerik, Silogisme, Figural, dsb)
   if (targetSubtype && targetSubtype !== 'ALL') {
-    const subPool = catAll.filter(q => getQuestionSubtype(q) === targetSubtype);
+    let subPool = catAll.filter(q => getQuestionSubtype(q) === targetSubtype);
+    if (targetSubtype === 'drill_figural') {
+      const withImg = subPool.filter(q => !!q.image);
+      if (withImg.length > 0) {
+        subPool = withImg;
+      }
+    }
     if (subPool.length > 0) {
       catAll = subPool;
     }
@@ -1276,9 +1291,19 @@ function renderCurrentQuestion() {
     }
   }
 
-  // Question Text
+  // Question Text & Diagram Image (Figural)
   const qTextEl = document.getElementById('question-text');
-  qTextEl.textContent = q.question;
+  if (q.image) {
+    qTextEl.innerHTML = `
+      <div class="mb-3 text-slate-800 dark:text-slate-100 font-bold leading-relaxed">${escapeHtml(q.question || 'Perhatikan gambar berikut:')}</div>
+      <div class="my-4 p-4 bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col justify-center items-center shadow-xs overflow-hidden">
+        <img src="${q.image}" alt="Diagram Soal Figural CAT CPNS" class="max-h-72 sm:max-h-96 max-w-full w-auto object-contain rounded-xl select-none" loading="eager">
+        <span class="text-[11px] text-slate-400 mt-2 font-medium">Diagram Pola Soal & Opsi Pilihan Jawaban</span>
+      </div>
+    `;
+  } else {
+    qTextEl.textContent = q.question;
+  }
   applyFontSize();
 
   // Ragu-ragu Checkbox
@@ -1937,6 +1962,12 @@ function renderReviewList() {
       <div class="text-slate-800 dark:text-slate-100 text-base leading-relaxed whitespace-pre-line select-text">
         ${q.question}
       </div>
+      ${q.image ? `
+        <div class="my-3 p-4 bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col justify-center items-center shadow-xs overflow-hidden">
+          <img src="${q.image}" alt="Diagram Soal Figural" class="max-h-72 sm:max-h-80 max-w-full object-contain rounded-xl select-none" loading="lazy">
+          <span class="text-[11px] text-slate-400 mt-2 font-medium">Diagram Soal & Pola Jawaban</span>
+        </div>
+      ` : ''}
 
       <div class="grid grid-cols-1 gap-2 pt-2 text-sm select-text">
         ${['A', 'B', 'C', 'D', 'E'].map(optKey => {

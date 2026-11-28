@@ -2181,13 +2181,13 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "PROMINEN >< ….",
+      "question": "Mesin A dapat menyelesaikan suatu pekerjaan dalam waktu 24 jam, sedangkan mesin B dapat menyelesaikan dalam waktu 6 jam. Berapa lama waktu yang diperlukan untuk menyelesaikan pekerjaan tersebut jika dikerjakan dengan 3 buah mesin A dan 2 buah mesin B?",
       "options": {
-        "A": "Biasa",
-        "B": "Tinggi",
-        "C": "Elit",
-        "D": "Utama",
-        "E": "Terkemuka"
+        "A": "2 jam",
+        "B": "2,5 jam",
+        "C": "3 jam",
+        "D": "3,5 jam",
+        "E": "4 jam"
       },
       "answer": "E",
       "points": {
@@ -2457,13 +2457,13 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "siswa gemar fisika, 23 siswa gemar matematika, dan 11 siswa gemar kedua mata \npelajaran tersebut. Jika terdapat 5 siswa \nyang tidak gemar kedua mata pelajaran \ntersebut, berarti jumlah seluruh siswa di \nkelas tersebut adalah ....",
+      "question": "Pak Banu adalah seorang pegawai dengan \ngaji bersih Rp3.819.000. Jika gaji tersebut \ntelah dipotong PPh sebesar 5%, gaji Pak \nBanu sebenarnya adalah ....",
       "options": {
-        "A": "30 siswa",
-        "B": "32 siswa",
-        "C": "35 siswa",
-        "D": "37 siswa",
-        "E": "39 siswa"
+        "A": "Rp3.925.000,00",
+        "B": "Rp3.990.000,00",
+        "C": "Rp4.020.000,00",
+        "D": "Rp4.100.000,00",
+        "E": "Rp5.000.000,00"
       },
       "answer": "A",
       "points": {
@@ -2473,7 +2473,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Penghasilan Bersih = \nPenghasilan Kotor–PPh\nMisal persentase penghasilan kotor = \n100%, maka:\nPenghasilan bersih = 100%–5% = 95%\nBesar penghasilan kotor adalah:"
+      "explanation": "Diketahui:\nGaji Bersih = Gaji Kotor - PPh (5%)\nJika persentase gaji kotor = 100%, maka:\nPersentase gaji bersih = 100% - 5% = 95%\n\nBesar gaji kotor sebenarnya:\nGaji Kotor = (100 / 95) × Rp3.819.000,00 = Rp4.020.000,00.\n\nJadi, gaji sebenarnya Pak Banu adalah Rp4.020.000,00.\n▶ Jawaban: C"
     },
     {
       "id": "tiu-try-out-1-20",
@@ -2522,29 +2522,6 @@
       "explanation": "Diketahui:\n• Sisi persegi = 12 cm\n  Luas a = sisi × sisi = 12 × 12 = 144 cm²\n• Panjang persegi panjang = 16 cm, lebar = 9 cm\n  Luas b = panjang × lebar = 16 × 9 = 144 cm²\n\nMaka perbandingan luas keduanya adalah:\na = b\n\n▶ Jawaban: C"
     },
     {
-      "id": "tiu-try-out-1-22",
-      "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "Pak Banu adalah seorang pegawai dengan \ngaji bersih Rp3.819.000. Jika gaji tersebut \ntelah dipotong PPh sebesar 5%, gaji Pak \nBanu sebenarnya adalah ....",
-      "options": {
-        "A": "Rp3.925.000,00",
-        "B": "Rp3.990.000,00",
-        "C": "Rp4.020.000,00",
-        "D": "Rp4.100.000,00",
-        "E": "Rp5.000.000,00"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Diketahui:\nGaji Bersih = Gaji Kotor - PPh (5%)\nJika persentase gaji kotor = 100%, maka:\nPersentase gaji bersih = 100% - 5% = 95%\n\nBesar gaji kotor sebenarnya:\nGaji Kotor = (100 / 95) × Rp3.819.000,00 = Rp4.020.000,00.\n\nJadi, gaji sebenarnya Pak Banu adalah Rp4.020.000,00.\n▶ Jawaban: C"
-    },
-    {
       "id": "tiu-try-out-1-24",
       "edition": "2027",
       "category": "TIU",
@@ -2591,29 +2568,6 @@
       "explanation": "Kecepatan pengerjaan masing-masing:\n• Kecepatan Ana = 1/3 pekerjaan/jam\n• Kecepatan Bianka = 1/6 pekerjaan/jam\n\nKecepatan gabungan jika bekerja bersama:\nv_gabungan = 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2 pekerjaan/jam.\n\nWaktu yang diperlukan untuk menyelesaikan 1 pekerjaan utuh:\nWaktu = 1 / (1/2) = 2 jam.\n\nJadi, pekerjaan selesai dalam waktu 2 jam.\n▶ Jawaban: E"
     },
     {
-      "id": "tiu-try-out-1-2",
-      "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "Mesin A dapat menyelesaikan suatu pekerjaan dalam waktu 24 jam, sedangkan mesin B dapat menyelesaikan dalam waktu 6 jam. Berapa lama waktu yang diperlukan untuk menyelesaikan pekerjaan tersebut jika dikerjakan dengan 3 buah mesin A dan 2 buah mesin B?",
-      "options": {
-        "A": "2 jam",
-        "B": "2,5 jam",
-        "C": "3 jam",
-        "D": "3,5 jam",
-        "E": "4 jam"
-      },
-      "answer": "E",
-      "points": {
-        "A": 0,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 5
-      },
-      "explanation": "jam = + =  ▶ Jawaban: E"
-    },
-    {
       "id": "tiu-try-out-1-27",
       "edition": "2027",
       "category": "TIU",
@@ -2641,13 +2595,14 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "Pilihlah gambar yang merupakan kelanjutan analogi logis dari pola bentuk geometri berikut: Lingkaran di tengah pada gambar pertama membesar, dan elemen lainnya mengalami rotasi berurutan searah jarum jam berada di dalam lingkaran utama.",
+      "question": "Perhatikan gambar berikut. Tentukan gambar pilihan yang merupakan kelanjutan analogi logis dari pola bentuk geometri di bawah ini:",
+      "image": "images/questions/tiu_to1_q29.png",
       "options": {
-        "A": "Gambar bentuk A dengan rotasi 45 derajat",
-        "B": "Gambar bentuk B dengan rotasi 90 derajat",
-        "C": "Gambar bentuk C dengan rotasi 135 derajat",
-        "D": "Gambar bentuk D dengan rotasi elemen tepat searah jarum jam di dalam lingkaran",
-        "E": "Gambar bentuk E tanpa perubahan elemen"
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
       },
       "answer": "D",
       "points": {
@@ -2657,7 +2612,7 @@
         "D": 5,
         "E": 0
       },
-      "explanation": "Lingkaran yang ada di tengah pada gambar pertama berubah menjadi besar dan \nelemen lainnya berotasi derajat searah jarum jam dan berada di dalam lingkaran. \nAnalogi tersebut jika diterapkan pada gambar soal maka akan menghasilkan pilihan \njawaban D.\n ▶ Jawaban: D"
+      "explanation": "Lingkaran yang ada di tengah pada gambar pertama berubah menjadi besar dan elemen lainnya berotasi derajat searah jarum jam dan berada di dalam lingkaran. Analogi tersebut jika diterapkan pada gambar soal menghasilkan pilihan jawaban D.\n▶ Jawaban: D"
     },
     {
       "id": "tiu-try-out-2-1",
@@ -2756,13 +2711,13 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "Tiga tim pendaki gunung harus dibentuk \ndengan masing-masing tim terdiri dari tiga \norang. A harus berada dalam satu tim de -\nngan D, B tidak boleh setim dengan G atau \nC, C tidak boleh dipisahkan dengan I, se -\ndangkan F harus dipisahkan dengan A untuk tiap tim yang dapat dibentuk adalah ….",
+      "question": "bagian, \nberapa liter air yang diperlukan?",
       "options": {
-        "A": "A, D, G–B, E, H–C, I, F",
-        "B": "A, B, G–D, E, H–C, I, F",
-        "C": "A, I, F–B, E, N–C, D, F",
-        "D": "A, D, I–B, E, H–C, G, F",
-        "E": "A, B, E–H, C, I–F, G, D\n512"
+        "A": "6",
+        "B": "8",
+        "C": "9",
+        "D": "10",
+        "E": "12"
       },
       "answer": "A",
       "points": {
@@ -2934,29 +2889,6 @@
         "E": 0
       },
       "explanation": "Kita ubah semua bilangan ke bentuk pe -\ncahan desimal.\n56,3356,33% 0,5633100= =\n3 3 125 50,125 0,51.000 10= = =\n2\n11 0,111139 = ="
-    },
-    {
-      "id": "tiu-try-out-2-7",
-      "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "bagian, \nberapa liter air yang diperlukan?",
-      "options": {
-        "A": "6",
-        "B": "8",
-        "C": "9",
-        "D": "10",
-        "E": "12"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Telaah satu per satu pilihan jawaban sesuai \nsyarat yang ada pada soal.\n ⇲ A harus berada dalam satu tim dengan \nD.\nPilihan jawaban yang tidak sesuai syarat tersebut adalah B, C, E. Jadi, pilihan \njawaban yang tersisa adalah A dan D.\n ⇲ B tidak boleh setim dengan G atau C.\nPilihan jawaban A dan D masih memenuhi syarat tersebut.\n ⇲ C tidak boleh dipisahkan dengan I.\nPilihan jawaban yang memenuhi adalah A saja.\nJadi, jawaban yang tepat adalah A."
     },
     {
       "id": "tiu-try-out-2-21",
@@ -5487,13 +5419,13 @@
       "edition": "2027",
       "category": "TWK",
       "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Peneliti Forum Masyarakat Peduli Parlemen \nIndonesia (Formappi) Lucius Karus menilai \nwacana masa jabatan presiden hingga tiga \nperiode tidaklah tepat. Lucius mengatakan \nwacana tersebut berbahaya bagi demokrasi di Indonesia. Lucius menuturkan sebagai \nsebuah sistem, wacana masa kepemimpinan presiden tiga periode dinilai bisa menghambat regenerasi. Pihaknya mengatakan, \nseharusnya sistem yang ada saat ini diper -\nkuat. “Sebagai sebuah sistem, demokrasi \nmenjamin regenerasi dan kesinambungan \npemimpin, termasuk Presiden. ” Wacana di \natas kaitannya dengan demokrasi sangat \nerat dengan Pancasila. Demokrasi terbentuk karena konsistensi sebuah sistem yg \nkuat. Idealnya sebuah sistem yg kuat dan \nkokoh mencerminkan . . . .",
+      "question": "Hari ini di kantor Anda akan di adakan rapat \nbesar terkait dengan kebijakan yang akan \nditempuh oleh perusahaan dalam rangka \nuntuk meningkatkan pelayanan terhadap \nmasyarakat. Semua karyawan yang me -\nwakili divisi masing-masing diminta untuk \nmenyampaikan ide dan gagasan mereka \npada saat rapat berlangsung, Anda pun telah menyampaikan ide Anda sebagai per -\nwakilan dari divisi Anda, tetapi rekan yang \nlain kurang mendukung ide dan gagasan \nyang Anda ajukan karena dinilai tidak me -\nmiliki perubahan signifikan terhadap perusahaan kedepannya, sikap Anda adalah . . . .",
       "options": {
-        "A": "Sila ke 2",
-        "B": "Sila ke 3",
-        "C": "Sila ke 4",
-        "D": "Sila ke 5",
-        "E": "Sistem sesuai zaman"
+        "A": "Mencoba membicarakan lebih jauh \ndengan rekan perwakilan divisi yang \nlain maksud dari gagasan yang Anda \najukan dan dampaknya terhadap per -\nusahaan.",
+        "B": "Mencari dukungan dari ketua rapat, \ndengan memberikan data-data yang \nmendukung gagasan Anda agar dite -\nrima.",
+        "C": "Membicarakan dengan rekan divisi \nlain untuk memadukan gagasan yang \nAnda punya.",
+        "D": "Menggantinya dengan ide lain yang \nlebih baik dan dapat diterima oleh se -\nmua perwakilan divisi.",
+        "E": "Merumuskan ide tersebut secara detail agar rekan-rekan yang lain mengerti \nbahwa gagasan yang Anda sampaikan \nakan berdampak baik bagi kemajuan \nperusahaan."
       },
       "answer": "A",
       "points": {
@@ -5504,396 +5436,6 @@
         "E": 0
       },
       "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-19",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Kasus ini merupakan pelanggaran terhadap Pancasila khususnya sila . . . .",
-      "options": {
-        "A": "Padi dan Kapas",
-        "B": "Kepala Banteng",
-        "C": "Rantai Emas",
-        "D": "Pohon Beringin",
-        "E": "Bintang"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: A\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda adalah pribadi yang memiliki \nkarakter kuat dan teguh mempertahankan \nprinsip. \nPilihan Jawaban Poin Nilai\nA 5\nC 4\nB 3\nD 2\nE 1"
-    },
-    {
-      "id": "pretest-3",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "X adalah seorang gadis yang sangat cantik, \nbahkan mendekati sempurna. Dia selalu \nmendapatkan prestasi di sekolahnya. Dia \nterlahir dari orang tua yang kaya-raya, serta \nsukses di Kotanya tempat dia tinggal. Namun, dia adalah orang yang sombong. Dia \nselalu menilai orang lain dari kekayaannya \ndan kedudukannya. Dalam bergaul dia sangat selektif, dia lebih memilih teman yang \nkaya. Sikap X bertentangan dengan sila . . . .",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Pelayanan publik\nDalam memecahkan permasalahan yang \nberkaitan dengan pelayanan publik, se -\nsoang harus mengutamakan keramahtamahan dalam bekerja, cepat, sopan, tidak \nmudah marah, tidak mudah kesal, peduli, \nmenerapkan skala prioritas serta fokus \npada kebutuhan dan kepuasan orang lain. \nPilihlah jawaban yang sesuai dengan we -\nwenang dan SOP atau prosedur. Jika terdapat suatu permasalahan yang diluar wewenang, harus dilaporkan pada atasan atau \npihak yang berwenang. \nPilihan Jawaban Poin Nilai\nE 5\nC 4\nD 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-4",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Membuang sampah sembarangan termasuk dalam salah satu penyebab terkikisnya \nsemangat kebangsaan . . . .",
-      "options": {
-        "A": "Nasionalisme",
-        "B": "Integritas Nasional",
-        "C": "Pancasila",
-        "D": "Bela Negara",
-        "E": "NKRI"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nA 3\nC 2\nB 1"
-    },
-    {
-      "id": "pretest-5",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Pak Tono adalah orang yang sombong. Ia \nselalu menilai orang dari kekayaan dan ke -\ndudukannya. Beliau bila menasihati anak -\nnya selalu berpesan kalau menikah harus \nmencari suami yang kaya, jangan mau hidup miskin. Karena hidup dengan kemiskinan itu tidak akan mudah. Pesan itu yang \nselalu diingat oleh anaknya. Sikap Pak Tono \nbertentangan dengan sila . . . .",
-      "options": {
-        "A": "Ketuhanan Yang Maha Esa",
-        "B": "Kemanusiaan yang Adil dan Beradab",
-        "C": "Persatuan Indonesia",
-        "D": "Kerakyatan yang Dipimpin oleh Hik -\nmat Kebijaksanaan dalam Permu syawarat an Perwakilan",
-        "E": "Keadilan Sosial bagi Seluruh Rakyat Indonesia"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Pelayanan publik\nDalam memecahkan permasalahan yang \nberkaitan dengan pelayanan publik, se -\nsoang harus mengutamakan keramahtamahan dalam bekerja, cepat, sopan, tidak \nmudah marah, tidak mudah kesal, peduli,"
-    },
-    {
-      "id": "pretest-6",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Manusia adalah makhluk sosial yang tidak akan bisa terlepas dari sikap saling \nmenghormati, menghargai, bekerja sama, \nberkomunikasi, serta memiliki hubungan \nyang saling menguntungkan. Karena hal \nitulah, masyarakat yang ada di Indonesia \njuga senantiasa menjalin hubungan yang \nbaik dengan masyarakat yang ada di seluruh belahan bumi. Salah satu contoh sikap \nbangsa Indonesia adalah dengan masuk \nsebagai anggota PBB dan menjalin hubungan diplomatik dengan negara-negara \nlain di dunia. Hal tersebut merupakan salah \nsatu pengamalan yang dilakukan oleh pe -\nmerintah dalam menjalankan sila Pancasila \nke . . . .",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti mendengarkan keluhan teman \ndan membantu memecahkan masalahnya.\nPilihan Jawaban Poin Nilai\nC 5\nE 4\nA 3\nB 2\nD 1"
-    },
-    {
-      "id": "pretest-20",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "sebagai suplai raw material. Tindakan Ab -\ndul tersebut secara nyata merupakan implementasi dari butir Pancasila sila ke . . . .",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-8",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Indonesia adalah negara luas yang terdiri \ndari banyak pulau yang membentang dari \ndaratan Aceh hingga Papua. Tentunya tidak \nsetiap saat pemerintah dapat memenuhi \nkebutuhan setiap masyarakat Indonesia \nsecara maksimal. Contohnya baru-baru ini \ndi wilayah ibukota dan Pulau Jawa pada \nkhususnya, terjadi pemadaman listrik yang \nsangat lama, bahkan sampai mengakibat -\nkan kerugian yang sangat besar karena \npemadaman berlangsung lebih dari 24 jam \ndi beberapa wilayah. Namun ternyata, ada \nbeberapa anggota masyarakat yang tidak \nperduli dengan hal tersebut, dengan pergi \nkeluar negeri hanya karena pemadaman \nlistrik dan orang tersebut memiliki banyak \nuang. Hal tersebut bertentangan dengan \nPancasila, terutama sila ke ...",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Semangat berprestasi\nPilihlah jawaban yang menunjukkan semangat kompetisi dan menggerakkan usaha \nuntuk sukses. Sebagai peserta lomba Anda \ntentu harus memberikan penampilan ter -\nbaik Anda untuk perusahaan dengan menjadi juara. Hal ini menunjukkan Anda kar -\nyawan yang semangat, penuh semangat \ndalam berkompetisi dan mengerahkan \nusaha semaksimal mungkin.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nE 3\nC 2\nA 1"
-    },
-    {
-      "id": "pretest-9",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Polda Bengkulu turun tangan usai video \npem-bully-an seorang bocah SMP kepada \ntemannya viral di media sosial. Sebagai \ninformasi, rekaman video pem-bully-an itu \npertama kali dibagikan oleh akun Instagram @bengkulu_terkini.id. Bocah yang \ntampak memakai baju cokelat tampak te -\nngah dipukuli oleh siswa berbaju biru de -\nngan memakai topi.\nDikutip dari Tribunnews.com (Rabu, 04/08/2021)\nBullying termasuk pelanggaran sila ke . . . .",
-      "options": {
-        "A": "1",
-        "B": "3",
-        "C": "5",
-        "D": "2",
-        "E": "4"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-10",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Zoldyck seorang perokok berat, dalam se -\nhari dia bisa menghabiskan lima puluh batang rokok. Walau telah divonis oleh dokter \nmengidap penyakit kanker paru-paru, dia \nenggan mengubah pola hidupnya. Suatu \nhari Zoldyck menggunakan Transjakarta \nmenuju kantornya, dalam perjalanan Zoldyck menghisap rokok tanpa menghiraukan \ntulisan \"Dilarang Merokok\" yang tertera di \nkendaraan umum tersebut. Zoldyck sempat ditegur oleh petugas TransJakarta atas \ntindakannya. Namun, Zoldyck balik memarahi petugas tersebut, sambil mengatakan \njika petugas tersebut hanyalah seorang \npegawai rendahan yang tidak memiliki hak \nuntuk menegurnya. Tindakan Zoldyck me -\nrupakan penyimpangan dari sila . . . .",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda adalah pribadi yang memiliki \nkarakter kuat dan teguh mempertahankan \nprinsip."
-    },
-    {
-      "id": "pretest-11",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Sebagai dasar negara, Pancasila dijadikan \npedoman hidup bangsa Indonesia. Namun, masih banyak kasus penyimpanganpenyimpangan terhadap nilai-nilai Pancasila, salah satunya adalah penyimpangan \nterhadap sila ke-3. Di bawah ini kasus pe -\nnyimpangan terhadap sila ke-3 yang per -\nnah terjadi di Indonesia adalah . . . .",
-      "options": {
-        "A": "Kerusuhan di Tolikara Papua",
-        "B": "Kasus perbudakan buruh panci",
-        "C": "Kasus pelecehan seksual di Sekolah JIS",
-        "D": "Kasus penyerangan Mapolres OKU di \nSumsel",
-        "E": "KKN Dinasti Ratu Atut Choisiah"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nD 3\nE 2\nB 1"
-    },
-    {
-      "id": "pretest-21",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "rupakan apresiasi pemerintah pusat kepada daerah terbaik dalam Evaluasi Kinerja \nPenyelenggaraan Pemerintahan Daerah \n(EKPPD) 2018, khususnya terhadap Lapor -\nan Penyelenggaraan Pemerintahan Daerah \n(LPPD) 2017. Kali ini Banyuwangi masuk \nempat besar daerah terbaik dari 415 kabupaten seluruh Indonesia. Sebelumnya, \npada 2015 dan 2016, Kabupaten Banyuwangi juga masuk enam dan empat besar \ndaerah terbaik nasional.\nDikutip dari Media Indonsesia.com (Jumat, \n26/04/2019)\nSalah satu kebijakan otonomi daerah yang \nmemberikan keistimewaan terhadap dae -\nrah tertentu merupakan implementasi nilai \nPancasila yang merujuk pada sila . . . .",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -"
-    },
-    {
-      "id": "pretest-13",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Pada suatu hari Andi ditawari teman se -\nwaktu kuliahnya dahulu untuk mencoba \npekerjaan baru yang dianggap lebih baik \ndari pekerjaan Andi yang sekarang, tetapi \nAndi sudah merasa nyaman dengan pe -\nkerjaannya yang sekarang dan sudah me -\nnguasai sistem kerja juga seluk-beluk yang \nada di pekerjaannya sekarang, walaupun \nsebernarnya tawaran itu belum tentu baik \ndi sisi Andi untuk jangka waktu yang lama. \nSikap Andi dalam kasus di atas mencerminkan adanya konsistensi dan ketegasan di \ndalam diri Andi yang sangat berkaitan erat \ndengan . . . .",
-      "options": {
-        "A": "Nasionalisme",
-        "B": "Integritas",
-        "C": "Bela Negara",
-        "D": "Persatuan",
-        "E": "Tertib Hukum"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Sosial budaya\nJadilah orang yang mudah adaptasi dan \nmengutamakan kepentingan umum. Pilihlah jawaban yang mengutamakan Pancasila dan gotong royong.\nPilihan Jawaban Poin Nilai\nB 5\nE 4\nA 3\nD 2\nC 1"
-    },
-    {
-      "id": "pretest-14",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Kemampuan awal bela negara merupakan \nnilai dasar dari sikap bela negara. Kemampuan awal bela negara tersebut indikator -\nnya adalah di bawah ini, kecuali . . . .",
-      "options": {
-        "A": "Memiliki kecerdasan intelektual, ke -\ncerdasan spiritual, kecerdasan emosional, dan kecerdasan dalam bertahan \nhidup atau mengatasi kesulitan.",
-        "B": "Memelihara kesehatan jiwa dan raganya saat dibutuhkan.",
-        "C": "Ulet dan pantang menyerah dalam \nmenghadapi tantangan.",
-        "D": "Terus membina kemampuan jasmani \ndan rohani.",
-        "E": "Memiliki keterampilan bela negara dalam bentuk keterampilan."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasi orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda untuk menggerakkan te -\nman-teman Anda, dan sikap paling bijak \nyang harus Anda tunjukkan. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nB 2\nA 1"
-    },
-    {
-      "id": "pretest-15",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Ani merupakan anak sulung dari tiga orang \nbersaudara. Terlahir ditengah keluarga \nyang kaya raya, membuat ani tidak segansegan bergaya borjuis. Seluruh barangbarang yang dimilikinya bermerek luar ne -\ngeri dan limited edition. Tidak segan-segan \ndia merogoh kocek demi mengejar barangbarang yang diincarnya. Ani percaya bahwa produk-produk luar negeri merupakan \nproduk yang terbaik dibandingkan produk \ndalam negeri. Sikap ani mencerminkan \npandangan . . . .",
-      "options": {
-        "A": "Primordialisme",
-        "B": "Xenosentrisme",
-        "C": "Etnosentrisme",
-        "D": "Sukuisme",
-        "E": "Ekstrimisme"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nB 2\nA 1"
-    },
-    {
-      "id": "pretest-16",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Kesadaran akan nasionalisme terkadang \nmembelenggu dan menghambat rakyat \ndan pemerintahan sendiri. Hal ini bisa ter -\njadi ketika . . . .",
-      "options": {
-        "A": "Nasionalisme dipahami secara mendalam sebagai sebuah ideologi",
-        "B": "Kedudukan nasionalisme sematamata tidak hanya ideologi",
-        "C": "Sifat universalitas tetap dipegang te -\nguh",
-        "D": "Nasionalisme dijadikan sebagai semangat dan semboyan bangsa"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Semangat berprestasi\nPilihlah jawaban yang menunjukkan se -\nmangat kompetisi dan mengembangkan \ntalenta yang Anda miliki. Sebagai peserta \nlomba Anda tentu harus memberikan pe -\nnampilan terbaik Anda untuk perusahaan \ndengan menjadi juara. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-17",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Implementasi dalam kehidupan nyata pe -\nnerapan Pancasila sebagai dasar negara \ntecermin dalam kegiatan . . . .",
-      "options": {
-        "A": "Mengikuti upacara kebangkitan Pancasila dengan khidmat berlandaskan \njiwa nasionalisme",
-        "B": "Memberikan bantuan sosial pada \nkaum duafa",
-        "C": "Mengerjakan tugas kantor sesuai de -\nngan perintah atasan",
-        "D": "Pulang setelah jam kerja kantor sele -\nsai dan memberi salam kepada atasan \ndan rekan kerja",
-        "E": "Memasang sabuk pengaman saat mengendarai mobil sesuai dengan tata \ntertib lalu lintas"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nC 5\nE 4\nA 3\nB 2\nD 1"
-    },
-    {
-      "id": "pretest-18",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Kasus penganiayaan oleh oknum pejabat \nnegara terhadap rakyat sipil masih terjadi \ndalam kehidupan nyata dengan berbagai \nmacam sebab yang kompleks. Hal ini merupakan penyimpangan dari tujuan nasional, \nkhususnya pada . . . .",
-      "options": {
-        "A": "Melindungi segenap bangsa Indone -\nsia",
-        "B": "Memajukan kesejahteraan umum",
-        "C": "Mencerdaskan kehidupan bangsa",
-        "D": "Menciptakan ketertiban umum",
-        "E": "Ikut melaksanakan ketertiban dunia"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Kemampuan menggerakkan dan \nmengodinir orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan karyawan dan menyelesaikan masalah. \nPilihan Jawaban Poin Nilai\nE 5\nA 4\nC 3\nD 2\nB 1"
     },
     {
       "id": "pretest-19",
@@ -5917,785 +5459,6 @@
         "E": 0
       },
       "explanation": "Jawab an: A\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda adalah pribadi yang memiliki \nkarakter kuat dan teguh mempertahankan \nprinsip. \nPilihan Jawaban Poin Nilai\nA 5\nC 4\nB 3\nD 2\nE 1"
-    },
-    {
-      "id": "pretest-21",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Pada saat ini, semangat persatuan dan ke -\nsatuan sudah terbentuk dan dikukuhkan \ndalam UUD 1945 Pasal 1 Ayat 1 yang me -\nnyatakan bahwa Negara Indonesia adalah \nnegara kesatuan. Tonggak persatuan dan \nkesatuan negara Indonesia lahir pada saat \nperistiwa . . . .",
-      "options": {
-        "A": "Kongres Pemuda I",
-        "B": "Kongres Pemuda II",
-        "C": "Rengasdengklok",
-        "D": "Proklamasi Kemerdekaan",
-        "E": "Kebangkitan Nasional"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -"
-    },
-    {
-      "id": "pretest-22",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Lambang Garuda Pancasila saat ini merupakan hasil revisi dari sayembara yang dilakukan pada masa perumusan dasar negara. \nDulunya, lebih mirip hewan mitologi Jawa \nyang dikenal sebagai Jatayu. Pembuat lambang Garuda Pancasila adalah . . . .",
-      "options": {
-        "A": "Sultan Hamid II",
-        "B": "Sultan Hasanuddin II",
-        "C": "Sultan Manggarai",
-        "D": "Sultan Hasan II",
-        "E": "Sultan Teodore II"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Profesionalisme\nPilih jawaban untuk tetap fokus pada pe -\nkerjaan atau tujuan sebagai perwujudan \ndari sikap tanggung jawab dan disiplin.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nC 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-24",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Amandemen kedua UUD 1945 mengubah \npasal-pasal di bawah ini, kecuali . . . .",
-      "options": {
-        "A": "Pasal 18",
-        "B": "Pasal 20",
-        "C": "Pasal 24",
-        "D": "Pasal 28",
-        "E": "Pasal 36"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C \nTopik: Teknologi dan informasi\nPilihlah jawaban dengan teknologi yang \npaling maju dan canggih sebagai perwujudkan bahwa Anda mampu memahami \ndan menggunakan peralatan elektronik \nyang sesuai dengan perkembangan teknologi dan informasi. \nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-25",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Pelanggaran Belanda terhadap hasil Per -\njanjian Renville menyebabkan terjadinya . \n. . .",
-      "options": {
-        "A": "Agresi Militer I",
-        "B": "Agresi Militer II",
-        "C": "Peristiwa Medan Area",
-        "D": "Serangan Umum 1 Maret",
-        "E": "Peristiwa Bandung Lautan Api"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : A\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda adalah pribadi yang memiliki \nkarakter kuat dan teguh mempertahankan \nprinsip. \nPilihan Jawaban Poin Nilai\nA 5\nE 4\nC 3\nD 2\nB 1"
-    },
-    {
-      "id": "pretest-26",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Sebaiknya, brokoli dimasak atau direbus \ndengan air mendidih dalam kondisi sete -\nngah matang. Tambahkan garam untuk \nmembunuh kuman, lalu tiriskan sebentar! Siram dengan air dingin! Fungsi air dingin untuk mempertahankan warna dan \nmemperlambat proses pemasakan broko -\nli. Dalam kondisi seperti ini, brokoli dapat \ndisimpan 2-3 hari dalam lemari pendingin \ndan aman dikonsumsi. Ide pokok paragraf \ntersebut adalah . . . .",
-      "options": {
-        "A": "Cara menyimpan brokoli",
-        "B": "Fungsi garam dan penirisan brokoli",
-        "C": "Cara mempertahankan warna brokoli",
-        "D": "Daya tahan brokoli",
-        "E": "Cara membersihkan brokoli"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C\nTopik: Profesionalisme\nPilihlah jawaban yang menunjukkan Anda \nmemiliki kompetensi dalam melaksanakan \ntugas dan fungsi secara baik dan benar. \nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-27",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Penulisan gabungan kata berikut salah, kecuali . . . .",
-      "options": {
-        "A": "Kita harus pandai mendaya-gunakan \nsegala yang kita miliki",
-        "B": "Atas perhatian Anda, kami ucapkan \nterima kasih",
-        "C": "Dia tidak tahu mau bertanggungjawab atas perbuatannya",
-        "D": "Tidak benar membebas tugaskan pe -\ngawai tanpa alas an",
-        "E": "Ada juga pengusaha non pribumi \nyang menjadi orang tua asuh."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Profesionalisme\nPilihlah jawaban yang menunjukkan Anda \nmemiliki kompetensi dalam melaksanakan \ntugas dan fungsi secara baik dan benar. \nPilihan Jawaban Poin Nilai\nE 5\nC 4\nD 3\nB 2\nA 1"
-    },
-    {
-      "id": "pretest-28",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Kalimat yang mengandung kesalahan dalam penulisan huruf kecuali . . . .",
-      "options": {
-        "A": "jabatan Menteri ternyata tidak diminati tokoh itu",
-        "B": "Pekan lalu Mayor Jenderal Syamsudin \ndilantik menjadi letnan jendral",
-        "C": "Bulan depan, dia akan diangkat menjadi Sultan",
-        "D": "Gubernur Irian baru saja menghadap \npresiden",
-        "E": "Di Jawa barat, Gunung Tangkuban Perahu memperlihatkan aktivitasnya"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab. \nPilihan Jawaban Poin Nilai\nB 5\nD 4\nC 3\nE 2\nA 1"
-    },
-    {
-      "id": "pretest-29",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Gedung itu dibangun di atas lahan seluas \n1,732 meter persegi biaya sebesar Rp2,95 \ntriliun.\nKesalahan tanda baca koma (,) pada kalimat tersebut beserta alasannya adalah . . .",
-      "options": {
-        "A": "Penulisan Rp 2,95 triliun karena me -\nnyatakan jumlah uang menggunakan \ntanda koma dan angka 00 di belakang \njumlah.",
-        "B": "Penulisan 1,732 meter karena untuk \nmenunjukkan bilangan ribuan digunakan tanda titik setiap tiga angka \ndari belakang.",
-        "C": "Penulisan Rp 2,95 triliun karena hanya \nterdiri atas tiga angka sehingga tidak \nmemerlukan tanda baca.",
-        "D": "Penulisan 1,732 meter karena untuk \nmenunjukan jumlah tidak diperlukan \ntanda baca apapun.",
-        "E": "Penulisan Rp2.95 karena penulisan \nbilangan tidak boleh menggunakan \ntanda koma."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Sosial budaya\nJadilah orang yang mudah adaptasi dan \nmengutamakan kepentingan umum. Pilihlah jawaban yang mengutamakan Pancasila dan gotong royong.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-24",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "semua aspek kehidupan termasuk kebudayaan. (2) Era global menuntut kesiapan \nkita untuk siap berubah menyesuaikan \nperubahan zaman dan mampu mengambil \nsetiap kesempatan. (3) Budaya tradisional \ndi Indonesia sebenarnya lebih kreatif dan \ntidak bersifat meniru, tetapi yang menjadi \nmasalah adalah bagaimana mempertahankan jati diri bangsa. (4) Sebagai contoh sederhana, budaya gotong royong di \nIndonesia saat ini hampir terkikis habis, \nyang digantikan oleh sikap individual dan \ntidak peduli kepada orang lain. (5) Perlu dipikirkan agar kebudayaan kita tetap dapat \nmencerminkan kepribadian bangsa. (6) Dalam era globalisasi, kebudayaan tradisional \nmulai mengalami erosi. (7) Semua orang, \nterutama anak muda, lebih senang menghabiskan waktunya mengakses internet \ndaripada mempelajari tarian dari kebudayaan sendiri. (8) Orang akan merasa bangga ketika dapat meniru gaya berpakaian \norang Barat dan menganggap budayanya \nketinggalan zaman. (9) Globalisasi akan \nselalu memberikan perubahan. (10) Oleh \nkarena itu, harus meneliti apakah berbagai \nbudaya yang masuk tersebut bersifat positif atau negatif.\nKalimat yang tidak efektif dalam teks di \natas adalah kalimat . . . .",
-      "options": {
-        "A": "(1)",
-        "B": "(2)",
-        "C": "(5)",
-        "D": "(8)",
-        "E": "(10)\nTES INTELEGENSI UMUM"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C \nTopik: Teknologi dan informasi\nPilihlah jawaban dengan teknologi yang \npaling maju dan canggih sebagai perwujudkan bahwa Anda mampu memahami \ndan menggunakan peralatan elektronik \nyang sesuai dengan perkembangan teknologi dan informasi. \nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-1",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "ADAGIUM = ….",
-      "options": {
-        "A": "Roman",
-        "B": "Puisi",
-        "C": "Cepat",
-        "D": "Lambat",
-        "E": "Peribahasa"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-2",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "PRAWACANA >< ….",
-      "options": {
-        "A": "Halaman",
-        "B": "Kata pengantar",
-        "C": "Pendahuluan",
-        "D": "Daftar pustaka",
-        "E": "Introduksi"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Integritas diri\nPilihlah jawaban yang menunjukkan per -\nbuatan atau sikap bertanggung jawab, walaupun hal sepele cobalah berhati-hati dalam bertindak. Biasanya berkaitan dengan \npemahaman risiko suatu kondisi. \nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nE 2\nA 1"
-    },
-    {
-      "id": "pretest-3",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "TEBAL MUKA : TIDAK PUNYA MALU = …. : \n….",
-      "options": {
-        "A": "Rendah hati: Sombong",
-        "B": "Naik pitam: Marah",
-        "C": "Buah tangan: Bahan cerita",
-        "D": "Belajar sendiri: Otodidak",
-        "E": "Keras kepala: Congkak"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Pelayanan publik\nDalam memecahkan permasalahan yang \nberkaitan dengan pelayanan publik, se -\nsoang harus mengutamakan keramahtamahan dalam bekerja, cepat, sopan, tidak \nmudah marah, tidak mudah kesal, peduli, \nmenerapkan skala prioritas serta fokus \npada kebutuhan dan kepuasan orang lain. \nPilihlah jawaban yang sesuai dengan we -\nwenang dan SOP atau prosedur. Jika terdapat suatu permasalahan yang diluar wewenang, harus dilaporkan pada atasan atau \npihak yang berwenang. \nPilihan Jawaban Poin Nilai\nE 5\nC 4\nD 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-4",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "BRIOLOGI : .... = .... : TUMBUHAN",
-      "options": {
-        "A": "Mesin–Botani",
-        "B": "Air–Hidrologi",
-        "C": "Lumut–Botani",
-        "D": "Purbakala–Arkeologi",
-        "E": "Iklim–Geofisika"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nA 3\nC 2\nB 1"
-    },
-    {
-      "id": "pretest-5",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Semua anak usia dini menyukai permen. \nSebagian anak usia dini mempunyai tinggi \ndi atas 110 cm. Kesimpulan yang tepat dari \nkedua premis di atas adalah ....",
-      "options": {
-        "A": "Semua anak usia dini yang menyukai \npermen mempunyai tinggi di atas 110 \ncm",
-        "B": "Semua anak usia dini yang mempunyai tinggi di atas 110 cm tidak me -\nnyukai permen",
-        "C": "Sebagian anak usia dini yang menyukai permen, mempunyai tinggi 110 cm",
-        "D": "Sebagian anak usia dini yang mempunyai tinggi 110 cm, tidak menyukai \npermen"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Pelayanan publik\nDalam memecahkan permasalahan yang \nberkaitan dengan pelayanan publik, se -\nsoang harus mengutamakan keramahtamahan dalam bekerja, cepat, sopan, tidak \nmudah marah, tidak mudah kesal, peduli,"
-    },
-    {
-      "id": "pretest-6",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Dalam sebuah ujian, diketahui kecepatan \nsiswa dalam menyelesaikan ujian adalah \nsebagai berikut.\n ⇲ Rani menyelesaikan ujian sebelum Serina\n ⇲ Hanin menyelesaikan ujian sebelum \nRani\n ⇲ Serina menyelesaikan ujian setelah \nDina\nJika Dina menyelesaikan ujian sebelum Hanin, urutan yang benar dari keempat siswa \ntersebut dari yang paling cepat menyele -\nsaikan ujian adalah ….",
-      "options": {
-        "A": "Dina–Rani–Hanin–Serina",
-        "B": "Serina–Rani–Hanin–Dina",
-        "C": "Serina–Hanin–Rani–Dina",
-        "D": "Dina–Rani–Serina–Hanin",
-        "E": "Dina–Hanin–Rani–Serina"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti mendengarkan keluhan teman \ndan membantu memecahkan masalahnya.\nPilihan Jawaban Poin Nilai\nC 5\nE 4\nA 3\nB 2\nD 1"
-    },
-    {
-      "id": "pretest-7",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Di sebuah toko buku, Ani membeli buku \ndan pensil. Dina hanya membeli pensil. Hanin membeli sama dengan Indra ditambah \npenggaris Fina membeli spidol, pensil, dan \npulpen, sedangkan Indra membeli sama \npersis dengan Ani.\nSiapakah di antara kelima anak tersebut \nyang tidak membeli pensil?",
-      "options": {
-        "A": "Ani",
-        "B": "Dina",
-        "C": "Hanin",
-        "D": "Fina",
-        "E": "Tidak ada"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Profesionalisme\nPilih jawaban untuk tetap fokus pada pe -\nkerjaan atau tujuan sebagai perwujudan \ndari sikap tanggung jawab dan disiplin.\nPilihan Jawaban Poin Nilai\nA 5\nB 4\nC 3\nD 2\nE 1"
-    },
-    {
-      "id": "pretest-8",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Pada suatu acara Lisa, Citra, Rani, Rendi, \nNina, Lani, Tina, dan Putra duduk menge -\nlilingi sebuah meja bundar dengan posisi \nsebagai berikut.\n ⇲ Tina duduk di antara Rendi dan Citra\n ⇲ Rendi dan Rani duduk tepat berhadapan\n ⇲ Lani duduk di antara Putra dan Rani\n ⇲ Nina duduk berseberangan dengan \nLisa\nDari gambaran di atas, siapakah yang duduk di samping Lisa?",
-      "options": {
-        "A": "Putra dan Rani",
-        "B": "Citra dan Rani",
-        "C": "Putra dan Citra",
-        "D": "Lani dan Tina",
-        "E": "Citra dan Rendi"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Semangat berprestasi\nPilihlah jawaban yang menunjukkan semangat kompetisi dan menggerakkan usaha \nuntuk sukses. Sebagai peserta lomba Anda \ntentu harus memberikan penampilan ter -\nbaik Anda untuk perusahaan dengan menjadi juara. Hal ini menunjukkan Anda kar -\nyawan yang semangat, penuh semangat \ndalam berkompetisi dan mengerahkan \nusaha semaksimal mungkin.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nE 3\nC 2\nA 1"
-    },
-    {
-      "id": "pretest-9",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Nilai dari 99 39 59 89 ....24 19 29 44+++=",
-      "options": {
-        "A": "734",
-        "B": "684",
-        "C": "544",
-        "D": "40",
-        "E": "60\n13 2.244+(-3.145)-2.689+4.134=…."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-14",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Empat orang pria dan tiga orang wanita \nduduk mengelilingi sebuah meja. Berapa \nbanyak susunan duduk yang mungkin jika \nwanita harus selalu duduk berdampingan?",
-      "options": {
-        "A": "12",
-        "B": "24",
-        "C": "48",
-        "D": "96",
-        "E": "144"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasi orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda untuk menggerakkan te -\nman-teman Anda, dan sikap paling bijak \nyang harus Anda tunjukkan. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nB 2\nA 1"
-    },
-    {
-      "id": "pretest-15",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Jika p adalah bilangan yang menyatakan \n0,773% dari 2,43; dan q adalah bilangan \nyang menyatakan 7,73% dari 0,243, maka \npernyataan yang tepat adalah….",
-      "options": {
-        "A": "p = q",
-        "B": "p < q",
-        "C": "p > q",
-        "D": "p ≠ q",
-        "E": "p–q + 0,773"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nB 2\nA 1"
-    },
-    {
-      "id": "pretest-16",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Bentuk sederhana dari 14\n32+\n adalah ….",
-      "options": {
-        "A": "14 2 2−",
-        "B": "14 3 2+",
-        "C": "14 3 2−",
-        "D": "6 22−",
-        "E": "6 22+"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Semangat berprestasi\nPilihlah jawaban yang menunjukkan se -\nmangat kompetisi dan mengembangkan \ntalenta yang Anda miliki. Sebagai peserta \nlomba Anda tentu harus memberikan pe -\nnampilan terbaik Anda untuk perusahaan \ndengan menjadi juara. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-25",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Februari 2022 mereka les matematika \nbersama, mereka akan les matematika bersama–sama kembali pada tanggal ....",
-      "options": {
-        "A": "6 Maret 2022",
-        "B": "7 Maret 2022",
-        "C": "8 Maret 2022",
-        "D": "9 Maret 2022",
-        "E": "10 Maret 2022"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : A\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda adalah pribadi yang memiliki \nkarakter kuat dan teguh mempertahankan \nprinsip. \nPilihan Jawaban Poin Nilai\nA 5\nE 4\nC 3\nD 2\nB 1"
-    },
-    {
-      "id": "pretest-18",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Bu Tina mempunyai 120 roti susu dan 144 \nbuah puding mangga yang akan dibagikan kepada beberapa tetangga. Berapa \nkemungkinan terbanyak jumlah tetangga yang akan diberi buah jika jumlah roti \nsusu dan puding mangga yang dibagikan \npada masing–masing tetangga jumlahnya \nsama?",
-      "options": {
-        "A": "61,25",
-        "B": "6,125",
-        "C": "61,25",
-        "D": "61,255",
-        "E": "612,5"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Kemampuan menggerakkan dan \nmengodinir orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan karyawan dan menyelesaikan masalah. \nPilihan Jawaban Poin Nilai\nE 5\nA 4\nC 3\nD 2\nB 1"
-    },
-    {
-      "id": "pretest-21",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Di sebuah kelas yang terdiri dari 40 siswa, \ndiketahui 22 siswa menyukai pelajaran matematika, 18 siswa menyukai pelajaran Bahasa Indonesia, dan 8 siswa menyukai ke -\nduanya. Banyak siswa yang tidak menyukai \nkedua pelajaran tersebut adalah ....",
-      "options": {
-        "A": "5 siswa",
-        "B": "6 siswa",
-        "C": "7 siswa",
-        "D": "8 siswa",
-        "E": "9 siswa"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -"
-    },
-    {
-      "id": "pretest-27",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "mengikuti lomba pecah balon, dan 8 orang \ntidak mengikuti kedua lomba. Banyaknya \norang yang mengikuti kedua jenis lomba \nadalah ....",
-      "options": {
-        "A": "6",
-        "B": "8",
-        "C": "10",
-        "D": "12",
-        "E": "14"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Profesionalisme\nPilihlah jawaban yang menunjukkan Anda \nmemiliki kompetensi dalam melaksanakan \ntugas dan fungsi secara baik dan benar. \nPilihan Jawaban Poin Nilai\nE 5\nC 4\nD 3\nB 2\nA 1"
-    },
-    {
-      "id": "pretest-23",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Seorang pedagang kelontong membeli \ndengan harga grosir sebanyak 144 buah \nteflon dengan harga Rp5.184.000. Dia \nakan menjual teflon–teflon tersebut de -\nngan harga Rp40.500,00 per unit. Jika \nsemua teflon terjual habis, berarti banyak \nkeuntungan per unit yang akan diperoleh \npedagang tersebut adalah ....",
-      "options": {
-        "A": "Rp2.500,00",
-        "B": "Rp3.000,00",
-        "C": "Rp3.500,00",
-        "D": "Rp4.500,00",
-        "E": "Rp5.000,00"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nE 2\nA 1"
-    },
-    {
-      "id": "pretest-24",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Ida menabung di bank sebesar \nRp15.000.000,00 dengan bunga 2,5% per \ntahun. Banyaknya uang setelah menabung \nselama 8 bulan adalah ....",
-      "options": {
-        "A": "Rp15.120.000,00",
-        "B": "Rp15.250.000,00",
-        "C": "Rp16.440.000,00",
-        "D": "Rp16.750.000,00",
-        "E": "Rp17.150.000,00"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C \nTopik: Teknologi dan informasi\nPilihlah jawaban dengan teknologi yang \npaling maju dan canggih sebagai perwujudkan bahwa Anda mampu memahami \ndan menggunakan peralatan elektronik \nyang sesuai dengan perkembangan teknologi dan informasi. \nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-25",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Ayah mengendarai mobil dengan kecepatan 100 km/jam. Dalam waktu 1 jam 15 me -\nnit, Ayah dapat menempuh jarak sejauh ....",
-      "options": {
-        "A": "85 km",
-        "B": "95 km",
-        "C": "100 km",
-        "D": "120 km",
-        "E": "125 km"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : A\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda adalah pribadi yang memiliki \nkarakter kuat dan teguh mempertahankan \nprinsip. \nPilihan Jawaban Poin Nilai\nA 5\nE 4\nC 3\nD 2\nB 1"
-    },
-    {
-      "id": "pretest-26",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Seorang pembuat batako dapat menghasilkan 3.493 batako dalam waktu 7 hari. \nBerapa waktu yang diperlukan untuk membuat batako sebanyak 6.487 buah?",
-      "options": {
-        "A": "13",
-        "B": "17",
-        "C": "19",
-        "D": "21",
-        "E": "23"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C\nTopik: Profesionalisme\nPilihlah jawaban yang menunjukkan Anda \nmemiliki kompetensi dalam melaksanakan \ntugas dan fungsi secara baik dan benar. \nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-12",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "liter/menit. Dalam waktu 0,25 jam, bak \nmandi tersebut terisi air sebanyak .... liter.",
-      "options": {
-        "A": "145 liter",
-        "B": "150 liter",
-        "C": "160 liter",
-        "D": "180 liter",
-        "E": "190 liter"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nB 3\nD 2\nE 1"
-    },
-    {
-      "id": "pretest-28",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Hasil dari 312 1 2,563+− adalah ….",
-      "options": {
-        "A": "113",
-        "B": "22 3",
-        "C": "52 6",
-        "D": "13 3",
-        "E": "23 3"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab. \nPilihan Jawaban Poin Nilai\nB 5\nD 4\nC 3\nE 2\nA 1"
-    },
-    {
-      "id": "pretest-30",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Tentukan gambar yang cocok untuk mengisi kotak tanda tanya",
-      "options": {
-        "A": "B.",
-        "C": "D.",
-        "E": "? \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nTES KARAKTERISTIK PRIBADI"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab. \nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-1",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Hari ini di kantor Anda akan di adakan rapat \nbesar terkait dengan kebijakan yang akan \nditempuh oleh perusahaan dalam rangka \nuntuk meningkatkan pelayanan terhadap \nmasyarakat. Semua karyawan yang me -\nwakili divisi masing-masing diminta untuk \nmenyampaikan ide dan gagasan mereka \npada saat rapat berlangsung, Anda pun telah menyampaikan ide Anda sebagai per -\nwakilan dari divisi Anda, tetapi rekan yang \nlain kurang mendukung ide dan gagasan \nyang Anda ajukan karena dinilai tidak me -\nmiliki perubahan signifikan terhadap perusahaan kedepannya, sikap Anda adalah . . . .",
-      "options": {
-        "A": "Mencoba membicarakan lebih jauh \ndengan rekan perwakilan divisi yang \nlain maksud dari gagasan yang Anda \najukan dan dampaknya terhadap per -\nusahaan.",
-        "B": "Mencari dukungan dari ketua rapat, \ndengan memberikan data-data yang \nmendukung gagasan Anda agar dite -\nrima.",
-        "C": "Membicarakan dengan rekan divisi \nlain untuk memadukan gagasan yang \nAnda punya.",
-        "D": "Menggantinya dengan ide lain yang \nlebih baik dan dapat diterima oleh se -\nmua perwakilan divisi.",
-        "E": "Merumuskan ide tersebut secara detail agar rekan-rekan yang lain mengerti \nbahwa gagasan yang Anda sampaikan \nakan berdampak baik bagi kemajuan \nperusahaan."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nE 3\nA 2\nB 1"
-    },
-    {
-      "id": "pretest-29",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "hadapkan pada permasalahan di atas adalah . . . .",
-      "options": {
-        "A": "Menasehati teman-teman saya agar \nberhati hati untuk melakukan pinjaman online meskipun dengan prosedur \nyang lebih gampang.",
-        "B": "Tidak ingin melakukan hal yang sama \nbahkan dalam kondisi terdesak sekalipun.",
-        "C": "Berusaha agar tidak melakukan pe -\nminjaman agar tidak merasa kesulitan \npada saat melakukan pembayarannanti.",
-        "D": "Mencari tahu detail tentang perusahaan yang memberikan pinjaman jika \nsuatu saat terpaksa harus melakukan \npeminjaman.",
-        "E": "Mencari tahu sejarah perusahaan dan \nmenaseti teman teman yang lain agar \nberhati-hati."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Sosial budaya\nJadilah orang yang mudah adaptasi dan \nmengutamakan kepentingan umum. Pilihlah jawaban yang mengutamakan Pancasila dan gotong royong.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
     },
     {
       "id": "pretest-3",
@@ -6744,17 +5507,16 @@
       "explanation": "Jawaban: E\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nA 3\nC 2\nB 1"
     },
     {
-      "id": "pretest-30",
+      "id": "pretest-5",
       "edition": "2027",
       "category": "TWK",
       "subtest": "Tes Wawasan Kebangsaan",
-      "question": "diminta untuk memberikan usulan terkait \npeningkatan kualitas pelayanan terhadap \npelanggan kedepannya agar banyak dari \npelanggan yang memakai jasa perusahaan \nAnda, sikap Anda adalah . . . .",
+      "question": "Semua anak usia dini menyukai permen. \nSebagian anak usia dini mempunyai tinggi \ndi atas 110 cm. Kesimpulan yang tepat dari \nkedua premis di atas adalah ....",
       "options": {
-        "A": "Memberikan usulan jika ingin meningkatkan pelayanan, perusahaan harus \nmemenuhi semua hal yang diinginkan \noleh pelanggan tanpa terkecuali.",
-        "B": "Mengusulkan adanya jalur khusus untuk ibu hamil dan menyusui dan para \nlansia.",
-        "C": "Mengusulkan agar pada hari libur masal biaya tiket didiskon hingga 50% \nsehingga banyak dari pelanggan yang \nakan menggunakan jasa perusahaan \nAnda.",
-        "D": "Memberikan usulan agar perusahaan \nmenyediakan fasilitas khusus bagi ibu \nhamil, menyusui dan lansia.",
-        "E": "Menyusulkan agar alat transportasi \nyang digunakan selalu bersih dengan \ncara merekrut karyawan baru dengan \ngaji tinggi."
+        "A": "Semua anak usia dini yang menyukai \npermen mempunyai tinggi di atas 110 \ncm",
+        "B": "Semua anak usia dini yang mempunyai tinggi di atas 110 cm tidak me -\nnyukai permen",
+        "C": "Sebagian anak usia dini yang menyukai permen, mempunyai tinggi 110 cm",
+        "D": "Sebagian anak usia dini yang mempunyai tinggi 110 cm, tidak menyukai \npermen"
       },
       "answer": "A",
       "points": {
@@ -6764,7 +5526,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Jawaban: E\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab. \nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
+      "explanation": "Jawaban: D\nTopik: Pelayanan publik\nDalam memecahkan permasalahan yang \nberkaitan dengan pelayanan publik, se -\nsoang harus mengutamakan keramahtamahan dalam bekerja, cepat, sopan, tidak \nmudah marah, tidak mudah kesal, peduli,"
     },
     {
       "id": "pretest-6",
@@ -6790,17 +5552,17 @@
       "explanation": "Jawaban: C\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti mendengarkan keluhan teman \ndan membantu memecahkan masalahnya.\nPilihan Jawaban Poin Nilai\nC 5\nE 4\nA 3\nB 2\nD 1"
     },
     {
-      "id": "pretest-7",
+      "id": "pretest-20",
       "edition": "2027",
       "category": "TWK",
       "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Siang ini Anda menerima panggilan untuk \nproses rekrutment pada sebuah perusahaan. Ketika Anda berangkat untuk mengikuti \nrekrutment tersebut di tengah perjalanan \nAnda melihat kerumunan orang di pinggir \njalan dan ternyata telah terjadi kecelakaan dengan korban tabrak lari, sedangkan \nAnda harus sesegera mungkin sampai di \nperusahaan untuk memulai seleksi, sikap \nAnda adalah . . . .",
+      "question": "Anda sedang melakukan diskusi dengan \nrekan kerja divisi Anda. Kemudian ketika \ndiskusi berlangsung ada seorang rekan \nkerja Anda yang mengusulkan sebuah ide \nyang menurutnya sangat baik, tetapi me -\nnurut Anda hal tersebut berisiko besar jika \ntetap dilakukan. Ketika Anda memberikan \ntanggapan, teman tersebut tidak menanggapi dengan sikap yang baik, seakan-akan \ntidak mau gagasannya disanggah. Sikap \nAnda adalah . . . .",
       "options": {
-        "A": "Tetap melanjutkan perjalanan untuk \ntepat waktu mengikuti tes pekerjaan.",
-        "B": "Mengabaikannya karena harus mengikuti tes yang akan dimulai sebentar \nlagi.",
-        "C": "Tetap melanjutkan perjalanan setelah \nyakin ada orang lain yang menolong.",
-        "D": "Menolongnya, kemudian membawanya ke rumah sakit atau kantor polisi.",
-        "E": "Mengejar pelaku tabrak lari dan me -\nmintanya untuk bertanggung jawab \natas perbuatannya."
+        "A": "Diam saja dan mengikuti semua gagasannya demi menghindari konflik.",
+        "B": "Memintanya untuk memberikan gagasan yang lebih realistis dan risiko -\nnya kecil.",
+        "C": "Mengajaknya untuk bicara santai dan \nfokus pada tujuan awal.",
+        "D": "Memintanya untuk memikirkan kembali gagasan yang diusulkan.",
+        "E": "Keluar dari ruang diskusi dan memberitahukan kepada atasan."
       },
       "answer": "A",
       "points": {
@@ -6810,7 +5572,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Jawaban: A\nTopik: Profesionalisme\nPilih jawaban untuk tetap fokus pada pe -\nkerjaan atau tujuan sebagai perwujudan \ndari sikap tanggung jawab dan disiplin.\nPilihan Jawaban Poin Nilai\nA 5\nB 4\nC 3\nD 2\nE 1"
+      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
     },
     {
       "id": "pretest-8",
@@ -6904,27 +5666,27 @@
       "explanation": "Jawaban: C\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nD 3\nE 2\nB 1"
     },
     {
-      "id": "pretest-32",
+      "id": "pretest-21",
       "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "Perusahaan tempat Anda bekerja sedang mengalami penurunan omzet dan beberapa karyawan mengeluhkan kesulitan finansial. Sebagai bagian dari manajemen, langkah bijak yang Anda usulkan adalah...",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Di perusahaan tempat Anda bekerja saat \nini memiliki tingkat disiplin dan aturan \nyang cukup ketat. Setiap karyawan diminta \nuntuk mampu bekerja cepat dan menyele -\nsaikan semua tugas dan pekerjaan dengan \nbaik. Anda merupakan seorang karyawan \nbaru yang tentu saja belum terlalu terbiasa akan hal tersebut. Dalam melakukan se -\nmua pekerjaan Anda di kantor hal apa yang \nAnda lakukan?",
       "options": {
-        "A": "Membuka program tabungan bersama dan evaluasi efisiensi biaya operasional perusahaan.",
-        "B": "Memberikan bonus kepada karyawan yang berkinerja unggul agar termotivasi.",
-        "C": "Membuat kebijakan baru bantuan pinjaman darurat karyawan secara terukur.",
-        "D": "Meminta setiap pimpinan divisi mendampingi bawahan yang sedang mengalami kendala finansial.",
-        "E": "Memberikan kesempatan fleksibilitas bagi karyawan untuk mencari penghasilan tambahan tanpa mengganggu jam kerja."
+        "A": "Lebih suka jika bekerja dengan suasana kelompok dan bisa saling bertukar \npikiran.",
+        "B": "Lebih suka bekerja sendiri dan fokus \nuntuk menyelesaikan pekerjaan yang \ndiemban.",
+        "C": "Melibatkan teman-teman dalam setiap hal hal kecil terkait pekerjaan yang \nada.",
+        "D": "Tekun, teliti, dan bekerja sampai se -\nmua pekerjaan dapat cepat diselesaikan.",
+        "E": "Lebih suka pekerjaan yang memberikan saya kebebasan waktu yang lebih \nfleksibel."
       },
-      "answer": "C",
+      "answer": "A",
       "points": {
-        "C": 5,
-        "A": 4,
-        "D": 3,
-        "B": 2,
-        "E": 1
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
       },
-      "explanation": "Jawaban: D\nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab.\nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nA 2\nE 1"
+      "explanation": "Jawaban: D\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -"
     },
     {
       "id": "pretest-13",
@@ -7065,52 +5827,6 @@
       "explanation": "Jawaban: E\nTopik: Kemampuan menggerakkan dan \nmengodinir orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan karyawan dan menyelesaikan masalah. \nPilihan Jawaban Poin Nilai\nE 5\nA 4\nC 3\nD 2\nB 1"
     },
     {
-      "id": "pretest-20",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Anda sedang melakukan diskusi dengan \nrekan kerja divisi Anda. Kemudian ketika \ndiskusi berlangsung ada seorang rekan \nkerja Anda yang mengusulkan sebuah ide \nyang menurutnya sangat baik, tetapi me -\nnurut Anda hal tersebut berisiko besar jika \ntetap dilakukan. Ketika Anda memberikan \ntanggapan, teman tersebut tidak menanggapi dengan sikap yang baik, seakan-akan \ntidak mau gagasannya disanggah. Sikap \nAnda adalah . . . .",
-      "options": {
-        "A": "Diam saja dan mengikuti semua gagasannya demi menghindari konflik.",
-        "B": "Memintanya untuk memberikan gagasan yang lebih realistis dan risiko -\nnya kecil.",
-        "C": "Mengajaknya untuk bicara santai dan \nfokus pada tujuan awal.",
-        "D": "Memintanya untuk memikirkan kembali gagasan yang diusulkan.",
-        "E": "Keluar dari ruang diskusi dan memberitahukan kepada atasan."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-21",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Di perusahaan tempat Anda bekerja saat \nini memiliki tingkat disiplin dan aturan \nyang cukup ketat. Setiap karyawan diminta \nuntuk mampu bekerja cepat dan menyele -\nsaikan semua tugas dan pekerjaan dengan \nbaik. Anda merupakan seorang karyawan \nbaru yang tentu saja belum terlalu terbiasa akan hal tersebut. Dalam melakukan se -\nmua pekerjaan Anda di kantor hal apa yang \nAnda lakukan?",
-      "options": {
-        "A": "Lebih suka jika bekerja dengan suasana kelompok dan bisa saling bertukar \npikiran.",
-        "B": "Lebih suka bekerja sendiri dan fokus \nuntuk menyelesaikan pekerjaan yang \ndiemban.",
-        "C": "Melibatkan teman-teman dalam setiap hal hal kecil terkait pekerjaan yang \nada.",
-        "D": "Tekun, teliti, dan bekerja sampai se -\nmua pekerjaan dapat cepat diselesaikan.",
-        "E": "Lebih suka pekerjaan yang memberikan saya kebebasan waktu yang lebih \nfleksibel."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -"
-    },
-    {
       "id": "pretest-22",
       "edition": "2027",
       "category": "TWK",
@@ -7132,29 +5848,6 @@
         "E": 0
       },
       "explanation": "Jawaban: B\nTopik: Profesionalisme\nPilih jawaban untuk tetap fokus pada pe -\nkerjaan atau tujuan sebagai perwujudan \ndari sikap tanggung jawab dan disiplin.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nC 3\nA 2\nE 1"
-    },
-    {
-      "id": "pretest-35",
-      "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "rekan Anda tersebut harus meng-asembbly \npekerjaan tersebut terlebih dahulu sebe -\nlum dikumpulkan. Ditambah lagi semua \nrekan anggota tim mengumpulkan tugas \npribadi mereka juga terlambat sehingga \nrekan Anda yang bertugas untuk mengasembbly setiap pekerjaan jadi tidak me -\nnyelesaikan pekerjaannya tepat waktu. Sikap Anda adalah . . . .",
-      "options": {
-        "A": "Mendengarkan saja rekan Anda dimarahi setelah itu memberikan semangat \nuntuk tidak dimasukkan ke hati ucap -\nan atasan.",
-        "B": "Minta maaf kepada teman karena ke -\nterlambatan juga disebabkan oleh \nanggota tim yang lain.",
-        "C": "Mengakui kesalahan kepada atasan \njika Anda juga turut berkontribusi \npada masalah tersebut.",
-        "D": "Mengakui kesalahan kepada teman \ndan berjanji tidak akan mengulanginya lagi.",
-        "E": "Mengajak rekan Anda untuk membicarakannya dan menghiburnya rekan \nyang dimarahi atasan."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : B\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nA 3\nE 2\nC 1"
     },
     {
       "id": "pretest-24",
@@ -7294,17 +5987,17 @@
       "explanation": "Jawaban: D\nTopik: Sosial budaya\nJadilah orang yang mudah adaptasi dan \nmengutamakan kepentingan umum. Pilihlah jawaban yang mengutamakan Pancasila dan gotong royong.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
     },
     {
-      "id": "pretest-31",
+      "id": "pretest-2",
       "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "Pada pertemuan keluarga dalam rangka \nmerayakan hari idulfitri, saya akan . . . .",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "PRAWACANA >< ….",
       "options": {
-        "A": "Berusaha menjajaki peluang untuk \nmendapatkan kesempatan pengembangan masa depan saya.",
-        "B": "Mengarah pembicaraan pada hal-hal \nyang memungkinkan orang lain me -\nngetahui kelebihan saya.",
-        "C": "Berusaha memuaskan tamu dengan \nmenjamu sebaik-baiknya.",
-        "D": "Menunggu kesempatan untuk penawaran pengembangan masa depan.",
-        "E": "Menjamu dengan ramah sambil me -\nnunjukkan kelemahan saya."
+        "A": "Halaman",
+        "B": "Kata pengantar",
+        "C": "Pendahuluan",
+        "D": "Daftar pustaka",
+        "E": "Introduksi"
       },
       "answer": "A",
       "points": {
@@ -7314,7 +6007,99 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Jawaban: C\nTopik: Sosial budaya\nJadilah orang yang mudah adaptasi dan \nmengutamakan kepentingan umum. Pilihlah jawaban yang mengutamakan Pancasila dan gotong royong.\nPilihan Jawaban Poin Nilai\nC 5\nE 4\nD 3\nB 2\nA 1"
+      "explanation": "Jawaban: D\nTopik: Integritas diri\nPilihlah jawaban yang menunjukkan per -\nbuatan atau sikap bertanggung jawab, walaupun hal sepele cobalah berhati-hati dalam bertindak. Biasanya berkaitan dengan \npemahaman risiko suatu kondisi. \nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nE 2\nA 1"
+    },
+    {
+      "id": "pretest-7",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Siang ini Anda menerima panggilan untuk \nproses rekrutment pada sebuah perusahaan. Ketika Anda berangkat untuk mengikuti \nrekrutment tersebut di tengah perjalanan \nAnda melihat kerumunan orang di pinggir \njalan dan ternyata telah terjadi kecelakaan dengan korban tabrak lari, sedangkan \nAnda harus sesegera mungkin sampai di \nperusahaan untuk memulai seleksi, sikap \nAnda adalah . . . .",
+      "options": {
+        "A": "Tetap melanjutkan perjalanan untuk \ntepat waktu mengikuti tes pekerjaan.",
+        "B": "Mengabaikannya karena harus mengikuti tes yang akan dimulai sebentar \nlagi.",
+        "C": "Tetap melanjutkan perjalanan setelah \nyakin ada orang lain yang menolong.",
+        "D": "Menolongnya, kemudian membawanya ke rumah sakit atau kantor polisi.",
+        "E": "Mengejar pelaku tabrak lari dan me -\nmintanya untuk bertanggung jawab \natas perbuatannya."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: A\nTopik: Profesionalisme\nPilih jawaban untuk tetap fokus pada pe -\nkerjaan atau tujuan sebagai perwujudan \ndari sikap tanggung jawab dan disiplin.\nPilihan Jawaban Poin Nilai\nA 5\nB 4\nC 3\nD 2\nE 1"
+    },
+    {
+      "id": "pretest-23",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Seorang pedagang kelontong membeli \ndengan harga grosir sebanyak 144 buah \nteflon dengan harga Rp5.184.000. Dia \nakan menjual teflon–teflon tersebut de -\nngan harga Rp40.500,00 per unit. Jika \nsemua teflon terjual habis, berarti banyak \nkeuntungan per unit yang akan diperoleh \npedagang tersebut adalah ....",
+      "options": {
+        "A": "Rp2.500,00",
+        "B": "Rp3.000,00",
+        "C": "Rp3.500,00",
+        "D": "Rp4.500,00",
+        "E": "Rp5.000,00"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: C\nTopik: Jejaring kerja\nPilih jawaban yang mencerminkan sikap \nsupel dan terbuka. Wujudkan sikap saling \nmemahami, menghargai, memberi do -\nrongan, kemampuan bekerja sama dan \nkontribusi aktif dalam bermitra.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nE 2\nA 1"
+    },
+    {
+      "id": "pretest-12",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "liter/menit. Dalam waktu 0,25 jam, bak \nmandi tersebut terisi air sebanyak .... liter.",
+      "options": {
+        "A": "145 liter",
+        "B": "150 liter",
+        "C": "160 liter",
+        "D": "180 liter",
+        "E": "190 liter"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: C\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nB 3\nD 2\nE 1"
+    },
+    {
+      "id": "pretest-30",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "diminta untuk memberikan usulan terkait \npeningkatan kualitas pelayanan terhadap \npelanggan kedepannya agar banyak dari \npelanggan yang memakai jasa perusahaan \nAnda, sikap Anda adalah . . . .",
+      "options": {
+        "A": "Memberikan usulan jika ingin meningkatkan pelayanan, perusahaan harus \nmemenuhi semua hal yang diinginkan \noleh pelanggan tanpa terkecuali.",
+        "B": "Mengusulkan adanya jalur khusus untuk ibu hamil dan menyusui dan para \nlansia.",
+        "C": "Mengusulkan agar pada hari libur masal biaya tiket didiskon hingga 50% \nsehingga banyak dari pelanggan yang \nakan menggunakan jasa perusahaan \nAnda.",
+        "D": "Memberikan usulan agar perusahaan \nmenyediakan fasilitas khusus bagi ibu \nhamil, menyusui dan lansia.",
+        "E": "Menyusulkan agar alat transportasi \nyang digunakan selalu bersih dengan \ncara merekrut karyawan baru dengan \ngaji tinggi."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: E\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab. \nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
     },
     {
       "id": "pretest-32",
@@ -7338,6 +6123,52 @@
         "E": 0
       },
       "explanation": "Jawaban: D\nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab.\nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nA 2\nE 1"
+    },
+    {
+      "id": "pretest-35",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "rekan Anda tersebut harus meng-asembbly \npekerjaan tersebut terlebih dahulu sebe -\nlum dikumpulkan. Ditambah lagi semua \nrekan anggota tim mengumpulkan tugas \npribadi mereka juga terlambat sehingga \nrekan Anda yang bertugas untuk mengasembbly setiap pekerjaan jadi tidak me -\nnyelesaikan pekerjaannya tepat waktu. Sikap Anda adalah . . . .",
+      "options": {
+        "A": "Mendengarkan saja rekan Anda dimarahi setelah itu memberikan semangat \nuntuk tidak dimasukkan ke hati ucap -\nan atasan.",
+        "B": "Minta maaf kepada teman karena ke -\nterlambatan juga disebabkan oleh \nanggota tim yang lain.",
+        "C": "Mengakui kesalahan kepada atasan \njika Anda juga turut berkontribusi \npada masalah tersebut.",
+        "D": "Mengakui kesalahan kepada teman \ndan berjanji tidak akan mengulanginya lagi.",
+        "E": "Mengajak rekan Anda untuk membicarakannya dan menghiburnya rekan \nyang dimarahi atasan."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban : B\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nA 3\nE 2\nC 1"
+    },
+    {
+      "id": "pretest-31",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Pada pertemuan keluarga dalam rangka \nmerayakan hari idulfitri, saya akan . . . .",
+      "options": {
+        "A": "Berusaha menjajaki peluang untuk \nmendapatkan kesempatan pengembangan masa depan saya.",
+        "B": "Mengarah pembicaraan pada hal-hal \nyang memungkinkan orang lain me -\nngetahui kelebihan saya.",
+        "C": "Berusaha memuaskan tamu dengan \nmenjamu sebaik-baiknya.",
+        "D": "Menunggu kesempatan untuk penawaran pengembangan masa depan.",
+        "E": "Menjamu dengan ramah sambil me -\nnunjukkan kelemahan saya."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: C\nTopik: Sosial budaya\nJadilah orang yang mudah adaptasi dan \nmengutamakan kepentingan umum. Pilihlah jawaban yang mengutamakan Pancasila dan gotong royong.\nPilihan Jawaban Poin Nilai\nC 5\nE 4\nD 3\nB 2\nA 1"
     },
     {
       "id": "pretest-33",
@@ -7459,13 +6290,13 @@
       "edition": "2027",
       "category": "TWK",
       "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Budi ikut pemilihan RT, pada saat pemilihan Budi merasa diperlakukan tidak adil se -\nhingga dia dan simpatisannya melakukan \nmosi tidak percaya, demo bahkan melakukan intimidasi terhadap panitia seperti \nmeneror dan lain-lain agar menganulir ke -\nputusan panitia. Sebenarnya hal ini tidak \nakan terjadi apabila Budi dan simpatisannya mengamalkan Pancasila, khususnya \nsila . . . . .",
+      "question": "Ahmad adalah seorang ahli statistika di \nperusahaan start-up tempat ia bekerja. \nDalam bertugas, ia lebih sering berada di \nbelakang komputernya untuk mengolah \ndata. Namun kali ini Ahmad ditugaskan \nmengunjungi daerah pedalaman dan ber -\ninterkasi dengan masyarakat setempat untuk mengumpulkan data. Ahmad merasa \ngugup, jika Anda adalah atasan Ahmad, \napa yang akan Anda lakukan?",
       "options": {
-        "A": "Bintang",
-        "B": "Kepala Banteng",
-        "C": "Pohon Beringin",
-        "D": "Rantai",
-        "E": "Padi dan Kapas"
+        "A": "Memberikan tugas terperinci untuk \nmemudahkan Ahmad dalam melaksanakan tugasnya",
+        "B": "Bersikap biasa saja karena tugas adalah tanggung jawab semua karyawan, \nkarenanya siapapun harus bersiap \nmenjalankan tugasnya",
+        "C": "Menanyakan kesediaan dan kesiapan \nAhmad dalam menjalankan tugas ter -\nsebut",
+        "D": "Berdiskusi tentang ide dan masukan \nyang dapat diberikan Ahmad kepada \natasan dan perusahaan tentang tugas \ntersebut",
+        "E": "Memfasilitasi segala kebutuhan dan \npermintaan Ahmad dalam bertugas"
       },
       "answer": "A",
       "points": {
@@ -7476,903 +6307,6 @@
         "E": 0
       },
       "explanation": "Jawaban: D\nTopik: Profesionalisme\nSeorang atasan bukan hanya memerintahkan penugasan sesuai kehendaknya. Atasan juga harus menggali potensi bawahannya. Karena bisa saja ide yang disampaikan \ndapat menjadi solusi yang baik.\nPilihan Jawaban Poin Nilai\nD 5\nA 4\nC 3\nB 2\nE 1"
-    },
-    {
-      "id": "posttest-2",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Valentinus adalah mahasiswa asal Papua \nyang ingin melanjutkan studinya di Pulau Jawa, khususnya di Universitas Gadjah \nMada Yogyakarta. Setelah sampai di sana, \nselama seminggu ia mengalami perlakuan \nyang tidak menyenangkan berbalut rasisme yang membuatnya merasa sedih dan \nmarah. \nHal yang dialami Valentinus adalah salah \nsatu penyimpangan perilaku yang bertentangan dengan Pancasila khususnya sila \nke?",
-      "options": {
-        "A": "2",
-        "B": "3",
-        "C": "4",
-        "D": "5",
-        "E": "1\n3 “Rentetan ledakan bom di Surabaya pada \nMei 2018 di berbagai tempat ibadah umat \nnasrani. Minggu, 13 Mei 2018, pukul 06.30 \nWIB, Gereja Katolik Santa Maria menjadi \nsasaran bom. Gereja itu terletak di Jalan \nNgagel Madya 01 Surabaya. Yusuf (18) dan \nFirman (16) berboncengan mengendarai \nsepeda motor masuk ke halaman Gereja"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Pelayanan publik.\nIndikator daya tanggap terhadap pelayanan terhadap masyarakat adalah memenuhi \nkebutuhan penerima layanan dan segera \nmungkin. Pada permasalahan pada seo -\nrang ibu tua yang tidak paham prosedur \npenggunaan BPJS untuk rawat inap padahal sudah dijelaskan bahkan dengan bahasa yang mudah dimengerti tapi sang ibu \ntetap tidak paham, solusinya adalah menjelaskan kepada anggota kelurga yang lain.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-7",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Radikalisme merupakan ancaman terhadap ketahanan ideologi suatu negara Indonesia sebagai negara yang plural dimana \nterdapat berbagai macam suku, ras, budaya dan juga agama menjadi sasaran faham \nradikal berbau SARA tumbuh dan berkembang. Pemuda merupakan sasaran utama \npenyebaran aksi kekerasan dan radikalisme \nyang patut menjadi keprihatinan kita ber -\nsama. Oleh karena hal tersebut, terdapat \nbeberapa hal yang patut dikedepankan dalam pencegahan radikalisme di kalangan \npemuda, kecuali . . . .",
-      "options": {
-        "A": "Memperkuat pendidikan kewargane -\ngaraan mengenai empat pilar kebangsaan, yaitu Pancasila, UUD 1945, NKRI, \ndan Bhineka Tunggal Ika",
-        "B": "Mengarahkan para pemuda pada be -\nragam aktivitas di bidang seni, budaya, maupun olahraga",
-        "C": "Memberikan pemahaman agama \nyang damai dan toleran",
-        "D": "Memberikan keteladanan yang baik \nkepada pemuda",
-        "E": "Memberi modal usaha kepada pemuda berprestasi"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Kreativitas dan inovasi\nSebagai pimpinan harus mampu mencip -\ntakan sesuatu ide atau gagasan yang so -\nlutif untuk mengatasi suatu permasalahan \nyang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif \ndan efisien.\nPilihan Jawaban Poin Nilai\nA 5\nE 4\nC 3\nD 2\nB 1"
-    },
-    {
-      "id": "posttest-8",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Akibat hujan lebat yang terjadi terus menerus menyebabkan jembatan penghubung \nsuatu desa putus. Padahal jembatan ter -\nsebut merupakan jalur transportasi utama \nwarga di desa tersebut. Karena hal terse -\nbut, masyarakat di desa tersebut segera \nmelakukan gotong royong untuk membangun jembatan sementara agar tetap dapat melakukan aktivitasnya. Kegiatan yang \ndilakukan warga desa tersebut merupakan \ncontoh pengamalan Pancasila sila ke . . . .",
-      "options": {
-        "A": "3",
-        "B": "1",
-        "C": "5",
-        "D": "4",
-        "E": "2\n723"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Orientasi pada pelayanan\nMenolong adalah perbuatan yang mulia. \nPilihlah jawaban yang menggambarkan \nbahwa Anda menolong orang lain dalam \nsituasi tertentu atau masalah tertentu. \nPilihan Jawaban Poin Nilai\nB 5\nE 4\nC 3\nA 2\nD 1"
-    },
-    {
-      "id": "posttest-9",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Meskipun tidak muda lagi, Tukimin (64) \ntampak bersemangat hadir menyalurkan \nhak politiknya. Tukimin datang ke TPS 08 \nbersama dua anggota keluarganya. Hanya \nsaja, keinginannya untuk mencoblos sempat tertahan. Pasalnya dia tidak membawa \nsurat panggilan. Akan tetapi, pihak keluar -\nga bersikukuh ingin mewujudkan keinginan Tukimin mencoblos. Tukimin tercatat \ndalam DPT dan mempunyai KTP elektro -\nnik. Setelah beberapa menit menunggu, \nkeinginan Tukimin mencoblos akhirnya \nterpenuhi juga. Tukimin boleh mencoblos \nkarena terdaftar dalam DPT dan memiliki \nKTP elektronik. Tukimin mengaku semangat mencoblos dengan harapan pemimpin yang terpilih dapat lebih meningkat -\nkan kemakmuran masyarakat. Perwujudan \ndemokrasi Pancasila yang dialami Tukimin, \nyaitu . . . .",
-      "options": {
-        "A": "Menjamin pemerintahan yang ber -\ntanggungjawab.",
-        "B": "Menjamin tetap tegaknya hukum \nyang berasal dari Pancasila.",
-        "C": "Menjamin tetap tegaknya NKRI ber -\ndasar sistem konstitusional hubungan \nadanya.",
-        "D": "Menjamin yang sama, serasi, dan se -\nimbang mengenai lembaga negara.",
-        "E": "Menjamin keikutsertaan rakyat dalam \nkehidupan bernegara, ikut menyukseskan pemilu, pembangunan dan duduk dalam perwakilan/permusyawaratan."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Kemampuan beradaptasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan beradaptasi yang baik. Seperti \nkemampuan seseorang dalam menyesuaikan diri dengan kondisi baru atau dengan \norang baru. \nPilihan Jawaban Poin Nilai\nA 5\nE 4\nB 3\nD 2\nC 1"
-    },
-    {
-      "id": "posttest-10",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Latar belakang dibentuknya panitia ke -\ncil dalam sidang pertama BPUPKI dengan \nagenda perumusan dasar negara ialah . . . .",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5\n12 “Pengadilan Negeri Tindak Pidana Korupsi \n(PN Tipikor) Jakarta menggelar sidang per -\ndana untuk 13 tersangka korporasi kasus \ntindak pidana pencucian uang (TPPU) dan"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Profesionalisme\nPilihlah jawaban yang solutif untuk me -\nnunjukkan prefesionalisme dalam bekerja. \nKetika langsung menghadap atasan saat \nsedang lapar, maka pekerjaan tidak akan \nterselesaikan dengan maksimal. Jika istirahat dan maka dahulu, maka akan mendapat penilaian yang kurang baik dari atasan. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nA 2\nE 1"
-    },
-    {
-      "id": "posttest-13",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Konferensi yang bertujuan untuk menye -\nsaikan persengketaan antara Indonesia \ndan Belanda dengan adanya pengakuan \nkemerdekaan yang nyata, penuh, dan tanpa syarat kepada Republik Indonesia Serikat adalah . . . .",
-      "options": {
-        "A": "Perjanjian Renville",
-        "B": "Perjanjian Linggarjati",
-        "C": "Perjanjian Roem Royen",
-        "D": "Perjanjian Giyanti",
-        "E": "Konferensi Meja Bundar"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Kemampuan bekerja sama dalam kelompok \nPilihlah jawaban yang menunjukkan ke -\nmampuan seseorang dalam bekerja sama \nseperti pengambilan keputusan secara \nbersama, pembuatan laporan kerja bersama dan lain-lain.\nPilihan Jawaban Poin Nilai\nA 5\nE 4\nB 3\nC 2\nD 1"
-    },
-    {
-      "id": "posttest-14",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Semboyan negara kita Bhineka Tunggal Ika \nberasal dari bahasa Jawa Kuno yang diambil dari sebuah kitab bernama Sutasoma \nyang merupakan karangan dari . . . .",
-      "options": {
-        "A": "Mpu Tantular",
-        "B": "Mpu Prapanca",
-        "C": "Mpu Gandring",
-        "D": "Mpu Sendok",
-        "E": "Mpu Supo"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda untuk menggerakkan te -\nman-teman Anda, dan sikap paling bijak \nyang harus Anda tunjukkan. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-15",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Amandemen UUD 1945 dilakukan agar \nUUD 1945 sesuai dengan perkembangan \nzaman adanya amandemen, membuat batang tubuh mengalami perubahan. Setelah \namandemen batang tubuh terdiri . . . .",
-      "options": {
-        "A": "Pertama",
-        "B": "Kedua",
-        "C": "Ketiga",
-        "D": "Keempat",
-        "E": "kelima"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti mendengarkan keluhan teman \ndan membantu memecahkan masalahnya."
-    },
-    {
-      "id": "posttest-18",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Sikap berlandaskan nasionalisme di bawah \nini yang berpengaruh pada kebijakan fiskal \nnegara adalah…",
-      "options": {
-        "A": "Membayar pajak tepat pada waktunya",
-        "B": "Melakukan pekerjaan yang tidak me -\nlanggar hukum",
-        "C": "Membeli produk buatan dalam negeri",
-        "D": "Menggunakan hak pilih dalam pemilu",
-        "E": "Memiliki toleransi tinggi terhadap \norang yang berbeda keyakinan"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Profesionalisme\nPilihlah jawaban yang solutif untuk me -\nnunjukkan prefesionalisme dalam bekerja. \nKetika atasan Anda melakukan rekayasa \nlaporan keuangan, maka hendaknya Anda \ntidak terlibat dalam proses rekayasa terse -\nbut. \nPilihan Jawaban Poin Nilai\nD 5\nC 4\nA 3\nB 2\nE 1"
-    },
-    {
-      "id": "posttest-19",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Salah satu konsekuensi dalam masyarakat \nmultikultural adalah nasionalisme. Hal ter \nsebut sesuai dengan pernyataan . . . .",
-      "options": {
-        "A": "perekrutan pegawai berdasarkan ke -\nsamaan daerah",
-        "B": "mengutamakan penggunaan bahasa \nIndonesia ketika berada dalam forum \nnasional",
-        "C": "mengunggulkan kebudayaan sendiri \ndibandingkan dengan kebudayaan \nlain",
-        "D": "bekerja sama dengan didasari kesamaan budaya",
-        "E": "membuat perkumpulan dengan dilatar belakangi sikap primordialisme"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: C\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan warga dan menyelesaikan \nmasalah. \nPilihan Jawaban Poin Nilai\nC 5\nA 4\nE 3\nD 2\nB 1"
-    },
-    {
-      "id": "posttest-20",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Integrasi nasional dapat diwujudkan dalam \nkehidupan masyarakat majemuk apabila . . . .",
-      "options": {
-        "A": "cara berpikir anggota masyarakat relatif sama",
-        "B": "gaya hidup yang seragam",
-        "C": "setiap individu lebih mengutamakan \nhaknya",
-        "D": "memiliki pemimpin yang bijaksana \ndan merakyat",
-        "E": "terdapat rasa cinta Tanah Air pada setiap warga Negara Indonesia"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan warga dan menyelesaikan \nmasalah. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nA 3\nB 2\nC 1"
-    },
-    {
-      "id": "posttest-21",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Permasalahan paling kompleks yang dialami oleh negara Indonesia yang mengakibatkan tergerusnya nasionalisme adalah \n. . . .",
-      "options": {
-        "A": "Lemahnya aparatur penegak hukum",
-        "B": "Permasalahan disintegrasi kedaerahan",
-        "C": "Perkembangan globalisasi yang kian \npesat",
-        "D": "Perselisihan ideologi, politik, dan mo -\nral",
-        "E": "Rendahnya kepercayaan terhadap kinerja pemerintah\n726"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan karyawan/pegawai dan \nmenyelesaikan masalah. \nPilihan Jawaban Poin Nilai\nD 5\nA 4\nE 3\nC 2\nB 1"
-    },
-    {
-      "id": "posttest-22",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Semangat patriotisme pejuang kemerde -\nkaan harus tetap ditumbuhkan ke dalam \ngenerasi muda dengan cara . . . .",
-      "options": {
-        "A": "Berziarah ke makam pahlawan.",
-        "B": "Khidmat dalam mengikuti upacara \nbendera",
-        "C": "Mengisi kemerdekaan dengan ikut \nserta dalam pembangunan nasional",
-        "D": "Merayakan hari kemerdekaan dengan \nmeriah",
-        "E": "Bersuka cita dalam menikmati kemer -\ndekaan Indonesia"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Kemampuan bekerja sama dalam kelompok \nPilihlah jawaban yang menunjukkan ke -\nmampuan seseorang dalam bekerja sama \nseperti pengambilan keputusan secara \nbersama, pembuatan laporan kerja bersama dan lain-lain.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nE 3\nA 2\nC 1"
-    },
-    {
-      "id": "posttest-23",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Perilaku bela negara dalam lingkungan masyarakat dapat dicontohkan dengan perilaku . . . .",
-      "options": {
-        "A": "Ikut membuat pos ronda",
-        "B": "Melakukan kebersihan lingkungan se -\ntiap hari",
-        "C": "Ikut serta dalam musyawarah desa",
-        "D": "Mengikuti dan melaksanakan kegiat -\nan siskamling",
-        "E": "Merencanakan pembangunan tempat \nibadah di lingkungan masyarakat"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : B \nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu. Dalam kasus ini, \nhendaknya Anda memberitahukan permasalahan tersebut kepada yang bersangkut -\nan demi kenyamanan bersama.\nPilihan Jawaban Poin Nilai\nB 5\nC 4\nE 3\nA 2\nD 1"
-    },
-    {
-      "id": "posttest-24",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Salah satu bentuk hak bela negara bagi \nwarga negara Indonesia adalah . . . .",
-      "options": {
-        "A": "Mempertahankan wilayah NKRI",
-        "B": "Mewujudkan perilaku tertib dalam \nmasyarakat",
-        "C": "Memperoleh pendidikan",
-        "D": "Ikut serta dalam menjaga keamanan \nmasyarakat",
-        "E": "Berpegang teguh pada pedoman Pancasila"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : D \nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda tetap bertanggung jawab terhadap pekerjaan. Ketika terjadi suatu per -\nmasalahan, sebaiknya dibicarakan dengan \natasan jika tidak mampu untuk diselesaikan sendiri.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nA 3\nB 2\nC 1"
-    },
-    {
-      "id": "posttest-25",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Cermati paragraf berkut!\nKeterbukaan batik banyuwangi terhadap \nperwajahan baru, warna dan motif me -\nnunjukkan watak orang Banyuwangi yang \nsangat percaya diri meramu aneka pengaruh untuk kemudian diakui sebagai identitas. (2) Tabrak budaya ini juga terlihat pada \nramuan kulinernya, seperti rawon malang \ndicampur dengan pecel madiun menjadi \nrawon pecel. (3) Orang Banyuwangi sangat \nterbuka menerima budaya luar untuk dio -\nlah menjadi budaya Banyuwangi. (4) Sinkretisme budaya yang juga tampak di batik \nbanyuwangi ini menjadi sesuatu yang mutlak terjadi karena Banyuwangi hingga kini \nmemang dihuni oleh beragam suku. (5) \nKedatangan beragam suku bangsa untuk \ntinggal menetap di Banyuwangi antara lain \ndimulai pada penjajahan Belanda. (6) Be -\nlanda Mendatangkan buruh perkebunan \ndari Jawa dan Madura.\nKalimat utama paragraf tersebut adalah \nnomor . . . .",
-      "options": {
-        "A": "(1)",
-        "B": "(2)",
-        "C": "(3)",
-        "D": "(4)",
-        "E": "(5)"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C \nTopik: Kemampuan bekerja dalam kelompok\nDalam musyawarah kelompok, antar anggota haruslah saling menghargai satu sama \nlain dan bersifat terbuka. Seorang anggota \nharus menghargai lawan bicara dan memberikan respon atau tanggapan yang positif.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "posttest-26",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Penggunaan huruf kapital berikut yang benar, kecuali..…",
-      "options": {
-        "A": "Dalam kunjungannya ke Palu guna \nmengunjungi daerah terdampak gempa bumi dan tsunami, Presiden Joko \nWidodo didampingi oleh wakil presiden Jusuf Kalla.",
-        "B": "Suku Asmat adalah sebuah suku di Papua. Populasi suku Asmat terbagi dua \nyaitu mereka yang tinggal di pesisir \npantai dan mereka yang tinggal di bagian pedalaman.",
-        "C": "Selain sebagai sebuah ritual keagamaan, perayaan hari Galungan juga \ndapat menjadi sebuah pemandangan \nyang menarik bagi wisatawan.",
-        "D": "Prof. Dr. Ir. Ikhwan Mustaqim, M.T. \nmempresentasikan karya inovasi yang \nberjudul “Biopestisida Organik dari \nDaun Tembakau” .",
-        "E": "Salah satu impian Tama adalah dapat \nmencapai puncak Gunung Semeru."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : B\nTopik: Sosial budaya\nDalam persoalan tersebut kontribusi Anda \ndalam mengurangi pemanasan global se -"
-    },
-    {
-      "id": "posttest-28",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Banyak iklan yang menawarkan jasa untuk \nmenurunkan berat badan. Ada yang melalui tusuk jarum, sedot lemak, minum jamu, \natau minum teh hijau. Jenis diet pun ber -\nmacam-macam. Ada diet macan yang lebih \nmementingkan konsumsi daging. Ada diet \nbuah-buahan membatasi makan nasi dan \nmakanan berkarbohidrat tinggi. Beragam \nkiat dapat dilakukan untuk menurunkan \nberat badan.\nSimpulan yang tepat untuk melengkapi paragraf tersebut adalah . . . .",
-      "options": {
-        "A": "Kita tidak akan mengalami kesulitan \nuntuk menurunkan berat badan dan \nmerawat kecantikan.",
-        "B": "Kaum wanita berlomba-lomba melakukan diet dengan berbagai cara agar \nterlihat cantik.",
-        "C": "Biaya yang diperlukan untuk menurunkan berat badan tidaklah mahal \nbila dilakukan dengan berolahraga.",
-        "D": "Para remaja di kota-kota besar sering \nkesulitan untuk melakukan diet di salon atau dokter.",
-        "E": "Banyaknya iklan penawaran diet \nmembingungkan konsumen untuk \nmemilih cara yang efektif."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Sosial budaya\nDalam kehidupan bermasyarakat, agar \ntidak menimbulkan kecurigaan tetangga atas pekerjaan yang maka hendaknya \nmengagendakan silaturahmi dengan te -\ntangga baik melalui kegiatan karang taruna atau kegiatan lainnya dan menjelaskan \nperihal pekerjaan Anda.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nA 3\nE 2\nC 1"
-    },
-    {
-      "id": "posttest-29",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Setelah pembelajaran di kelas berakhir, kepala sekolah bersama guru-guru mengadakan rapat. Dalam rapat itu, membicarakan \nkelulusan siswa kelas XII.\nPerbaikan kalimat tidak efektif yang berce -\ntak miring pada paragraf tersebut dengan \ncara . . . .",
-      "options": {
-        "A": "Mengganti kata membicarakan de -\nngan kata dibicarakan",
-        "B": "Membubuhkan tanda koma di belakang kata itu",
-        "C": "Kata membicarakan diganti dengan \nkata berbicara",
-        "D": "Menghilangkan kata itu",
-        "E": "Menambahkan tanda koma di belakang kata siswa"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Kemampuan mengendalikan diri\nPilihlah jawaban yang menunjukkan bahwa Anda mampu bersikap dewasa dan te -\ntap tenang jika terjadi suatu permasalahan. \nDalam menyelesaikan permasalahan tersebut, hendaknya mengikuti prosedur/SOP \nyang telah ditetapkan.\nPilihan Jawaban Poin Nilai\nB 5\nA 4\nE 3\nC 2\nD 1"
-    },
-    {
-      "id": "posttest-30",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Perubahan ketetapan melalui peratur -\nan pemerintah secara berkala lumrahnya \nmengundang pertanyaan di benak pelaku \nindustri akan interperetasi undang-undang \nseperti apa yang dimulai paling ideal oleh \npemerintah. Bukan apa-apa, inplikasi yang \ndibawa sebagai dampak dari kewajiban \nyang digarisbawahi oleh kata “dan” dan \n“atau” ini dapat menimbulkan perbedaan \nnilai inves hingga jutaan dolar AS yang harus ditanamkan pelaku industri.\nKata serapan yang tepat untuk memperbaiki kata yang bercetak miring adalah . . . .",
-      "options": {
-        "A": "Berintepretasi, berimplikasi, investor",
-        "B": "Menginterpretasi, diimplikasi, investor",
-        "C": "Interfretasi, implikasi, inpestasi",
-        "D": "Interpretasi, implikasi, investasi",
-        "E": "Berinterpretasi, implikasi, berinvestasi"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Belajar mandiri dan tuntas\nPilihlah jawaban yang menggambarkan \nkemandirian Anda dalam bekerja ataupun \ndalam menghadapi situasi tertentu. \nPilihan Jawaban Poin Nilai\nA 5\nC 4\nB 3\nD 2\nE 1"
-    },
-    {
-      "id": "posttest-1",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "SANGKIL = ….",
-      "options": {
-        "A": "Efektif",
-        "B": "Efisien",
-        "C": "Seimbang",
-        "D": "Raksasa",
-        "E": "Probabilitas"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Profesionalisme\nSeorang atasan bukan hanya memerintahkan penugasan sesuai kehendaknya. Atasan juga harus menggali potensi bawahannya. Karena bisa saja ide yang disampaikan \ndapat menjadi solusi yang baik.\nPilihan Jawaban Poin Nilai\nD 5\nA 4\nC 3\nB 2\nE 1"
-    },
-    {
-      "id": "posttest-2",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "ESOTERIK >< ….",
-      "options": {
-        "A": "Spesialis",
-        "B": "Generalis",
-        "C": "Terbatas",
-        "D": "Eksklusif",
-        "E": "Rahasia"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Pelayanan publik.\nIndikator daya tanggap terhadap pelayanan terhadap masyarakat adalah memenuhi \nkebutuhan penerima layanan dan segera \nmungkin. Pada permasalahan pada seo -\nrang ibu tua yang tidak paham prosedur \npenggunaan BPJS untuk rawat inap padahal sudah dijelaskan bahkan dengan bahasa yang mudah dimengerti tapi sang ibu \ntetap tidak paham, solusinya adalah menjelaskan kepada anggota kelurga yang lain.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-3",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "RODA : .... = .... : MANUSIA",
-      "options": {
-        "A": "Mobil–Mata",
-        "B": "Lingkaran–Optik",
-        "C": "Ban–Tubuh",
-        "D": "Bulat–Tinggi",
-        "E": "Menggelinding–Berjalan"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Kreativitas dan inovasi\nSebagai pegawai/karyawan harus mampu \nmenciptakan sesuatu yang baru dan mudah dimengerti dan dipresentasikan melalui poin-poin penting agar tidak membuat \norang bosan. Dalam presentasi hendaknya \nmenggunakan bahasa yang baik dan juga \npemilihan kata yang tidak bertele-tele agar \nmudah dipahami serta tidak memuat banyak tulisan.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nB 3\nC 2\nA 1"
-    },
-    {
-      "id": "posttest-4",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "KOI : IKAN : HEWAN = …. : ….",
-      "options": {
-        "A": "Koki : Memasak : Pekerjaan",
-        "B": "Sawi : Sayuran : Masak",
-        "C": "Buku : Kertas : Halaman",
-        "D": "Mawar : Tumbuhan : Berbunga",
-        "E": "Tahu : Lauk : Makanan"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Pelayanan publik.\nSeorang pegawai/karyawan harus memberikan pelayanan yang baik, cepat dan \nberorientasi kepuasaan pelanggan. Dalam \nkasus di atas kita boleh mendahulukan kakek tersebut, dengan menjelaskan kepada \nyang lain terlebih dahulu agar mereka juga \nmerasa dihargai, pada pelayanan wanita \nhamil, lansia, ibu menyusui mendapatkan \nprioritas utama pelayanan.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-5",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Semua laki–laki gemar olahraga. Sebagian \nyang gemar memelihara ikan adalah laki–\nlaki. Kesimpulan yang tepat dari kedua premis di atas adalah ....",
-      "options": {
-        "A": "Semua laki–laki gemar olahraga dan \nmemelihara ikan",
-        "B": "Sebagian laki–laki tidak suka olahraga \ndan gemar memelihara ikan",
-        "C": "Sebagian yang gemar memelihara \nikan juga gemar olahraga",
-        "D": "Sebagian laki–laki yang suka memelihara ikan tidak gemar olahraga",
-        "E": "Sebagian laki–laki pernah olahraga \ndan memelihara ikan"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Sosial budaya\nIndikator tertib terhadap aturan yang telah \nditetapkan adalah mendukung program \ntersebut dengan implementasi di perusahaan. Dalam soal terdapat kebijakan pub -\nlik maka opsi jawaban yang paling tepat \nadalah pilihan jawaban D, yaitu memilah \nkegiatan yang dapat mengurangi jumlah \nkertas. Sebagai pimpinan haruslah inovatif, \ndengan melakukan hal ini kita telah mendukung program pemerintah dan tidak \nsemua aktivitas bisa menghilangkan penggunaan kertas.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nB 2\nA 1"
-    },
-    {
-      "id": "posttest-6",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Beberapa benda yang memuai adalah lo -\ngam. Semua logam adalah benda padat. \nKesimpulan yang tepat dari kedua premis \ndi atas adalah ....",
-      "options": {
-        "A": "Sebagian logam yang memuai adalah \nbenda padat",
-        "B": "Benda yang bukan logam bukan me -\nrupakan benda padat",
-        "C": "Beberapa benda padat tidak dapat \nmemuai",
-        "D": "Beberapa benda yang memuai adalah \nbenda padat",
-        "E": "Beberapa benda yang padat dapat \nmemuai.\nSoal nomor 7 hingga 9 didasarkan pada \nketerangan berikut:\nDiketahui A, B, C, D, dan E adalah nama–nama \ngedung yang terdapat di sepanjang jalan lurus \ndi sebuah kota. Diketahui tata letak gedung tersebut antara lain:\n ⇲ Gedung A berada 250 m di sebelah utara \ngedung E\n ⇲ Gedung B berada 150 m di sebelah selatan \ngedung D\n ⇲ Gedung E berada 500 m di sebelah utara \ngedung B\n ⇲ Gedung C berada 200 m di sebelah utara \ngedung A"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Integritas diri\nPilihlah jawaban yang menunjukkan per -\nbuatan atau sikap bertanggung jawab, walaupun hal sepele cobalah berhati-hati dalam bertindak. Biasanya berkaitan dengan \npemahaman risiko suatu kondisi. \nPilihan Jawaban Poin Nilai\nB 5\nE 4\nC 3\nD 2\nA 1"
-    },
-    {
-      "id": "posttest-7",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Manakah gedung yang letaknya paling \nutara?",
-      "options": {
-        "A": "Gedung A",
-        "B": "Gedung B",
-        "C": "Gedung C",
-        "D": "Gedung D",
-        "E": "Gedung E"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Kreativitas dan inovasi\nSebagai pimpinan harus mampu mencip -\ntakan sesuatu ide atau gagasan yang so -\nlutif untuk mengatasi suatu permasalahan \nyang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif \ndan efisien.\nPilihan Jawaban Poin Nilai\nA 5\nE 4\nC 3\nD 2\nB 1"
-    },
-    {
-      "id": "posttest-9",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Manakah berikut ini yang merupakan per -\nnyataan yang salah?",
-      "options": {
-        "A": "Gedung yang terletak paling selatan \nadalah gedung B",
-        "B": "Gedung yang urutan letaknya berada \ndi tengah adalah gedung E",
-        "C": "Gedung yang berada di antara gedung \nB dan gedung E adalah gedung D",
-        "D": "Gedung A terletak tepat di sebelah \nutara gedung E",
-        "E": "Gedung yang terletak di antara ge -\ndung D dan gedung A adalah gedung \nB"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Kemampuan beradaptasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan beradaptasi yang baik. Seperti \nkemampuan seseorang dalam menyesuaikan diri dengan kondisi baru atau dengan \norang baru. \nPilihan Jawaban Poin Nilai\nA 5\nE 4\nB 3\nD 2\nC 1"
-    },
-    {
-      "id": "posttest-10",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "P , Q, R, S, T adalah lima orang diplomat. P \nhanya dapat berbicara bahasa Inggris dan \nJerman. Q hanya berbicara dalam bahasa \nPerancis, Jepang, dan Cina. R hanya dapat \nberbicara bahasa Jerman. S hanya berbicara dalam bahasa Inggris, Jepang, dan Cina. \nT hanya dapat berbicara dalam bahasa \nPerancis dan Jerman. Pasangan diplomat \nyang harus menggunakan penterjemah \ndalam berkomunikasi adalah ….",
-      "options": {
-        "A": "77",
-        "B": "85",
-        "C": "91",
-        "D": "107",
-        "E": "110"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Profesionalisme\nPilihlah jawaban yang solutif untuk me -\nnunjukkan prefesionalisme dalam bekerja. \nKetika langsung menghadap atasan saat \nsedang lapar, maka pekerjaan tidak akan \nterselesaikan dengan maksimal. Jika istirahat dan maka dahulu, maka akan mendapat penilaian yang kurang baik dari atasan. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nA 2\nE 1"
-    },
-    {
-      "id": "posttest-14",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Adik mempunyai 7 pernik berbeda warna \nyang akan disusun menjadi sebuah kalung. \nBanyak cara Adik menyusun pernik terse -\nbut adalah ….",
-      "options": {
-        "A": "600",
-        "B": "720",
-        "C": "890",
-        "D": "900",
-        "E": "1.020"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda untuk menggerakkan te -\nman-teman Anda, dan sikap paling bijak \nyang harus Anda tunjukkan. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-15",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "( ) ( ) ( )98 42 : 12 5 32+− − + −− = ….",
-      "options": {
-        "A": "136",
-        "B": "109",
-        "C": "98",
-        "D": "89",
-        "E": "76"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti mendengarkan keluhan teman \ndan membantu memecahkan masalahnya."
-    },
-    {
-      "id": "posttest-16",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Suatu segitiga ABC siku–siku di B dan AB \n= AC. Jika keliling segitiga adalah 20 cm, \nmaka panjang AB adalah ….",
-      "options": {
-        "A": "( )51 2+",
-        "B": "( )52 2−",
-        "C": "( )52 2+",
-        "D": "( )10 2 2+",
-        "E": "( )10 2 2−\n730"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: A\nTopik: Kreativitas dan inovasi kerja \nPilihlah jawaban yang menunjukkan Anda \norang yang kreatif dan mampu menyele -\nsaikan masalah dengan inovasi inovasi ter -\ntentu. \nPilihan Jawaban Poin Nilai\nA 5\nD 4\nC 3\nE 2\nB 1"
-    },
-    {
-      "id": "posttest-72",
-      "edition": "2027",
-      "category": "TKP",
-      "subtest": "Tes Karakteristik Pribadi",
-      "question": "buah jeruk, dan 48 buah salak. Buah \ntersebut akan dibungkus plastik untuk dibagikan kepada tetangga dengan setiap \nbungkus terdiri atas tiga jenis buah dengan \njumlah setiap jenis buah sama banyak. Banyak tetangga yang akan mendapatkan \nbingkisan adalah ….",
-      "options": {
-        "A": "8 orang",
-        "B": "12 orang",
-        "C": "24 orang",
-        "D": "36 orang",
-        "E": "42 orang"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 4,
-        "C": 3,
-        "D": 2,
-        "E": 1
-      },
-      "explanation": "Pembahasan pada bank soal resmi."
-    },
-    {
-      "id": "posttest-27",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "siswa gemar fisika, 28 siswa gemar matematika, dan 11 siswa gemar kedua mata \npelajaran tersebut. Jika terdapat 5 siswa \nyang tidak gemar kedua mata pelajaran \ntersebut, berarti jumlah seluruh siswa di \nkelas tersebut adalah ....",
-      "options": {
-        "A": "35 siswa",
-        "B": "37 siswa",
-        "C": "39 siswa",
-        "D": "42 siswa",
-        "E": "49 siswa"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: C\nTopik: Kemampuan bekerja sama dalam kelompok \nPilihlah jawaban yang menunjukkan ke -\nmampuan seseorang dalam bekerja sama \nseperti pengambilan keputusan secara \nbersama, pembuatan laporan kerja bersama dan lain-lain. Jika kinerja tim menjadi \nlebih lamban karena kondisi anggota yang \nsedang hamil, maka hal tersebut tidak ter -\nhindarkan dan mengapresiasi teman itu \nkarena masih bekerja dengan semangat \nmeskipun sedang hamil.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nE 3\nB 2\nD 1"
-    },
-    {
-      "id": "posttest-21",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Dari 50 peserta perkumpulan remaja RW, \ndiketahui semua peserta menyukai me -\nmancing atau bersepeda. Diketahui 29 pe -\nserta menyukai memancing dan 26 peserta \nmenyukai bersepeda. Banyak peserta yang \nmenyukai memancing dan juga menyukai \nbersepeda adalah ....",
-      "options": {
-        "A": "5 orang",
-        "B": "6 orang",
-        "C": "7 orang",
-        "D": "8 orang",
-        "E": "9 orang"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan karyawan/pegawai dan \nmenyelesaikan masalah. \nPilihan Jawaban Poin Nilai\nD 5\nA 4\nE 3\nC 2\nB 1"
-    },
-    {
-      "id": "posttest-22",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Jika a menyatakan luas persegi dengan \npanjang sisi 14 cm, dan b menyatakan luas \npersegi panjang dengan panjang 16 cm \ndan lebar 10 cm, maka pernyataan berikut \nyang tepat adalah ….",
-      "options": {
-        "A": "ab<",
-        "B": "ab≤",
-        "C": "ab=",
-        "D": "ab>",
-        "E": "ab≥"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Kemampuan bekerja sama dalam kelompok \nPilihlah jawaban yang menunjukkan ke -\nmampuan seseorang dalam bekerja sama \nseperti pengambilan keputusan secara \nbersama, pembuatan laporan kerja bersama dan lain-lain.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nE 3\nA 2\nC 1"
-    },
-    {
-      "id": "posttest-23",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Pak Ibnu adalah seorang pegawai dengan \ngaji bersih Rp3.420.000. Jika gaji tersebut \ntelah dipotong PPh sebesar 5%, maka gaji \nPak Ibnu sebenarnya adalah ....",
-      "options": {
-        "A": "Rp3.525.000,00",
-        "B": "Rp3.600.000,00",
-        "C": "Rp3.750.000,00",
-        "D": "Rp3.800.000,00",
-        "E": "Rp4.000.000,00"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : B \nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu. Dalam kasus ini, \nhendaknya Anda memberitahukan permasalahan tersebut kepada yang bersangkut -\nan demi kenyamanan bersama.\nPilihan Jawaban Poin Nilai\nB 5\nC 4\nE 3\nA 2\nD 1"
-    },
-    {
-      "id": "posttest-25",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Reno mengendarai sepeda motor pada pukul 07.30 dari kota A ke kota B dengan ke -\ncepatan 45 km/jam. Pada waktu yang sama, \nRina mengendarai mobil dari kota B ke kota \nA dengan kecepatan 65 km/jam. Jika jarak \nkedua kota tersebut adalah 165 km, pukul \nberapa mereka berpapasan?",
-      "options": {
-        "A": "09.00",
-        "B": "08.50",
-        "C": "08.45",
-        "D": "08.30",
-        "E": "08.25"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : C \nTopik: Kemampuan bekerja dalam kelompok\nDalam musyawarah kelompok, antar anggota haruslah saling menghargai satu sama \nlain dan bersifat terbuka. Seorang anggota \nharus menghargai lawan bicara dan memberikan respon atau tanggapan yang positif.\nPilihan Jawaban Poin Nilai\nC 5\nD 4\nB 3\nA 2\nE 1"
-    },
-    {
-      "id": "posttest-26",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Andra dapat menyelesaikan suatu peker -\njaan dalam waktu 2 jam, sedangkan Beni \ndapat menyelesaikan dalam waktu 5 jam. \nBerapa lama waktu yang diperlukan untuk \nmenyelesaikan pekerjaan tersebut jika Andra dan Beni mengerjakan bersama–sama?",
-      "options": {
-        "A": "11 jam3",
-        "B": "21 jam5",
-        "C": "11 jam6",
-        "D": "31 jam7",
-        "E": "51 jam7"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : B\nTopik: Sosial budaya\nDalam persoalan tersebut kontribusi Anda \ndalam mengurangi pemanasan global se -"
     },
     {
       "id": "posttest-2",
@@ -8396,121 +6330,6 @@
         "E": 1
       },
       "explanation": "Jawaban: D\nTopik: Pelayanan publik.\nIndikator daya tanggap terhadap pelayanan terhadap masyarakat adalah memenuhi \nkebutuhan penerima layanan dan segera \nmungkin. Pada permasalahan pada seo -\nrang ibu tua yang tidak paham prosedur \npenggunaan BPJS untuk rawat inap padahal sudah dijelaskan bahkan dengan bahasa yang mudah dimengerti tapi sang ibu \ntetap tidak paham, solusinya adalah menjelaskan kepada anggota kelurga yang lain.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-28",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Penjahit A dapat membuat 32 kemeja dalam waktu 8 hari, sedangkan Penjahit B dapat membuat 32 kemeja dalam waktu 16 \nhari. Jika mereka akan membuat 48 buah \nkemeja bersama–sama, maka diperlukan \nwaktu selama .... hari.",
-      "options": {
-        "A": "3",
-        "B": "4",
-        "C": "5",
-        "D": "8",
-        "E": "10"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Sosial budaya\nDalam kehidupan bermasyarakat, agar \ntidak menimbulkan kecurigaan tetangga atas pekerjaan yang maka hendaknya \nmengagendakan silaturahmi dengan te -\ntangga baik melalui kegiatan karang taruna atau kegiatan lainnya dan menjelaskan \nperihal pekerjaan Anda.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nA 3\nE 2\nC 1"
-    },
-    {
-      "id": "posttest-1",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Ahmad adalah seorang ahli statistika di \nperusahaan start-up tempat ia bekerja. \nDalam bertugas, ia lebih sering berada di \nbelakang komputernya untuk mengolah \ndata. Namun kali ini Ahmad ditugaskan \nmengunjungi daerah pedalaman dan ber -\ninterkasi dengan masyarakat setempat untuk mengumpulkan data. Ahmad merasa \ngugup, jika Anda adalah atasan Ahmad, \napa yang akan Anda lakukan?",
-      "options": {
-        "A": "Memberikan tugas terperinci untuk \nmemudahkan Ahmad dalam melaksanakan tugasnya",
-        "B": "Bersikap biasa saja karena tugas adalah tanggung jawab semua karyawan, \nkarenanya siapapun harus bersiap \nmenjalankan tugasnya",
-        "C": "Menanyakan kesediaan dan kesiapan \nAhmad dalam menjalankan tugas ter -\nsebut",
-        "D": "Berdiskusi tentang ide dan masukan \nyang dapat diberikan Ahmad kepada \natasan dan perusahaan tentang tugas \ntersebut",
-        "E": "Memfasilitasi segala kebutuhan dan \npermintaan Ahmad dalam bertugas"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Profesionalisme\nSeorang atasan bukan hanya memerintahkan penugasan sesuai kehendaknya. Atasan juga harus menggali potensi bawahannya. Karena bisa saja ide yang disampaikan \ndapat menjadi solusi yang baik.\nPilihan Jawaban Poin Nilai\nD 5\nA 4\nC 3\nB 2\nE 1"
-    },
-    {
-      "id": "posttest-3",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Anda diminta oleh atasan Anda untuk me -\nnyiapkan sebuah presentasi untuk berte -\nmu dengan client besok pagi. Presentasi \nAnda besok pagi akan menjadi penentu \nbagi kelanjutan kerja sama perusahaan dengan si client, atasan Anda meminta Anda \nuntuk membuat presentasi yang bagus \ndan membuat client antusias untuk tahu \nlebih jauh, sikap Anda adalah . . . .",
-      "options": {
-        "A": "Saya akan membuat presentasi yang \nsangat detail agar bisa tersampaikan \npada intinya",
-        "B": "Saya akan menggunakan bahasa santai dan sedikit candaan ketika presentasi berlangsung",
-        "C": "Membuat presentasi yang memuat \npenjelasan secara terperinci",
-        "D": "Membuat presentasi dengan sedikit \ntulisan dan beberapa gambar",
-        "E": "Membuat presentasi yang memuat inti \ndari setiap poin yang saya sampaikan"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Kreativitas dan inovasi\nSebagai pegawai/karyawan harus mampu \nmenciptakan sesuatu yang baru dan mudah dimengerti dan dipresentasikan melalui poin-poin penting agar tidak membuat \norang bosan. Dalam presentasi hendaknya \nmenggunakan bahasa yang baik dan juga \npemilihan kata yang tidak bertele-tele agar \nmudah dipahami serta tidak memuat banyak tulisan.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nB 3\nC 2\nA 1"
-    },
-    {
-      "id": "posttest-4",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Siang ini Anda sedang melayani banyak \nnasabah di kantor Anda, antrean cukup \npanjang. Kemudian ada seorang kakek berumur 70 tahun juga ikut mengantre. Kare -\nna terlalu lama dan antrean panjang, kakek \ntersebut meminta untuk dilayani terlebih \ndahulu, sikap Anda adalah . . . .",
-      "options": {
-        "A": "Minta maaf, meminta kakek tersebut \nuntuk antre sesuai dengan nomer antrian",
-        "B": "Minta maaf, meminta untuk tetap antre karena pelayanan didasarkan ke -\npada jadwal kedatangan",
-        "C": "Langsung melayani kakek tersebut karena dia sudah tua",
-        "D": "Melayani kakek tersebut kemudian \nmemberikan pengertian kepada pe -\nlanggan yang lain",
-        "E": "Memberikan pengertian kepada yang \nlain dan melayani kakek tersebut"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: E\nTopik: Pelayanan publik.\nSeorang pegawai/karyawan harus memberikan pelayanan yang baik, cepat dan \nberorientasi kepuasaan pelanggan. Dalam \nkasus di atas kita boleh mendahulukan kakek tersebut, dengan menjelaskan kepada \nyang lain terlebih dahulu agar mereka juga \nmerasa dihargai, pada pelayanan wanita \nhamil, lansia, ibu menyusui mendapatkan \nprioritas utama pelayanan.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
-    },
-    {
-      "id": "posttest-5",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Dalam rangka gerakan peduli terhadap \nkeberlangsungan lingkungan hidup. Pe -\nmerintah memberi arahan kepada seluruh \nperusahaan agar memperhatikan keber -\nlangsungan lingkungan, salah satunya de -\nngan cara mengurangi penggunaan kertas \ndalam kegiatan perusahaan. Dengan de -\nmikian perusahaan saya memberi arahan \nseperti itu kepada karyawannya. Sebagai \nkaryawan saya akan . . . .",
-      "options": {
-        "A": "Menggunakan email untuk mengirim \nsurat untuk aktivitas perusahaan",
-        "B": "Menggunakan email untuk mengirim \nsurat dan melakukan kegiatan perusahaan secara online",
-        "C": "Memberikan arahan kepada karyawan, mengenai hal peduli lingkungan \nsaya akan mengajak mereka",
-        "D": "Memilah kegiatan yang dapat mengurangi jumlah kertas karena saya harus \ninovatif",
-        "E": "Memberi dukungan kepada peme -\nrintah bahwa perusahaaan siap mendukung pengurangan penggunaan \nkertas"
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: D\nTopik: Sosial budaya\nIndikator tertib terhadap aturan yang telah \nditetapkan adalah mendukung program \ntersebut dengan implementasi di perusahaan. Dalam soal terdapat kebijakan pub -\nlik maka opsi jawaban yang paling tepat \nadalah pilihan jawaban D, yaitu memilah \nkegiatan yang dapat mengurangi jumlah \nkertas. Sebagai pimpinan haruslah inovatif, \ndengan melakukan hal ini kita telah mendukung program pemerintah dan tidak \nsemua aktivitas bisa menghilangkan penggunaan kertas.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nB 2\nA 1"
     },
     {
       "id": "posttest-7",
@@ -8605,29 +6424,6 @@
       "explanation": "Jawaban: B\nTopik: Profesionalisme\nPilihlah jawaban yang solutif untuk me -\nnunjukkan prefesionalisme dalam bekerja. \nKetika langsung menghadap atasan saat \nsedang lapar, maka pekerjaan tidak akan \nterselesaikan dengan maksimal. Jika istirahat dan maka dahulu, maka akan mendapat penilaian yang kurang baik dari atasan. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nA 2\nE 1"
     },
     {
-      "id": "posttest-12",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Anda ditawarkan oleh pimpinan untuk melanjutkan studi di provinsi lain atas biaya \nkantor. Saat ini Anda baru saja dikaruniai \nbayi kembar yang masih sangat membutuhkan perhatian. Keputusan Anda adalah…",
-      "options": {
-        "A": "Menolak tawaran tersebut.",
-        "B": "Menerima tawaran tersebut dengan \nkonsekuensi mengikutkan keluarga \nadalah tanggung jawab Anda.",
-        "C": "Menerima tawaran tersebut dengan \npermohonan agar keluarga dapat ikut \nAnda dengan tambahan biaya hidup.",
-        "D": "Menolak tawaran tersebut namun mohon kebijakan pimpinan jika ada ke -\nsempatan lain Anda dapat diikutkan.",
-        "E": "Menerima tawaran tersebut dan de -\nngan berat hati meninggalkan keluar -\nga."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban: B\nTopik: Kemauan dan kemampuan belajar \nberkelanjutan \nPilihlah jawaban yang menunjukkan bahwa Anda memiliki semangat untuk belajar dan tidak menyia-nyiakan kesempatan \nyang ditawarkan. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nE 2\nA 1"
-    },
-    {
       "id": "posttest-13",
       "edition": "2027",
       "category": "TWK",
@@ -8674,17 +6470,17 @@
       "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda untuk menggerakkan te -\nman-teman Anda, dan sikap paling bijak \nyang harus Anda tunjukkan. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
     },
     {
-      "id": "posttest-16",
+      "id": "posttest-15",
       "edition": "2027",
       "category": "TWK",
       "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Draft laporan yang saya buat ditolak pimpinan karena dianggap kurang visibel. Hal \nyang akan Anda lakukan adalah …",
+      "question": "( ) ( ) ( )98 42 : 12 5 32+− − + −− = ….",
       "options": {
-        "A": "Segera melakukan perbaikan atas \ndraft laporan dan mengajukannya \nkembali.",
-        "B": "Menerima penolakan tetapi tidak me -\nlakukan tindak lanjut.",
-        "C": "Menyalahkan orang lain karena tidak \nikut membantu saya membuat draft \ntersebut.",
-        "D": "Menerima penolakan dan berusaha \nmemperbaiki.",
-        "E": "Berusaha mencari alasan seperti sedikitnya waktu untuk mengerjakannya"
+        "A": "136",
+        "B": "109",
+        "C": "98",
+        "D": "89",
+        "E": "76"
       },
       "answer": "A",
       "points": {
@@ -8694,30 +6490,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Jawaban: A\nTopik: Kreativitas dan inovasi kerja \nPilihlah jawaban yang menunjukkan Anda \norang yang kreatif dan mampu menyele -\nsaikan masalah dengan inovasi inovasi ter -\ntentu. \nPilihan Jawaban Poin Nilai\nA 5\nD 4\nC 3\nE 2\nB 1"
-    },
-    {
-      "id": "posttest-17",
-      "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Adik Anda ingin melanjutkan studinya, \ntetapi ada kendala biaya. Orang tua Anda \nsudah pensiun dan Anda juga memiliki istri \ndan anak yang membutuhkan biaya. Yang \nakan Anda lakukan adalah . . ..",
-      "options": {
-        "A": "Memintanya mencari kerja dulu.",
-        "B": "Menyarankannya untuk memaksa \norang tua mencari biaya dengan ber -\nhutang.",
-        "C": "Menyuruhnya mengurungkan niat.",
-        "D": "Menyarankan untuk mencari beasiswa.",
-        "E": "Mencarikan biaya sekolah dengan \nberhutang."
-      },
-      "answer": "A",
-      "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
-      },
-      "explanation": "Jawaban : D \nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti membantu memecahkan masalahnya. \nPilihan Jawaban Poin Nilai\nD 5\nA 4\nE 3\nB 2\nC 1"
+      "explanation": "Jawaban: A\nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti mendengarkan keluhan teman \ndan membantu memecahkan masalahnya."
     },
     {
       "id": "posttest-18",
@@ -8764,6 +6537,29 @@
         "E": 0
       },
       "explanation": "Jawab an: C\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan warga dan menyelesaikan \nmasalah. \nPilihan Jawaban Poin Nilai\nC 5\nA 4\nE 3\nD 2\nB 1"
+    },
+    {
+      "id": "posttest-20",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Integrasi nasional dapat diwujudkan dalam \nkehidupan masyarakat majemuk apabila . . . .",
+      "options": {
+        "A": "cara berpikir anggota masyarakat relatif sama",
+        "B": "gaya hidup yang seragam",
+        "C": "setiap individu lebih mengutamakan \nhaknya",
+        "D": "memiliki pemimpin yang bijaksana \ndan merakyat",
+        "E": "terdapat rasa cinta Tanah Air pada setiap warga Negara Indonesia"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawab an: D\nTopik: Kemampuan menggerakkan dan \nmengoordinasikan orang lain \nPilihlah jawaban yang menunjukkan ke -\nmampuan Anda sebagai pemimpin untuk \nmenggerakkan warga dan menyelesaikan \nmasalah. \nPilihan Jawaban Poin Nilai\nD 5\nE 4\nA 3\nB 2\nC 1"
     },
     {
       "id": "posttest-21",
@@ -8835,6 +6631,29 @@
       "explanation": "Jawaban : B \nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu. Dalam kasus ini, \nhendaknya Anda memberitahukan permasalahan tersebut kepada yang bersangkut -\nan demi kenyamanan bersama.\nPilihan Jawaban Poin Nilai\nB 5\nC 4\nE 3\nA 2\nD 1"
     },
     {
+      "id": "posttest-24",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Salah satu bentuk hak bela negara bagi \nwarga negara Indonesia adalah . . . .",
+      "options": {
+        "A": "Mempertahankan wilayah NKRI",
+        "B": "Mewujudkan perilaku tertib dalam \nmasyarakat",
+        "C": "Memperoleh pendidikan",
+        "D": "Ikut serta dalam menjaga keamanan \nmasyarakat",
+        "E": "Berpegang teguh pada pedoman Pancasila"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban : D \nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwa Anda tetap bertanggung jawab terhadap pekerjaan. Ketika terjadi suatu per -\nmasalahan, sebaiknya dibicarakan dengan \natasan jika tidak mampu untuk diselesaikan sendiri.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nA 3\nB 2\nC 1"
+    },
+    {
       "id": "posttest-25",
       "edition": "2027",
       "category": "TWK",
@@ -8881,17 +6700,17 @@
       "explanation": "Jawaban : B\nTopik: Sosial budaya\nDalam persoalan tersebut kontribusi Anda \ndalam mengurangi pemanasan global se -"
     },
     {
-      "id": "posttest-27",
+      "id": "posttest-28",
       "edition": "2027",
       "category": "TWK",
       "subtest": "Tes Wawasan Kebangsaan",
-      "question": "Anda bersama tim Anda melakukan survey \ndi suatu daerah. Salah satu anggota kelompok Anda adalah ibu-ibu hamil yang membuat kinerja tim Anda lebih lamban dari \ntim yang lainnya. Yang akan Anda lakukan \nadalah . . . .",
+      "question": "Penjahit A dapat membuat 32 kemeja dalam waktu 8 hari, sedangkan Penjahit B dapat membuat 32 kemeja dalam waktu 16 \nhari. Jika mereka akan membuat 48 buah \nkemeja bersama–sama, maka diperlukan \nwaktu selama .... hari.",
       "options": {
-        "A": "Menerima itu sebagai konsekuensi \nada anggota yang sedang hamil.",
-        "B": "Menanyakan keadaan teman itu dan \nmemintanya untuk menaikkan tempo \nkerjannya.",
-        "C": "Hal tersebut tidak terhindarkan dan \nmengapresiasi teman itu karena masih bekerja dengan semangat meskipun sedang hamil.",
-        "D": "Mengecek keadaan teman tersebut \ndan memintanya menaikkan tempo \nkerjanya agar tidak tertinggal dengan \ntim lain.",
-        "E": "Mengecek keadaan teman tersebut \nterus-menerus dan menyemangati \nanggota tim lain untuk terus semangat dan tidak masalah jika kerja tim \npaling lambat."
+        "A": "3",
+        "B": "4",
+        "C": "5",
+        "D": "8",
+        "E": "10"
       },
       "answer": "A",
       "points": {
@@ -8901,7 +6720,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Jawaban: C\nTopik: Kemampuan bekerja sama dalam kelompok \nPilihlah jawaban yang menunjukkan ke -\nmampuan seseorang dalam bekerja sama \nseperti pengambilan keputusan secara \nbersama, pembuatan laporan kerja bersama dan lain-lain. Jika kinerja tim menjadi \nlebih lamban karena kondisi anggota yang \nsedang hamil, maka hal tersebut tidak ter -\nhindarkan dan mengapresiasi teman itu \nkarena masih bekerja dengan semangat \nmeskipun sedang hamil.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nE 3\nB 2\nD 1"
+      "explanation": "Jawaban: B\nTopik: Sosial budaya\nDalam kehidupan bermasyarakat, agar \ntidak menimbulkan kecurigaan tetangga atas pekerjaan yang maka hendaknya \nmengagendakan silaturahmi dengan te -\ntangga baik melalui kegiatan karang taruna atau kegiatan lainnya dan menjelaskan \nperihal pekerjaan Anda.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nA 3\nE 2\nC 1"
     },
     {
       "id": "posttest-29",
@@ -8948,6 +6767,213 @@
         "E": 0
       },
       "explanation": "Jawaban: A\nTopik: Belajar mandiri dan tuntas\nPilihlah jawaban yang menggambarkan \nkemandirian Anda dalam bekerja ataupun \ndalam menghadapi situasi tertentu. \nPilihan Jawaban Poin Nilai\nA 5\nC 4\nB 3\nD 2\nE 1"
+    },
+    {
+      "id": "posttest-3",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Anda diminta oleh atasan Anda untuk me -\nnyiapkan sebuah presentasi untuk berte -\nmu dengan client besok pagi. Presentasi \nAnda besok pagi akan menjadi penentu \nbagi kelanjutan kerja sama perusahaan dengan si client, atasan Anda meminta Anda \nuntuk membuat presentasi yang bagus \ndan membuat client antusias untuk tahu \nlebih jauh, sikap Anda adalah . . . .",
+      "options": {
+        "A": "Saya akan membuat presentasi yang \nsangat detail agar bisa tersampaikan \npada intinya",
+        "B": "Saya akan menggunakan bahasa santai dan sedikit candaan ketika presentasi berlangsung",
+        "C": "Membuat presentasi yang memuat \npenjelasan secara terperinci",
+        "D": "Membuat presentasi dengan sedikit \ntulisan dan beberapa gambar",
+        "E": "Membuat presentasi yang memuat inti \ndari setiap poin yang saya sampaikan"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: E\nTopik: Kreativitas dan inovasi\nSebagai pegawai/karyawan harus mampu \nmenciptakan sesuatu yang baru dan mudah dimengerti dan dipresentasikan melalui poin-poin penting agar tidak membuat \norang bosan. Dalam presentasi hendaknya \nmenggunakan bahasa yang baik dan juga \npemilihan kata yang tidak bertele-tele agar \nmudah dipahami serta tidak memuat banyak tulisan.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nB 3\nC 2\nA 1"
+    },
+    {
+      "id": "posttest-4",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Siang ini Anda sedang melayani banyak \nnasabah di kantor Anda, antrean cukup \npanjang. Kemudian ada seorang kakek berumur 70 tahun juga ikut mengantre. Kare -\nna terlalu lama dan antrean panjang, kakek \ntersebut meminta untuk dilayani terlebih \ndahulu, sikap Anda adalah . . . .",
+      "options": {
+        "A": "Minta maaf, meminta kakek tersebut \nuntuk antre sesuai dengan nomer antrian",
+        "B": "Minta maaf, meminta untuk tetap antre karena pelayanan didasarkan ke -\npada jadwal kedatangan",
+        "C": "Langsung melayani kakek tersebut karena dia sudah tua",
+        "D": "Melayani kakek tersebut kemudian \nmemberikan pengertian kepada pe -\nlanggan yang lain",
+        "E": "Memberikan pengertian kepada yang \nlain dan melayani kakek tersebut"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: E\nTopik: Pelayanan publik.\nSeorang pegawai/karyawan harus memberikan pelayanan yang baik, cepat dan \nberorientasi kepuasaan pelanggan. Dalam \nkasus di atas kita boleh mendahulukan kakek tersebut, dengan menjelaskan kepada \nyang lain terlebih dahulu agar mereka juga \nmerasa dihargai, pada pelayanan wanita \nhamil, lansia, ibu menyusui mendapatkan \nprioritas utama pelayanan.\nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
+    },
+    {
+      "id": "posttest-5",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Dalam rangka gerakan peduli terhadap \nkeberlangsungan lingkungan hidup. Pe -\nmerintah memberi arahan kepada seluruh \nperusahaan agar memperhatikan keber -\nlangsungan lingkungan, salah satunya de -\nngan cara mengurangi penggunaan kertas \ndalam kegiatan perusahaan. Dengan de -\nmikian perusahaan saya memberi arahan \nseperti itu kepada karyawannya. Sebagai \nkaryawan saya akan . . . .",
+      "options": {
+        "A": "Menggunakan email untuk mengirim \nsurat untuk aktivitas perusahaan",
+        "B": "Menggunakan email untuk mengirim \nsurat dan melakukan kegiatan perusahaan secara online",
+        "C": "Memberikan arahan kepada karyawan, mengenai hal peduli lingkungan \nsaya akan mengajak mereka",
+        "D": "Memilah kegiatan yang dapat mengurangi jumlah kertas karena saya harus \ninovatif",
+        "E": "Memberi dukungan kepada peme -\nrintah bahwa perusahaaan siap mendukung pengurangan penggunaan \nkertas"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: D\nTopik: Sosial budaya\nIndikator tertib terhadap aturan yang telah \nditetapkan adalah mendukung program \ntersebut dengan implementasi di perusahaan. Dalam soal terdapat kebijakan pub -\nlik maka opsi jawaban yang paling tepat \nadalah pilihan jawaban D, yaitu memilah \nkegiatan yang dapat mengurangi jumlah \nkertas. Sebagai pimpinan haruslah inovatif, \ndengan melakukan hal ini kita telah mendukung program pemerintah dan tidak \nsemua aktivitas bisa menghilangkan penggunaan kertas.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nB 2\nA 1"
+    },
+    {
+      "id": "posttest-6",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Beberapa benda yang memuai adalah lo -\ngam. Semua logam adalah benda padat. \nKesimpulan yang tepat dari kedua premis \ndi atas adalah ....",
+      "options": {
+        "A": "Sebagian logam yang memuai adalah \nbenda padat",
+        "B": "Benda yang bukan logam bukan me -\nrupakan benda padat",
+        "C": "Beberapa benda padat tidak dapat \nmemuai",
+        "D": "Beberapa benda yang memuai adalah \nbenda padat",
+        "E": "Beberapa benda yang padat dapat \nmemuai.\nSoal nomor 7 hingga 9 didasarkan pada \nketerangan berikut:\nDiketahui A, B, C, D, dan E adalah nama–nama \ngedung yang terdapat di sepanjang jalan lurus \ndi sebuah kota. Diketahui tata letak gedung tersebut antara lain:\n ⇲ Gedung A berada 250 m di sebelah utara \ngedung E\n ⇲ Gedung B berada 150 m di sebelah selatan \ngedung D\n ⇲ Gedung E berada 500 m di sebelah utara \ngedung B\n ⇲ Gedung C berada 200 m di sebelah utara \ngedung A"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: B\nTopik: Integritas diri\nPilihlah jawaban yang menunjukkan per -\nbuatan atau sikap bertanggung jawab, walaupun hal sepele cobalah berhati-hati dalam bertindak. Biasanya berkaitan dengan \npemahaman risiko suatu kondisi. \nPilihan Jawaban Poin Nilai\nB 5\nE 4\nC 3\nD 2\nA 1"
+    },
+    {
+      "id": "posttest-16",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Draft laporan yang saya buat ditolak pimpinan karena dianggap kurang visibel. Hal \nyang akan Anda lakukan adalah …",
+      "options": {
+        "A": "Segera melakukan perbaikan atas \ndraft laporan dan mengajukannya \nkembali.",
+        "B": "Menerima penolakan tetapi tidak me -\nlakukan tindak lanjut.",
+        "C": "Menyalahkan orang lain karena tidak \nikut membantu saya membuat draft \ntersebut.",
+        "D": "Menerima penolakan dan berusaha \nmemperbaiki.",
+        "E": "Berusaha mencari alasan seperti sedikitnya waktu untuk mengerjakannya"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: A\nTopik: Kreativitas dan inovasi kerja \nPilihlah jawaban yang menunjukkan Anda \norang yang kreatif dan mampu menyele -\nsaikan masalah dengan inovasi inovasi ter -\ntentu. \nPilihan Jawaban Poin Nilai\nA 5\nD 4\nC 3\nE 2\nB 1"
+    },
+    {
+      "id": "posttest-72",
+      "edition": "2027",
+      "category": "TKP",
+      "subtest": "Tes Karakteristik Pribadi",
+      "question": "buah jeruk, dan 48 buah salak. Buah \ntersebut akan dibungkus plastik untuk dibagikan kepada tetangga dengan setiap \nbungkus terdiri atas tiga jenis buah dengan \njumlah setiap jenis buah sama banyak. Banyak tetangga yang akan mendapatkan \nbingkisan adalah ….",
+      "options": {
+        "A": "8 orang",
+        "B": "12 orang",
+        "C": "24 orang",
+        "D": "36 orang",
+        "E": "42 orang"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 4,
+        "C": 3,
+        "D": 2,
+        "E": 1
+      },
+      "explanation": "Pembahasan pada bank soal resmi."
+    },
+    {
+      "id": "posttest-27",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Anda bersama tim Anda melakukan survey \ndi suatu daerah. Salah satu anggota kelompok Anda adalah ibu-ibu hamil yang membuat kinerja tim Anda lebih lamban dari \ntim yang lainnya. Yang akan Anda lakukan \nadalah . . . .",
+      "options": {
+        "A": "Menerima itu sebagai konsekuensi \nada anggota yang sedang hamil.",
+        "B": "Menanyakan keadaan teman itu dan \nmemintanya untuk menaikkan tempo \nkerjannya.",
+        "C": "Hal tersebut tidak terhindarkan dan \nmengapresiasi teman itu karena masih bekerja dengan semangat meskipun sedang hamil.",
+        "D": "Mengecek keadaan teman tersebut \ndan memintanya menaikkan tempo \nkerjanya agar tidak tertinggal dengan \ntim lain.",
+        "E": "Mengecek keadaan teman tersebut \nterus-menerus dan menyemangati \nanggota tim lain untuk terus semangat dan tidak masalah jika kerja tim \npaling lambat."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: C\nTopik: Kemampuan bekerja sama dalam kelompok \nPilihlah jawaban yang menunjukkan ke -\nmampuan seseorang dalam bekerja sama \nseperti pengambilan keputusan secara \nbersama, pembuatan laporan kerja bersama dan lain-lain. Jika kinerja tim menjadi \nlebih lamban karena kondisi anggota yang \nsedang hamil, maka hal tersebut tidak ter -\nhindarkan dan mengapresiasi teman itu \nkarena masih bekerja dengan semangat \nmeskipun sedang hamil.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nE 3\nB 2\nD 1"
+    },
+    {
+      "id": "posttest-12",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Anda ditawarkan oleh pimpinan untuk melanjutkan studi di provinsi lain atas biaya \nkantor. Saat ini Anda baru saja dikaruniai \nbayi kembar yang masih sangat membutuhkan perhatian. Keputusan Anda adalah…",
+      "options": {
+        "A": "Menolak tawaran tersebut.",
+        "B": "Menerima tawaran tersebut dengan \nkonsekuensi mengikutkan keluarga \nadalah tanggung jawab Anda.",
+        "C": "Menerima tawaran tersebut dengan \npermohonan agar keluarga dapat ikut \nAnda dengan tambahan biaya hidup.",
+        "D": "Menolak tawaran tersebut namun mohon kebijakan pimpinan jika ada ke -\nsempatan lain Anda dapat diikutkan.",
+        "E": "Menerima tawaran tersebut dan de -\nngan berat hati meninggalkan keluar -\nga."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban: B\nTopik: Kemauan dan kemampuan belajar \nberkelanjutan \nPilihlah jawaban yang menunjukkan bahwa Anda memiliki semangat untuk belajar dan tidak menyia-nyiakan kesempatan \nyang ditawarkan. \nPilihan Jawaban Poin Nilai\nB 5\nC 4\nD 3\nE 2\nA 1"
+    },
+    {
+      "id": "posttest-17",
+      "edition": "2027",
+      "category": "TWK",
+      "subtest": "Tes Wawasan Kebangsaan",
+      "question": "Adik Anda ingin melanjutkan studinya, \ntetapi ada kendala biaya. Orang tua Anda \nsudah pensiun dan Anda juga memiliki istri \ndan anak yang membutuhkan biaya. Yang \nakan Anda lakukan adalah . . ..",
+      "options": {
+        "A": "Memintanya mencari kerja dulu.",
+        "B": "Menyarankannya untuk memaksa \norang tua mencari biaya dengan ber -\nhutang.",
+        "C": "Menyuruhnya mengurungkan niat.",
+        "D": "Menyarankan untuk mencari beasiswa.",
+        "E": "Mencarikan biaya sekolah dengan \nberhutang."
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jawaban : D \nTopik: Orientasi kepada orang lain \nPilihlah jawaban yang menggambarkan \nbahwa Anda mampu menolong orang lain \ndalam situasi tertentu atau masalah tertentu seperti membantu memecahkan masalahnya. \nPilihan Jawaban Poin Nilai\nD 5\nA 4\nE 3\nB 2\nC 1"
     },
     {
       "id": "posttest-31",
@@ -9336,13 +7362,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Peran rakyat (sipil) dalam nasionalisme kewarganegaraan mencakup ....",
+      "question": "00. Kesimpulannya adalah ...",
       "options": {
-        "A": "Memimpin negara",
-        "B": "Mengatur pemerintahan",
-        "C": "Mengikuti wajib militer",
-        "D": "Mengambil keputusan negara",
-        "E": "Menyusun undang-undang"
+        "A": "Toko pakaian buka pada malam hari",
+        "B": "Toko pakaian buka pada sore hari",
+        "C": "Toko pakaian buka pada pukul 10.00",
+        "D": "Tidak bisa disimpulkan",
+        "E": "Toko pakaian buka pada pukul 12.00"
       },
       "answer": "C",
       "points": null,
@@ -10078,23 +8104,6 @@
       "answer": "E",
       "points": null,
       "explanation": "Pola menunjukkan pembagian berturut-turut dengan 2, 3, 4, 5, sehingga angka berikutnya adalah 80 / 3 = 30."
-    },
-    {
-      "id": "klasik_skd_set7_011",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "00. Kesimpulannya adalah ...",
-      "options": {
-        "A": "Toko pakaian buka pada malam hari",
-        "B": "Toko pakaian buka pada sore hari",
-        "C": "Toko pakaian buka pada pukul 10.00",
-        "D": "Tidak bisa disimpulkan",
-        "E": "Toko pakaian buka pada pukul 12.00"
-      },
-      "answer": "C",
-      "points": null,
-      "explanation": "Peran rakyat (sipil) dalam nasionalisme kewarganegaraan mencakup mengikuti wajib militer dan menjalankan kewajiban sebagai warga negara."
     },
     {
       "id": "klasik_skd_set7_056",
@@ -11110,13 +9119,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Dalam UUD 1945, disebutkan beberapa prinsip sistem pemerintahan negara. Yang bukan termasuk prinsip tersebut adalah...",
+      "question": "+ 2t = 8(t+1) + 25 adalah...",
       "options": {
-        "A": "Negara hukum",
-        "B": "Kedaulatan rakyat",
-        "C": "Presiden bertanggung jawab kepada DPR",
-        "D": "Sistem presidensial",
-        "E": "Kekuasaan eksekutif terbatas"
+        "A": "0",
+        "B": "2",
+        "C": "4",
+        "D": "6",
+        "E": "8"
       },
       "answer": "C",
       "points": null,
@@ -11144,13 +9153,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Nilai-nilai Pancasila sudah ada dalam kehidupan masyarakat Indonesia sejak zaman dahulu dan terakumulasi dalam...",
+      "question": "500.000. Jika mendapat untung 25%, berapa rupiah kah harga pembelian sekarung pepaya tersebut?",
       "options": {
-        "A": "Ciri khas bangsa",
-        "B": "Toleransi umat beragama",
-        "C": "Tripitaka",
-        "D": "Free fight liberalisme",
-        "E": "Bhineka Tunggal Ika"
+        "A": "Rp 360.000",
+        "B": "Rp 380.000",
+        "C": "Rp 400.000",
+        "D": "Rp 420.000",
+        "E": "Rp 440.000"
       },
       "answer": "A",
       "points": null,
@@ -11718,23 +9727,6 @@
       "explanation": "Langkah penyelesaian: Untuk 2ᵐ = 256, kita tahu bahwa 2⁸ = 256, sehingga m = 8. Untuk 3ⁿ = 27, kita tahu bahwa 3³ = 27, sehingga n = 3. Oleh karena itu, m > n."
     },
     {
-      "id": "klasik_skd_set8_003",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "+ 2t = 8(t+1) + 25 adalah...",
-      "options": {
-        "A": "0",
-        "B": "2",
-        "C": "4",
-        "D": "6",
-        "E": "8"
-      },
-      "answer": "C",
-      "points": null,
-      "explanation": "Presiden bertanggung jawab langsung kepada rakyat, bukan kepada DPR."
-    },
-    {
       "id": "klasik_skd_set8_043",
       "edition": "2024-2025",
       "category": "TIU",
@@ -11988,23 +9980,6 @@
       "answer": "B",
       "points": null,
       "explanation": "Total pekerjaan = 8 x 20 = 160 orang-hari. Pekerjaan yang sudah diselesaikan: 8 x 10 = 80 orang-hari. Sisa pekerjaan: 160 - 80 = 80 orang-hari. Sisa waktu: 20 - 10 - 5 = 5 hari. Pekerja tambahan yang diperlukan: (80 / 5) - 8 = 8."
-    },
-    {
-      "id": "klasik_skd_set8_005",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "500.000. Jika mendapat untung 25%, berapa rupiah kah harga pembelian sekarung pepaya tersebut?",
-      "options": {
-        "A": "Rp 360.000",
-        "B": "Rp 380.000",
-        "C": "Rp 400.000",
-        "D": "Rp 420.000",
-        "E": "Rp 440.000"
-      },
-      "answer": "A",
-      "points": null,
-      "explanation": "Ciri khas bangsa mencerminkan akumulasi nilai-nilai yang telah ada dalam adat istiadat, kebudayaan, dan religius bangsa Indonesia."
     },
     {
       "id": "klasik_skd_set8_059",
@@ -13182,13 +11157,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Berapa jumlah nilai yang termasuk dalam konsep integritas nasional versi KPK?",
+      "question": "+ 4y = 2(y+3) + 8 adalah...",
       "options": {
-        "A": "5 nilai",
-        "B": "7 nilai",
-        "C": "9 nilai",
-        "D": "11 nilai",
-        "E": "13 nilai"
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "4",
+        "E": "5"
       },
       "answer": "C",
       "points": null,
@@ -13947,13 +11922,13 @@
       "edition": "2024-2025",
       "category": "TKP",
       "subtest": "Materi TKP Klasik",
-      "question": "Dari data tersebut, berapakah median dari nilai yang diperoleh Susi pada semester I yang lalu?",
+      "question": "Bagaimana reaksi Anda jika sebuah rencana tampak sangat rumit?",
       "options": {
-        "A": "70",
-        "B": "75",
-        "C": "80",
-        "D": "85",
-        "E": "90"
+        "A": "Mengambil langkah kecil untuk memulai",
+        "B": "Mengabaikan rencana tersebut",
+        "C": "Mencari pendapat ahli untuk mendapatkan perspektif",
+        "D": "Menyerahkan kepada orang lain yang lebih berpengalaman",
+        "E": "Mencoba sendiri meskipun rumit"
       },
       "answer": "C",
       "points": {
@@ -13964,23 +11939,6 @@
         "E": 1
       },
       "explanation": "Mencari pendapat ahli adalah langkah yang bijaksana untuk mendapatkan pandangan yang lebih jelas."
-    },
-    {
-      "id": "klasik_skd_set9_002",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "+ 4y = 2(y+3) + 8 adalah...",
-      "options": {
-        "A": "1",
-        "B": "2",
-        "C": "3",
-        "D": "4",
-        "E": "5"
-      },
-      "answer": "C",
-      "points": null,
-      "explanation": "Konsep integritas nasional versi KPK terdiri atas 9 nilai utama yang menjadi dasar dalam mendorong integritas di berbagai sektor."
     },
     {
       "id": "klasik_skd_set9_049",
@@ -14592,29 +12550,6 @@
         "E": 1
       },
       "explanation": "Mempelajari dan memahami kebijakan organisasi terkait korupsi adalah langkah pertama yang penting untuk memastikan bahwa tindakan yang diambil sesuai dengan kebijakan yang berlaku."
-    },
-    {
-      "id": "klasik_skd_set9_080",
-      "edition": "2024-2025",
-      "category": "TKP",
-      "subtest": "Materi TKP Klasik",
-      "question": "Bagaimana reaksi Anda jika sebuah rencana tampak sangat rumit?",
-      "options": {
-        "A": "Mengambil langkah kecil untuk memulai",
-        "B": "Mengabaikan rencana tersebut",
-        "C": "Mencari pendapat ahli untuk mendapatkan perspektif",
-        "D": "Menyerahkan kepada orang lain yang lebih berpengalaman",
-        "E": "Mencoba sendiri meskipun rumit"
-      },
-      "answer": "C",
-      "points": {
-        "A": 5,
-        "B": 4,
-        "C": 3,
-        "D": 2,
-        "E": 1
-      },
-      "explanation": "Mencari pendapat ahli adalah langkah yang bijaksana untuk mendapatkan pandangan yang lebih jelas."
     },
     {
       "id": "klasik_skd_set9_081",
@@ -15447,13 +13382,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Bung Karno menyatakan bahwa bangsa yang tidak mengenang sejarah adalah ....",
+      "question": "00. Kantor tidak buka pada pukul 09.00. Kesimpulannya adalah ...",
       "options": {
-        "A": "Bangsa yang tidak akan maju",
-        "B": "Bangsa yang akan cepat berkembang",
-        "C": "Bangsa yang akan segera modern",
-        "D": "Bangsa yang akan terlupakan",
-        "E": "Bangsa yang akan mudah dipengaruhi"
+        "A": "Kantor buka pada malam hari",
+        "B": "Kantor buka pada siang hari",
+        "C": "Kantor buka pada pukul 08.00",
+        "D": "Tidak bisa disimpulkan",
+        "E": "Kantor buka pada pukul 10.00"
       },
       "answer": "A",
       "points": null,
@@ -16172,23 +14107,6 @@
       "answer": "E",
       "points": null,
       "explanation": "Jika umur Farah adalah 10 dan umur Gina adalah 13, lima tahun lalu umur Farah adalah 5 dan umur Gina adalah 8, yang sesuai dengan pernyataan."
-    },
-    {
-      "id": "klasik_skd_set10_009",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "00. Kantor tidak buka pada pukul 09.00. Kesimpulannya adalah ...",
-      "options": {
-        "A": "Kantor buka pada malam hari",
-        "B": "Kantor buka pada siang hari",
-        "C": "Kantor buka pada pukul 08.00",
-        "D": "Tidak bisa disimpulkan",
-        "E": "Kantor buka pada pukul 10.00"
-      },
-      "answer": "A",
-      "points": null,
-      "explanation": "Bung Karno menyatakan bahwa bangsa yang tidak mengenang sejarah adalah bangsa yang tidak akan maju."
     },
     {
       "id": "klasik_skd_set10_053",
@@ -22717,13 +20635,13 @@
       "edition": "2024-2025",
       "category": "TKP",
       "subtest": "Materi TKP Klasik",
-      "question": "Dari data tersebut, berapakah median dari nilai yang diperoleh Ica pada semester I yang lalu?",
+      "question": "Bagaimana Anda memastikan bahwa semua anggota tim mendapatkan informasi yang mereka butuhkan?",
       "options": {
-        "A": "70",
-        "B": "78",
-        "C": "80",
-        "D": "90",
-        "E": "100"
+        "A": "Menginformasikan secara umum dan tersirat",
+        "B": "Tidak pernah menginformasikan karena itu adalah kewajiban saya sebagai pemimpin",
+        "C": "Dengan selalu berbagi informasi secara transparan",
+        "D": "Hanya berbagi informasi yang bersifat umum",
+        "E": "Memberitahukan hanya jika ditanya"
       },
       "answer": "C",
       "points": {
@@ -22911,29 +20829,6 @@
         "E": 1
       },
       "explanation": "Tindakan yang paling tepat adalah meningkatkan kebersamaan antara tim dan kolega, karena hal ini akan mempererat hubungan kerja sama dan solidaritas di perusahaan."
-    },
-    {
-      "id": "klasik_skd_set13_070",
-      "edition": "2024-2025",
-      "category": "TKP",
-      "subtest": "Materi TKP Klasik",
-      "question": "Bagaimana Anda memastikan bahwa semua anggota tim mendapatkan informasi yang mereka butuhkan?",
-      "options": {
-        "A": "Menginformasikan secara umum dan tersirat",
-        "B": "Tidak pernah menginformasikan karena itu adalah kewajiban saya sebagai pemimpin",
-        "C": "Dengan selalu berbagi informasi secara transparan",
-        "D": "Hanya berbagi informasi yang bersifat umum",
-        "E": "Memberitahukan hanya jika ditanya"
-      },
-      "answer": "C",
-      "points": {
-        "A": 5,
-        "B": 4,
-        "C": 3,
-        "D": 2,
-        "E": 1
-      },
-      "explanation": "Memberikan informasi yang dibutuhkan kepada anggota tim membantu mereka bekerja lebih efektif."
     },
     {
       "id": "klasik_skd_set13_071",
@@ -26136,13 +24031,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Dalam rangka membangun integritas nasional, KPK memiliki strategi jangka panjang berupa ....",
+      "question": "00. Kesimpulannya adalah ...",
       "options": {
-        "A": "Pemberian penghargaan kepada pegawai berprestasi",
-        "B": "Meningkatkan transparansi dalam pemerintahan",
-        "C": "Membangun dan mendidik masyarakat tentang bahaya korupsi",
-        "D": "Menetapkan regulasi ketat untuk pengelolaan dana publik",
-        "E": "Mengoptimalkan penggunaan teknologi informasi"
+        "A": "Restoran buka pada malam hari",
+        "B": "Restoran buka pada pagi hari",
+        "C": "Restoran buka pada pukul 09.00",
+        "D": "Tidak bisa disimpulkan",
+        "E": "Restoran buka pada pukul 11.00"
       },
       "answer": "C",
       "points": null,
@@ -26742,23 +24637,6 @@
       "answer": "E",
       "points": null,
       "explanation": "Dari informasi yang diberikan, kita dapat menyimpulkan bahwa Ijal yang mempunyai tabungan yang paling sedikit."
-    },
-    {
-      "id": "klasik_skd_set15_010",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "00. Kesimpulannya adalah ...",
-      "options": {
-        "A": "Restoran buka pada malam hari",
-        "B": "Restoran buka pada pagi hari",
-        "C": "Restoran buka pada pukul 09.00",
-        "D": "Tidak bisa disimpulkan",
-        "E": "Restoran buka pada pukul 11.00"
-      },
-      "answer": "C",
-      "points": null,
-      "explanation": "KPK memiliki strategi jangka panjang berupa membangun dan mendidik masyarakat tentang bahaya korupsi untuk membangun integritas nasional."
     },
     {
       "id": "klasik_skd_set15_047",
@@ -36163,13 +34041,13 @@
       "edition": "2024-2025",
       "category": "TWK",
       "subtest": "Materi TWK Klasik",
-      "question": "Anggota DPR mempunyai haki interpelasi, yakni hak untuk ...",
+      "question": "11 hari yang sama. Berapakah kecepatan rata-rata truk tersebut dalam menempuh perjalanan dari A ke B?",
       "options": {
-        "A": "Bertanya kepada pemerintah",
-        "B": "Ikut menetapkan APBN",
-        "C": "Melakukan penyeledikan",
-        "D": "Melakukan perubahan terhadap RUU",
-        "E": "Mengawasi jalannya pemerintahan"
+        "A": "1.494/240 km/jam",
+        "B": "50 km/jam",
+        "C": "16/1.200 km/jam",
+        "D": "240/288 km/jam",
+        "E": "65 km/jam"
       },
       "answer": "A",
       "points": null,
@@ -36769,23 +34647,6 @@
       "answer": "C",
       "points": null,
       "explanation": "Jumlah nilai dari 30 siswa = 30 × 45 = 1350 Jumlah nilai dari 31 siswa = 31 × 46 = 1426 Nilai Jose = 1426 – 1350 = 76."
-    },
-    {
-      "id": "klasik_skd_set27_016",
-      "edition": "2024-2025",
-      "category": "TWK",
-      "subtest": "Materi TWK Klasik",
-      "question": "11 hari yang sama. Berapakah kecepatan rata-rata truk tersebut dalam menempuh perjalanan dari A ke B?",
-      "options": {
-        "A": "1.494/240 km/jam",
-        "B": "50 km/jam",
-        "C": "16/1.200 km/jam",
-        "D": "240/288 km/jam",
-        "E": "65 km/jam"
-      },
-      "answer": "A",
-      "points": null,
-      "explanation": "Hak interpelasi adalah hak untuk bertanya kepada pemerintah."
     },
     {
       "id": "klasik_skd_set27_055",
@@ -39280,6 +37141,270 @@
         "E": 1
       },
       "explanation": "Skor TKP: Opsi B=5 poin, E=4 poin, D=3 poin, A=2 poin, C=1 poin."
+    },
+    {
+      "id": "tiu-try-out-1-28",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan gambar berikut. Tentukan gambar pilihan yang merupakan kelanjutan analogi dari pola bentuk berikut untuk mengisi tanda tanya (?):",
+      "image": "images/questions/tiu_to1_q28.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "B",
+      "points": {
+        "A": 0,
+        "B": 5,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Terjadi perubahan warna objek dari hitam menjadi putih dan sebaliknya. Objek di dalam lingkaran keluar dan berada di bagian kanan bawah, sedangkan lingkaran mengecil dan berada di kiri atas. Pilihan jawaban yang analoginya sesuai adalah B.\n▶ Jawaban: B"
+    },
+    {
+      "id": "tiu-try-out-1-30",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan gambar berikut. Tentukan gambar pilihan yang tepat untuk melengkapi pola analogi pencerminan dan pengurangan elemen berikut:",
+      "image": "images/questions/tiu_to1_q30.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "D",
+      "points": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 5,
+        "E": 0
+      },
+      "explanation": "Terjadi pencerminan terhadap bangun yang besar, dan pengurangan elemen lingkaran 1 buah. Analogi tersebut jika diterapkan pada gambar soal maka diperoleh pilihan jawaban D.\n▶ Jawaban: D"
+    },
+    {
+      "id": "tiu-try-out-2-28",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Carilah gambar dengan pola yang berbeda di antara kelima pilihan gambar berikut:",
+      "image": "images/questions/tiu_to2_q28.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "D",
+      "points": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 5,
+        "E": 0
+      },
+      "explanation": "Gambar A, B, C, dan E adalah gambar yang sama, hanya dirotasi saja posisinya, sedangkan gambar D adalah gambar yang berbeda.\n▶ Jawaban: D"
+    },
+    {
+      "id": "tiu-try-out-2-29",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Tentukan gambar yang logis untuk mengisi tanda tanya (?) pada pola analogi gambar berikut:",
+      "image": "images/questions/tiu_to2_q29.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "A",
+      "points": {
+        "A": 5,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Gambar pertama dirotasi 90 derajat searah jarum jam dan ditambah sebuah elemen di tengahnya menghasilkan gambar kedua. Analogi tersebut jika diterapkan ke gambar ketiga menghasilkan pilihan jawaban A.\n▶ Jawaban: A"
+    },
+    {
+      "id": "tiu-try-out-2-30",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Tentukan gambar yang tepat pada baris bawah sesuai pola keteraturan elemen gambar di atasnya:",
+      "image": "images/questions/tiu_to2_q30.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "D",
+      "points": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 5,
+        "E": 0
+      },
+      "explanation": "Gambar pertama berkurang 5 elemen menjadi gambar di bawahnya. Jadi, pilihan jawaban yang tepat adalah gambar D.\n▶ Jawaban: D"
+    },
+    {
+      "id": "tiu-pretest-q30",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Tentukan gambar yang cocok untuk mengisi kotak tanda tanya (?) pada susunan pola gambar berikut:",
+      "image": "images/questions/pretest_q30.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "B",
+      "points": {
+        "A": 0,
+        "B": 5,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Terjadi pengurangan elemen sebanyak 2 garis pada gambar pertama ke gambar kedua. Jika gambar ketiga dikurangi 2 kotak, hasilnya adalah gambar B.\n▶ Jawaban: B"
+    },
+    {
+      "id": "tiu-posttest-q30",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Tentukan gambar yang cocok untuk mengisi kotak tanda tanya (?) sesuai pola serial gambar berikut:",
+      "image": "images/questions/posttest_q30.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "D",
+      "points": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 5,
+        "E": 0
+      },
+      "explanation": "Objek bagian atas bertambah satu garis dan elemen bawah menyesuaikan pola. Gambar yang tepat adalah gambar D.\n▶ Jawaban: D"
+    },
+    {
+      "id": "tpa-figural-01",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan pola barisan titik pada diagram gambar berikut. Tentukan gambar kelanjutan selanjutnya:",
+      "image": "images/questions/tpa_fig_01.png",
+      "options": {
+        "A": "Pilihan A",
+        "B": "Pilihan B",
+        "C": "Pilihan C",
+        "D": "Pilihan D",
+        "E": "Pilihan E"
+      },
+      "answer": "B",
+      "points": {
+        "A": 0,
+        "B": 5,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Jumlah titik pada gambar merupakan barisan bilangan dengan pertambahan teratur. Gambar yang memiliki jumlah dan posisi titik yang sesuai adalah pilihan B.\n▶ Jawaban: B"
+    },
+    {
+      "id": "tpa-figural-02",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan kelima gambar berikut. Carilah satu gambar yang memiliki arah putaran pola berbeda dari empat gambar lainnya:",
+      "image": "images/questions/tpa_fig_02.png",
+      "options": {
+        "A": "Pilihan A",
+        "B": "Pilihan B",
+        "C": "Pilihan C",
+        "D": "Pilihan D",
+        "E": "Pilihan E"
+      },
+      "answer": "B",
+      "points": {
+        "A": 0,
+        "B": 5,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Semua gambar pola arahnya sama searah jarum jam, kecuali gambar B yang berputar berlawanan arah jarum jam.\n▶ Jawaban: B"
+    },
+    {
+      "id": "tpa-figural-03",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Sesuai pasangan analogi gambar yang pertama, tentukan pasangan gambar yang kedua:",
+      "image": "images/questions/tpa_fig_03.png",
+      "options": {
+        "A": "Pilihan A",
+        "B": "Pilihan B",
+        "C": "Pilihan C",
+        "D": "Pilihan D",
+        "E": "Pilihan E"
+      },
+      "answer": "C",
+      "points": {
+        "A": 0,
+        "B": 0,
+        "C": 5,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Pola transformasi pada pasangan pertama diterapkan secara simetris pada pasangan kedua sehingga menghasilkan pilihan C.\n▶ Jawaban: C"
+    },
+    {
+      "id": "tpa-figural-04",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Pilihlah satu jawaban yang merupakan kelanjutan gambar selanjutnya:",
+      "image": "images/questions/tpa_fig_04.png",
+      "options": {
+        "A": "Pilihan A",
+        "B": "Pilihan B",
+        "C": "Pilihan C",
+        "D": "Pilihan D",
+        "E": "Pilihan E"
+      },
+      "answer": "B",
+      "points": {
+        "A": 0,
+        "B": 5,
+        "C": 0,
+        "D": 0,
+        "E": 0
+      },
+      "explanation": "Elemen mengalami pergeseran sudut dan rotasi bertahap pada setiap langkah, kelanjutan pola yang benar adalah B.\n▶ Jawaban: B"
     }
   ]
 }
