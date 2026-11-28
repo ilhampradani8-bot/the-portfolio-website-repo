@@ -100,7 +100,7 @@ function handleHashNavigation() {
   const hash = window.location.hash.replace('#', '').toLowerCase();
   if (hash === 'konfirmasi') {
     openPreExamModal(pendingPreExamPacket || 'full_simulation');
-  } else if (['simulasi', 'peringkat', 'riwayat', 'pengaturan'].includes(hash)) {
+  } else if (['simulasi', 'peringkat', 'riwayat', 'analitik', 'pengaturan'].includes(hash)) {
     const confirmScreen = document.getElementById('screen-confirmation');
     if (confirmScreen && !confirmScreen.classList.contains('hidden')) {
       switchToScreen('lobby');
@@ -118,6 +118,7 @@ function switchView(viewName) {
     simulasi: document.getElementById('view-simulasi'),
     peringkat: document.getElementById('view-peringkat'),
     riwayat: document.getElementById('view-riwayat'),
+    analitik: document.getElementById('view-analitik'),
     pengaturan: document.getElementById('view-pengaturan')
   };
 
@@ -125,6 +126,7 @@ function switchView(viewName) {
     simulasi: document.getElementById('nav-tab-simulasi'),
     peringkat: document.getElementById('nav-tab-peringkat'),
     riwayat: document.getElementById('nav-tab-riwayat'),
+    analitik: document.getElementById('nav-tab-analitik'),
     pengaturan: document.getElementById('nav-tab-pengaturan')
   };
 
@@ -154,15 +156,16 @@ function switchView(viewName) {
     simulasi: document.getElementById('mob-nav-simulasi'),
     peringkat: document.getElementById('mob-nav-peringkat'),
     riwayat: document.getElementById('mob-nav-riwayat'),
+    analitik: document.getElementById('mob-nav-analitik'),
     pengaturan: document.getElementById('mob-nav-pengaturan')
   };
 
   Object.keys(mobTabs).forEach(k => {
     if (mobTabs[k]) {
       if (k === viewName) {
-        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-bold text-blue-600 dark:text-blue-400 py-1 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 transition';
+        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-bold text-blue-600 dark:text-blue-400 py-1 px-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 transition';
       } else {
-        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2.5 rounded-xl transition';
+        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2 rounded-xl transition';
       }
     }
   });
@@ -177,8 +180,32 @@ function switchView(viewName) {
     loadLeaderboard();
   } else if (viewName === 'riwayat') {
     renderSessionHistory();
+  } else if (viewName === 'analitik') {
+    loadPlatformAnalytics();
   } else if (viewName === 'pengaturan') {
     syncSettingsToView();
+  }
+}
+
+// 2B. PLATFORM REAL-TIME ANALYTICS (DEBUT 28 NOV 2026)
+async function loadPlatformAnalytics() {
+  const vEl = document.getElementById('analytic-total-visits');
+  const uEl = document.getElementById('analytic-total-users');
+  const sEl = document.getElementById('analytic-total-sessions');
+
+  try {
+    const res = await fetch('/api/cpns?action=analytics');
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && json.data) {
+        const d = json.data;
+        if (vEl) vEl.textContent = Number(d.total_visits || 0).toLocaleString('id-ID');
+        if (uEl) uEl.textContent = Number(d.total_users || 0).toLocaleString('id-ID');
+        if (sEl) sEl.textContent = Number(d.total_sessions || 0).toLocaleString('id-ID');
+      }
+    }
+  } catch (err) {
+    console.warn('Gagal memuat analitik platform:', err);
   }
 }
 
