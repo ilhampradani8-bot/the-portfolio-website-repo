@@ -1,10 +1,25 @@
 /**
- * SIMULASI CAT CPNS 2027 ENGINE
- * PermenPAN-RB Official Algorithm & Interactive UI
+ * SIMULASI CAT CPNS 2027 ENGINE (MODERN & ACCESSIBLE)
+ * - Standar PermenPAN-RB & KepmenPAN-RB Resmi BKN
+ * - Formasi Khusus Disabilitas (130 Menit, Kumulatif 286, TIU 60) & Formasi Umum (100 Menit)
+ * - Google Sign-In OAuth 2.0 Integration
+ * - Audio Screen Reader Text-to-Speech (TTS) Ramah Disabilitas
+ * - Jeda / Keluar Ujian Fleksibel (Simpan Progres)
+ * - Navigasi Lembar Jawaban Luas (Grid & List View)
  * Author: Dr. Ilham Pradani Hub
  */
 
+const GOOGLE_CLIENT_ID = "812430784237-ipa8k92fujeoirmi47vefbrekgqv46op.apps.googleusercontent.com";
+
 let bankData = null;
+let userProfile = {
+  name: 'Calon ASN Hebat',
+  email: '',
+  avatar: '',
+  formasi: 'UMUM', // 'UMUM', 'DISABILITAS', 'CUMLAUDE', 'PAPUA_3T'
+  isGoogleAuth: false
+};
+
 let currentExam = {
   packetType: '',
   questions: [],
@@ -15,41 +30,235 @@ let currentExam = {
   secondsLeft: 100 * 60,
   timerInterval: null,
   isFinished: false,
+  isPaused: false,
   startTime: null
 };
 
-let participantName = localStorage.getItem('cat_participant_name') || 'Calon ASN Hebat';
-let currentFontSizeLevel = 0; // -1: small, 0: normal, 1: large
+let currentFontSizeLevel = 0; // -1: small, 0: normal, 1: large, 2: extra large
+let activeCategoryFilter = 'ALL';
+let activeNavView = 'grid'; // 'grid' or 'list'
+let speechUtterance = null;
 
-// 1. INITIALIZATION ON PAGE LOAD
+// 1. INITIALIZATION ON DOM READY
 document.addEventListener('DOMContentLoaded', async () => {
-  setupThemeToggle();
+  loadStoredProfile();
+  setupThemeAndContrast();
   setupKeyboardNavigation();
-  loadParticipantName();
+  initGoogleAuth();
   await loadBankData();
   checkOngoingSession();
+  updateFormasiUI();
 });
 
-// Load Participant Name
-function loadParticipantName() {
-  const inputEl = document.getElementById('input-nama-peserta');
-  const displayEl = document.getElementById('user-display-name');
-  if (inputEl) inputEl.value = participantName;
-  if (displayEl) displayEl.textContent = participantName;
+// 2. PROFILE & FORMASI MANAGEMENT
+function loadStoredProfile() {
+  const saved = localStorage.getItem('cat_user_profile');
+  if (saved) {
+    try {
+      userProfile = { ...userProfile, ...JSON.parse(saved) };
+    } catch (e) {
+      console.error('Profile parse error:', e);
+    }
+  }
+  updateProfileHeader();
 }
 
-function saveParticipantName() {
-  const inputEl = document.getElementById('input-nama-peserta');
-  if (inputEl && inputEl.value.trim()) {
-    participantName = inputEl.value.trim();
-    localStorage.setItem('cat_participant_name', participantName);
-    loadParticipantName();
-    alert('✅ Nama peserta berhasil disimpan: ' + participantName);
+function updateProfileHeader() {
+  const nameEl = document.getElementById('user-display-name');
+  const badgeEl = document.getElementById('user-formasi-badge');
+  const avatarBadge = document.getElementById('user-avatar-badge');
+
+  if (nameEl) nameEl.textContent = userProfile.name || 'Calon ASN';
+
+  if (badgeEl) {
+    if (userProfile.formasi === 'DISABILITAS') {
+      badgeEl.textContent = '♿ Formasi Disabilitas';
+      badgeEl.className = 'text-[10px] text-amber-600 dark:text-amber-400 font-bold';
+    } else if (userProfile.formasi === 'CUMLAUDE') {
+      badgeEl.textContent = '🎓 Formasi Cumlaude';
+      badgeEl.className = 'text-[10px] text-indigo-600 dark:text-indigo-400 font-bold';
+    } else if (userProfile.formasi === 'PAPUA_3T') {
+      badgeEl.textContent = '🌏 Formasi 3T/Papua';
+      badgeEl.className = 'text-[10px] text-rose-600 dark:text-rose-400 font-bold';
+    } else {
+      badgeEl.textContent = 'Formasi Umum';
+      badgeEl.className = 'text-[10px] text-emerald-600 dark:text-emerald-400 font-medium';
+    }
+  }
+
+  if (avatarBadge) {
+    if (userProfile.avatar) {
+      avatarBadge.innerHTML = `<img src="${userProfile.avatar}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
+    } else {
+      const initials = (userProfile.name || 'IP').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      avatarBadge.textContent = initials || 'IP';
+    }
+  }
+
+  // Update lobby stat duration
+  const durasiEl = document.getElementById('stat-durasi-display');
+  const noteEl = document.getElementById('stat-disabilitas-note');
+  const fullDurBadge = document.getElementById('badge-full-duration');
+
+  if (userProfile.formasi === 'DISABILITAS') {
+    if (durasiEl) durasiEl.textContent = '130 Menit';
+    if (noteEl) noteEl.innerHTML = '<span class="text-amber-500 font-bold">Khusus Disabilitas: 130m</span>';
+    if (fullDurBadge) fullDurBadge.textContent = '130 Menit (Disabilitas)';
+  } else {
+    if (durasiEl) durasiEl.textContent = '100 Menit';
+    if (noteEl) noteEl.textContent = 'Umum: 100m • Disabilitas: 130m';
+    if (fullDurBadge) fullDurBadge.textContent = '100 Menit';
   }
 }
 
-// Setup Theme
-function setupThemeToggle() {
+function openProfileModal() {
+  const m = document.getElementById('modal-profile');
+  const inputName = document.getElementById('modal-input-name');
+  const userName = document.getElementById('modal-user-name');
+  const userEmail = document.getElementById('modal-user-email');
+  const userAvatar = document.getElementById('modal-user-avatar');
+
+  if (inputName) inputName.value = userProfile.name || '';
+  if (userName) userName.textContent = userProfile.name || 'Tamu / Belum Login';
+  if (userEmail) userEmail.textContent = userProfile.email || 'Mode Tamu (Data tersimpan di browser)';
+
+  if (userAvatar) {
+    if (userProfile.avatar) {
+      userAvatar.innerHTML = `<img src="${userProfile.avatar}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
+    } else {
+      userAvatar.textContent = userProfile.isGoogleAuth ? 'G' : '👤';
+    }
+  }
+
+  // Set radio selection
+  const radio = document.querySelector(`input[name="formasi_radio"][value="${userProfile.formasi}"]`);
+  if (radio) radio.checked = true;
+  updateFormasiSelection(userProfile.formasi);
+
+  if (m) {
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+  }
+}
+
+function closeProfileModal() {
+  const m = document.getElementById('modal-profile');
+  if (m) {
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+  }
+}
+
+function updateFormasiSelection(formasiKey) {
+  document.querySelectorAll('.formasi-radio-option').forEach(el => {
+    el.classList.remove('border-blue-600', 'border-emerald-600', 'bg-blue-50/50', 'bg-emerald-50/50', 'dark:bg-blue-950/30', 'dark:bg-emerald-950/30');
+    el.classList.add('border-slate-200', 'dark:border-slate-800');
+  });
+
+  const selectedEl = document.getElementById(`label-formasi-${formasiKey.toLowerCase()}`);
+  if (selectedEl) {
+    selectedEl.classList.remove('border-slate-200', 'dark:border-slate-800');
+    if (formasiKey === 'DISABILITAS') {
+      selectedEl.classList.add('border-emerald-600', 'bg-emerald-50/50', 'dark:bg-emerald-950/30');
+    } else {
+      selectedEl.classList.add('border-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30');
+    }
+  }
+}
+
+function saveProfileModal() {
+  const inputName = document.getElementById('modal-input-name');
+  if (inputName && inputName.value.trim()) {
+    userProfile.name = inputName.value.trim();
+  }
+
+  const selectedRadio = document.querySelector('input[name="formasi_radio"]:checked');
+  if (selectedRadio) {
+    userProfile.formasi = selectedRadio.value;
+  }
+
+  localStorage.setItem('cat_user_profile', JSON.stringify(userProfile));
+  updateProfileHeader();
+  closeProfileModal();
+
+  alert(`✅ Profil disimpan!\nNama: ${userProfile.name}\nJalur: ${userProfile.formasi === 'DISABILITAS' ? 'Penyandang Disabilitas (130 Menit + TTS)' : 'Formasi ' + userProfile.formasi}`);
+}
+
+function updateFormasiUI() {
+  updateProfileHeader();
+}
+
+// 3. GOOGLE SIGN-IN OAUTH INTEGRATION
+function initGoogleAuth() {
+  window.onGoogleLibraryLoad = () => {
+    if (window.google && google.accounts && google.accounts.id) {
+      google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleGoogleCredentialResponse,
+        auto_select: false
+      });
+
+      // Render button in Lobby
+      const container1 = document.getElementById('g_id_signin_container');
+      if (container1) {
+        google.accounts.id.renderButton(container1, {
+          theme: 'filled_blue',
+          size: 'medium',
+          shape: 'pill',
+          text: 'signin_with',
+          logo_alignment: 'left'
+        });
+      }
+
+      // Render button in Modal
+      const container2 = document.getElementById('modal-google-btn-wrapper');
+      if (container2) {
+        google.accounts.id.renderButton(container2, {
+          theme: 'outline',
+          size: 'medium',
+          shape: 'pill',
+          text: 'signin'
+        });
+      }
+    }
+  };
+
+  // If GSI script already loaded
+  if (window.google && google.accounts && google.accounts.id) {
+    window.onGoogleLibraryLoad();
+  }
+}
+
+function handleGoogleCredentialResponse(response) {
+  try {
+    const jwt = response.credential;
+    const payload = decodeJwtResponse(jwt);
+    if (payload) {
+      userProfile.name = payload.name || userProfile.name;
+      userProfile.email = payload.email || '';
+      userProfile.avatar = payload.picture || '';
+      userProfile.isGoogleAuth = true;
+
+      localStorage.setItem('cat_user_profile', JSON.stringify(userProfile));
+      updateProfileHeader();
+      alert(`🎉 Berhasil Masuk dengan Akun Google!\nSelamat datang, ${userProfile.name}`);
+    }
+  } catch (err) {
+    console.error('Google decode error:', err);
+  }
+}
+
+function decodeJwtResponse(token) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload);
+}
+
+// 4. ACCESSIBILITY & THEME CONTROLS
+function setupThemeAndContrast() {
   const isDark = localStorage.getItem('theme') === 'dark' || 
     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
   if (isDark) {
@@ -58,9 +267,14 @@ function setupThemeToggle() {
     document.documentElement.classList.remove('dark');
   }
 
-  const btn = document.getElementById('btn-toggle-theme');
-  if (btn) {
-    btn.addEventListener('click', () => {
+  const isHighContrast = localStorage.getItem('cat_high_contrast') === 'true';
+  if (isHighContrast) {
+    document.body.classList.add('high-contrast');
+  }
+
+  const btnTheme = document.getElementById('btn-toggle-theme');
+  if (btnTheme) {
+    btnTheme.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
       const darkNow = document.documentElement.classList.contains('dark');
       localStorage.setItem('theme', darkNow ? 'dark' : 'light');
@@ -71,77 +285,139 @@ function setupThemeToggle() {
   if (btnFs) {
     btnFs.addEventListener('click', () => {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => console.log(err));
+        document.documentElement.requestFullscreen().catch(e => console.log(e));
       } else {
-        document.exitFullscreen().catch(err => console.log(err));
+        document.exitFullscreen().catch(e => console.log(e));
       }
     });
   }
 }
 
-// 2. LOAD BANK SOAL JSON DATA
+function toggleHighContrast() {
+  document.body.classList.toggle('high-contrast');
+  const active = document.body.classList.contains('high-contrast');
+  localStorage.setItem('cat_high_contrast', active ? 'true' : 'false');
+}
+
+// 5. AUDIO SCREEN READER (TEXT-TO-SPEECH) UNTUK DISABILITAS NETRA
+function speakCurrentQuestion() {
+  if (!('speechSynthesis' in window)) {
+    alert('Browser Anda tidak mendukung Web Speech API Text-to-Speech.');
+    return;
+  }
+
+  stopTTS();
+
+  const q = currentExam.questions[currentExam.currentIndex];
+  if (!q) return;
+
+  const qNum = currentExam.currentIndex + 1;
+  let fullSpeech = `Soal nomor ${qNum}. Kategori ${q.category}, ${q.subtest}. ${q.question}. `;
+
+  ['A', 'B', 'C', 'D', 'E'].forEach(opt => {
+    if (q.options && q.options[opt]) {
+      fullSpeech += `Pilihan ${opt}: ${q.options[opt]}. `;
+    }
+  });
+
+  speechUtterance = new SpeechSynthesisUtterance(fullSpeech);
+  speechUtterance.lang = 'id-ID';
+  speechUtterance.rate = 0.95; // Sedikit lebih santai agar jelas
+  speechUtterance.pitch = 1.0;
+
+  // Prefer Indonesian voice if available
+  const voices = window.speechSynthesis.getVoices();
+  const idVoice = voices.find(v => v.lang.startsWith('id') || v.lang.includes('ID'));
+  if (idVoice) speechUtterance.voice = idVoice;
+
+  const btnPlay = document.getElementById('btn-play-tts');
+  if (btnPlay) {
+    btnPlay.classList.add('bg-blue-600', 'text-white');
+    btnPlay.classList.remove('bg-white', 'dark:bg-slate-700', 'text-blue-600');
+  }
+
+  speechUtterance.onend = () => {
+    if (btnPlay) {
+      btnPlay.classList.remove('bg-blue-600', 'text-white');
+      btnPlay.classList.add('bg-white', 'dark:bg-slate-700', 'text-blue-600');
+    }
+  };
+
+  speechUtterance.onerror = () => {
+    if (btnPlay) {
+      btnPlay.classList.remove('bg-blue-600', 'text-white');
+      btnPlay.classList.add('bg-white', 'dark:bg-slate-700', 'text-blue-600');
+    }
+  };
+
+  window.speechSynthesis.speak(speechUtterance);
+}
+
+function stopTTS() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const btnPlay = document.getElementById('btn-play-tts');
+    if (btnPlay) {
+      btnPlay.classList.remove('bg-blue-600', 'text-white');
+      btnPlay.classList.add('bg-white', 'dark:bg-slate-700', 'text-blue-600');
+    }
+  }
+}
+
+// 6. LOAD BANK DATA
 async function loadBankData() {
   try {
     const res = await fetch('data/cpns_bank_soal.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     bankData = await res.json();
     
-    // Update badge count
     const totalCountEl = document.getElementById('total-bank-count');
     if (totalCountEl && bankData.metadata && bankData.metadata.counts) {
       totalCountEl.textContent = bankData.metadata.counts.total || 399;
     }
   } catch (err) {
     console.error('Gagal memuat bank soal:', err);
-    alert('Peringatan: Gagal memuat data bank soal lokal. Pastikan koneksi dan file data tersedia.');
   }
 }
 
-// 3. START EXAM / CHOOSE PACKET
+// 7. START EXAM / PAKET UJIAN
 function startExam(packetType) {
   if (!bankData) {
-    alert('Data bank soal sedang dimuat, silakan tunggu 2 detik lalu klik lagi.');
+    alert('Bank soal sedang disiapkan, tunggu 2 detik lalu klik kembali.');
     return;
   }
 
   let questions = [];
   let durationMinutes = 100;
 
+  // Khusus Jalur Disabilitas Resmi BKN: 130 Menit untuk Full Test
+  const isDisabilitas = userProfile.formasi === 'DISABILITAS';
+
   if (packetType === 'full_simulation') {
-    // 110 Soal: 30 TWK + 35 TIU + 45 TKP
     const twkPool = [...(bankData.twk || [])];
     const tiuPool = [...(bankData.tiu || []), ...(bankData.prediksi_tiu || [])];
     const tkpPool = [...(bankData.tkp || [])];
 
-    const twkSelected = twkPool.slice(0, 30);
-    const tiuSelected = tiuPool.slice(0, 35);
-    const tkpSelected = tkpPool.slice(0, 45);
-
-    questions = [...twkSelected, ...tiuSelected, ...tkpSelected];
-    durationMinutes = 100;
+    questions = [...twkPool.slice(0, 30), ...tiuPool.slice(0, 35), ...tkpPool.slice(0, 45)];
+    durationMinutes = isDisabilitas ? 130 : 100;
   } else if (packetType === 'twk_only') {
     questions = (bankData.twk || []).slice(0, 30);
     durationMinutes = 25;
   } else if (packetType === 'tiu_only') {
     questions = [...(bankData.tiu || []), ...(bankData.prediksi_tiu || [])].slice(0, 35);
-    durationMinutes = 35;
+    durationMinutes = isDisabilitas ? 45 : 35;
   } else if (packetType === 'tkp_only') {
     questions = (bankData.tkp || []).slice(0, 45);
-    durationMinutes = 40;
+    durationMinutes = isDisabilitas ? 50 : 40;
   } else if (packetType === 'posttest') {
     questions = (bankData.posttest || []).length > 0 ? bankData.posttest : (bankData.all || []).slice(0, 110);
-    durationMinutes = 100;
+    durationMinutes = isDisabilitas ? 130 : 100;
   } else if (packetType === 'prediksi') {
     questions = [...(bankData.prediksi_tiu || []), ...(bankData.tiu || []).slice(0, 30)];
     durationMinutes = 35;
   } else {
     questions = (bankData.pretest || []).length > 0 ? bankData.pretest : (bankData.all || []).slice(0, 110);
-    durationMinutes = 100;
-  }
-
-  if (questions.length === 0) {
-    alert('Maaf, tidak ada soal yang ditemukan untuk paket ini.');
-    return;
+    durationMinutes = isDisabilitas ? 130 : 100;
   }
 
   currentExam = {
@@ -154,17 +430,18 @@ function startExam(packetType) {
     secondsLeft: durationMinutes * 60,
     timerInterval: null,
     isFinished: false,
+    isPaused: false,
     startTime: Date.now()
   };
 
   saveSessionToStorage();
   switchToScreen('exam');
   renderCurrentQuestion();
-  renderGrid();
+  renderNavigation();
   startTimer();
 }
 
-// 4. TIMER LOGIC
+// 8. TIMER ENGINE
 function startTimer() {
   if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
 
@@ -175,22 +452,23 @@ function startTimer() {
     const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     if (timerDisplay) timerDisplay.textContent = str;
 
-    // Visual warning when time is running low
-    if (currentExam.secondsLeft <= 300) { // < 5 mins
+    if (currentExam.secondsLeft <= 300) {
       timerDisplay.classList.add('text-rose-500', 'animate-pulse');
-    } else if (currentExam.secondsLeft <= 600) { // < 10 mins
+    } else if (currentExam.secondsLeft <= 600) {
       timerDisplay.classList.add('text-amber-500');
     }
   };
 
   updateDisplay();
   currentExam.timerInterval = setInterval(() => {
+    if (currentExam.isPaused) return;
+
     currentExam.secondsLeft--;
     saveSessionToStorage();
 
     if (currentExam.secondsLeft <= 0) {
       clearInterval(currentExam.timerInterval);
-      alert('⏰ Waktu Ujian Telah Habis! Sistem akan mengumpulkan jawaban Anda otomatis.');
+      alert('⏰ Waktu Ujian Telah Habis! Sistem akan mengumpulkan lembar jawaban Anda otomatis.');
       finishExam();
     } else {
       updateDisplay();
@@ -198,8 +476,49 @@ function startTimer() {
   }, 1000);
 }
 
-// 5. RENDER CURRENT QUESTION & OPTIONS
+// 9. JEDA & KELUAR DARI HALAMAN PENGUJIAN
+function openPauseExitModal() {
+  currentExam.isPaused = true;
+  const m = document.getElementById('modal-pause-exit');
+  if (m) {
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+  }
+}
+
+function closePauseExitModal() {
+  currentExam.isPaused = false;
+  const m = document.getElementById('modal-pause-exit');
+  if (m) {
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+  }
+}
+
+function pauseAndSaveExam() {
+  stopTTS();
+  if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
+  saveSessionToStorage();
+  closePauseExitModal();
+  switchToScreen('lobby');
+  alert('💾 Progres ujian Anda berhasil dijeda & disimpan!\nSisa waktu dan jawaban Anda aman. Anda bisa melanjutkannya kapan saja dari beranda.');
+}
+
+function cancelAndExitExam() {
+  if (confirm('Yakin ingin membatalkan ujian? Semua jawaban pada sesi ini akan dihapus.')) {
+    stopTTS();
+    if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
+    localStorage.removeItem('cat_ongoing_session');
+    currentExam.isFinished = true;
+    closePauseExitModal();
+    switchToScreen('lobby');
+  }
+}
+
+// 10. RENDER SOAL & OPSI JAWABAN
 function renderCurrentQuestion() {
+  stopTTS();
+
   const q = currentExam.questions[currentExam.currentIndex];
   if (!q) return;
 
@@ -209,24 +528,29 @@ function renderCurrentQuestion() {
   document.getElementById('current-question-num').textContent = qNum;
   document.getElementById('total-questions-exam').textContent = totalQ;
 
-  // Category Badge & Title
   const badgeCat = document.getElementById('badge-category');
   const titleSub = document.getElementById('title-subtest');
   const ruleSub = document.getElementById('subtest-scoring-rule');
 
   badgeCat.textContent = q.category || 'SKD';
   if (q.category === 'TWK') {
-    badgeCat.className = 'px-3 py-1 rounded-xl bg-rose-600 text-white text-xs font-bold uppercase tracking-wider';
+    badgeCat.className = 'px-3.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold uppercase tracking-wider';
     titleSub.textContent = 'Tes Wawasan Kebangsaan (TWK)';
-    ruleSub.textContent = 'Nilai: Benar +5, Salah 0, Kosong 0 • Passing Grade: 65';
+    ruleSub.textContent = userProfile.formasi === 'DISABILITAS' 
+      ? 'Nilai: Benar +5, Salah 0 • Formasi Disabilitas: Kumulatif SKD ≥ 286' 
+      : 'Nilai: Benar +5, Salah 0, Kosong 0 • Passing Grade: 65';
   } else if (q.category === 'TIU') {
-    badgeCat.className = 'px-3 py-1 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wider';
+    badgeCat.className = 'px-3.5 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wider';
     titleSub.textContent = 'Tes Intelegensia Umum (TIU)';
-    ruleSub.textContent = 'Nilai: Benar +5, Salah 0, Kosong 0 • Passing Grade: 80';
+    ruleSub.textContent = userProfile.formasi === 'DISABILITAS' 
+      ? 'Nilai: Benar +5, Salah 0 • Ambang Batas Disabilitas: 60' 
+      : 'Nilai: Benar +5, Salah 0, Kosong 0 • Passing Grade: 80';
   } else {
-    badgeCat.className = 'px-3 py-1 rounded-xl bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider';
+    badgeCat.className = 'px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider';
     titleSub.textContent = 'Tes Karakteristik Pribadi (TKP)';
-    ruleSub.textContent = 'Nilai: Pilihan bernilai 1 s.d. 5 Poin, Kosong 0 • Passing Grade: 166';
+    ruleSub.textContent = userProfile.formasi === 'DISABILITAS' 
+      ? 'Nilai: Pilihan bernilai 1 s.d. 5 Poin, Kosong 0' 
+      : 'Nilai: Pilihan bernilai 1 s.d. 5 Poin, Kosong 0 • Passing Grade: 166';
   }
 
   // Question Text
@@ -260,14 +584,14 @@ function renderCurrentQuestion() {
     btn.onclick = () => selectOption(optKey);
 
     btn.innerHTML = `
-      <div class="w-8 h-8 rounded-xl font-bold flex items-center justify-center text-sm shrink-0 transition-colors ${
+      <div class="w-9 h-9 rounded-xl font-extrabold flex items-center justify-center text-sm shrink-0 transition-colors ${
         isSelected
           ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
           : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/60 group-hover:text-blue-600'
       }">
         ${optKey}
       </div>
-      <div class="text-sm sm:text-base leading-relaxed pt-0.5 text-slate-800 dark:text-slate-200">
+      <div class="text-base sm:text-lg leading-relaxed pt-1 text-slate-800 dark:text-slate-200">
         ${optText}
       </div>
     `;
@@ -279,26 +603,19 @@ function renderCurrentQuestion() {
   document.getElementById('btn-prev-question').disabled = currentExam.currentIndex === 0;
   document.getElementById('btn-next-question').innerHTML = 
     currentExam.currentIndex === totalQ - 1 
-      ? `<span>Periksa Kembali</span> <i class="ph-bold ph-check"></i>`
+      ? `<span>Periksa Selesai</span> <i class="ph-bold ph-check"></i>`
       : `<span>Selanjutnya</span> <i class="ph-bold ph-caret-right"></i>`;
 
-  renderGrid();
+  renderNavigation();
   updateProgressStats();
 }
 
-// 6. SELECT OPTION & TOGGLE RAGU
+// 11. SELECT OPTION & TOGGLE RAGU
 function selectOption(optKey) {
   const q = currentExam.questions[currentExam.currentIndex];
   if (!q) return;
 
-  // Toggle or select
-  if (currentExam.answers[q.id] === optKey) {
-    // Already selected: clicking again keeps it or can clear
-    currentExam.answers[q.id] = optKey;
-  } else {
-    currentExam.answers[q.id] = optKey;
-  }
-
+  currentExam.answers[q.id] = optKey;
   saveSessionToStorage();
   renderCurrentQuestion();
 }
@@ -311,11 +628,10 @@ function toggleRaguRagu() {
   currentExam.ragu[q.id] = isChecked;
 
   saveSessionToStorage();
-  renderGrid();
+  renderNavigation();
   updateProgressStats();
 }
 
-// 7. QUESTION NAVIGATION
 function navigateQuestion(offset) {
   const newIndex = currentExam.currentIndex + offset;
   if (newIndex >= 0 && newIndex < currentExam.questions.length) {
@@ -331,63 +647,134 @@ function jumpToQuestion(index) {
   }
 }
 
-// 8. RENDER GRID NUMBERS
-let activeCategoryFilter = 'ALL';
+// 12. SPACIOUS QUESTION NAVIGATION (GRID & LIST VIEW)
+function setNavViewMode(mode) {
+  activeNavView = mode;
+  const gridEl = document.getElementById('question-grid');
+  const listEl = document.getElementById('question-list-view');
+  const btnGrid = document.getElementById('view-mode-grid');
+  const btnList = document.getElementById('view-mode-list');
+
+  if (mode === 'grid') {
+    gridEl.classList.remove('hidden');
+    listEl.classList.add('hidden');
+    btnGrid.className = 'p-1.5 rounded-lg bg-white dark:bg-slate-700 font-bold shadow-sm';
+    btnList.className = 'p-1.5 rounded-lg text-slate-500';
+  } else {
+    gridEl.classList.add('hidden');
+    listEl.classList.remove('hidden');
+    btnList.className = 'p-1.5 rounded-lg bg-white dark:bg-slate-700 font-bold shadow-sm';
+    btnGrid.className = 'p-1.5 rounded-lg text-slate-500';
+  }
+  renderNavigation();
+}
 
 function filterGrid(cat) {
   activeCategoryFilter = cat;
-  ['all', 'twk', 'tiu', 'tkp'].forEach(c => {
+  ['all', 'unanswered', 'ragu', 'twk', 'tiu', 'tkp'].forEach(c => {
     const el = document.getElementById(`filter-${c}`);
     if (el) {
       if (c.toUpperCase() === cat) {
-        el.className = 'px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 font-bold shadow-sm text-slate-800 dark:text-slate-200';
+        el.className = 'px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 font-bold shadow-sm text-slate-800 dark:text-slate-200';
       } else {
-        el.className = 'px-2.5 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300';
+        el.className = 'px-3 py-1.5 rounded-xl hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300';
       }
     }
   });
-  renderGrid();
+  renderNavigation();
 }
 
-function renderGrid() {
-  const gridContainer = document.getElementById('question-grid');
-  if (!gridContainer) return;
+function renderNavigation() {
+  if (activeNavView === 'grid') {
+    renderSpaciousGrid();
+  } else {
+    renderSpaciousList();
+  }
+}
 
-  gridContainer.innerHTML = '';
+function renderSpaciousGrid() {
+  const container = document.getElementById('question-grid');
+  if (!container) return;
+  container.innerHTML = '';
 
   currentExam.questions.forEach((q, idx) => {
-    // Check category filter
-    if (activeCategoryFilter !== 'ALL' && q.category !== activeCategoryFilter) {
-      return;
-    }
-
     const qNum = idx + 1;
     const isAnswered = !!currentExam.answers[q.id];
     const isRagu = !!currentExam.ragu[q.id];
     const isActive = currentExam.currentIndex === idx;
     const ansLetter = currentExam.answers[q.id] || '';
 
+    // Apply Filter
+    if (activeCategoryFilter === 'UNANSWERED' && isAnswered) return;
+    if (activeCategoryFilter === 'RAGU' && !isRagu) return;
+    if (['TWK', 'TIU', 'TKP'].includes(activeCategoryFilter) && q.category !== activeCategoryFilter) return;
+
     let bgClass = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700';
 
     if (isRagu) {
-      bgClass = 'bg-amber-400 dark:bg-amber-500 text-slate-950 font-bold border-amber-500 shadow-sm';
+      bgClass = 'bg-amber-400 dark:bg-amber-500 text-slate-950 font-black border-amber-500 shadow-sm';
     } else if (isAnswered) {
-      bgClass = 'bg-emerald-600 text-white font-bold border-emerald-600 shadow-sm';
+      bgClass = 'bg-emerald-600 text-white font-black border-emerald-600 shadow-sm';
     }
 
-    const ringClass = isActive ? 'ring-2 ring-blue-600 ring-offset-2 dark:ring-offset-slate-900 font-extrabold scale-105' : '';
+    const ringClass = isActive ? 'ring-4 ring-blue-600 ring-offset-2 dark:ring-offset-slate-900 font-extrabold scale-110 z-10' : '';
 
     const btn = document.createElement('button');
-    btn.className = `w-10 h-10 rounded-xl border flex flex-col items-center justify-center text-xs transition relative ${bgClass} ${ringClass}`;
+    btn.className = `w-12 h-12 rounded-2xl border flex flex-col items-center justify-center text-xs transition relative ${bgClass} ${ringClass}`;
     btn.onclick = () => jumpToQuestion(idx);
     btn.title = `Soal No. ${qNum} (${q.category})`;
 
     btn.innerHTML = `
-      <span class="leading-none text-[11px]">${qNum}</span>
-      ${isAnswered ? `<span class="text-[9px] opacity-90 leading-none mt-0.5">${ansLetter}</span>` : ''}
+      <span class="leading-none text-xs font-bold">${qNum}</span>
+      ${isAnswered ? `<span class="text-[10px] font-extrabold leading-none mt-1 uppercase">${ansLetter}</span>` : ''}
     `;
 
-    gridContainer.appendChild(btn);
+    container.appendChild(btn);
+  });
+}
+
+function renderSpaciousList() {
+  const container = document.getElementById('question-list-view');
+  if (!container) return;
+  container.innerHTML = '';
+
+  currentExam.questions.forEach((q, idx) => {
+    const qNum = idx + 1;
+    const isAnswered = !!currentExam.answers[q.id];
+    const isRagu = !!currentExam.ragu[q.id];
+    const isActive = currentExam.currentIndex === idx;
+    const ansLetter = currentExam.answers[q.id] || '-';
+
+    if (activeCategoryFilter === 'UNANSWERED' && isAnswered) return;
+    if (activeCategoryFilter === 'RAGU' && !isRagu) return;
+    if (['TWK', 'TIU', 'TKP'].includes(activeCategoryFilter) && q.category !== activeCategoryFilter) return;
+
+    const row = document.createElement('div');
+    row.className = `p-3 rounded-2xl border flex items-center justify-between gap-3 cursor-pointer transition ${
+      isActive 
+        ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 shadow-sm' 
+        : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+    }`;
+    row.onclick = () => jumpToQuestion(idx);
+
+    let statusBadge = '<span class="text-[10px] px-2 py-0.5 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-500">Kosong</span>';
+    if (isRagu) {
+      statusBadge = `<span class="text-[10px] px-2 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-bold">Ragu (${ansLetter})</span>`;
+    } else if (isAnswered) {
+      statusBadge = `<span class="text-[10px] px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-bold">Jawab: ${ansLetter}</span>`;
+    }
+
+    row.innerHTML = `
+      <div class="flex items-center gap-3 overflow-hidden">
+        <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold flex items-center justify-center text-xs shrink-0">${qNum}</span>
+        <div class="truncate text-xs text-slate-700 dark:text-slate-300">
+          <strong class="uppercase text-slate-400 mr-1">[${q.category}]</strong> ${q.question}
+        </div>
+      </div>
+      <div>${statusBadge}</div>
+    `;
+
+    container.appendChild(row);
   });
 }
 
@@ -411,7 +798,6 @@ function updateProgressStats() {
   if (elR) elR.textContent = ragu;
   if (elE) elE.textContent = empty;
 
-  // Modal stats
   const mA = document.getElementById('modal-stat-answered');
   const mR = document.getElementById('modal-stat-ragu');
   const mE = document.getElementById('modal-stat-empty');
@@ -420,7 +806,7 @@ function updateProgressStats() {
   if (mE) mE.textContent = empty;
 }
 
-// 9. FONT SIZE CONTROLS
+// 13. FONT SIZING & KEYBOARD
 function changeFontSize(delta) {
   if (delta === 0) currentFontSizeLevel = 0;
   else currentFontSizeLevel = Math.max(-1, Math.min(2, currentFontSizeLevel + delta));
@@ -431,20 +817,20 @@ function applyFontSize() {
   const qText = document.getElementById('question-text');
   if (!qText) return;
 
-  qText.classList.remove('text-sm', 'text-base', 'text-lg', 'text-xl');
+  qText.classList.remove('text-sm', 'text-base', 'text-lg', 'text-xl', 'text-2xl');
   if (currentFontSizeLevel === -1) {
     qText.classList.add('text-sm');
   } else if (currentFontSizeLevel === 0) {
     qText.classList.add('text-base', 'sm:text-lg');
+  } else if (currentFontSizeLevel === 1) {
+    qText.classList.add('text-lg', 'sm:text-xl');
   } else {
-    qText.classList.add('text-xl');
+    qText.classList.add('text-xl', 'sm:text-2xl');
   }
 }
 
-// 10. KEYBOARD SHORTCUTS
 function setupKeyboardNavigation() {
   window.addEventListener('keydown', (e) => {
-    // Only active during exam
     const examScreen = document.getElementById('screen-exam');
     if (!examScreen || examScreen.classList.contains('hidden')) return;
 
@@ -467,7 +853,7 @@ function setupKeyboardNavigation() {
   });
 }
 
-// 11. CONFIRM MODAL & FINISH EXAM
+// 14. FINISH EXAM & CALCULATION (OFFICIAL RULES)
 function openConfirmFinishModal() {
   updateProgressStats();
   const m = document.getElementById('modal-finish');
@@ -486,16 +872,16 @@ function closeConfirmFinishModal() {
 }
 
 function finishExam() {
+  stopTTS();
   closeConfirmFinishModal();
   if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
   currentExam.isFinished = true;
   localStorage.removeItem('cat_ongoing_session');
 
-  calculateAndShowResults();
+  calculateResultsWithOfficialRules();
 }
 
-// 12. SCORING & RESULTS CALCULATION
-function calculateAndShowResults() {
+function calculateResultsWithOfficialRules() {
   let twkScore = 0, twkCorrect = 0, twkWrong = 0;
   let tiuScore = 0, tiuCorrect = 0, tiuWrong = 0;
   let tkpScore = 0, tkpCount = 0, tkpTopChoice = 0;
@@ -524,7 +910,6 @@ function calculateAndShowResults() {
         tkpScore += p;
         if (p === 5) tkpTopChoice++;
       } else if (userAns) {
-        // Fallback default
         tkpScore += 3;
       }
     }
@@ -532,13 +917,45 @@ function calculateAndShowResults() {
 
   const totalScore = twkScore + tiuScore + tkpScore;
 
-  // Passing Grades PermenPAN-RB
-  const twkPass = twkScore >= 65;
-  const tiuPass = tiuScore >= 80;
-  const tkpPass = tkpScore >= 166;
-  const isAllPassed = twkPass && tiuPass && tkpPass;
+  // RULE CHECKING BASED ON SELECTED FORMASI
+  let isAllPassed = false;
+  let twkPass = false;
+  let tiuPass = false;
+  let tkpPass = false;
 
-  // Update Result UI
+  if (userProfile.formasi === 'DISABILITAS') {
+    // KepmenPAN-RB Khusus Penyandang Disabilitas:
+    // 1. Nilai Kumulatif SKD paling rendah 286
+    // 2. Nilai TIU paling rendah 60
+    tiuPass = tiuScore >= 60;
+    twkPass = true; // Tidak ada batas minimal TWK terpisah
+    tkpPass = true; // Tidak ada batas minimal TKP terpisah
+    isAllPassed = (totalScore >= 286) && (tiuScore >= 60);
+
+    document.getElementById('twk-passing-grade-info').innerHTML = 'Formasi Disabilitas: <em>Kumulatif SKD ≥ 286</em>';
+    document.getElementById('tiu-passing-grade-info').innerHTML = 'Ambang Batas Disabilitas: <strong>60</strong>';
+    document.getElementById('tkp-passing-grade-info').innerHTML = 'Formasi Disabilitas: <em>Kumulatif SKD ≥ 286</em>';
+  } else if (userProfile.formasi === 'CUMLAUDE') {
+    // Formasi Cumlaude: Kumulatif >= 311, TIU >= 85
+    tiuPass = tiuScore >= 85;
+    twkPass = true;
+    tkpPass = true;
+    isAllPassed = (totalScore >= 311) && (tiuScore >= 85);
+  } else if (userProfile.formasi === 'PAPUA_3T') {
+    // Formasi 3T/Papua: Kumulatif >= 286, TIU >= 60
+    tiuPass = tiuScore >= 60;
+    twkPass = true;
+    tkpPass = true;
+    isAllPassed = (totalScore >= 286) && (tiuScore >= 60);
+  } else {
+    // Formasi Umum Standar: TWK >= 65, TIU >= 80, TKP >= 166
+    twkPass = twkScore >= 65;
+    tiuPass = tiuScore >= 80;
+    tkpPass = tkpScore >= 166;
+    isAllPassed = twkPass && tiuPass && tkpPass;
+  }
+
+  // Update UI Elements
   document.getElementById('result-total-score').textContent = totalScore;
   document.getElementById('twk-score-value').textContent = twkScore;
   document.getElementById('twk-correct-count').textContent = twkCorrect;
@@ -555,12 +972,10 @@ function calculateAndShowResults() {
   document.getElementById('tkp-avg-point').textContent = tkpCount > 0 ? (tkpScore / tkpCount).toFixed(1) : '0';
   document.getElementById('tkp-progress-bar').style.width = `${Math.min(100, (tkpScore / 225) * 100)}%`;
 
-  // Status badges
   setSubtestBadge('twk-status-badge', twkPass);
   setSubtestBadge('tiu-status-badge', tiuPass);
   setSubtestBadge('tkp-status-badge', tkpPass);
 
-  // Overall Graduation Card
   const resultCard = document.getElementById('result-status-card');
   const badgeEl = document.getElementById('result-badge');
   const headEl = document.getElementById('result-headline');
@@ -569,16 +984,21 @@ function calculateAndShowResults() {
   if (isAllPassed) {
     resultCard.className = 'rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-600 to-green-700';
     badgeEl.textContent = '🌟 LULUS PASSING GRADE SKD';
-    headEl.textContent = `Selamat, ${participantName}! Anda Memenuhi Syarat Kelulusan.`;
-    subEl.textContent = 'Seluruh ambang batas TWK (≥65), TIU (≥80), dan TKP (≥166) berhasil Anda lampaui dengan gemilang. Anda siap melaju ke tahap SKB!';
+    headEl.textContent = `Selamat, ${userProfile.name}! Anda Memenuhi Syarat.`;
+    subEl.textContent = userProfile.formasi === 'DISABILITAS'
+      ? `Skor kumulatif Anda (${totalScore} ≥ 286) dan nilai TIU (${tiuScore} ≥ 60) berhasil memenuhi ambang batas formasi disabilitas resmi BKN!`
+      : 'Seluruh komponen TWK (≥65), TIU (≥80), dan TKP (≥166) Anda berhasil memenuhi ambang batas. Anda berhak melaju ke tahapan SKB!';
     
-    // Trigger celebration confetti
-    triggerConfetti();
+    if (typeof confetti === 'function') {
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+    }
   } else {
     resultCard.className = 'rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden bg-gradient-to-br from-rose-700 via-rose-600 to-orange-700';
     badgeEl.textContent = '⚠️ BELUM MEMENUHI PASSING GRADE';
-    headEl.textContent = `Jangan Menyerah, ${participantName}!`;
-    subEl.textContent = 'Berdasarkan aturan resmi BKN, seorang peserta wajib melampaui ambang batas pada KETIGA subtes sekaligus. Pelajari kembali pembahasan di bawah untuk memperkuat materi yang belum optimal.';
+    headEl.textContent = `Jangan Menyerah, ${userProfile.name}!`;
+    subEl.textContent = userProfile.formasi === 'DISABILITAS'
+      ? `Berdasarkan aturan formasi khusus disabilitas, skor kumulatif minimal adalah 286 dan TIU minimal 60. Pelajari kembali pembahasan di bawah.`
+      : 'Sesuai aturan BKN, seluruh subtes harus melampaui passing grade sekaligus. Silakan pelajari kembali analisis pembahasan soal.';
   }
 
   switchToScreen('result');
@@ -596,17 +1016,7 @@ function setSubtestBadge(id, isPass) {
   }
 }
 
-function triggerConfetti() {
-  if (typeof confetti === 'function') {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  }
-}
-
-// 13. REVIEW & PEMBAHASAN MODE
+// 15. REVIEW MODE
 function openReviewMode() {
   const container = document.getElementById('section-review-container');
   if (container) {
@@ -628,7 +1038,6 @@ function renderReviewList() {
     const userAns = currentExam.answers[q.id];
     const isCorrect = (q.category === 'TKP') ? (userAns && q.points && q.points[userAns] >= 4) : (userAns === q.answer);
 
-    // Apply filter
     if (filter === 'WRONG' && isCorrect) return;
     if (filter === 'TWK' && q.category !== 'TWK') return;
     if (filter === 'TIU' && q.category !== 'TIU') return;
@@ -649,7 +1058,7 @@ function renderReviewList() {
     card.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div class="flex items-center gap-2">
-          <span class="w-7 h-7 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-xs">
+          <span class="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-xs">
             ${qNum}
           </span>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-400">${q.category}</span>
@@ -661,7 +1070,6 @@ function renderReviewList() {
         ${q.question}
       </div>
 
-      <!-- Options Review -->
       <div class="grid grid-cols-1 gap-2 pt-2 text-sm">
         ${['A', 'B', 'C', 'D', 'E'].map(optKey => {
           if (!q.options || !q.options[optKey]) return '';
@@ -685,7 +1093,7 @@ function renderReviewList() {
           }
 
           return `
-            <div class="p-3 rounded-xl border flex items-center justify-between gap-3 ${optBg}">
+            <div class="p-3.5 rounded-xl border flex items-center justify-between gap-3 ${optBg}">
               <div class="flex items-center gap-3">
                 <span class="w-6 h-6 rounded-md font-bold text-xs flex items-center justify-center bg-white dark:bg-slate-700 shadow-sm">${optKey}</span>
                 <span>${q.options[optKey]}</span>
@@ -696,7 +1104,6 @@ function renderReviewList() {
         }).join('')}
       </div>
 
-      <!-- Pembahasan Box -->
       <div class="mt-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-xs text-slate-700 dark:text-slate-300 space-y-1.5">
         <div class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
           <i class="ph-bold ph-lightbulb text-amber-500 text-sm"></i> Pembahasan Resmi:
@@ -711,7 +1118,7 @@ function renderReviewList() {
   });
 }
 
-// 14. STORAGE & SESSION RESUME
+// 16. SESSION RESUME & STATE PERSISTENCE
 function saveSessionToStorage() {
   if (currentExam.isFinished) return;
   const session = {
@@ -732,8 +1139,7 @@ function checkOngoingSession() {
   try {
     const s = JSON.parse(saved);
     if (s && s.secondsLeft > 0 && s.questionsIds && s.questionsIds.length > 0) {
-      if (confirm('Ditemukan sesi tryout sebelumnya yang belum selesai. Apakah Anda ingin melanjutkan?')) {
-        // Resume session
+      if (confirm('Ditemukan sesi ujian tryout sebelumnya yang dijeda. Apakah Anda ingin melanjutkan pengerjaan?')) {
         startExam(s.packetType);
         currentExam.answers = s.answers || {};
         currentExam.ragu = s.ragu || {};
@@ -749,7 +1155,7 @@ function checkOngoingSession() {
   }
 }
 
-// 15. SCREEN SWITCHING HELPER
+// 17. SCREEN SWITCHING HELPER
 function switchToScreen(screenName) {
   const lobby = document.getElementById('screen-lobby');
   const exam = document.getElementById('screen-exam');
@@ -774,6 +1180,7 @@ function switchToScreen(screenName) {
 }
 
 function returnToLobby() {
+  stopTTS();
   if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
   switchToScreen('lobby');
 }

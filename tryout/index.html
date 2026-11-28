@@ -3,18 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulasi CAT CPNS 2027 Resmi - Dr. Ilham Pradani Hub</title>
-  <meta name="description" content="Simulasi Ujian CAT BKN SKD CPNS 2027 Terlengkap: TWK, TIU, TKP dengan standar PermenPAN-RB, sistem penilaian real-time, pembahasan lengkap, dan passing grade resmi.">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Simulasi CAT CPNS 2027 Resmi BKN - Portal Tryout Dr. Ilham Pradani</title>
+  <meta name="title" content="Simulasi CAT CPNS 2027 Resmi BKN - Portal Tryout Dr. Ilham Pradani">
+  <meta name="description" content="Simulasi CAT BKN SKD CPNS 2027 Resmi: TWK, TIU, TKP sesuai PermenPAN-RB. Mendukung Formasi Umum (100 Menit) & Formasi Khusus Disabilitas (130 Menit) dengan fitur Audio Screen Reader TTS, sistem penilaian real-time, dan pembahasan lengkap.">
+  <meta name="keywords" content="tryout cpns 2027, simulasi cat bkn 2027, skd cpns, passing grade cpns 2027, formasi disabilitas cpns, latihan tiu twk tkp, dr ilham pradani">
+  <meta name="author" content="Dr. Ilham Pradani">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://tryout.ilhampradani.me/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tryout.ilhampradani.me/">
+  <meta property="og:title" content="Simulasi CAT CPNS 2027 Resmi BKN - Portal Tryout Dr. Ilham Pradani">
+  <meta property="og:description" content="Platform tryout simulasi resmi CAT BKN SKD CPNS 2027 terlengkap dengan sistem pembobotan nilai PermenPAN-RB, bank soal 399+ butir, mode disabilitas 130 menit, dan audio TTS.">
+  <meta property="og:image" content="https://ilhampradani.me/image/profile.jpg">
+  <meta property="og:site_name" content="Portal CAT CPNS Dr. Ilham Pradani">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tryout.ilhampradani.me/">
+  <meta property="twitter:title" content="Simulasi CAT CPNS 2027 Resmi BKN - Portal Tryout Dr. Ilham Pradani">
+  <meta property="twitter:description" content="Simulasi CAT BKN SKD CPNS 2027: TWK, TIU, TKP dengan passing grade resmi, mode khusus disabilitas, audio narrator, dan pembahasan lengkap.">
+  <meta property="twitter:image" content="https://ilhampradani.me/image/profile.jpg">
+
   <!-- Favicon -->
   <link rel="icon" href="https://api.iconify.design/lucide:award.svg?color=%232563eb" type="image/svg+xml">
+
+  <!-- Structured Data (JSON-LD) for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Simulasi CAT CPNS 2027 Resmi BKN",
+    "url": "https://tryout.ilhampradani.me/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "description": "Simulasi Ujian Seleksi Kompetensi Dasar (SKD) CAT BKN CPNS 2027 lengkap dengan passing grade PermenPAN-RB, mode disabilitas, dan pembahasan terperinci.",
+    "author": {
+      "@type": "Person",
+      "name": "Dr. Ilham Pradani",
+      "url": "https://ilhampradani.me"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IDR"
+    }
+  }
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Identity Services (Google Sign-In) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <script>
     tailwind.config = {
@@ -47,25 +94,45 @@
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
+    /* High Contrast Accessibility Mode */
+    body.high-contrast {
+      background-color: #000000 !important;
+      color: #ffff00 !important;
+    }
+    body.high-contrast * {
+      border-color: #ffff00 !important;
+    }
+    body.high-contrast .bg-white,
+    body.high-contrast .bg-slate-50,
+    body.high-contrast .bg-slate-100,
+    body.high-contrast .bg-slate-900,
+    body.high-contrast .bg-slate-950 {
+      background-color: #111111 !important;
+      color: #ffffff !important;
+    }
+    body.high-contrast button {
+      border: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+    }
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
     }
     ::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.05);
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.2);
-      border-radius: 4px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 6px;
     }
     .no-select {
       user-select: none;
     }
-    .grid-cat {
+    .grid-spacious {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
-      gap: 6px;
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      gap: 8px;
     }
     @media print {
       .no-print {
@@ -79,21 +146,24 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
-  <!-- TOP HEADER (CAT BKN BAR) -->
+  <!-- TOP HEADER (CAT BKN NAVBAR) -->
   <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 shadow-sm no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
       <!-- Left: Logo & Title -->
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-          <i class="ph-bold ph-graduation-cap text-2xl"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">CAT CPNS 2027</span>
-            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800">BKN Standard</span>
+        <a href="https://tryout.ilhampradani.me" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition">
+            <i class="ph-bold ph-graduation-cap text-2xl"></i>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Simulasi Ujian SKD Resmi • Dr. Ilham Pradani Hub</p>
-        </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">CAT CPNS 2027</span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800">BKN Official</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Simulasi Ujian SKD Resmi • Dr. Ilham Pradani Hub</p>
+          </div>
+        </a>
       </div>
 
       <!-- Center: Timer & Status (Shown when in Exam) -->
@@ -105,24 +175,46 @@
             <span id="exam-timer" class="font-mono font-bold text-base sm:text-lg text-slate-800 dark:text-slate-100">100:00</span>
           </div>
         </div>
+
+        <!-- Tombol Keluar / Jeda Ujian di Header -->
+        <button onclick="openPauseExitModal()" title="Jeda atau Keluar Ujian" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-rose-100 dark:hover:bg-rose-950/60 hover:text-rose-600 text-slate-700 dark:text-slate-300 font-bold text-xs transition flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
+          <i class="ph-bold ph-sign-out text-sm"></i>
+          <span class="hidden sm:inline">Jeda / Keluar</span>
+        </button>
       </div>
 
-      <!-- Right: User Profile & Utility Buttons -->
+      <!-- Right: User Profile, Google Sign-In, Accessibility Buttons -->
       <div class="flex items-center gap-2">
+        
+        <!-- Toggle Aksesibilitas Disabilitas Kontras Tinggi -->
+        <button id="btn-toggle-contrast" onclick="toggleHighContrast()" title="Mode Aksesibilitas Kontras Tinggi" class="p-2 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <i class="ph-bold ph-eye text-xl"></i>
+        </button>
+
+        <!-- Toggle Dark/Light Theme -->
         <button id="btn-toggle-theme" title="Toggle Tema Gelap/Terang" class="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
           <i class="ph-bold ph-moon text-xl dark:hidden"></i>
           <i class="ph-bold ph-sun text-xl hidden dark:block"></i>
         </button>
-        <button id="btn-fullscreen" title="Layar Penuh" class="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition hidden sm:inline-flex">
+
+        <!-- Fullscreen Button -->
+        <button id="btn-fullscreen" title="Layar Penuh Standar CAT" class="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition hidden sm:inline-flex">
           <i class="ph-bold ph-corners-out text-xl"></i>
         </button>
+
         <div class="h-6 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block"></div>
-        <div class="flex items-center gap-2 pl-1">
-          <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-xs">
+
+        <!-- Google User / Profile Container -->
+        <div id="user-profile-header" class="flex items-center gap-2 pl-1 cursor-pointer" onclick="openProfileModal()">
+          <div id="user-avatar-badge" class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-xs overflow-hidden border border-blue-300 dark:border-blue-700">
             IP
           </div>
-          <span id="user-display-name" class="text-xs font-semibold hidden md:block text-slate-700 dark:text-slate-300">Peserta Tryout</span>
+          <div class="hidden md:block text-left">
+            <span id="user-display-name" class="text-xs font-semibold block text-slate-800 dark:text-slate-200 leading-tight">Calon ASN</span>
+            <span id="user-formasi-badge" class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">Formasi Umum</span>
+          </div>
         </div>
+
       </div>
     </div>
   </header>
@@ -130,32 +222,40 @@
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
 
-    <!-- 1. SCREEN: WELCOME / LOBBY (PILIH PAKET UJIAN) -->
+    <!-- 1. SCREEN: WELCOME / LOBBY (PILIH PAKET UJIAN & PROFIL FORMASI) -->
     <section id="screen-lobby" class="space-y-8 animate-fade-in">
+      
       <!-- Hero Banner -->
       <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-700 via-indigo-700 to-sky-800 text-white p-6 sm:p-10 shadow-xl shadow-blue-950/10">
         <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="relative z-10 max-w-2xl space-y-4">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-medium text-sky-100 border border-white/20">
-            <i class="ph-fill ph-sparkle text-amber-300"></i> Standar Resmi PermenPAN-RB 2026/2027
+        <div class="relative z-10 max-w-3xl space-y-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-medium text-sky-100 border border-white/20">
+              <i class="ph-fill ph-sparkle text-amber-300"></i> Standar KepmenPAN-RB & BKN 2026/2027
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md text-xs font-medium text-emerald-200 border border-emerald-400/30">
+              <i class="ph-bold ph-wheelchair"></i> Ramah Disabilitas (130 Menit + Audio TTS)
+            </span>
           </div>
+
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
             Simulasi Resmi SKD CAT CPNS 2027
           </h1>
           <p class="text-sky-100 text-sm sm:text-base leading-relaxed">
-            Bank materi dan soal teruji dari Buku Paten CPNS: <strong>Tes Wawasan Kebangsaan (TWK)</strong>, <strong>Tes Intelegensia Umum (TIU)</strong>, dan <strong>Tes Karakteristik Pribadi (TKP)</strong> dengan sistem pembobotan nilai CAT BKN yang sesungguhnya.
+            Bank materi dan soal teruji dari Buku Paten CPNS: <strong>Tes Wawasan Kebangsaan (TWK)</strong>, <strong>Tes Intelegensia Umum (TIU)</strong>, dan <strong>Tes Karakteristik Pribadi (TKP)</strong> dengan perhitungan nilai ambang batas real-time, pilihan jalur formasi, dan pembaca audio interaktif.
           </p>
-          <!-- Identitas Peserta Input -->
-          <div class="pt-2 flex flex-col sm:flex-row gap-3">
-            <input type="text" id="input-nama-peserta" placeholder="Masukkan Nama Anda..." value="Calon ASN Hebat" class="px-4 py-2.5 rounded-xl bg-white/15 border border-white/30 text-white placeholder-sky-200 text-sm focus:outline-none focus:ring-2 focus:ring-white">
-            <button onclick="saveParticipantName()" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
-              <i class="ph-bold ph-check"></i> Siap Ujian
+
+          <!-- Action Bar: Google Sign In & Profil Peserta -->
+          <div class="pt-3 flex flex-wrap items-center gap-3">
+            <button onclick="openProfileModal()" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="ph-bold ph-user-gear text-base"></i> Atur Profil & Jalur Formasi
             </button>
+            <div id="g_id_signin_container" class="inline-block"></div>
           </div>
         </div>
       </div>
 
-      <!-- Ringkasan Standar Passing Grade SKD -->
+      <!-- Ringkasan Standar Passing Grade & Formasi -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
           <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold">
@@ -175,7 +275,7 @@
           <div>
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">TIU (35 Soal)</div>
             <div class="text-xl font-extrabold text-slate-800 dark:text-slate-100">Ambang: 80</div>
-            <div class="text-[11px] text-slate-400">Benar: +5 | Salah/Kosong: 0</div>
+            <div class="text-[11px] text-slate-400">Benar: +5 | Disabilitas: 60</div>
           </div>
         </div>
 
@@ -192,12 +292,12 @@
 
         <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
           <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl font-bold">
-            <i class="ph-bold ph-trophy"></i>
+            <i class="ph-bold ph-clock"></i>
           </div>
           <div>
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Skor SKD</div>
-            <div class="text-xl font-extrabold text-slate-800 dark:text-slate-100">Max: 550</div>
-            <div class="text-[11px] text-slate-400">110 Soal • Waktu 100 Menit</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Durasi Ujian Resmi</div>
+            <div id="stat-durasi-display" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">100 Menit</div>
+            <div id="stat-disabilitas-note" class="text-[11px] text-slate-400">Umum: 100m • Disabilitas: 130m</div>
           </div>
         </div>
       </div>
@@ -212,6 +312,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
           <!-- Paket 1: Full Simulation -->
           <div class="group bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-blue-600/30 hover:border-blue-600 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
             <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-bl-xl">
@@ -223,11 +324,11 @@
               </div>
               <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 transition">Simulasi Resmi SKD CAT BKN</h3>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Format ujian 100% otentik: 110 butir soal lengkap (30 TWK + 35 TIU + 45 TKP) dengan durasi tepat 100 menit dan batas kelulusan resmi.
+                Format ujian 100% otentik: 110 butir soal lengkap (30 TWK + 35 TIU + 45 TKP) dengan durasi tepat sesuai jalur formasi Anda.
               </p>
               <div class="flex flex-wrap gap-2 pt-2">
                 <span class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">110 Soal</span>
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">100 Menit</span>
+                <span id="badge-full-duration" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">100 Menit</span>
                 <span class="text-[11px] px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 font-medium">Full CAT Score</span>
               </div>
             </div>
@@ -276,7 +377,7 @@
               <div class="flex flex-wrap gap-2 pt-2">
                 <span class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">35 Soal Acak</span>
                 <span class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">35 Menit</span>
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 font-medium">Ambang: 80</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 font-medium">Ambang: 80 / 60</span>
               </div>
             </div>
             <div class="pt-6">
@@ -357,16 +458,20 @@
               </button>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- 2. SCREEN: EXAM WORKSPACE (CAT INTERFACE) -->
+    <!-- 2. SCREEN: EXAM WORKSPACE (CAT INTERFACE DENGAN NAVIGASI LEBAR & TTS) -->
     <section id="screen-exam" class="hidden space-y-6">
-      <!-- Exam Info Bar -->
+      
+      <!-- Exam Control Bar -->
       <div class="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        
+        <!-- Left: Category Badge & Accessibility Audio -->
         <div class="flex items-center gap-3">
-          <span id="badge-category" class="px-3 py-1 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">
+          <span id="badge-category" class="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">
             TWK
           </span>
           <div>
@@ -375,36 +480,57 @@
           </div>
         </div>
 
-        <!-- Controls: Font Size, Keyboard Hint -->
+        <!-- Center: Text-to-Speech (Audio Voice Reader) untuk Aksesibilitas Disabilitas Netra -->
+        <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl">
+          <button id="btn-play-tts" onclick="speakCurrentQuestion()" title="Bacakan Soal dengan Suara (Aksesibilitas)" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 hover:bg-blue-50 font-bold text-xs shadow-sm transition flex items-center gap-1.5">
+            <i class="ph-bold ph-speaker-high text-sm"></i>
+            <span>Bacakan Soal</span>
+          </button>
+          <button id="btn-stop-tts" onclick="stopTTS()" title="Hentikan Suara" class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-500 text-xs">
+            <i class="ph-bold ph-stop"></i>
+          </button>
+        </div>
+
+        <!-- Right: Font Sizing, Pause/Exit Button, & Finish Button -->
         <div class="flex items-center gap-2">
+          <!-- Font Size Adjuster -->
           <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 text-xs">
             <button onclick="changeFontSize(-1)" title="Perkecil Teks" class="px-2 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 font-bold text-slate-600 dark:text-slate-300">A-</button>
             <button onclick="changeFontSize(0)" title="Ukuran Normal" class="px-2 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 font-bold text-slate-600 dark:text-slate-300">A</button>
             <button onclick="changeFontSize(1)" title="Perbesar Teks" class="px-2 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 font-bold text-slate-600 dark:text-slate-300">A+</button>
           </div>
+
+          <!-- Tombol Jeda / Keluar -->
+          <button onclick="openPauseExitModal()" title="Jeda atau Keluar Ujian" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-xs transition flex items-center gap-1.5 border border-slate-200 dark:border-slate-700">
+            <i class="ph-bold ph-pause text-xs"></i> Jeda
+          </button>
+
+          <!-- Selesai Ujian -->
           <button onclick="openConfirmFinishModal()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/20 transition flex items-center gap-1.5">
-            <i class="ph-bold ph-check-circle"></i> Selesai Ujian
+            <i class="ph-bold ph-check-circle"></i> Selesai
           </button>
         </div>
       </div>
 
-      <!-- Main CAT Layout: 2 Columns (Question Card + Navigation Drawer) -->
+      <!-- Main Layout: 2 Kolom (Area Soal col-span-7 + Navigasi Luas col-span-5) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Left: Question & Answers (col-span-8) -->
-        <div class="lg:col-span-8 space-y-4">
+        <!-- Left: Question & Answers (col-span-7 di Desktop) -->
+        <div class="lg:col-span-7 space-y-4">
           <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+            
             <!-- Question Number Header -->
             <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
               <div class="flex items-center gap-2">
                 <span class="text-xs uppercase font-bold text-slate-400">Nomor Soal</span>
-                <span id="current-question-num" class="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 font-extrabold flex items-center justify-center text-sm">
+                <span id="current-question-num" class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 font-extrabold flex items-center justify-center text-base">
                   1
                 </span>
                 <span class="text-xs text-slate-400">/ <span id="total-questions-exam">110</span></span>
               </div>
+              
               <!-- Ragu-ragu Checkbox -->
-              <label class="flex items-center gap-2 cursor-pointer no-select px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-800 dark:text-amber-300 text-xs font-semibold hover:bg-amber-100 transition">
+              <label class="flex items-center gap-2 cursor-pointer no-select px-3.5 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-800 dark:text-amber-300 text-xs font-semibold hover:bg-amber-100 transition">
                 <input type="checkbox" id="check-ragu" onchange="toggleRaguRagu()" class="w-4 h-4 text-amber-500 rounded focus:ring-amber-400 border-amber-300">
                 <span>Ragu-Ragu (Kuning)</span>
               </label>
@@ -429,7 +555,7 @@
             </button>
 
             <div class="text-xs text-slate-400 hidden sm:block">
-              Tip: Tekan tombol <strong>A - E</strong> di keyboard untuk menjawab
+              Shortcut Keyboard: <strong>A - E</strong> jawab • <strong>R</strong> ragu • <strong>← / →</strong> navigasi
             </div>
 
             <button id="btn-next-question" onclick="navigateQuestion(1)" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition flex items-center gap-2">
@@ -439,56 +565,92 @@
           </div>
         </div>
 
-        <!-- Right: Question Number Grid (col-span-4) -->
-        <div class="lg:col-span-4 space-y-4">
-          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                <i class="ph-bold ph-squares-four text-blue-600"></i> Navigasi Soal
-              </h3>
-              <div class="flex items-center gap-3 text-[11px] font-medium">
-                <span class="flex items-center gap-1 text-emerald-600"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> <span id="stat-answered">0</span></span>
-                <span class="flex items-center gap-1 text-amber-500"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> <span id="stat-ragu">0</span></span>
-                <span class="flex items-center gap-1 text-slate-400"><span class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></span> <span id="stat-empty">0</span></span>
+        <!-- Right: Expanded & Spacious Question Navigation (col-span-5 di Desktop) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
+            
+            <!-- Header Navigasi & Status -->
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                  <i class="ph-bold ph-squares-four text-blue-600 text-lg"></i> Lembar Jawaban CAT
+                </h3>
+                <span class="text-xs text-slate-400">Pilih nomor untuk melompat langsung</span>
+              </div>
+
+              <!-- View Switcher (Grid vs List) -->
+              <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs">
+                <button id="view-mode-grid" onclick="setNavViewMode('grid')" class="p-1.5 rounded-lg bg-white dark:bg-slate-700 font-bold shadow-sm" title="Tampilan Kotak Grid">
+                  <i class="ph-bold ph-grid-four text-sm"></i>
+                </button>
+                <button id="view-mode-list" onclick="setNavViewMode('list')" class="p-1.5 rounded-lg text-slate-500" title="Tampilan Daftar Ringkas">
+                  <i class="ph-bold ph-list-dashes text-sm"></i>
+                </button>
               </div>
             </div>
 
-            <!-- Subtest Filter Buttons -->
-            <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl text-xs overflow-x-auto">
-              <button onclick="filterGrid('ALL')" id="filter-all" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 font-bold shadow-sm text-slate-800 dark:text-slate-200">Semua</button>
-              <button onclick="filterGrid('TWK')" id="filter-twk" class="px-2.5 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">TWK</button>
-              <button onclick="filterGrid('TIU')" id="filter-tiu" class="px-2.5 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">TIU</button>
-              <button onclick="filterGrid('TKP')" id="filter-tkp" class="px-2.5 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">TKP</button>
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+                <span class="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400 block">Sudah Dijawab</span>
+                <span id="stat-answered" class="text-lg font-black text-emerald-700 dark:text-emerald-300">0</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+                <span class="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 block">Ragu-Ragu</span>
+                <span id="stat-ragu" class="text-lg font-black text-amber-700 dark:text-amber-300">0</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                <span class="text-[10px] uppercase font-bold text-slate-500 block">Belum Dijawab</span>
+                <span id="stat-empty" class="text-lg font-black text-slate-700 dark:text-slate-300">0</span>
+              </div>
             </div>
 
-            <!-- Grid Numbers (1 to 110) -->
-            <div id="question-grid" class="grid-cat max-h-[380px] overflow-y-auto pr-1 no-select">
+            <!-- Filter Kategori & Status Soal -->
+            <div class="flex flex-wrap gap-1.5 p-1.5 bg-slate-100 dark:bg-slate-800 rounded-2xl text-xs">
+              <button onclick="filterGrid('ALL')" id="filter-all" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 font-bold shadow-sm text-slate-800 dark:text-slate-200">Semua</button>
+              <button onclick="filterGrid('UNANSWERED')" id="filter-unanswered" class="px-3 py-1.5 rounded-xl hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">Belum Dijawab</button>
+              <button onclick="filterGrid('RAGU')" id="filter-ragu" class="px-3 py-1.5 rounded-xl hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">Ragu-Ragu</button>
+              <button onclick="filterGrid('TWK')" id="filter-twk" class="px-3 py-1.5 rounded-xl hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">TWK</button>
+              <button onclick="filterGrid('TIU')" id="filter-tiu" class="px-3 py-1.5 rounded-xl hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">TIU</button>
+              <button onclick="filterGrid('TKP')" id="filter-tkp" class="px-3 py-1.5 rounded-xl hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">TKP</button>
+            </div>
+
+            <!-- 1. Spacious Grid View (Kotak-kotak lebar 50px) -->
+            <div id="question-grid" class="grid-spacious max-h-[460px] overflow-y-auto pr-1 no-select">
               <!-- Dynamically populated buttons -->
             </div>
 
+            <!-- 2. Spacious List View (Daftar Vertikal) -->
+            <div id="question-list-view" class="hidden space-y-2 max-h-[460px] overflow-y-auto pr-1">
+              <!-- Dynamically populated list items -->
+            </div>
+
             <!-- Legend Info -->
-            <div class="pt-2 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2 text-[11px] text-slate-500">
-              <div class="flex items-center gap-1.5">
-                <span class="w-3 h-3 rounded bg-emerald-500"></span> Sudah Dijawab
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2 text-xs text-slate-500">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-lg bg-emerald-500 shrink-0"></span> Sudah Dijawab
               </div>
-              <div class="flex items-center gap-1.5">
-                <span class="w-3 h-3 rounded bg-amber-500"></span> Ragu-Ragu
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-lg bg-amber-500 shrink-0"></span> Ragu-Ragu
               </div>
-              <div class="flex items-center gap-1.5">
-                <span class="w-3 h-3 rounded bg-slate-200 dark:bg-slate-700"></span> Belum Dijawab
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-lg bg-slate-200 dark:bg-slate-700 shrink-0"></span> Belum Dijawab
               </div>
-              <div class="flex items-center gap-1.5">
-                <span class="w-3 h-3 rounded ring-2 ring-blue-600 bg-white dark:bg-slate-800"></span> Soal Aktif
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-lg ring-2 ring-blue-600 bg-white dark:bg-slate-800 shrink-0"></span> Soal Aktif
               </div>
             </div>
+
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- 3. SCREEN: RESULT & ANALYSIS (SKOR & PEMBAHASAN) -->
+    <!-- 3. SCREEN: RESULT & ANALYSIS (SKOR & PEMBAHASAN LENGKAP) -->
     <section id="screen-result" class="hidden space-y-8 animate-fade-in">
-      <!-- Graduation Banner -->
+      
+      <!-- Graduation Status Banner -->
       <div id="result-status-card" class="rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
         <div class="space-y-3 max-w-xl z-10 text-center md:text-left">
           <div id="result-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider">
@@ -505,12 +667,13 @@
         <div class="z-10 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 text-center min-w-[200px]">
           <span class="text-xs uppercase font-bold tracking-wider opacity-80 block">Total Skor Anda</span>
           <span id="result-total-score" class="text-4xl sm:text-5xl font-black tracking-tight block my-1">432</span>
-          <span class="text-xs opacity-75">dari Skor Maksimal 550</span>
+          <span id="result-max-score-sub" class="text-xs opacity-75">dari Skor Maksimal 550</span>
         </div>
       </div>
 
       <!-- Breakdown 3 Subtes -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
         <!-- TWK Score Card -->
         <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
@@ -521,7 +684,7 @@
           </div>
           <div>
             <div class="text-3xl font-extrabold text-slate-800 dark:text-slate-100"><span id="twk-score-value">85</span> <span class="text-sm text-slate-400 font-normal">/ 150</span></div>
-            <p class="text-xs text-slate-500 mt-1">Passing Grade Minimal: <strong>65</strong></p>
+            <p id="twk-passing-grade-info" class="text-xs text-slate-500 mt-1">Passing Grade Minimal: <strong>65</strong></p>
           </div>
           <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
             <div id="twk-progress-bar" class="bg-rose-500 h-full rounded-full transition-all duration-500" style="width: 56%"></div>
@@ -542,7 +705,7 @@
           </div>
           <div>
             <div class="text-3xl font-extrabold text-slate-800 dark:text-slate-100"><span id="tiu-score-value">120</span> <span class="text-sm text-slate-400 font-normal">/ 175</span></div>
-            <p class="text-xs text-slate-500 mt-1">Passing Grade Minimal: <strong>80</strong></p>
+            <p id="tiu-passing-grade-info" class="text-xs text-slate-500 mt-1">Passing Grade Minimal: <strong>80</strong></p>
           </div>
           <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
             <div id="tiu-progress-bar" class="bg-blue-500 h-full rounded-full transition-all duration-500" style="width: 68%"></div>
@@ -563,19 +726,20 @@
           </div>
           <div>
             <div class="text-3xl font-extrabold text-slate-800 dark:text-slate-100"><span id="tkp-score-value">189</span> <span class="text-sm text-slate-400 font-normal">/ 225</span></div>
-            <p class="text-xs text-slate-500 mt-1">Passing Grade Minimal: <strong>166</strong></p>
+            <p id="tkp-passing-grade-info" class="text-xs text-slate-500 mt-1">Passing Grade Minimal: <strong>166</strong></p>
           </div>
           <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
             <div id="tkp-progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 84%"></div>
           </div>
           <div class="text-[11px] text-slate-400 flex justify-between">
-            <span>Rata-rata Poin: <strong id="tkp-avg-point" class="text-slate-700 dark:text-slate-200">4.2</strong> / 5.0</span>
-            <span>Opsi Max (5): <strong id="tkp-top-count" class="text-slate-700 dark:text-slate-200">28</strong></span>
+            <span>Rata-rata: <strong id="tkp-avg-point" class="text-slate-700 dark:text-slate-200">4.2</strong> / 5.0</span>
+            <span>Poin Max (5): <strong id="tkp-top-count" class="text-slate-700 dark:text-slate-200">28</strong></span>
           </div>
         </div>
+
       </div>
 
-      <!-- Action Buttons (Review Soal & Retake) -->
+      <!-- Action Buttons (Review Soal & Print) -->
       <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm no-print">
         <div class="flex items-center gap-2">
           <button onclick="openReviewMode()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition flex items-center gap-2">
@@ -596,13 +760,13 @@
 
       <!-- Review Section (Pembahasan Soal Satu Per Satu) -->
       <div id="section-review-container" class="hidden space-y-6">
-        <div class="border-t border-slate-200 dark:border-slate-800 pt-6 flex items-center justify-between">
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-6 flex flex-wrap items-center justify-between gap-3">
           <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <i class="ph-bold ph-exam text-blue-600"></i> Pembahasan & Analisis Soal
           </h3>
           <div class="flex items-center gap-2 text-xs">
             <span class="text-slate-400">Filter Review:</span>
-            <select id="review-filter" onchange="renderReviewList()" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-700 dark:text-slate-200">
+            <select id="review-filter" onchange="renderReviewList()" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
               <option value="ALL">Semua Butir Soal</option>
               <option value="WRONG">Soal Salah Sahaja</option>
               <option value="TWK">Khusus TWK</option>
@@ -617,11 +781,144 @@
           <!-- Dynamically populated review cards -->
         </div>
       </div>
+
     </section>
 
   </main>
 
-  <!-- MODAL KONFIRMASI SELESAI UJIAN -->
+  <!-- MODAL 1: ATUR PROFIL & PILIH JALUR FORMASI (UMUM VS DISABILITAS) -->
+  <div id="modal-profile" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 animate-scale-in max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 flex items-center justify-center text-lg">
+            <i class="ph-bold ph-user"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">Profil & Jalur Formasi Peserta</h3>
+            <span class="text-xs text-slate-400">Penyesuaian waktu dan passing grade resmi BKN</span>
+          </div>
+        </div>
+        <button onclick="closeProfileModal()" class="p-2 text-slate-400 hover:text-slate-700 text-lg">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+
+      <!-- Google Sign In Quick Status -->
+      <div id="modal-google-auth-box" class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div id="modal-user-avatar" class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm overflow-hidden">
+            G
+          </div>
+          <div>
+            <div id="modal-user-name" class="font-bold text-sm text-slate-800 dark:text-slate-200">Tamu / Belum Login</div>
+            <div id="modal-user-email" class="text-xs text-slate-500">Masuk untuk simpan riwayat tryout</div>
+          </div>
+        </div>
+        <div id="modal-google-btn-wrapper"></div>
+      </div>
+
+      <!-- Form: Nama Peserta -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Nama Lengkap Peserta</label>
+        <input type="text" id="modal-input-name" placeholder="Nama Anda..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      </div>
+
+      <!-- Form: Pilihan Jalur Formasi (PermenPAN-RB Standar) -->
+      <div class="space-y-2">
+        <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Pilih Kategori Jalur Formasi Anda:</label>
+        
+        <!-- Opsi 1: Formasi Umum -->
+        <label class="flex items-start gap-3 p-3.5 rounded-2xl border-2 border-blue-600 bg-blue-50/50 dark:bg-blue-950/30 cursor-pointer transition formasi-radio-option" id="label-formasi-umum">
+          <input type="radio" name="formasi_radio" value="UMUM" checked onchange="updateFormasiSelection('UMUM')" class="mt-1 text-blue-600">
+          <div>
+            <span class="font-bold text-sm text-slate-900 dark:text-slate-100 block">Jalur Formasi Umum</span>
+            <span class="text-xs text-slate-500 block mt-0.5">Waktu: <strong>100 Menit</strong> • Passing Grade: TWK 65, TIU 80, TKP 166 (Total Ambang 311).</span>
+          </div>
+        </label>
+
+        <!-- Opsi 2: Penyandang Disabilitas (Aturan Resmi Waktu 130 Menit) -->
+        <label class="flex items-start gap-3 p-3.5 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer transition formasi-radio-option" id="label-formasi-disabilitas">
+          <input type="radio" name="formasi_radio" value="DISABILITAS" onchange="updateFormasiSelection('DISABILITAS')" class="mt-1 text-emerald-600">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm text-emerald-700 dark:text-emerald-400 block">Penyandang Disabilitas (Netra / Fisik)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900">Perpanjangan Waktu</span>
+            </div>
+            <span class="text-xs text-slate-500 block mt-0.5">Waktu: <strong>130 Menit</strong> (Tambahan 30 menit resmi BKN) • Passing Grade: Total Kumulatif ≥ 286 & TIU ≥ 60. Termasuk fitur audio screen reader TTS.</span>
+          </div>
+        </label>
+
+        <!-- Opsi 3: Cumlaude (Lulusan Terbaik) -->
+        <label class="flex items-start gap-3 p-3.5 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-indigo-500 cursor-pointer transition formasi-radio-option" id="label-formasi-cumlaude">
+          <input type="radio" name="formasi_radio" value="CUMLAUDE" onchange="updateFormasiSelection('CUMLAUDE')" class="mt-1 text-indigo-600">
+          <div>
+            <span class="font-bold text-sm text-slate-900 dark:text-slate-100 block">Cumlaude / Lulusan Terbaik</span>
+            <span class="text-xs text-slate-500 block mt-0.5">Waktu: <strong>100 Menit</strong> • Passing Grade: Total Kumulatif ≥ 311 & TIU ≥ 85.</span>
+          </div>
+        </label>
+
+        <!-- Opsi 4: Putra/Putri Papua & 3T -->
+        <label class="flex items-start gap-3 p-3.5 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-amber-500 cursor-pointer transition formasi-radio-option" id="label-formasi-papua">
+          <input type="radio" name="formasi_radio" value="PAPUA_3T" onchange="updateFormasiSelection('PAPUA_3T')" class="mt-1 text-amber-600">
+          <div>
+            <span class="font-bold text-sm text-slate-900 dark:text-slate-100 block">Putra/Putri Papua & Daerah 3T</span>
+            <span class="text-xs text-slate-500 block mt-0.5">Waktu: <strong>100 Menit</strong> • Passing Grade: Total Kumulatif ≥ 286 & TIU ≥ 60.</span>
+          </div>
+        </label>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3 pt-2">
+        <button onclick="closeProfileModal()" class="flex-1 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          Tutup
+        </button>
+        <button onclick="saveProfileModal()" class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-lg shadow-blue-600/30 transition">
+          Simpan Pengaturan
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 2: JEDA / KELUAR DARI HALAMAN PENGUJIAN -->
+  <div id="modal-pause-exit" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-5 animate-scale-in">
+      <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950/50 text-blue-600 flex items-center justify-center text-3xl mx-auto">
+        <i class="ph-bold ph-pause-circle"></i>
+      </div>
+
+      <div class="text-center space-y-1.5">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Jeda atau Keluar Ujian?</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Pilih opsi di bawah untuk menyimpan progres Anda atau membatalkan sesi ujian ini.
+        </p>
+      </div>
+
+      <div class="space-y-2.5 pt-2">
+        <!-- Opsi 1: Jeda & Simpan -->
+        <button onclick="pauseAndSaveExam()" class="w-full py-3.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/30 transition flex items-center justify-center gap-2">
+          <i class="ph-bold ph-floppy-disk text-base"></i>
+          <span>Jeda & Simpan Progres (Bisa Lanjut Nanti)</span>
+        </button>
+
+        <!-- Opsi 2: Lanjut Mengerjakan -->
+        <button onclick="closePauseExitModal()" class="w-full py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-bold text-xs transition flex items-center justify-center gap-2">
+          <i class="ph-bold ph-play text-base"></i>
+          <span>Lanjutkan Mengerjakan Sekarang</span>
+        </button>
+
+        <!-- Opsi 3: Batalkan Ujian -->
+        <button onclick="cancelAndExitExam()" class="w-full py-2.5 px-4 rounded-xl text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 font-bold text-xs transition flex items-center justify-center gap-1.5">
+          <i class="ph-bold ph-trash"></i>
+          <span>Batalkan & Hapus Sesi Ujian Ini</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: KONFIRMASI SELESAI UJIAN (SUBMIT CAT) -->
   <div id="modal-finish" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 animate-scale-in">
       <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950/50 text-amber-600 flex items-center justify-center text-3xl mx-auto">
@@ -631,7 +928,7 @@
       <div class="text-center space-y-2">
         <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Kumpulkan Lembar Ujian?</h3>
         <p class="text-xs text-slate-500 leading-relaxed">
-          Pastikan semua soal telah Anda periksa dengan seksama. Setelah dikumpulkan, hasil skoring CAT BKN akan langsung dihitung.
+          Pastikan semua butir soal telah Anda periksa dengan seksama. Setelah dikumpulkan, hasil skoring resmi CAT BKN akan langsung dihitung.
         </p>
       </div>
 
@@ -666,15 +963,17 @@
   <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-400 no-print mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p>© 2026-2027 Portal CAT CPNS • Platform Simulasi Mandiri Resmi <a href="https://ilhampradani.me" class="text-blue-600 hover:underline">Dr. Ilham Pradani</a></p>
-      <div class="flex items-center gap-4">
-        <span>Subdomain: <code class="font-mono text-blue-600">tryout.ilhampradani.me</code></span>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <span>Domain: <code class="font-mono text-blue-600">tryout.ilhampradani.me</code></span>
         <span>•</span>
-        <span class="text-emerald-600 font-medium">BKN CAT Algorithm Active</span>
+        <span class="text-emerald-600 font-medium">Algoritma Resmi PermenPAN-RB</span>
+        <span>•</span>
+        <a href="https://tryout.ilhampradani.me/sitemap.xml" class="hover:underline">Sitemap</a>
       </div>
     </div>
   </footer>
 
-  <!-- Application Logic -->
+  <!-- Application Engine -->
   <script src="js/app.js"></script>
 </body>
 </html>
