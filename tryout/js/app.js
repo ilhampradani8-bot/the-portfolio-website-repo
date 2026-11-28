@@ -1358,9 +1358,24 @@ function renderCurrentQuestion() {
   updateProgressStats();
 
   // Render KaTeX math equations if present
-  if (typeof renderMathInElement === 'function') {
-    renderMathInElement(document.getElementById('question-text'), { throwOnError: false });
-    renderMathInElement(document.getElementById('options-container'), { throwOnError: false });
+  renderMathSafe(document.getElementById('question-text'));
+  renderMathSafe(document.getElementById('options-container'));
+}
+
+function renderMathSafe(element) {
+  if (!element || typeof renderMathInElement !== 'function') return;
+  try {
+    renderMathInElement(element, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    });
+  } catch (err) {
+    console.warn('KaTeX rendering error:', err);
   }
 }
 
@@ -1385,11 +1400,8 @@ function toggleRaguRagu() {
   renderNavigation();
   updateProgressStats();
 
-  // Render KaTeX math equations if present
-  if (typeof renderMathInElement === 'function') {
-    renderMathInElement(document.getElementById('question-text'), { throwOnError: false });
-    renderMathInElement(document.getElementById('options-container'), { throwOnError: false });
-  }
+  renderMathSafe(document.getElementById('question-text'));
+  renderMathSafe(document.getElementById('options-container'));
 }
 
 function navigateQuestion(offset) {
@@ -2017,9 +2029,7 @@ function renderReviewList() {
   });
 
   // Render KaTeX in review cards
-  if (typeof renderMathInElement === 'function') {
-    renderMathInElement(listContainer, { throwOnError: false });
-  }
+  renderMathSafe(listContainer);
 }
 
 // 15B. CLIPBOARD COPY FUNCTIONS (SALIN SOAL & PEMBAHASAN)
