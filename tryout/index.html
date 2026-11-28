@@ -335,12 +335,35 @@
     </div>
   </header>
 
+  <!-- Mobile Sub-Navigation Bar (Sticky Top for Mobile) -->
+  <nav id="mobile-nav-tabs" class="md:hidden flex items-center justify-around bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-2 py-1.5 sticky top-16 z-30 shadow-xs no-print">
+    <button onclick="switchView('simulasi')" id="mob-nav-simulasi" class="flex flex-col items-center gap-0.5 font-bold text-blue-600 dark:text-blue-400 py-1 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 transition">
+      <i class="ph-bold ph-cards text-base"></i>
+      <span class="text-[10px]">Simulasi</span>
+    </button>
+    <button onclick="switchView('peringkat')" id="mob-nav-peringkat" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2.5 rounded-xl transition">
+      <i class="ph-bold ph-trophy text-base"></i>
+      <span class="text-[10px]">Peringkat</span>
+    </button>
+    <button onclick="switchView('riwayat')" id="mob-nav-riwayat" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2.5 rounded-xl transition">
+      <i class="ph-bold ph-clock-counter-clockwise text-base"></i>
+      <span class="text-[10px]">Riwayat</span>
+    </button>
+    <button onclick="switchView('pengaturan')" id="mob-nav-pengaturan" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2.5 rounded-xl transition">
+      <i class="ph-bold ph-sliders-horizontal text-base"></i>
+      <span class="text-[10px]">Pengaturan</span>
+    </button>
+  </nav>
+
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
 
     <!-- 1. SCREEN: WELCOME / LOBBY (PILIH PAKET UJIAN & PROFIL FORMASI) -->
     <section id="screen-lobby" class="space-y-8 animate-fade-in">
       
+      <!-- VIEW 1: BERANDA SIMULASI & PAKET TRYOUT -->
+      <div id="view-simulasi" class="space-y-8 animate-fade-in">
+
       <!-- Hero Banner dengan Peta Indonesia Background & Lambang Garuda Resmi -->
       <div class="relative overflow-hidden rounded-3xl text-white p-6 sm:p-10 shadow-xl shadow-blue-950/20 border border-blue-500/30" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 58, 138, 0.88) 50%, rgba(3, 105, 161, 0.85) 100%), url('https://imgcdn.espos.id/@espos/images/2015/04/Peta_indonesia.jpg') center/cover no-repeat;">
         <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -425,30 +448,30 @@
         </div>
       </div>
 
-      <!-- SMART CAT ENGINE & MASTERY DASHBOARD -->
+      <!-- STATUS BELAJAR & PENGUASAAN MATERI -->
       <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <div class="flex items-center gap-2">
               <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-xs uppercase tracking-wider">
-                Smart CAT Algorithm
+                Pantauan Belajar
               </span>
               <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
-                <i class="ph-fill ph-check-circle"></i> Cloudflare D1 Database Synced
+                <i class="ph-fill ph-check-circle"></i> Tersimpan Otomatis
               </span>
             </div>
             <h2 class="text-xl font-black text-slate-900 dark:text-slate-100 mt-1 flex items-center gap-2">
-              <i class="ph-bold ph-chart-pie-slice text-blue-600"></i> Penguasaan Soal & Logika Tryout
+              <i class="ph-bold ph-chart-pie-slice text-blue-600"></i> Penguasaan Materi & Soal Latihan
             </h2>
             <p class="text-xs text-slate-500 dark:text-slate-400">
-              Sistem pintar memantau soal yang sudah tuntas, belum pernah dilihat, serta otomatis mengulang soal yang salah pada tryout berikutnya.
+              Memantau perkembangan latihan Anda: soal yang sudah dipelajari, soal baru, serta mengulang soal yang pernah salah agar semakin siap.
             </p>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="resetMasteredQuestions()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-slate-600 dark:text-slate-300 hover:text-rose-600 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-1.5 shadow-sm" title="Mulai ulang status soal agar semua soal muncul kembali">
+            <button onclick="resetMasteredQuestions()" class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-slate-600 dark:text-slate-300 hover:text-rose-600 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-1.5 shadow-sm" title="Kembalikan semua soal agar bisa dikerjakan lagi dari awal">
               <i class="ph-bold ph-arrow-counter-clockwise"></i>
-              <span>Reset Soal Tuntas</span>
+              <span>Ulangi Semua Soal</span>
             </button>
           </div>
         </div>
@@ -460,27 +483,27 @@
             <div class="text-2xl font-black text-slate-800 dark:text-slate-100 mt-1">
               <span id="stat-total-pool">1.848</span> <span class="text-xs font-normal text-slate-400">Soal</span>
             </div>
-            <div class="text-[10px] text-slate-400 mt-0.5">316 Edisi 2027 • 1.532 Klasik</div>
+            <div class="text-[10px] text-slate-400 mt-0.5"><span class="text-amber-600 dark:text-amber-400 font-bold">316 Soal 2027 (HOTS)</span> • 1.532 Latihan Dasar</div>
           </div>
 
           <div class="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-900/40">
             <div class="text-[11px] font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wider flex items-center gap-1">
-              <i class="ph-bold ph-sparkle"></i> Belum Dilihat
+              <i class="ph-bold ph-sparkle"></i> Belum Dikerjakan
             </div>
             <div class="text-2xl font-black text-sky-900 dark:text-sky-100 mt-1">
-              <span id="stat-fresh-count">1.848</span> <span class="text-xs font-normal text-sky-600 dark:text-sky-400">Fresh</span>
+              <span id="stat-fresh-count">1.848</span> <span class="text-xs font-normal text-sky-600 dark:text-sky-400">Soal Baru</span>
             </div>
-            <div class="text-[10px] text-sky-600/70 dark:text-sky-400/70 mt-0.5">Prioritas uji pertama</div>
+            <div class="text-[10px] text-sky-600/70 dark:text-sky-400/70 mt-0.5">Siap dikerjakan pertama</div>
           </div>
 
           <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40">
             <div class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1">
-              <i class="ph-bold ph-check-circle"></i> Sudah Tuntas
+              <i class="ph-bold ph-check-circle"></i> Sudah Dikuasai
             </div>
             <div class="text-2xl font-black text-emerald-900 dark:text-emerald-100 mt-1">
-              <span id="stat-mastered-count">0</span> <span class="text-xs font-normal text-emerald-600 dark:text-emerald-400">Dikuasai</span>
+              <span id="stat-mastered-count">0</span> <span class="text-xs font-normal text-emerald-600 dark:text-emerald-400">Selesai</span>
             </div>
-            <div class="text-[10px] text-emerald-600/70 dark:text-emerald-400/70 mt-0.5">Tidak muncul lagi (Mode Baru)</div>
+            <div class="text-[10px] text-emerald-600/70 dark:text-emerald-400/70 mt-0.5">Sudah tuntas dipelajari</div>
           </div>
 
           <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40">
@@ -488,9 +511,9 @@
               <i class="ph-bold ph-warning-circle"></i> Pernah Salah
             </div>
             <div class="text-2xl font-black text-amber-900 dark:text-amber-100 mt-1">
-              <span id="stat-wrong-count">0</span> <span class="text-xs font-normal text-amber-600 dark:text-amber-400">Remedial</span>
+              <span id="stat-wrong-count">0</span> <span class="text-xs font-normal text-amber-600 dark:text-amber-400">Perlu Diulang</span>
             </div>
-            <div class="text-[10px] text-amber-600/70 dark:text-amber-400/70 mt-0.5">Diulang di tryout ke-2</div>
+            <div class="text-[10px] text-amber-600/70 dark:text-amber-400/70 mt-0.5">Akan muncul di tryout berikutnya</div>
           </div>
         </div>
 
@@ -505,19 +528,19 @@
           </div>
         </div>
 
-        <!-- Settings Bar: Prioritas Edisi & Logika Pemilihan Soal -->
+        <!-- Settings Bar: Pilihan Materi & Logika Ujian -->
         <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs">
           <div class="flex flex-wrap items-center gap-3">
             <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1">
-              <i class="ph-bold ph-sliders-horizontal text-blue-600"></i> Pengaturan Distribusi Soal:
+              <i class="ph-bold ph-sliders-horizontal text-blue-600"></i> Pilihan Materi:
             </span>
             <div class="flex items-center gap-1.5">
-              <label for="setting-edition-mode" class="text-slate-500 dark:text-slate-400">Edisi:</label>
+              <label for="setting-edition-mode" class="text-slate-500 dark:text-slate-400">Materi:</label>
               <select id="setting-edition-mode" onchange="updateExamSettings()" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-bold text-slate-700 dark:text-slate-200 shadow-sm focus:ring-2 focus:ring-blue-500">
-                <option value="PRIORITY_2027">Prioritas Edisi 2027 (Rekomendasi Utama)</option>
-                <option value="ONLY_2027">Eksklusif Edisi 2027 Saja</option>
-                <option value="ONLY_KLASIK">Edisi Klasik (2024-2025) Saja</option>
-                <option value="RANDOM_ALL">Acak Campur Semua Edisi (Random)</option>
+                <option value="PRIORITY_2027">Utamakan Soal Baru 2027 (HOTS - Disarankan)</option>
+                <option value="ONLY_2027">Hanya Soal Baru 2027 (HOTS)</option>
+                <option value="ONLY_KLASIK">Soal Latihan Dasar (2024-2025)</option>
+                <option value="RANDOM_ALL">Acak Semua Soal</option>
               </select>
             </div>
           </div>
@@ -525,24 +548,22 @@
           <div class="flex flex-wrap items-center gap-4">
             <label class="inline-flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" id="setting-always-new" onchange="toggleMasteredSetting('new')" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
-              <span class="text-slate-700 dark:text-slate-300 font-medium">Utamakan Soal Baru (Sembunyikan Tuntas)</span>
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Utamakan Soal Baru</span>
             </label>
             <label class="inline-flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" id="setting-include-mastered" onchange="toggleMasteredSetting('mastered')" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700">
-              <span class="text-slate-700 dark:text-slate-300 font-medium">Tetap Tampilkan Soal Tuntas</span>
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Tetap Tampilkan Soal yang Dikuasai</span>
             </label>
             <label class="inline-flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" id="setting-repeat-wrong" onchange="updateExamSettings()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
-              <span class="text-slate-700 dark:text-slate-300 font-medium">Ulangi Soal Salah di Tryout ke-2</span>
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Ulangi Soal yang Pernah Salah</span>
             </label>
           </div>
         </div>
       </div>
 
-      <!-- VIEW 1: SIMULASI & PAKET TRYOUT -->
-      <div id="view-simulasi" class="space-y-8 animate-fade-in">
-        <!-- Pilihan Paket Ujian -->
-        <div class="space-y-4">
+      <!-- Pilihan Paket Ujian -->
+      <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <i class="ph-bold ph-stack text-blue-600"></i> Pilih Mode Ujian / Tryout
@@ -675,24 +696,28 @@
             </div>
           </div>
 
-          <!-- Paket 6: Prediksi Tambahan 2027 -->
-          <div class="group bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 hover:border-amber-500 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+          <!-- Paket 6: Prediksi Tambahan 2027 (HOTS) -->
+          <div class="group bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 hover:border-amber-500 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-bl-xl flex items-center gap-1">
+              <i class="ph-bold ph-fire"></i> HOTS 2027
+            </div>
             <div class="space-y-3">
               <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl">
                 <i class="ph-bold ph-fire"></i>
               </div>
-              <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-amber-600 transition">Prediksi Soal Baru 2027</h3>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-amber-600 transition">Prediksi Soal Baru 2027 (HOTS)</h3>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Koleksi tipe-tipe soal prediksi terupdate edisi CPNS 2026-2027 dengan pola penalaran figural analitis dan hitungan cepat.
+                Koleksi tipe-tipe soal prediksi terupdate dengan penalaran tingkat tinggi (HOTS), pola analitis, dan studi kasus terbaru CPNS 2026-2027.
               </p>
               <div class="flex flex-wrap gap-2 pt-2">
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">Edisi Update</span>
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 font-medium">Terbaru</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-bold flex items-center gap-1"><i class="ph-bold ph-fire"></i> Standar HOTS</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">Edisi 2027</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 font-medium">Terverifikasi</span>
               </div>
             </div>
             <div class="pt-6">
-              <button onclick="openPreExamModal('prediksi')" class="w-full py-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-slate-800 dark:text-slate-200 font-bold text-sm transition flex items-center justify-center gap-2">
-                <span>Coba Prediksi 2027</span>
+              <button onclick="openPreExamModal('prediksi')" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-md shadow-amber-500/20 transition flex items-center justify-center gap-2">
+                <span>Coba Soal HOTS 2027</span>
                 <i class="ph-bold ph-arrow-right"></i>
               </button>
             </div>
@@ -702,7 +727,7 @@
       </div>
       </div><!-- End #view-simulasi -->
 
-      <!-- VIEW 2: RIWAYAT SESI TRYOUT PER AKUN (D1 PERSISTED) -->
+      <!-- VIEW 2: RIWAYAT SESI TRYOUT PER AKUN -->
       <div id="view-riwayat" class="hidden animate-fade-in space-y-6">
         <!-- Breadcrumb & Back Button -->
         <div class="flex items-center justify-between">
@@ -724,14 +749,14 @@
                 User ID: <span id="history-user-display" class="font-mono">Guest</span>
               </span>
               <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
-                <i class="ph-fill ph-database"></i> D1 Persisted
+                <i class="ph-fill ph-check-circle"></i> Data Tersimpan Aman
               </span>
             </div>
             <h2 class="text-xl font-black text-slate-900 dark:text-slate-100 mt-1 flex items-center gap-2">
-              <i class="ph-bold ph-clock-counter-clockwise text-indigo-600"></i> Riwayat Sesi & Analisis Performa
+              <i class="ph-bold ph-clock-counter-clockwise text-indigo-600"></i> Riwayat Latihan & Hasil Ujian
             </h2>
             <p class="text-xs text-slate-500 dark:text-slate-400">
-              Histori sesi tryout per akun. Anda dapat meninjau sesi yang gagal dan langsung melakukan remedial khusus untuk butir soal yang salah.
+              Daftar hasil ujian dan latihan Anda. Anda dapat meninjau kembali soal yang salah untuk dipelajari ulang.
             </p>
           </div>
 
@@ -868,14 +893,14 @@
             <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
               <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
                 <i class="ph-bold ph-books text-blue-600"></i>
-                <span>Prioritas Bank Soal</span>
+                <span>Pilihan Materi Soal</span>
               </div>
-              <p class="text-xs text-slate-500">Pilih edisi materi yang diprioritaskan saat pengacakan butir soal:</p>
+              <p class="text-xs text-slate-500">Pilih kumpulan soal yang ingin Anda kerjakan saat simulasi:</p>
               <select id="setting-edition-mode-view" onchange="syncEditionSetting(this.value)" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200">
-                <option value="PRIORITY_2027">Prioritas Edisi 2027 (Rekomendasi Utama)</option>
-                <option value="ONLY_2027">Eksklusif Edisi 2027 Saja</option>
-                <option value="ONLY_KLASIK">Edisi Klasik (2024-2025) Saja</option>
-                <option value="RANDOM_ALL">Acak Campur Semua Edisi (Random)</option>
+                <option value="PRIORITY_2027">Utamakan Soal Baru 2027 (HOTS - Disarankan)</option>
+                <option value="ONLY_2027">Hanya Soal Baru 2027 (HOTS)</option>
+                <option value="ONLY_KLASIK">Soal Latihan Dasar (2024-2025)</option>
+                <option value="RANDOM_ALL">Acak Semua Soal</option>
               </select>
             </div>
 
@@ -883,21 +908,21 @@
             <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
               <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
                 <i class="ph-bold ph-arrows-clockwise text-indigo-600"></i>
-                <span>Logika Repetisi</span>
+                <span>Pengulangan Soal</span>
               </div>
-              <p class="text-xs text-slate-500">Atur perlakuan terhadap butir soal yang sudah dikuasai:</p>
+              <p class="text-xs text-slate-500">Pilihan untuk mengulang atau melewati soal:</p>
               <div class="space-y-2 text-xs">
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" id="setting-always-new-view" onchange="syncAlwaysNewSetting(this.checked)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
-                  <span class="text-slate-700 dark:text-slate-300">Utamakan Soal Baru (Sembunyikan Tuntas)</span>
+                  <span class="text-slate-700 dark:text-slate-300">Utamakan Soal Baru</span>
                 </label>
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" id="setting-include-mastered-view" onchange="syncIncludeMasteredSetting(this.checked)" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500">
-                  <span class="text-slate-700 dark:text-slate-300">Tetap Tampilkan Soal Tuntas (Mode Repetisi Penuh)</span>
+                  <span class="text-slate-700 dark:text-slate-300">Tetap Tampilkan Soal yang Dikuasai</span>
                 </label>
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" id="setting-repeat-wrong-view" onchange="syncRepeatWrongSetting(this.checked)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
-                  <span class="text-slate-700 dark:text-slate-300">Ulangi Soal Salah di Tryout Berikutnya</span>
+                  <span class="text-slate-700 dark:text-slate-300">Ulangi Soal yang Pernah Salah</span>
                 </label>
               </div>
             </div>
@@ -905,13 +930,13 @@
             <!-- Card 3: Manajemen Progres & Reset -->
             <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
               <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
-                <i class="ph-bold ph-database text-emerald-600"></i>
-                <span>Status Data & Penguasaan</span>
+                <i class="ph-bold ph-chart-bar text-emerald-600"></i>
+                <span>Mulai Ulang Progres Belajar</span>
               </div>
-              <p class="text-xs text-slate-500">Mulai ulang status butir soal yang sudah tuntas tanpa menghapus sertifikat tryout:</p>
+              <p class="text-xs text-slate-500">Kembalikan semua soal agar bisa dikerjakan dari awal tanpa menghapus riwayat nilai:</p>
               <button onclick="resetMasteredQuestions()" class="px-4 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 text-rose-700 dark:text-rose-300 font-bold text-xs border border-rose-200 dark:border-rose-900/60 transition flex items-center gap-1.5">
                 <i class="ph-bold ph-arrow-counter-clockwise"></i>
-                <span>Reset Soal Tuntas</span>
+                <span>Ulangi Semua Soal</span>
               </button>
             </div>
 
@@ -939,10 +964,13 @@
       <!-- Exam Control Bar -->
       <div class="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
         
-        <!-- Left: Category Badge & Accessibility Audio -->
-        <div class="flex items-center gap-3">
+        <!-- Left: Category Badge, HOTS Badge & Accessibility Audio -->
+        <div class="flex items-center gap-2 sm:gap-3">
           <span id="badge-category" class="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">
             TWK
+          </span>
+          <span id="badge-hots" class="hidden items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-xs font-black uppercase tracking-wider">
+            <i class="ph-bold ph-fire text-amber-500"></i> HOTS 2027
           </span>
           <div>
             <h2 id="title-subtest" class="text-sm font-bold text-slate-900 dark:text-slate-100">Tes Wawasan Kebangsaan</h2>
@@ -1512,7 +1540,7 @@
           </div>
         </div>
         <span class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 font-medium">
-          D1 Auto-Save
+          Tersimpan Otomatis
         </span>
       </div>
 
@@ -1575,33 +1603,33 @@
         <!-- Setting 3: Fokus Materi & Remedial Sesi Gagal -->
         <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 space-y-3">
           <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-sm">
-            <i class="ph-bold ph-target text-rose-500"></i> Fokus & Filter Bank Soal
+            <i class="ph-bold ph-target text-rose-500"></i> Fokus & Pilihan Materi
           </span>
 
           <div class="space-y-2">
             <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition">
               <input type="checkbox" id="pre-exam-remedial-only" class="mt-0.5 w-4 h-4 rounded text-rose-600 focus:ring-rose-500 border-slate-300 dark:border-slate-700">
               <div>
-                <span class="font-bold text-slate-800 dark:text-slate-200 block">Fokus Soal yang Pernah Salah (Remedial Sesi Gagal)</span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">Khusus mengulang butir-butir soal yang sebelumnya dijawab salah pada sesi terdahulu.</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200 block">Latihan Ulang Soal yang Pernah Salah</span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400">Khusus mengerjakan kembali soal yang sebelumnya dijawab keliru agar bisa diperbaiki.</span>
               </div>
             </label>
 
             <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition">
               <input type="checkbox" id="pre-exam-include-mastered" class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 dark:border-slate-700">
               <div>
-                <span class="font-bold text-slate-800 dark:text-slate-200 block">Tetap Sertakan Soal yang Sudah Tuntas (Mode Repetisi Penuh)</span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">Jika dicentang, butir soal yang sudah pernah dijawab benar akan tetap diikutsertakan kembali dalam simulasi.</span>
+                <span class="font-bold text-slate-800 dark:text-slate-200 block">Tetap Tampilkan Soal yang Sudah Dikuasai</span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400">Soal yang sudah pernah Anda jawab benar akan tetap muncul kembali untuk memperdalam pemahaman.</span>
               </div>
             </label>
 
             <div class="flex items-center justify-between pt-1">
-              <label for="pre-exam-edition-select" class="text-slate-600 dark:text-slate-300 font-medium">Prioritas Edisi:</label>
+              <label for="pre-exam-edition-select" class="text-slate-600 dark:text-slate-300 font-medium">Pilihan Materi:</label>
               <select id="pre-exam-edition-select" class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-bold text-slate-800 dark:text-slate-200">
-                <option value="PRIORITY_2027">Prioritas Edisi 2027 (Utamakan Soal Baru)</option>
-                <option value="ONLY_2027">Eksklusif Edisi 2027 Saja</option>
-                <option value="ONLY_KLASIK">Edisi Klasik (2024-2025) Saja</option>
-                <option value="RANDOM_ALL">Acak Campur Semua Edisi</option>
+                <option value="PRIORITY_2027">Utamakan Soal Baru 2027 (HOTS - Disarankan)</option>
+                <option value="ONLY_2027">Hanya Soal Baru 2027 (HOTS)</option>
+                <option value="ONLY_KLASIK">Soal Latihan Dasar (2024-2025)</option>
+                <option value="RANDOM_ALL">Acak Semua Soal</option>
               </select>
             </div>
           </div>
@@ -1624,15 +1652,18 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-400 no-print mt-auto">
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-5 text-center text-xs text-slate-500 dark:text-slate-400 no-print mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>© 2026-2027 Portal CAT CPNS • Platform Simulasi Mandiri Resmi <a href="https://ilhampradani.me" class="text-blue-600 hover:underline">Dr. Ilham Pradani</a></p>
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <span>Domain: <code class="font-mono text-blue-600">tryout.ilhampradani.me</code></span>
+      <div class="flex items-center justify-center gap-2">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5JAlrVz9vd9IingQ8dQYX6PHLYSVGVg8qEHiVGSM7IQ&s=10" alt="Garuda" class="w-4 h-4 object-contain">
+        <p class="font-medium">© 2027 Simulasi CAT CPNS Resmi BKN • Dr. Ilham Pradani</p>
+      </div>
+      <div class="flex items-center justify-center gap-4 text-xs">
+        <span class="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+          <i class="ph-bold ph-shield-check"></i> Standar Resmi PermenPAN-RB & BKN
+        </span>
         <span>•</span>
-        <span class="text-emerald-600 font-medium">Algoritma Resmi PermenPAN-RB</span>
-        <span>•</span>
-        <a href="https://tryout.ilhampradani.me/sitemap.xml" class="hover:underline">Sitemap</a>
+        <a href="https://tryout.ilhampradani.me/sitemap.xml" class="hover:text-blue-600 transition">Peta Situs</a>
       </div>
     </div>
   </footer>

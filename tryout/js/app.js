@@ -133,13 +133,30 @@ function switchView(viewName) {
     }
   });
 
-  // Toggle active tab styling
+  // Toggle active tab styling (Desktop & Mobile)
   Object.keys(tabs).forEach(k => {
     if (tabs[k]) {
       if (k === viewName) {
         tabs[k].className = 'px-3.5 py-1.5 rounded-xl font-bold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm transition flex items-center gap-1.5';
       } else {
         tabs[k].className = 'px-3.5 py-1.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1.5';
+      }
+    }
+  });
+
+  const mobTabs = {
+    simulasi: document.getElementById('mob-nav-simulasi'),
+    peringkat: document.getElementById('mob-nav-peringkat'),
+    riwayat: document.getElementById('mob-nav-riwayat'),
+    pengaturan: document.getElementById('mob-nav-pengaturan')
+  };
+
+  Object.keys(mobTabs).forEach(k => {
+    if (mobTabs[k]) {
+      if (k === viewName) {
+        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-bold text-blue-600 dark:text-blue-400 py-1 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 transition';
+      } else {
+        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2.5 rounded-xl transition';
       }
     }
   });
@@ -983,6 +1000,19 @@ function renderCurrentQuestion() {
       : 'Nilai: Pilihan bernilai 1 s.d. 5 Poin, Kosong 0 • Passing Grade: 166';
   }
 
+  // HOTS 2027 Badge
+  const badgeHots = document.getElementById('badge-hots');
+  if (badgeHots) {
+    const isHots = (q.edition === '2027' || (q.source && q.source.includes('2027')));
+    if (isHots) {
+      badgeHots.classList.remove('hidden');
+      badgeHots.classList.add('inline-flex');
+    } else {
+      badgeHots.classList.add('hidden');
+      badgeHots.classList.remove('inline-flex');
+    }
+  }
+
   // Question Text
   const qTextEl = document.getElementById('question-text');
   qTextEl.textContent = q.question;
@@ -1613,6 +1643,9 @@ function renderReviewList() {
       statusPill = '<span class="text-xs px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1"><i class="ph-bold ph-x"></i> Jawaban Kurang Tepat</span>';
     }
 
+    const isHots = (q.edition === '2027' || (q.source && q.source.includes('2027')));
+    const hotsBadge = isHots ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-500/15 dark:bg-amber-400/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[10px] font-black uppercase tracking-wider"><i class="ph-bold ph-fire text-amber-500"></i> HOTS 2027</span>' : '';
+
     card.innerHTML = `
       <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div class="flex items-center gap-2">
@@ -1620,6 +1653,7 @@ function renderReviewList() {
             ${qNum}
           </span>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-400">${q.category}</span>
+          ${hotsBadge}
         </div>
         <div class="flex items-center gap-2">
           ${statusPill}
@@ -1693,7 +1727,8 @@ function copySingleReviewQuestion(idx) {
   if (!q) return;
 
   const qNum = idx + 1;
-  let text = `[SOAL CAT CPNS 2027 - ${q.category} No. ${qNum}]\n\n`;
+  const isHots = (q.edition === '2027' || (q.source && q.source.includes('2027')));
+  let text = `[SOAL CAT CPNS 2027${isHots ? ' (HOTS)' : ''} - ${q.category} No. ${qNum}]\n\n`;
   text += `${q.question}\n\n`;
   text += `Pilihan Jawaban:\n`;
   ['A', 'B', 'C', 'D', 'E'].forEach(opt => {
@@ -1747,8 +1782,9 @@ function copyAllReviewQuestions() {
     if (filter === 'TKP' && q.category !== 'TKP') return;
 
     count++;
+    const isHots = (q.edition === '2027' || (q.source && q.source.includes('2027')));
     text += `==================================================\n`;
-    text += `SOAL NO. ${qNum} [${q.category} - ${q.subtest}]\n`;
+    text += `SOAL NO. ${qNum} [${q.category}${isHots ? ' - HOTS 2027' : ''} - ${q.subtest}]\n`;
     text += `==================================================\n`;
     text += `${q.question}\n\n`;
     text += `Pilihan Jawaban:\n`;
@@ -1841,16 +1877,19 @@ function switchToScreen(screenName) {
   const result = document.getElementById('screen-result');
   const headerStatus = document.getElementById('header-exam-status');
   const navTabs = document.getElementById('header-nav-tabs');
+  const mobNavTabs = document.getElementById('mobile-nav-tabs');
 
   lobby.classList.add('hidden');
   exam.classList.add('hidden');
   result.classList.add('hidden');
   headerStatus.classList.add('hidden');
   if (navTabs) navTabs.classList.add('hidden');
+  if (mobNavTabs) mobNavTabs.classList.add('hidden');
 
   if (screenName === 'lobby') {
     lobby.classList.remove('hidden');
     if (navTabs) navTabs.classList.remove('hidden');
+    if (mobNavTabs) mobNavTabs.classList.remove('hidden');
   } else if (screenName === 'exam') {
     exam.classList.remove('hidden');
     headerStatus.classList.remove('hidden');
@@ -1858,6 +1897,7 @@ function switchToScreen(screenName) {
   } else if (screenName === 'result') {
     result.classList.remove('hidden');
     if (navTabs) navTabs.classList.remove('hidden');
+    if (mobNavTabs) mobNavTabs.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
