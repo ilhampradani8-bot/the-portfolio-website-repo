@@ -2166,6 +2166,39 @@ function openPreExamModal(packetType) {
   if (includeMasteredCb) includeMasteredCb.checked = !!examSettings.includeMastered;
   if (edSelect) edSelect.value = examSettings.editionMode || 'PRIORITY_2027';
 
+  // Card official vs custom time setting toggle
+  const officialTimeCard = document.getElementById('pre-exam-official-time-card');
+  const customTimeCard = document.getElementById('pre-exam-custom-time-card');
+  const officialTimeDisplay = document.getElementById('pre-exam-official-time-display');
+  const officialDesc = document.getElementById('pre-exam-official-desc');
+  const officialSubdesc = document.getElementById('pre-exam-official-subdesc');
+
+  const isOfficialCAT = (packetType === 'full_simulation' || packetType === 'posttest');
+
+  if (isOfficialCAT) {
+    if (officialTimeCard) officialTimeCard.classList.remove('hidden');
+    if (customTimeCard) customTimeCard.classList.add('hidden');
+    if (officialTimeDisplay) officialTimeDisplay.textContent = `${defaultDuration}m`;
+    if (officialDesc) {
+      officialDesc.textContent = isDisabilitas 
+        ? '130 Menit (Formasi Khusus Disabilitas)' 
+        : '100 Menit (Formasi Umum / Kebutuhan Khusus)';
+    }
+    if (officialSubdesc) {
+      officialSubdesc.textContent = isDisabilitas
+        ? 'Durasi waktu resmi 130 menit sesuai KepmenPAN-RB untuk penyandang disabilitas (tanpa distraksi).'
+        : 'Durasi waktu resmi 100 menit standar BKN untuk menguji manajemen waktu asli Anda.';
+    }
+    if (untimedCb) {
+      untimedCb.checked = false;
+      untimedCb.disabled = true;
+    }
+  } else {
+    if (officialTimeCard) officialTimeCard.classList.add('hidden');
+    if (customTimeCard) customTimeCard.classList.remove('hidden');
+    if (untimedCb) untimedCb.disabled = false;
+  }
+
   toggleUntimedMode(untimedCb);
 
   switchToScreen('confirmation');
@@ -2214,8 +2247,13 @@ function onPreExamQCountChange(val) {
 }
 
 function confirmAndStartExam() {
-  const isUntimed = document.getElementById('pre-exam-untimed')?.checked || false;
-  const durationMinutes = parseInt(document.getElementById('pre-exam-duration-input')?.value) || 100;
+  const isOfficialCAT = (pendingPreExamPacket === 'full_simulation' || pendingPreExamPacket === 'posttest');
+  const isDisabilitas = userProfile.formasi === 'DISABILITAS';
+
+  const isUntimed = isOfficialCAT ? false : (document.getElementById('pre-exam-untimed')?.checked || false);
+  const durationMinutes = isOfficialCAT
+    ? (isDisabilitas ? 130 : 100)
+    : (parseInt(document.getElementById('pre-exam-duration-input')?.value) || (isDisabilitas ? 130 : 100));
   const targetQCount = parseInt(document.getElementById('pre-exam-qcount-input')?.value) || 110;
   const remedialOnly = document.getElementById('pre-exam-remedial-only')?.checked || false;
   const includeMastered = document.getElementById('pre-exam-include-mastered')?.checked || false;

@@ -1069,11 +1069,35 @@
           
           <!-- LEFT COLUMN: WAKTU & JUMLAH SOAL -->
           <div class="space-y-6">
-            <!-- Setting 1: Durasi Waktu Ujian -->
-            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 space-y-4">
+            
+            <!-- Durasi Resmi Standar BKN (Otomatis & Terkunci untuk Simulasi Resmi SKD CAT BKN) -->
+            <div id="pre-exam-official-time-card" class="p-5 rounded-2xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/60 dark:bg-blue-950/40 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-blue-950 dark:text-blue-100 flex items-center gap-2 text-sm">
+                  <i class="ph-bold ph-seal-check text-blue-600 text-base"></i> Durasi Ujian Resmi BKN (Otomatis)
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-blue-600 text-white font-bold text-[10px] uppercase tracking-wider">
+                  Standar BKN
+                </span>
+              </div>
+              <div class="flex items-center gap-4 py-1">
+                <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 font-black text-xl shadow-xs shrink-0">
+                  <span id="pre-exam-official-time-display">100m</span>
+                </div>
+                <div>
+                  <div id="pre-exam-official-desc" class="text-xs font-bold text-slate-800 dark:text-slate-100">100 Menit (Formasi Umum)</div>
+                  <p id="pre-exam-official-subdesc" class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+                    Durasi waktu ujian otomatis ditetapkan standar resmi BKN untuk menguji ketepatan dan manajemen waktu asli Anda.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Setting 1: Durasi Waktu Kustom (Khusus Latihan / Drill Materi) -->
+            <div id="pre-exam-custom-time-card" class="hidden p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 space-y-4">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 text-sm">
-                  <i class="ph-bold ph-clock text-amber-500 text-base"></i> Durasi Waktu Ujian
+                  <i class="ph-bold ph-clock text-amber-500 text-base"></i> Durasi Waktu Latihan
                 </span>
                 <label class="inline-flex items-center gap-2 cursor-pointer select-none">
                   <input type="checkbox" id="pre-exam-untimed" onchange="toggleUntimedMode(this)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700">
