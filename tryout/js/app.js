@@ -43,6 +43,7 @@ let speechUtterance = null;
 let examSettings = {
   editionMode: 'PRIORITY_2027', // 'PRIORITY_2027', 'ONLY_2027', 'ONLY_KLASIK', 'RANDOM_ALL'
   alwaysNew: true,              // Selalu utamakan soal baru (belum tuntas)
+  includeMastered: false,       // Tetap tampilkan soal tuntas (Mode Repetisi Penuh)
   repeatWrong: true             // Ulangi soal salah di tryout kedua
 };
 
@@ -88,6 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   checkOngoingSession();
   updateFormasiUI();
   renderSessionHistory();
+  loadLeaderboard();
 });
 
 // 2. PROFILE & FORMASI MANAGEMENT
@@ -244,11 +246,15 @@ function logoutGoogleAccount() {
 function openProfileModal() {
   const m = document.getElementById('modal-profile');
   const inputName = document.getElementById('modal-input-name');
+  const inputInstansi = document.getElementById('modal-input-instansi');
+  const hideLeaderboardCb = document.getElementById('modal-hide-leaderboard');
   const userName = document.getElementById('modal-user-name');
   const userEmail = document.getElementById('modal-user-email');
   const userAvatar = document.getElementById('modal-user-avatar');
 
   if (inputName) inputName.value = userProfile.name || '';
+  if (inputInstansi) inputInstansi.value = userProfile.instansi || '';
+  if (hideLeaderboardCb) hideLeaderboardCb.checked = !!userProfile.hideFromLeaderboard;
   if (userName) userName.textContent = userProfile.name || 'Tamu / Belum Login';
   if (userEmail) userEmail.textContent = userProfile.email || 'Mode Tamu (Data tersimpan di browser)';
 
@@ -302,6 +308,16 @@ function saveProfileModal() {
     userProfile.name = inputName.value.trim();
   }
 
+  const inputInstansi = document.getElementById('modal-input-instansi');
+  if (inputInstansi) {
+    userProfile.instansi = inputInstansi.value.trim();
+  }
+
+  const hideLeaderboardCb = document.getElementById('modal-hide-leaderboard');
+  if (hideLeaderboardCb) {
+    userProfile.hideFromLeaderboard = hideLeaderboardCb.checked;
+  }
+
   const selectedRadio = document.querySelector('input[name="formasi_radio"]:checked');
   if (selectedRadio) {
     userProfile.formasi = selectedRadio.value;
@@ -310,8 +326,10 @@ function saveProfileModal() {
   localStorage.setItem('cat_user_profile', JSON.stringify(userProfile));
   updateProfileHeader();
   closeProfileModal();
+  saveProgressToBackend();
+  loadLeaderboard();
 
-  alert(`✅ Profil disimpan!\nNama: ${userProfile.name}\nJalur: ${userProfile.formasi === 'DISABILITAS' ? 'Penyandang Disabilitas (130 Menit + TTS)' : 'Formasi ' + userProfile.formasi}`);
+  alert(`✅ Profil berhasil disimpan!\nNama: ${userProfile.name}\nInstansi: ${userProfile.instansi || '-'}\nPapan Peringkat: ${userProfile.hideFromLeaderboard ? 'Disamarkan (Anonim)' : 'Publik'}\nJalur: ${userProfile.formasi === 'DISABILITAS' ? 'Penyandang Disabilitas (130 Menit + TTS)' : 'Formasi ' + userProfile.formasi}`);
 }
 
 function updateFormasiUI() {
@@ -580,8 +598,8 @@ function selectQuestionsForCategory(category, requiredCount, options = {}) {
       return 200 + Math.random();
     }
     // Priority 4: Soal sudah tuntas
-    if (examSettings.alwaysNew && isMastered && !remedialOnly) {
-      return -1000 + Math.random(); // Dihindari jika mode alwaysNew aktif
+    if (examSettings.alwaysNew && isMastered && !remedialOnly && !examSettings.includeMastered && !options.includeMastered) {
+      return -1000 + Math.random(); // Dihindari jika mode alwaysNew aktif dan bukan mode repetisi penuh
     }
     return 10 + Math.random();
   }
@@ -601,7 +619,8 @@ function selectQuestionsForCategory(category, requiredCount, options = {}) {
     // Mode Default: 'PRIORITY_2027'
     const sorted2027 = [...q2027].sort((a, b) => calculatePriority(b) - calculatePriority(a));
     let pool2027 = sorted2027;
-    if (examSettings.alwaysNew && !remedialOnly) {
+    const filterOutMastered = examSettings.alwaysNew && !remedialOnly && !examSettings.includeMastered && !options.includeMastered;
+    if (filterOutMastered) {
       pool2027 = sorted2027.filter(q => !userProgress.masteredQuestions[q.id]);
     }
     selected = pool2027.slice(0, requiredCount);
@@ -611,7 +630,7 @@ function selectQuestionsForCategory(category, requiredCount, options = {}) {
       const needed = requiredCount - selected.length;
       const sortedKlasik = [...qKlasik].sort((a, b) => calculatePriority(b) - calculatePriority(a));
       let poolKlasik = sortedKlasik;
-      if (examSettings.alwaysNew && !remedialOnly) {
+      if (filterOutMastered) {
         poolKlasik = sortedKlasik.filter(q => !userProgress.masteredQuestions[q.id]);
       }
       const fillKlasik = poolKlasik.slice(0, needed);
@@ -646,15 +665,16 @@ function startExam(packetType, customOptions = {}) {
   const targetQCount = customOptions.targetQCount || 110;
   const remedialOnly = !!customOptions.remedialOnly;
   const editionMode = customOptions.editionMode || examSettings.editionMode;
+  const includeMastered = (customOptions.includeMastered !== undefined) ? customOptions.includeMastered : examSettings.includeMastered;
 
   let questions = [];
 
   if (packetType === 'twk_only') {
-    questions = selectQuestionsForCategory('TWK', targetQCount || 30, { remedialOnly, editionMode });
+    questions = selectQuestionsForCategory('TWK', targetQCount || 30, { remedialOnly, editionMode, includeMastered });
   } else if (packetType === 'tiu_only') {
-    questions = selectQuestionsForCategory('TIU', targetQCount || 35, { remedialOnly, editionMode });
+    questions = selectQuestionsForCategory('TIU', targetQCount || 35, { remedialOnly, editionMode, includeMastered });
   } else if (packetType === 'tkp_only') {
-    questions = selectQuestionsForCategory('TKP', targetQCount || 45, { remedialOnly, editionMode });
+    questions = selectQuestionsForCategory('TKP', targetQCount || 45, { remedialOnly, editionMode, includeMastered });
   } else {
     // Multi-category (Full Simulation, Posttest, Prediksi, dll)
     let twkCount = 30;
@@ -667,9 +687,9 @@ function startExam(packetType, customOptions = {}) {
       tkpCount = Math.max(1, targetQCount - twkCount - tiuCount);
     }
 
-    const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode });
-    const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode });
-    const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode });
+    const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode, includeMastered });
+    const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode, includeMastered });
+    const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode, includeMastered });
 
     questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
   }
@@ -1294,27 +1314,21 @@ function calculateResultsWithOfficialRules() {
 
   // 15C. UPDATE USER PROGRESS & MASTERY TRACKING
   const wrongQuestionIds = [];
+  const correctQuestionIds = [];
   currentExam.questions.forEach(q => {
-    userProgress.seenQuestions[q.id] = true;
     const userAns = currentExam.answers[q.id];
 
     if (q.category === 'TKP') {
       const pt = (userAns && q.points && q.points[userAns] !== undefined) ? q.points[userAns] : 0;
       if (pt >= 4) {
-        userProgress.masteredQuestions[q.id] = true;
-        delete userProgress.wrongQuestions[q.id];
+        correctQuestionIds.push(q.id);
       } else {
-        userProgress.wrongQuestions[q.id] = true;
-        delete userProgress.masteredQuestions[q.id];
         wrongQuestionIds.push(q.id);
       }
     } else {
       if (userAns && userAns === q.answer) {
-        userProgress.masteredQuestions[q.id] = true;
-        delete userProgress.wrongQuestions[q.id];
+        correctQuestionIds.push(q.id);
       } else {
-        userProgress.wrongQuestions[q.id] = true;
-        delete userProgress.masteredQuestions[q.id];
         wrongQuestionIds.push(q.id);
       }
     }
@@ -1327,7 +1341,7 @@ function calculateResultsWithOfficialRules() {
   else if (currentExam.packetType === 'posttest') packetReadableName = 'Paket Post-Test Paten';
   else if (currentExam.packetType === 'prediksi') packetReadableName = 'Prediksi Soal Baru 2027';
 
-  userProgress.history.push({
+  const sessionRecord = {
     id: 'ses_' + Date.now(),
     date: new Date().toISOString(),
     packetType: currentExam.packetType,
@@ -1341,15 +1355,80 @@ function calculateResultsWithOfficialRules() {
     tkpScore,
     isAllPassed,
     formasi: userProfile.formasi,
-    wrongQuestionIds: wrongQuestionIds
+    wrongQuestionIds: wrongQuestionIds,
+    correctQuestionIds: correctQuestionIds
+  };
+
+  const isPracticeOnly = ['twk_only', 'tiu_only', 'tkp_only'].includes(currentExam.packetType);
+
+  if (isPracticeOnly) {
+    // Sesi Latihan Mandiri: Beri pilihan simpan atau buang
+    pendingPracticeSession = {
+      record: sessionRecord,
+      questions: currentExam.questions,
+      correctQuestionIds,
+      wrongQuestionIds
+    };
+
+    const decisionCard = document.getElementById('practice-save-decision-card');
+    if (decisionCard) decisionCard.classList.remove('hidden');
+  } else {
+    // Sesi Tryout Resmi (Simulasi CAT, Posttest, Prediksi): Auto-save langsung
+    const decisionCard = document.getElementById('practice-save-decision-card');
+    if (decisionCard) decisionCard.classList.add('hidden');
+
+    commitSessionProgress(sessionRecord, currentExam.questions, correctQuestionIds, wrongQuestionIds);
+  }
+
+  switchToScreen('result');
+}
+
+let pendingPracticeSession = null;
+
+function commitSessionProgress(sessionRecord, questions, correctIds, wrongIds) {
+  questions.forEach(q => {
+    userProgress.seenQuestions[q.id] = true;
   });
+
+  correctIds.forEach(id => {
+    userProgress.masteredQuestions[id] = true;
+    delete userProgress.wrongQuestions[id];
+  });
+
+  wrongIds.forEach(id => {
+    userProgress.wrongQuestions[id] = true;
+    delete userProgress.masteredQuestions[id];
+  });
+
+  userProgress.history.push(sessionRecord);
 
   saveLocalProgress();
   saveProgressToBackend();
   updateMasteryDashboardUI();
   renderSessionHistory();
+}
 
-  switchToScreen('result');
+function keepPracticeSession() {
+  if (!pendingPracticeSession) return;
+  const { record, questions, correctQuestionIds, wrongQuestionIds } = pendingPracticeSession;
+  commitSessionProgress(record, questions, correctQuestionIds, wrongQuestionIds);
+
+  const decisionCard = document.getElementById('practice-save-decision-card');
+  if (decisionCard) decisionCard.classList.add('hidden');
+
+  pendingPracticeSession = null;
+  alert('💾 Sesi latihan berhasil disimpan! Soal yang dijawab benar kini ditandai tuntas.');
+}
+
+function discardPracticeSession() {
+  const confirmed = confirm('Apakah Anda yakin ingin membuang hasil latihan ini?\nProgres soal dan riwayat sesi ini tidak akan disimpan ke database.');
+  if (!confirmed) return;
+
+  const decisionCard = document.getElementById('practice-save-decision-card');
+  if (decisionCard) decisionCard.classList.add('hidden');
+
+  pendingPracticeSession = null;
+  alert('🗑️ Sesi latihan dibuang tanpa mengubah status penguasaan soal atau riwayat.');
 }
 
 function setSubtestBadge(id, isPass) {
@@ -1693,17 +1772,47 @@ function updateMasteryDashboardUI() {
   const alwaysNewEl = document.getElementById('setting-always-new');
   if (alwaysNewEl) alwaysNewEl.checked = !!examSettings.alwaysNew;
 
+  const includeMasteredEl = document.getElementById('setting-include-mastered');
+  if (includeMasteredEl) includeMasteredEl.checked = !!examSettings.includeMastered;
+
   const repeatWrongEl = document.getElementById('setting-repeat-wrong');
   if (repeatWrongEl) repeatWrongEl.checked = !!examSettings.repeatWrong;
+}
+
+function toggleMasteredSetting(type) {
+  const alwaysNewEl = document.getElementById('setting-always-new');
+  const includeMasteredEl = document.getElementById('setting-include-mastered');
+
+  if (type === 'ALWAYS_NEW') {
+    if (alwaysNewEl && alwaysNewEl.checked) {
+      if (includeMasteredEl) includeMasteredEl.checked = false;
+      examSettings.includeMastered = false;
+      examSettings.alwaysNew = true;
+    } else {
+      examSettings.alwaysNew = false;
+    }
+  } else if (type === 'INCLUDE_MASTERED') {
+    if (includeMasteredEl && includeMasteredEl.checked) {
+      if (alwaysNewEl) alwaysNewEl.checked = false;
+      examSettings.alwaysNew = false;
+      examSettings.includeMastered = true;
+    } else {
+      examSettings.includeMastered = false;
+    }
+  }
+
+  updateExamSettings();
 }
 
 function updateExamSettings() {
   const edModeEl = document.getElementById('setting-edition-mode');
   const alwaysNewEl = document.getElementById('setting-always-new');
+  const includeMasteredEl = document.getElementById('setting-include-mastered');
   const repeatWrongEl = document.getElementById('setting-repeat-wrong');
 
   if (edModeEl) examSettings.editionMode = edModeEl.value;
   if (alwaysNewEl) examSettings.alwaysNew = alwaysNewEl.checked;
+  if (includeMasteredEl) examSettings.includeMastered = includeMasteredEl.checked;
   if (repeatWrongEl) examSettings.repeatWrong = repeatWrongEl.checked;
 
   saveLocalProgress();
@@ -1854,6 +1963,8 @@ function openPreExamModal(packetType) {
   if (qDisplay) qDisplay.textContent = `${defaultCount} Soal`;
   if (untimedCb) untimedCb.checked = false;
   if (remedialCb) remedialCb.checked = false;
+  const includeMasteredCb = document.getElementById('pre-exam-include-mastered');
+  if (includeMasteredCb) includeMasteredCb.checked = !!examSettings.includeMastered;
   if (edSelect) edSelect.value = examSettings.editionMode || 'PRIORITY_2027';
 
   toggleUntimedMode(untimedCb);
@@ -1914,6 +2025,7 @@ function confirmAndStartExam() {
   const durationMinutes = parseInt(document.getElementById('pre-exam-duration-input')?.value) || 100;
   const targetQCount = parseInt(document.getElementById('pre-exam-qcount-input')?.value) || 110;
   const remedialOnly = document.getElementById('pre-exam-remedial-only')?.checked || false;
+  const includeMastered = document.getElementById('pre-exam-include-mastered')?.checked || false;
   const editionMode = document.getElementById('pre-exam-edition-select')?.value || 'PRIORITY_2027';
 
   closePreExamModal();
@@ -1923,6 +2035,7 @@ function confirmAndStartExam() {
     durationMinutes,
     targetQCount,
     remedialOnly,
+    includeMastered,
     editionMode
   });
 }
@@ -2031,6 +2144,9 @@ function renderSessionHistory() {
               <span>Remedial Soal Gagal</span>
             </button>
           ` : ''}
+          <button onclick="deleteSession(${originalIdx})" title="Hapus Riwayat Sesi Ini" class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/50 transition">
+            <i class="ph-bold ph-trash text-sm"></i>
+          </button>
         </div>
       </div>
     `;
@@ -2059,4 +2175,158 @@ function remedialSession(historyIndex) {
   if (wrongCount > 0) {
     setPreExamQCount(Math.min(wrongCount, 110));
   }
+}
+
+function deleteSession(index) {
+  if (index < 0 || index >= userProgress.history.length) return;
+  const ses = userProgress.history[index];
+  const confirmed = confirm(`Hapus riwayat sesi ${ses.packetName || ses.packetType} tanggal ${new Date(ses.date).toLocaleDateString('id-ID')}?`);
+  if (!confirmed) return;
+
+  userProgress.history.splice(index, 1);
+  saveLocalProgress();
+  saveProgressToBackend();
+  renderSessionHistory();
+}
+
+function clearAllSessions() {
+  if (!userProgress.history || userProgress.history.length === 0) {
+    alert('Riwayat sesi masih kosong.');
+    return;
+  }
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus SELURUH riwayat sesi simulasi Anda?\nTindakan ini tidak dapat dibatalkan.');
+  if (!confirmed) return;
+
+  userProgress.history = [];
+  saveLocalProgress();
+  saveProgressToBackend();
+  renderSessionHistory();
+  alert('🗑️ Seluruh riwayat sesi simulasi berhasil dibersihkan.');
+}
+
+// 21. NATIONAL LEADERBOARD ENGINE
+let leaderboardData = [];
+let activeLeaderboardFilter = 'ALL';
+
+async function loadLeaderboard() {
+  const tbody = document.getElementById('leaderboard-table-body');
+  if (!tbody) return;
+
+  try {
+    const res = await fetch('/api/cpns?action=leaderboard');
+    if (!res.ok) throw new Error('Network response not ok');
+    const data = await res.json();
+    leaderboardData = Array.isArray(data) ? data : (data.leaderboard || []);
+    renderLeaderboard();
+  } catch (err) {
+    console.warn('Load leaderboard error:', err);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="py-8 text-center text-slate-400">
+          <i class="ph-bold ph-warning-circle text-2xl text-amber-500 mb-1"></i>
+          <p class="text-xs">Gagal memuat papan peringkat. Pastikan koneksi aktif.</p>
+        </td>
+      </tr>
+    `;
+  }
+}
+
+function filterLeaderboard(filter) {
+  activeLeaderboardFilter = filter;
+
+  const btnAll = document.getElementById('btn-lead-all');
+  const btnUmum = document.getElementById('btn-lead-umum');
+  const btnDisab = document.getElementById('btn-lead-disabilitas');
+
+  [btnAll, btnUmum, btnDisab].forEach(b => {
+    if (b) {
+      b.classList.remove('bg-blue-600', 'bg-emerald-600', 'text-white', 'shadow-sm');
+      b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+    }
+  });
+
+  if (filter === 'ALL' && btnAll) {
+    btnAll.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+    btnAll.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+  } else if (filter === 'UMUM' && btnUmum) {
+    btnUmum.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+    btnUmum.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+  } else if (filter === 'DISABILITAS' && btnDisab) {
+    btnDisab.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+    btnDisab.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+  }
+
+  renderLeaderboard();
+}
+
+function renderLeaderboard() {
+  const tbody = document.getElementById('leaderboard-table-body');
+  if (!tbody) return;
+
+  const filtered = leaderboardData.filter(u => {
+    if (activeLeaderboardFilter === 'ALL') return true;
+    if (activeLeaderboardFilter === 'UMUM') return !u.formasi || u.formasi === 'UMUM';
+    if (activeLeaderboardFilter === 'DISABILITAS') return u.formasi === 'DISABILITAS';
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" class="py-8 text-center text-slate-400">
+          <i class="ph-bold ph-trophy text-2xl text-slate-300 dark:text-slate-600 mb-1"></i>
+          <p class="text-xs">Belum ada peserta pada kategori peringkat ini.</p>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((user, idx) => {
+    let rankBadge = `<span class="font-extrabold text-slate-500">${idx + 1}</span>`;
+    if (idx === 0) rankBadge = `<span class="text-xl">🥇</span>`;
+    else if (idx === 1) rankBadge = `<span class="text-xl">🥈</span>`;
+    else if (idx === 2) rankBadge = `<span class="text-xl">🥉</span>`;
+
+    const isCurrent = (userProfile.email && user.userId === userProfile.email) ||
+                      (!userProfile.email && user.name === userProfile.name);
+
+    let avatarHtml = `<div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 flex items-center justify-center font-bold text-xs">${(user.name || 'U').substring(0, 2).toUpperCase()}</div>`;
+    if (user.avatar) {
+      avatarHtml = `<img src="${user.avatar}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">`;
+    }
+
+    const formasiTag = user.formasi === 'DISABILITAS'
+      ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-[10px] font-bold">♿ Disabilitas</span>`
+      : `<span class="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-medium">Formasi Umum</span>`;
+
+    return `
+      <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition ${isCurrent ? 'bg-blue-50/50 dark:bg-blue-950/20 font-semibold' : ''}">
+        <td class="px-4 py-3 text-center">${rankBadge}</td>
+        <td class="px-4 py-3">
+          <div class="flex items-center gap-2.5">
+            ${avatarHtml}
+            <div>
+              <div class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+                <span>${user.name}</span>
+                ${isCurrent ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-600 text-white font-bold">Anda</span>' : ''}
+              </div>
+              <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                <span>Instansi: ${user.instansi || '-'}</span>
+                <span>•</span>
+                ${formasiTag}
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="px-4 py-3 text-center text-slate-600 dark:text-slate-300">${user.twkScore || 0}</td>
+        <td class="px-4 py-3 text-center text-slate-600 dark:text-slate-300">${user.tiuScore || 0}</td>
+        <td class="px-4 py-3 text-center text-slate-600 dark:text-slate-300">${user.tkpScore || 0}</td>
+        <td class="px-4 py-3 text-center">
+          <span class="font-black text-blue-600 dark:text-blue-400 text-sm">${user.totalScore || 0}</span>
+        </td>
+        <td class="px-4 py-3 text-center text-xs text-slate-400">${user.totalExams || 1}x Ujian</td>
+      </tr>
+    `;
+  }).join('');
 }

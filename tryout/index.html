@@ -405,8 +405,12 @@
 
           <div class="flex flex-wrap items-center gap-4">
             <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-              <input type="checkbox" id="setting-always-new" onchange="updateExamSettings()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
-              <span class="text-slate-700 dark:text-slate-300 font-medium">Selalu Tampilkan Soal Baru</span>
+              <input type="checkbox" id="setting-always-new" onchange="toggleMasteredSetting('new')" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Utamakan Soal Baru (Sembunyikan Tuntas)</span>
+            </label>
+            <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+              <input type="checkbox" id="setting-include-mastered" onchange="toggleMasteredSetting('mastered')" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700">
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Tetap Tampilkan Soal Tuntas</span>
             </label>
             <label class="inline-flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" id="setting-repeat-wrong" onchange="updateExamSettings()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
@@ -606,12 +610,73 @@
             <button onclick="filterSessionHistory('FAILED')" id="btn-hist-failed" class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 text-slate-700 dark:text-slate-300 hover:text-rose-600 font-bold transition">
               Sesi Gagal (<span id="count-hist-failed">0</span>)
             </button>
+            <button onclick="clearAllSessions()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-slate-400 hover:text-rose-600 font-bold transition flex items-center gap-1" title="Hapus semua riwayat tryout per akun">
+              <i class="ph-bold ph-trash"></i> Hapus Semua
+            </button>
           </div>
         </div>
 
         <!-- History List Container -->
         <div id="session-history-container" class="space-y-3">
           <!-- Populated dynamically by renderSessionHistory() -->
+        </div>
+      </div>
+
+      <!-- PAPAN PERINGKAT NASIONAL (LEADERBOARD CAT CPNS) -->
+      <div id="section-leaderboard" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-bold text-xs uppercase tracking-wider flex items-center gap-1">
+                <i class="ph-bold ph-trophy"></i> Leaderboard Nasional
+              </span>
+              <span class="inline-flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 font-medium">
+                <i class="ph-fill ph-users"></i> Real-Time Multi-User
+              </span>
+            </div>
+            <h2 class="text-xl font-black text-slate-900 dark:text-slate-100 mt-1 flex items-center gap-2">
+              <i class="ph-bold ph-ranking text-amber-500"></i> Papan Peringkat Peserta Tryout CPNS
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+              Peringkat nasional berdasarkan skor kumulatif SKD tertinggi dari seluruh peserta. Anda dapat mengatur tampil atau sembunyikan profil di menu Profil.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <button onclick="filterLeaderboard('ALL')" id="btn-lead-all" class="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white font-bold transition shadow-sm">
+              Semua Peserta
+            </button>
+            <button onclick="filterLeaderboard('PASSED')" id="btn-lead-passed" class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold transition">
+              Lulus Ambang Batas
+            </button>
+            <button onclick="loadLeaderboard()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 text-slate-600 dark:text-slate-300 hover:text-blue-600 font-bold transition flex items-center gap-1 shadow-sm" title="Segarkan Papan Peringkat">
+              <i class="ph-bold ph-arrows-clockwise text-xs"></i>
+              <span>Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Leaderboard Table Container -->
+        <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th class="py-3 px-4 text-center w-16">Rank</th>
+                <th class="py-3 px-4">Nama Peserta</th>
+                <th class="py-3 px-4">Target Instansi / Jalur</th>
+                <th class="py-3 px-3 text-center">TWK</th>
+                <th class="py-3 px-3 text-center">TIU</th>
+                <th class="py-3 px-3 text-center">TKP</th>
+                <th class="py-3 px-4 text-center">Total Skor</th>
+                <th class="py-3 px-4 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-table-body" class="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr>
+                <td colspan="8" class="py-8 text-center text-slate-400">Memuat data peringkat nasional...</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -895,6 +960,34 @@
 
       </div>
 
+      <!-- Practice Session Save Decision Card (Khusus Non-Tryout/Latihan Mandiri) -->
+      <div id="practice-save-decision-card" class="hidden p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-300 dark:border-amber-700/60 shadow-md no-print space-y-3">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl shrink-0">
+              <i class="ph-bold ph-question"></i>
+            </div>
+            <div>
+              <h4 class="text-base font-extrabold text-amber-900 dark:text-amber-200">Simpan Progres Sesi Latihan Ini?</h4>
+              <p class="text-xs text-amber-700 dark:text-amber-300">
+                Karena ini sesi latihan mandiri (bukan Try Out CAT resmi), Anda bebas memilih: <strong>Simpan</strong> (soal yang dijawab benar ditandai tuntas agar tidak muncul lagi pada mode soal baru) atau <strong>Buang</strong> jika hanya untuk coba-coba.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-end gap-3 pt-1 border-t border-amber-200/60 dark:border-amber-800/60">
+          <button onclick="discardPracticeSession()" class="px-4 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 dark:bg-rose-950/50 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-300 font-bold text-xs transition flex items-center gap-1.5 shadow-sm">
+            <i class="ph-bold ph-trash"></i>
+            <span>Buang / Jangan Simpan Sesi Ini</span>
+          </button>
+          <button onclick="keepPracticeSession()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-md shadow-emerald-600/20">
+            <i class="ph-bold ph-floppy-disk"></i>
+            <span>Simpan Progres Tuntas & Riwayat</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Action Buttons (Review Soal & Print) -->
       <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm no-print">
         <div class="flex items-center gap-2">
@@ -983,6 +1076,23 @@
       <div class="space-y-1.5">
         <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Nama Lengkap Peserta</label>
         <input type="text" id="modal-input-name" placeholder="Nama Anda..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      </div>
+
+      <!-- Form: Target Instansi -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Target Instansi / Kementerian / Pemda</label>
+        <input type="text" id="modal-input-instansi" placeholder="Misal: Kemenkumham, BPK, Kejaksaan RI, Pemprov, dll" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      </div>
+
+      <!-- Pengaturan Privasi Papan Peringkat -->
+      <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 space-y-1">
+        <label class="flex items-start gap-2.5 cursor-pointer select-none">
+          <input type="checkbox" id="modal-hide-leaderboard" class="mt-0.5 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700">
+          <div>
+            <span class="font-bold text-xs text-slate-800 dark:text-slate-200 block">Sembunyikan Profil di Papan Peringkat (Mode Anonim)</span>
+            <span class="text-[11px] text-slate-500 dark:text-slate-400">Jika dicentang, nama Anda akan disamarkan sebagai "Peserta Anonim" di Papan Peringkat Nasional demi menjaga privasi.</span>
+          </div>
+        </label>
       </div>
 
       <!-- Form: Pilihan Jalur Formasi (PermenPAN-RB Standar) -->
@@ -1225,6 +1335,14 @@
               <div>
                 <span class="font-bold text-slate-800 dark:text-slate-200 block">Fokus Soal yang Pernah Salah (Remedial Sesi Gagal)</span>
                 <span class="text-[11px] text-slate-500 dark:text-slate-400">Khusus mengulang butir-butir soal yang sebelumnya dijawab salah pada sesi terdahulu.</span>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition">
+              <input type="checkbox" id="pre-exam-include-mastered" class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 dark:border-slate-700">
+              <div>
+                <span class="font-bold text-slate-800 dark:text-slate-200 block">Tetap Sertakan Soal yang Sudah Tuntas (Mode Repetisi Penuh)</span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400">Jika dicentang, butir soal yang sudah pernah dijawab benar akan tetap diikutsertakan kembali dalam simulasi.</span>
               </div>
             </label>
 

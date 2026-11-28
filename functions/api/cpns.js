@@ -154,6 +154,71 @@ export async function onRequestGet(context) {
       }
     }
 
+    // 3. Leaderboard Peringkat Nasional (Dengan opsi Hide Profile / Anonim)
+    if (action === "leaderboard") {
+      const allUsers = await executeD1(
+        env,
+        `SELECT user_id, settings, history, updated_at FROM cpns_user_progress`
+      );
+
+      const entries = [];
+      const rows = allUsers.results || [];
+
+      rows.forEach(row => {
+        let settings = {};
+        let history = [];
+        try { settings = JSON.parse(row.settings || "{}"); } catch (e) {}
+        try { history = JSON.parse(row.history || "[]"); } catch (e) {}
+
+        if (!Array.isArray(history) || history.length === 0) return;
+
+        // Cari skor tertinggi dari tryout
+        let best = null;
+        history.forEach(h => {
+          if (!best || (h.totalScore || 0) > (best.totalScore || 0)) {
+            best = h;
+          }
+        });
+
+        if (!best) return;
+
+        const isHidden = !!settings.hideFromLeaderboard;
+        let displayName = settings.displayName || settings.name || row.user_id;
+        if (displayName.includes("@")) {
+          displayName = displayName.split("@")[0];
+        }
+
+        entries.push({
+          user_id: isHidden ? "anonymous" : row.user_id,
+          name: isHidden ? "Peserta Anonim (Disamarkan)" : displayName,
+          avatar: isHidden ? "" : (settings.avatar || ""),
+          instansi: settings.instansi || best.formasi || "Formasi Umum",
+          totalScore: best.totalScore || 0,
+          twkScore: best.twkScore || 0,
+          tiuScore: best.tiuScore || 0,
+          tkpScore: best.tkpScore || 0,
+          isAllPassed: !!best.isAllPassed,
+          date: best.date || row.updated_at,
+          isAnonymous: isHidden
+        });
+      });
+
+      // Urutkan berdasarkan total skor tertinggi
+      entries.sort((a, b) => b.totalScore - a.totalScore);
+
+      // Berikan nomor peringkat
+      const ranked = entries.map((item, idx) => ({
+        rank: idx + 1,
+        ...item
+      }));
+
+      return jsonResponse({
+        success: true,
+        total_participants: ranked.length,
+        leaderboard: ranked.slice(0, 50)
+      });
+    }
+
     return jsonResponse({ success: false, error: `Invalid action: ${action}` }, 400);
   } catch (err) {
     return jsonResponse({ success: false, error: err.message }, 500);
