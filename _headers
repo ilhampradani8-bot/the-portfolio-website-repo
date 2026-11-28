@@ -24,7 +24,12 @@
 /js/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
-# JSON Data files
+# JSON Data files - strictly noindex to protect questions from search engines
 /data/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/tryout/data/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  X-Robots-Tag: noindex, nofollow, noarchive
 

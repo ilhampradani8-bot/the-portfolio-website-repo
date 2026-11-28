@@ -170,6 +170,26 @@
         </a>
       </div>
 
+      <!-- Center: Navigation Tabs (Lobby Views) & Timer (During Exam) -->
+      <nav id="header-nav-tabs" class="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-xs">
+        <button onclick="switchView('simulasi')" id="nav-tab-simulasi" class="px-3.5 py-1.5 rounded-xl font-bold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm transition flex items-center gap-1.5">
+          <i class="ph-bold ph-cards text-sm"></i>
+          <span>Simulasi</span>
+        </button>
+        <button onclick="switchView('peringkat')" id="nav-tab-peringkat" class="px-3.5 py-1.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1.5">
+          <i class="ph-bold ph-trophy text-sm"></i>
+          <span>Peringkat</span>
+        </button>
+        <button onclick="switchView('riwayat')" id="nav-tab-riwayat" class="px-3.5 py-1.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1.5">
+          <i class="ph-bold ph-clock-counter-clockwise text-sm"></i>
+          <span>Riwayat</span>
+        </button>
+        <button onclick="switchView('pengaturan')" id="nav-tab-pengaturan" class="px-3.5 py-1.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1.5">
+          <i class="ph-bold ph-sliders-horizontal text-sm"></i>
+          <span>Pengaturan</span>
+        </button>
+      </nav>
+
       <!-- Center: Timer & Status (Shown when in Exam) -->
       <div id="header-exam-status" class="hidden flex items-center gap-2 sm:gap-4">
         <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
@@ -395,10 +415,10 @@
             <div class="flex items-center gap-1.5">
               <label for="setting-edition-mode" class="text-slate-500 dark:text-slate-400">Edisi:</label>
               <select id="setting-edition-mode" onchange="updateExamSettings()" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-bold text-slate-700 dark:text-slate-200 shadow-sm focus:ring-2 focus:ring-blue-500">
-                <option value="PRIORITY_2027">🌟 Prioritas Edisi 2027 (Rekomendasi Utama)</option>
-                <option value="ONLY_2027">⚡ Eksklusif Edisi 2027 Saja</option>
-                <option value="ONLY_KLASIK">🏛️ Edisi Klasik (2024-2025) Saja</option>
-                <option value="RANDOM_ALL">🎲 Acak Campur Semua Edisi (Random)</option>
+                <option value="PRIORITY_2027">Prioritas Edisi 2027 (Rekomendasi Utama)</option>
+                <option value="ONLY_2027">Eksklusif Edisi 2027 Saja</option>
+                <option value="ONLY_KLASIK">Edisi Klasik (2024-2025) Saja</option>
+                <option value="RANDOM_ALL">Acak Campur Semua Edisi (Random)</option>
               </select>
             </div>
           </div>
@@ -420,8 +440,10 @@
         </div>
       </div>
 
-      <!-- Pilihan Paket Ujian -->
-      <div class="space-y-4">
+      <!-- VIEW 1: SIMULASI & PAKET TRYOUT -->
+      <div id="view-simulasi" class="space-y-8 animate-fade-in">
+        <!-- Pilihan Paket Ujian -->
+        <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <i class="ph-bold ph-stack text-blue-600"></i> Pilih Mode Ujian / Tryout
@@ -579,9 +601,11 @@
 
         </div>
       </div>
+      </div><!-- End #view-simulasi -->
 
-      <!-- RIWAYAT SESI TRYOUT PER AKUN (D1 PERSISTED) -->
-      <div id="section-session-history" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
+      <!-- VIEW 2: RIWAYAT SESI TRYOUT PER AKUN (D1 PERSISTED) -->
+      <div id="view-riwayat" class="hidden animate-fade-in space-y-6">
+        <div id="section-session-history" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <div class="flex items-center gap-2">
@@ -621,9 +645,11 @@
           <!-- Populated dynamically by renderSessionHistory() -->
         </div>
       </div>
+      </div><!-- End #view-riwayat -->
 
-      <!-- PAPAN PERINGKAT NASIONAL (LEADERBOARD CAT CPNS) -->
-      <div id="section-leaderboard" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
+      <!-- VIEW 3: PAPAN PERINGKAT NASIONAL (LEADERBOARD CAT CPNS) -->
+      <div id="view-peringkat" class="hidden animate-fade-in space-y-6">
+        <div id="section-leaderboard" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <div class="flex items-center gap-2">
@@ -679,9 +705,97 @@
           </table>
         </div>
       </div>
+      </div><!-- End #view-peringkat -->
 
+      <!-- VIEW 4: PENGATURAN & INFORMASI AKUN -->
+      <div id="view-pengaturan" class="hidden animate-fade-in space-y-6">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-xs uppercase tracking-wider">
+                Pengaturan Sistem
+              </span>
+              <h2 class="text-xl font-black text-slate-900 dark:text-slate-100 mt-1 flex items-center gap-2">
+                <i class="ph-bold ph-sliders-horizontal text-blue-600"></i> Pengaturan & Preferensi Ujian
+              </h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400">
+                Sesuaikan preferensi simulasi CAT BKN, privasi data peringkat nasional, dan opsi aksesibilitas Anda.
+              </p>
+            </div>
+            <button onclick="openProfileModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-md shadow-blue-600/20">
+              <i class="ph-bold ph-user-gear"></i>
+              <span>Edit Profil & Jalur</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Card 1: Distribusi Edisi Soal -->
+            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
+                <i class="ph-bold ph-books text-blue-600"></i>
+                <span>Prioritas Bank Soal</span>
+              </div>
+              <p class="text-xs text-slate-500">Pilih edisi materi yang diprioritaskan saat pengacakan butir soal:</p>
+              <select id="setting-edition-mode-view" onchange="syncEditionSetting(this.value)" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200">
+                <option value="PRIORITY_2027">Prioritas Edisi 2027 (Rekomendasi Utama)</option>
+                <option value="ONLY_2027">Eksklusif Edisi 2027 Saja</option>
+                <option value="ONLY_KLASIK">Edisi Klasik (2024-2025) Saja</option>
+                <option value="RANDOM_ALL">Acak Campur Semua Edisi (Random)</option>
+              </select>
+            </div>
+
+            <!-- Card 2: Pengulangan & Repetisi -->
+            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
+                <i class="ph-bold ph-arrows-clockwise text-indigo-600"></i>
+                <span>Logika Repetisi</span>
+              </div>
+              <p class="text-xs text-slate-500">Atur perlakuan terhadap butir soal yang sudah dikuasai:</p>
+              <div class="space-y-2 text-xs">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="setting-always-new-view" onchange="syncAlwaysNewSetting(this.checked)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                  <span class="text-slate-700 dark:text-slate-300">Utamakan Soal Baru (Sembunyikan Tuntas)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="setting-include-mastered-view" onchange="syncIncludeMasteredSetting(this.checked)" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500">
+                  <span class="text-slate-700 dark:text-slate-300">Tetap Tampilkan Soal Tuntas (Mode Repetisi Penuh)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="setting-repeat-wrong-view" onchange="syncRepeatWrongSetting(this.checked)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                  <span class="text-slate-700 dark:text-slate-300">Ulangi Soal Salah di Tryout Berikutnya</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Card 3: Manajemen Progres & Reset -->
+            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
+                <i class="ph-bold ph-database text-emerald-600"></i>
+                <span>Status Data & Penguasaan</span>
+              </div>
+              <p class="text-xs text-slate-500">Mulai ulang status butir soal yang sudah tuntas tanpa menghapus sertifikat tryout:</p>
+              <button onclick="resetMasteredQuestions()" class="px-4 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 text-rose-700 dark:text-rose-300 font-bold text-xs border border-rose-200 dark:border-rose-900/60 transition flex items-center gap-1.5">
+                <i class="ph-bold ph-arrow-counter-clockwise"></i>
+                <span>Reset Soal Tuntas</span>
+              </button>
+            </div>
+
+            <!-- Card 4: Riwayat Simulasi -->
+            <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 text-sm">
+                <i class="ph-bold ph-trash text-rose-600"></i>
+                <span>Pembersihan Histori Sesi</span>
+              </div>
+              <p class="text-xs text-slate-500">Bersihkan seluruh catatan sesi tryout per akun Anda jika ingin mengulang dari awal:</p>
+              <button onclick="clearAllSessions()" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 text-slate-600 dark:text-slate-300 hover:text-rose-600 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-1.5">
+                <i class="ph-bold ph-trash"></i>
+                <span>Hapus Semua Riwayat Sesi</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </div><!-- End #view-pengaturan -->
+
     </section>
 
     <!-- 2. SCREEN: EXAM WORKSPACE (CAT INTERFACE DENGAN NAVIGASI LEBAR & TTS) -->
@@ -1349,10 +1463,10 @@
             <div class="flex items-center justify-between pt-1">
               <label for="pre-exam-edition-select" class="text-slate-600 dark:text-slate-300 font-medium">Prioritas Edisi:</label>
               <select id="pre-exam-edition-select" class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-bold text-slate-800 dark:text-slate-200">
-                <option value="PRIORITY_2027">🌟 Prioritas Edisi 2027 (Utamakan Soal Baru)</option>
-                <option value="ONLY_2027">⚡ Eksklusif Edisi 2027 Saja</option>
-                <option value="ONLY_KLASIK">🏛️ Edisi Klasik (2024-2025) Saja</option>
-                <option value="RANDOM_ALL">🎲 Acak Campur Semua Edisi</option>
+                <option value="PRIORITY_2027">Prioritas Edisi 2027 (Utamakan Soal Baru)</option>
+                <option value="ONLY_2027">Eksklusif Edisi 2027 Saja</option>
+                <option value="ONLY_KLASIK">Edisi Klasik (2024-2025) Saja</option>
+                <option value="RANDOM_ALL">Acak Campur Semua Edisi</option>
               </select>
             </div>
           </div>

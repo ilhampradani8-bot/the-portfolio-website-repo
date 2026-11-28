@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /data/
+Disallow: /data/*.json
+Disallow: /api/
+Disallow: /auth_info/
 
+# Do not index raw examination bank questions or API dumps
+# Only index the modern web simulation portal and its educational pages
 Sitemap: https://tryout.ilhampradani.me/sitemap.xml

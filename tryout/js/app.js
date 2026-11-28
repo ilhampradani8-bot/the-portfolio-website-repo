@@ -90,7 +90,136 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateFormasiUI();
   renderSessionHistory();
   loadLeaderboard();
+
+  // Listen to hash changes for direct page routing
+  window.addEventListener('hashchange', handleHashNavigation);
+  handleHashNavigation();
 });
+
+function handleHashNavigation() {
+  const hash = window.location.hash.replace('#', '').toLowerCase();
+  if (['simulasi', 'peringkat', 'riwayat', 'pengaturan'].includes(hash)) {
+    switchView(hash);
+  }
+}
+
+let activeLobbyView = 'simulasi';
+
+function switchView(viewName) {
+  activeLobbyView = viewName;
+
+  const views = {
+    simulasi: document.getElementById('view-simulasi'),
+    peringkat: document.getElementById('view-peringkat'),
+    riwayat: document.getElementById('view-riwayat'),
+    pengaturan: document.getElementById('view-pengaturan')
+  };
+
+  const tabs = {
+    simulasi: document.getElementById('nav-tab-simulasi'),
+    peringkat: document.getElementById('nav-tab-peringkat'),
+    riwayat: document.getElementById('nav-tab-riwayat'),
+    pengaturan: document.getElementById('nav-tab-pengaturan')
+  };
+
+  // Toggle view visibility
+  Object.keys(views).forEach(k => {
+    if (views[k]) {
+      if (k === viewName) {
+        views[k].classList.remove('hidden');
+      } else {
+        views[k].classList.add('hidden');
+      }
+    }
+  });
+
+  // Toggle active tab styling
+  Object.keys(tabs).forEach(k => {
+    if (tabs[k]) {
+      if (k === viewName) {
+        tabs[k].className = 'px-3.5 py-1.5 rounded-xl font-bold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm transition flex items-center gap-1.5';
+      } else {
+        tabs[k].className = 'px-3.5 py-1.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1.5';
+      }
+    }
+  });
+
+  // Update URL hash without jumping
+  if (window.location.hash.replace('#', '') !== viewName) {
+    history.replaceState(null, '', `#${viewName}`);
+  }
+
+  // Trigger data reload if entering dynamic views
+  if (viewName === 'peringkat') {
+    loadLeaderboard();
+  } else if (viewName === 'riwayat') {
+    renderSessionHistory();
+  } else if (viewName === 'pengaturan') {
+    syncSettingsToView();
+  }
+}
+
+function syncSettingsToView() {
+  const edModeView = document.getElementById('setting-edition-mode-view');
+  const alwaysNewView = document.getElementById('setting-always-new-view');
+  const includeMasteredView = document.getElementById('setting-include-mastered-view');
+  const repeatWrongView = document.getElementById('setting-repeat-wrong-view');
+
+  if (edModeView) edModeView.value = examSettings.editionMode || 'PRIORITY_2027';
+  if (alwaysNewView) alwaysNewView.checked = !!examSettings.alwaysNew;
+  if (includeMasteredView) includeMasteredView.checked = !!examSettings.includeMastered;
+  if (repeatWrongView) repeatWrongView.checked = !!examSettings.repeatWrong;
+}
+
+function syncEditionSetting(val) {
+  examSettings.editionMode = val;
+  const lobbyEd = document.getElementById('setting-edition-mode');
+  if (lobbyEd) lobbyEd.value = val;
+  saveLocalProgress();
+  saveProgressToBackend();
+}
+
+function syncAlwaysNewSetting(checked) {
+  if (checked) {
+    examSettings.alwaysNew = true;
+    examSettings.includeMastered = false;
+    const lobbyMastered = document.getElementById('setting-include-mastered');
+    const viewMastered = document.getElementById('setting-include-mastered-view');
+    if (lobbyMastered) lobbyMastered.checked = false;
+    if (viewMastered) viewMastered.checked = false;
+  } else {
+    examSettings.alwaysNew = false;
+  }
+  const lobbyNew = document.getElementById('setting-always-new');
+  if (lobbyNew) lobbyNew.checked = checked;
+  saveLocalProgress();
+  saveProgressToBackend();
+}
+
+function syncIncludeMasteredSetting(checked) {
+  if (checked) {
+    examSettings.includeMastered = true;
+    examSettings.alwaysNew = false;
+    const lobbyNew = document.getElementById('setting-always-new');
+    const viewNew = document.getElementById('setting-always-new-view');
+    if (lobbyNew) lobbyNew.checked = false;
+    if (viewNew) viewNew.checked = false;
+  } else {
+    examSettings.includeMastered = false;
+  }
+  const lobbyMastered = document.getElementById('setting-include-mastered');
+  if (lobbyMastered) lobbyMastered.checked = checked;
+  saveLocalProgress();
+  saveProgressToBackend();
+}
+
+function syncRepeatWrongSetting(checked) {
+  examSettings.repeatWrong = checked;
+  const lobbyRepeat = document.getElementById('setting-repeat-wrong');
+  if (lobbyRepeat) lobbyRepeat.checked = checked;
+  saveLocalProgress();
+  saveProgressToBackend();
+}
 
 // 2. PROFILE & FORMASI MANAGEMENT
 function loadStoredProfile() {
@@ -114,13 +243,13 @@ function updateProfileHeader() {
 
   if (badgeEl) {
     if (userProfile.formasi === 'DISABILITAS') {
-      badgeEl.textContent = '♿ Formasi Disabilitas';
+      badgeEl.textContent = 'Formasi Disabilitas (130m)';
       badgeEl.className = 'text-[10px] text-amber-600 dark:text-amber-400 font-bold';
     } else if (userProfile.formasi === 'CUMLAUDE') {
-      badgeEl.textContent = '🎓 Formasi Cumlaude';
+      badgeEl.textContent = 'Formasi Cumlaude';
       badgeEl.className = 'text-[10px] text-indigo-600 dark:text-indigo-400 font-bold';
     } else if (userProfile.formasi === 'PAPUA_3T') {
-      badgeEl.textContent = '🌏 Formasi 3T/Papua';
+      badgeEl.textContent = 'Formasi 3T / Papua';
       badgeEl.className = 'text-[10px] text-rose-600 dark:text-rose-400 font-bold';
     } else {
       badgeEl.textContent = 'Formasi Umum';
@@ -240,7 +369,7 @@ function logoutGoogleAccount() {
     }
   }
 
-  alert('👋 Anda berhasil keluar dari akun Google.');
+  alert('Anda berhasil keluar dari akun Google.');
 }
 
 function openProfileModal() {
@@ -262,7 +391,9 @@ function openProfileModal() {
     if (userProfile.avatar) {
       userAvatar.innerHTML = `<img src="${userProfile.avatar}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
     } else {
-      userAvatar.textContent = userProfile.isGoogleAuth ? 'G' : '👤';
+      userAvatar.innerHTML = userProfile.isGoogleAuth
+        ? `<span class="font-bold text-sm">G</span>`
+        : `<i class="ph-bold ph-user text-base"></i>`;
     }
   }
 
@@ -329,7 +460,7 @@ function saveProfileModal() {
   saveProgressToBackend();
   loadLeaderboard();
 
-  alert(`✅ Profil berhasil disimpan!\nNama: ${userProfile.name}\nInstansi: ${userProfile.instansi || '-'}\nPapan Peringkat: ${userProfile.hideFromLeaderboard ? 'Disamarkan (Anonim)' : 'Publik'}\nJalur: ${userProfile.formasi === 'DISABILITAS' ? 'Penyandang Disabilitas (130 Menit + TTS)' : 'Formasi ' + userProfile.formasi}`);
+  alert(`Profil berhasil disimpan!\nNama: ${userProfile.name}\nInstansi: ${userProfile.instansi || '-'}\nPapan Peringkat: ${userProfile.hideFromLeaderboard ? 'Disamarkan (Anonim)' : 'Publik'}\nJalur: ${userProfile.formasi === 'DISABILITAS' ? 'Penyandang Disabilitas (130 Menit + TTS)' : 'Formasi ' + userProfile.formasi}`);
 }
 
 function updateFormasiUI() {
@@ -392,7 +523,7 @@ function handleGoogleCredentialResponse(response) {
 
       localStorage.setItem('cat_user_profile', JSON.stringify(userProfile));
       updateProfileHeader();
-      alert(`🎉 Berhasil Masuk dengan Akun Google!\nSelamat datang, ${userProfile.name}`);
+      alert(`Berhasil masuk dengan akun Google.\nSelamat datang, ${userProfile.name}`);
 
       // Sync user data with Cloudflare D1
       syncUserProgressWithBackend();
@@ -800,7 +931,7 @@ function pauseAndSaveExam() {
   saveSessionToStorage();
   closePauseExitModal();
   switchToScreen('lobby');
-  alert('💾 Progres ujian Anda berhasil dijeda & disimpan!\nSisa waktu dan jawaban Anda aman. Anda bisa melanjutkannya kapan saja dari beranda.');
+  alert('Progres ujian Anda berhasil dijeda & disimpan.\nSisa waktu dan jawaban Anda aman. Anda bisa melanjutkannya kapan saja dari beranda.');
 }
 
 function cancelAndExitExam() {
@@ -1294,7 +1425,7 @@ function calculateResultsWithOfficialRules() {
 
   if (isAllPassed) {
     resultCard.className = 'rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-600 to-green-700';
-    badgeEl.textContent = '🌟 LULUS PASSING GRADE SKD';
+    badgeEl.textContent = 'LULUS PASSING GRADE SKD';
     headEl.textContent = `Selamat, ${userProfile.name}! Anda Memenuhi Syarat.`;
     subEl.textContent = userProfile.formasi === 'DISABILITAS'
       ? `Skor kumulatif Anda (${totalScore} ≥ 286) dan nilai TIU (${tiuScore} ≥ 60) berhasil memenuhi ambang batas formasi disabilitas resmi BKN!`
@@ -1305,7 +1436,7 @@ function calculateResultsWithOfficialRules() {
     }
   } else {
     resultCard.className = 'rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden bg-gradient-to-br from-rose-700 via-rose-600 to-orange-700';
-    badgeEl.textContent = '⚠️ BELUM MEMENUHI PASSING GRADE';
+    badgeEl.textContent = 'BELUM MEMENUHI PASSING GRADE';
     headEl.textContent = `Jangan Menyerah, ${userProfile.name}!`;
     subEl.textContent = userProfile.formasi === 'DISABILITAS'
       ? `Berdasarkan aturan formasi khusus disabilitas, skor kumulatif minimal adalah 286 dan TIU minimal 60. Pelajari kembali pembahasan di bawah.`
@@ -1417,7 +1548,7 @@ function keepPracticeSession() {
   if (decisionCard) decisionCard.classList.add('hidden');
 
   pendingPracticeSession = null;
-  alert('💾 Sesi latihan berhasil disimpan! Soal yang dijawab benar kini ditandai tuntas.');
+  alert('Sesi latihan berhasil disimpan! Soal yang dijawab benar kini ditandai tuntas.');
 }
 
 function discardPracticeSession() {
@@ -1428,7 +1559,7 @@ function discardPracticeSession() {
   if (decisionCard) decisionCard.classList.add('hidden');
 
   pendingPracticeSession = null;
-  alert('🗑️ Sesi latihan dibuang tanpa mengubah status penguasaan soal atau riwayat.');
+  alert('Sesi latihan dibuang tanpa mengubah status penguasaan soal atau riwayat.');
 }
 
 function setSubtestBadge(id, isPass) {
@@ -1644,7 +1775,7 @@ function copyAllReviewQuestions() {
         btn.innerHTML = `<i class="ph-bold ph-copy text-sm"></i> <span>Salin Semua Pembahasan</span>`;
       }, 2500);
     }
-    alert(`📋 Sebanyak ${count} butir soal beserta kunci dan pembahasannya berhasil disalin ke clipboard!`);
+    alert(`Sebanyak ${count} butir soal beserta kunci dan pembahasannya berhasil disalin ke clipboard.`);
   }).catch(err => {
     console.error('Copy error:', err);
     fallbackCopyText(text);
@@ -1659,7 +1790,7 @@ function fallbackCopyText(text) {
   textArea.select();
   try {
     document.execCommand('copy');
-    alert('📋 Berhasil disalin ke clipboard!');
+    alert('Berhasil disalin ke clipboard.');
   } catch (err) {
     alert('Silakan blok teks pada layar lalu tekan Ctrl+C untuk menyalin.');
   }
@@ -1844,7 +1975,7 @@ async function resetMasteredQuestions() {
     console.warn('Reset D1 backend error:', err);
   }
 
-  alert('✅ Status soal tuntas berhasil direset! Seluruh butir soal kini siap diuji kembali.');
+  alert('Status soal tuntas berhasil direset. Seluruh butir soal kini siap diuji kembali.');
 }
 
 async function syncUserProgressWithBackend() {
@@ -2201,7 +2332,7 @@ function clearAllSessions() {
   saveLocalProgress();
   saveProgressToBackend();
   renderSessionHistory();
-  alert('🗑️ Seluruh riwayat sesi simulasi berhasil dibersihkan.');
+  alert('Seluruh riwayat sesi simulasi berhasil dibersihkan.');
 }
 
 // 21. NATIONAL LEADERBOARD ENGINE
@@ -2283,10 +2414,14 @@ function renderLeaderboard() {
   }
 
   tbody.innerHTML = filtered.map((user, idx) => {
-    let rankBadge = `<span class="font-extrabold text-slate-500">${idx + 1}</span>`;
-    if (idx === 0) rankBadge = `<span class="text-xl">🥇</span>`;
-    else if (idx === 1) rankBadge = `<span class="text-xl">🥈</span>`;
-    else if (idx === 2) rankBadge = `<span class="text-xl">🥉</span>`;
+    let rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">${idx + 1}</span>`;
+    if (idx === 0) {
+      rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-amber-500 text-white font-extrabold text-xs shadow-sm shadow-amber-500/30 ring-1 ring-amber-400">1</span>`;
+    } else if (idx === 1) {
+      rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-400 text-white font-extrabold text-xs shadow-sm ring-1 ring-slate-300">2</span>`;
+    } else if (idx === 2) {
+      rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-amber-700 text-white font-extrabold text-xs shadow-sm ring-1 ring-amber-600">3</span>`;
+    }
 
     const isCurrent = (userProfile.email && user.userId === userProfile.email) ||
                       (!userProfile.email && user.name === userProfile.name);
@@ -2297,7 +2432,7 @@ function renderLeaderboard() {
     }
 
     const formasiTag = user.formasi === 'DISABILITAS'
-      ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-[10px] font-bold">♿ Disabilitas</span>`
+      ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-[10px] font-bold">Disabilitas</span>`
       : `<span class="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-medium">Formasi Umum</span>`;
 
     return `
