@@ -1501,7 +1501,7 @@ function calculateResultsWithOfficialRules() {
     }
   });
 
-  let packetReadableName = 'Simulasi Resmi SKD CAT BKN';
+  let packetReadableName = 'Simulasi Lengkap SKD CAT (Standar BKN)';
   if (currentExam.packetType === 'twk_only') packetReadableName = 'Tryout Khusus TWK';
   else if (currentExam.packetType === 'tiu_only') packetReadableName = 'Tryout Khusus TIU';
   else if (currentExam.packetType === 'tkp_only') packetReadableName = 'Tryout Khusus TKP';
@@ -2132,7 +2132,7 @@ function openPreExamModal(packetType) {
   // Set defaults based on packet
   let defaultDuration = isDisabilitas ? 130 : 100;
   let defaultCount = 110;
-  let packetName = 'Simulasi Resmi SKD CAT BKN';
+  let packetName = 'Simulasi Lengkap SKD CAT (Standar BKN)';
 
   if (packetType === 'twk_only') {
     defaultDuration = 25;
