@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portfolio Manager | Dr. Ilham Pradani C.L.</title>
+  <link rel="icon" type="image/png" href="image/favicon.png">
+  
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ecf0f3;
+      --shadow-light: #ffffff;
+      --shadow-dark: #b8bec9;
+    }
+    body {
+      background-color: var(--bg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #2d3748;
+    }
+    .neu-flat {
+      background: #ecf0f3;
+      box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+    }
+    .neu-flat-sm {
+      background: #ecf0f3;
+      box-shadow: 3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
+    }
+    .neu-pressed {
+      background: #ecf0f3;
+      box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    }
+    .neu-btn {
+      background: #ecf0f3;
+      box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+      transition: all 0.2s ease;
+    }
+    .neu-btn:hover {
+      box-shadow: 2px 2px 6px var(--shadow-dark), -2px -2px 6px var(--shadow-light);
+      transform: translateY(-1px);
+    }
+    .neu-btn:active {
+      box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+      transform: translateY(0);
+    }
+    .neu-input {
+      background: #ecf0f3;
+      box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+      outline: none;
+      transition: box-shadow 0.2s ease;
+    }
+    .neu-input:focus {
+      box-shadow: inset 3px 3px 6px #a3abb8, inset -3px -3px 6px #ffffff;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #ecf0f3;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ================= AUTH GATE (PIN LOGIN) ================= -->
+  <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#ecf0f3]">
+    <div class="neu-flat w-full max-w-md p-8 rounded-3xl text-center border border-white/50 relative overflow-hidden">
+      <!-- Glow background -->
+      <div class="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+      <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
+
+      <div class="w-16 h-16 mx-auto mb-5 rounded-2xl neu-flat flex items-center justify-center text-blue-600">
+        <i data-lucide="shield-check" class="w-8 h-8"></i>
+      </div>
+
+      <h1 class="text-xl font-black text-gray-800 tracking-tight">Portfolio Admin Gateway</h1>
+      <p class="text-xs text-gray-500 mt-1 mb-6">Cloudflare D1 SQL Manager &bull; Dr. Ilham Pradani C.L.</p>
+
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+        <div class="text-left">
+          <label class="block text-[10px] font-extrabold uppercase tracking-widest text-gray-500 mb-1 ml-1">Kredensial Admin PIN</label>
+          <div class="relative">
+            <input type="password" id="admin-pin-input" required autofocus placeholder="Masukkan PIN Admin..."
+                   class="neu-input w-full px-4 py-3 rounded-xl text-sm font-bold text-gray-800 placeholder-gray-400 focus:text-blue-600">
+            <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
+              <i data-lucide="eye" id="pin-eye-icon" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="login-error" class="hidden p-3 rounded-xl bg-red-100/70 border border-red-200 text-red-600 text-xs font-bold text-left flex items-center gap-2">
+          <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
+          <span id="login-error-msg">PIN yang Anda masukkan salah.</span>
+        </div>
+
+        <button type="submit" id="login-btn"
+                class="neu-btn w-full py-3.5 rounded-xl font-bold text-sm text-blue-600 flex items-center justify-center gap-2">
+          <span>Masuk ke Dashboard</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <div class="mt-6 pt-5 border-t border-gray-300/40 text-center">
+        <a href="/" class="text-[11px] font-bold text-gray-500 hover:text-blue-600 transition flex items-center justify-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Kembali ke Website Utama</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ADMIN DASHBOARD ================= -->
+  <div id="dashboard-screen" class="hidden flex-1 flex flex-col min-h-screen">
+    
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-[#ecf0f3]/90 backdrop-blur-md border-b border-gray-300/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl neu-flat flex items-center justify-center text-blue-600 font-black">
+            <i data-lucide="database" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-sm sm:text-base font-extrabold text-gray-800 tracking-tight">Portfolio Manager</h1>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-blue-100 text-blue-700 font-mono border border-blue-200">
+                Cloudflare D1 SQL
+              </span>
+            </div>
+            <p class="text-[10px] text-gray-500 hidden sm:block">Kelola konten karya &amp; portofolio secara real-time tanpa utak-atik kode</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="/" target="_blank" class="neu-btn px-3 py-2 rounded-xl text-xs font-bold text-gray-700 flex items-center gap-1.5 hover:text-blue-600">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Lihat Live Web</span>
+          </a>
+          <button onclick="handleLogout()" class="neu-btn px-3 py-2 rounded-xl text-xs font-bold text-red-600 flex items-center gap-1.5 hover:text-red-700">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Keluar</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+      <!-- Database Telemetry Status Bar -->
+      <div class="neu-flat p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4 border border-white/60">
+        <div class="flex items-center gap-3">
+          <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-extrabold text-gray-800">Cluster Status: Terhubung ke Cloudflare D1</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 font-bold">APAC / SIN &bull; &lt;0.5ms</span>
+            </div>
+            <p class="text-[11px] text-gray-500 font-mono mt-0.5">Database: <span class="font-bold text-gray-700">ilhampradani-db</span> (Table: portfolio)</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="fetchPortfolioAll()" class="neu-btn px-3.5 py-2 rounded-xl text-xs font-bold text-gray-700 flex items-center gap-2">
+            <i data-lucide="refresh-cw" id="refresh-icon" class="w-3.5 h-3.5"></i>
+            <span>Sinkronkan</span>
+          </button>
+          <button onclick="openAddModal()" class="neu-btn px-4 py-2 rounded-xl text-xs font-extrabold text-blue-600 flex items-center gap-2 shadow-[2px_2px_8px_#b8bec9,-2px_-2px_8px_#ffffff]">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Tambah Karya Baru</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Summary -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="neu-flat p-4 rounded-2xl">
+          <span class="text-[10px] font-black uppercase tracking-wider text-gray-400 block mb-1">Total Karya</span>
+          <div class="flex items-baseline gap-2">
+            <span id="metric-total" class="text-2xl font-black text-gray-800 font-mono">0</span>
+            <span class="text-[10px] text-gray-500 font-bold">item</span>
+          </div>
+        </div>
+        <div class="neu-flat p-4 rounded-2xl">
+          <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 block mb-1">Karya Aktif</span>
+          <div class="flex items-baseline gap-2">
+            <span id="metric-active" class="text-2xl font-black text-emerald-600 font-mono">0</span>
+            <span class="text-[10px] text-gray-500 font-bold">tayang</span>
+          </div>
+        </div>
+        <div class="neu-flat p-4 rounded-2xl">
+          <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 block mb-1">Draft / Nonaktif</span>
+          <div class="flex items-baseline gap-2">
+            <span id="metric-inactive" class="text-2xl font-black text-amber-600 font-mono">0</span>
+            <span class="text-[10px] text-gray-500 font-bold">tersembunyi</span>
+          </div>
+        </div>
+        <div class="neu-flat p-4 rounded-2xl">
+          <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 block mb-1">Kategori Unik</span>
+          <div class="flex items-baseline gap-2">
+            <span id="metric-categories" class="text-2xl font-black text-blue-600 font-mono">0</span>
+            <span class="text-[10px] text-gray-500 font-bold">kategori</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="neu-flat p-4 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="relative flex-1">
+          <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-3"></i>
+          <input type="text" id="search-input" oninput="applyFilters()" placeholder="Cari berdasarkan judul, kategori, atau tech stack..."
+                 class="neu-input w-full pl-9 pr-4 py-2.5 rounded-xl text-xs font-bold text-gray-700 placeholder-gray-400">
+        </div>
+
+        <div class="flex items-center gap-2">
+          <select id="category-filter" onchange="applyFilters()" class="neu-input px-3 py-2.5 rounded-xl text-xs font-bold text-gray-700">
+            <option value="ALL">Semua Kategori</option>
+          </select>
+
+          <select id="status-filter" onchange="applyFilters()" class="neu-input px-3 py-2.5 rounded-xl text-xs font-bold text-gray-700">
+            <option value="ALL">Semua Status</option>
+            <option value="ACTIVE">Aktif Saja</option>
+            <option value="INACTIVE">Nonaktif Saja</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Portfolio Items List / Table -->
+      <div class="neu-flat rounded-3xl overflow-hidden border border-white/60">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-gray-300/40 text-[10px] font-black uppercase tracking-wider text-gray-400 bg-gray-100/40">
+                <th class="py-3.5 px-4 w-12 text-center">Urutan</th>
+                <th class="py-3.5 px-4 w-20">Preview</th>
+                <th class="py-3.5 px-4">Judul &amp; Deskripsi</th>
+                <th class="py-3.5 px-4">Kategori</th>
+                <th class="py-3.5 px-4">Tech Stack</th>
+                <th class="py-3.5 px-4 text-center">Status</th>
+                <th class="py-3.5 px-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="portfolio-table-body" class="divide-y divide-gray-300/30 text-xs">
+              <!-- Dynamically populated rows -->
+              <tr>
+                <td colspan="7" class="py-12 text-center text-gray-400 font-bold">
+                  <div class="flex flex-col items-center gap-2">
+                    <div class="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <span>Memuat data dari Cloudflare D1...</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="empty-state" class="hidden py-16 text-center text-gray-500">
+          <div class="w-16 h-16 mx-auto mb-3 rounded-2xl neu-flat flex items-center justify-center text-gray-400">
+            <i data-lucide="folder-x" class="w-8 h-8"></i>
+          </div>
+          <p class="font-extrabold text-sm text-gray-700">Tidak ada karya yang sesuai</p>
+          <p class="text-xs text-gray-400 mt-1">Coba sesuaikan kata kunci pencarian atau filter Anda.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= MODAL: ADD / EDIT PORTFOLIO ================= -->
+  <div id="item-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overflow-y-auto">
+    <div class="neu-flat w-full max-w-2xl p-6 sm:p-8 rounded-3xl my-8 relative border border-white/60">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-gray-300/40 mb-6">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl neu-flat flex items-center justify-center text-blue-600">
+            <i data-lucide="layers" id="modal-icon" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 id="modal-title" class="text-base font-black text-gray-800">Tambah Karya Baru</h2>
+            <p class="text-[11px] text-gray-500">Tersimpan persisten di Cloudflare D1</p>
+          </div>
+        </div>
+        <button onclick="closeModal()" class="neu-btn w-8 h-8 rounded-xl flex items-center justify-center text-gray-500 hover:text-gray-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Modal Form -->
+      <form id="portfolio-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <input type="hidden" id="form-id" value="">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Judul Karya *</label>
+            <input type="text" id="form-judul" required placeholder="Contoh: APK Buku Tulis"
+                   class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800">
+          </div>
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Kategori *</label>
+            <input type="text" id="form-kategori" required list="kategori-presets" placeholder="Kategori..."
+                   class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800">
+            <datalist id="kategori-presets">
+              <option value="Aplikasi Offline">
+              <option value="playstore">
+              <option value="Certificate">
+              <option value="Web App">
+              <option value="Cyber Security">
+              <option value="AI & Governance">
+            </datalist>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Deskripsi Singkat</label>
+          <textarea id="form-deskripsi" rows="3" placeholder="Jelaskan ringkasan fitur, manfaat, atau arsitektur karya ini..."
+                    class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">URL Gambar / Thumbnail</label>
+            <input type="url" id="form-gambar" oninput="updateModalPreviewImg()" placeholder="https://..."
+                   class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800">
+          </div>
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Link Proyek / Demo / Repo</label>
+            <input type="url" id="form-link" placeholder="https://github.com/... atau https://play.google.com/..."
+                   class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Tech Stack (Pisahkan dengan koma)</label>
+            <input type="text" id="form-tech" placeholder="Contoh: Rust, WebAssembly, Cloudflare Workers"
+                   class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800">
+          </div>
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Urutan (Order Index)</label>
+            <input type="number" id="form-order" value="1" min="0" step="1"
+                   class="neu-input w-full px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-800">
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="checkbox" id="form-active" checked class="w-4 h-4 text-blue-600 rounded">
+            <span class="text-xs font-bold text-gray-700">Publikasikan karya ini (Status Aktif)</span>
+          </label>
+        </div>
+
+        <!-- Live Thumbnail Preview Box -->
+        <div id="modal-preview-box" class="mt-2 p-3 rounded-xl bg-gray-200/50 flex items-center gap-3 border border-gray-300/40">
+          <img id="modal-preview-img" src="image/hero.jpg" alt="Preview" class="w-16 h-12 object-cover rounded-lg border border-white">
+          <div class="text-[11px] text-gray-500 overflow-hidden truncate">
+            <span class="font-bold text-gray-700 block">Preview Thumbnail</span>
+            <span id="modal-preview-src" class="font-mono text-[9px] text-gray-400">Belum ada URL gambar</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-300/40">
+          <button type="button" onclick="closeModal()" class="neu-btn px-4 py-2.5 rounded-xl text-xs font-bold text-gray-600">
+            Batal
+          </button>
+          <button type="submit" id="form-submit-btn" class="neu-btn px-5 py-2.5 rounded-xl text-xs font-black text-blue-600 flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span id="form-submit-label">Simpan Perubahan</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    const API_ENDPOINT = '/api/portfolio';
+    let adminToken = sessionStorage.getItem('admin_portfolio_pin') || '';
+    let portfolioData = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      if (adminToken) {
+        verifySession();
+      } else {
+        showAuthScreen();
+      }
+    });
+
+    function showAuthScreen() {
+      document.getElementById('auth-screen').classList.remove('hidden');
+      document.getElementById('dashboard-screen').classList.add('hidden');
+    }
+
+    function showDashboard() {
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('dashboard-screen').classList.remove('hidden');
+      lucide.createIcons();
+      fetchPortfolioAll();
+    }
+
+    function togglePinVisibility() {
+      const pinInput = document.getElementById('admin-pin-input');
+      const icon = document.getElementById('pin-eye-icon');
+      if (pinInput.type === 'password') {
+        pinInput.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        pinInput.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const pin = document.getElementById('admin-pin-input').value.trim();
+      const errBox = document.getElementById('login-error');
+      const errTxt = document.getElementById('login-error-msg');
+      const btn = document.getElementById('login-btn');
+
+      errBox.classList.add('hidden');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Memverifikasi...</span>';
+
+      try {
+        const resp = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'login', pin })
+        });
+        const data = await resp.json();
+
+        if (resp.ok && data.success) {
+          adminToken = pin;
+          sessionStorage.setItem('admin_portfolio_pin', pin);
+          showDashboard();
+          showToast('Selamat datang, Admin!', 'success');
+        } else {
+          errTxt.textContent = data.error || 'PIN Admin tidak valid.';
+          errBox.classList.remove('hidden');
+          lucide.createIcons();
+        }
+      } catch (err) {
+        errTxt.textContent = 'Gagal menghubungi server API: ' + err.message;
+        errBox.classList.remove('hidden');
+        lucide.createIcons();
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Masuk ke Dashboard</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+        lucide.createIcons();
+      }
+    }
+
+    async function verifySession() {
+      try {
+        const resp = await fetch(`${API_ENDPOINT}?admin=1`, {
+          headers: { 'X-Admin-PIN': adminToken }
+        });
+        if (resp.ok) {
+          showDashboard();
+        } else {
+          sessionStorage.removeItem('admin_portfolio_pin');
+          adminToken = '';
+          showAuthScreen();
+        }
+      } catch (_) {
+        showAuthScreen();
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('admin_portfolio_pin');
+      adminToken = '';
+      showAuthScreen();
+      showToast('Berhasil keluar dari sesi admin.', 'info');
+    }
+
+    async function fetchPortfolioAll() {
+      const refreshIcon = document.getElementById('refresh-icon');
+      if (refreshIcon) refreshIcon.classList.add('animate-spin');
+
+      try {
+        const resp = await fetch(`${API_ENDPOINT}?admin=1`, {
+          headers: { 'X-Admin-PIN': adminToken }
+        });
+        if (!resp.ok) {
+          if (resp.status === 401) {
+            handleLogout();
+            return;
+          }
+          throw new Error('HTTP ' + resp.status);
+        }
+        const json = await resp.json();
+        portfolioData = json.data || [];
+        updateMetrics();
+        populateCategoryFilter();
+        applyFilters();
+      } catch (err) {
+        showToast('Gagal memuat data: ' + err.message, 'error');
+      } finally {
+        if (refreshIcon) refreshIcon.classList.remove('animate-spin');
+      }
+    }
+
+    function updateMetrics() {
+      const total = portfolioData.length;
+      const active = portfolioData.filter(x => x.is_active == 1).length;
+      const inactive = total - active;
+      const categories = new Set(portfolioData.map(x => x.kategori)).size;
+
+      document.getElementById('metric-total').textContent = total;
+      document.getElementById('metric-active').textContent = active;
+      document.getElementById('metric-inactive').textContent = inactive;
+      document.getElementById('metric-categories').textContent = categories;
+    }
+
+    function populateCategoryFilter() {
+      const select = document.getElementById('category-filter');
+      const current = select.value;
+      const categories = Array.from(new Set(portfolioData.map(x => x.kategori))).sort();
+
+      select.innerHTML = '<option value="ALL">Semua Kategori</option>' +
+        categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+
+      if (categories.includes(current)) {
+        select.value = current;
+      }
+    }
+
+    function applyFilters() {
+      const query = (document.getElementById('search-input').value || '').toLowerCase().trim();
+      const cat = document.getElementById('category-filter').value;
+      const status = document.getElementById('status-filter').value;
+
+      const filtered = portfolioData.filter(item => {
+        const matchQuery = !query ||
+          (item.judul && item.judul.toLowerCase().includes(query)) ||
+          (item.kategori && item.kategori.toLowerCase().includes(query)) ||
+          (item.tech && item.tech.toLowerCase().includes(query)) ||
+          (item.deskripsi && item.deskripsi.toLowerCase().includes(query));
+
+        const matchCat = cat === 'ALL' || item.kategori === cat;
+        const matchStatus = status === 'ALL' ||
+          (status === 'ACTIVE' && item.is_active == 1) ||
+          (status === 'INACTIVE' && item.is_active == 0);
+
+        return matchQuery && matchCat && matchStatus;
+      });
+
+      renderTable(filtered);
+    }
+
+    function renderTable(items) {
+      const tbody = document.getElementById('portfolio-table-body');
+      const emptyState = document.getElementById('empty-state');
+
+      if (!items || items.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      tbody.innerHTML = items.map(item => {
+        const isActive = item.is_active == 1;
+        const techBadges = (item.tech || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean)
+          .map(t => `<span class="px-1.5 py-0.5 rounded bg-gray-200/70 text-[9px] font-bold text-gray-700">${escapeHtml(t)}</span>`)
+          .join(' ');
+
+        return `
+          <tr class="hover:bg-white/40 transition-colors">
+            <td class="py-3 px-4 text-center font-mono font-bold text-gray-500">
+              #${item.order_index}
+            </td>
+            <td class="py-3 px-4">
+              <div class="w-14 h-10 rounded-lg overflow-hidden bg-gray-200 shadow-inner border border-white">
+                <img src="${escapeHtml(item.gambar || 'image/hero.jpg')}" alt="${escapeHtml(item.judul)}"
+                     class="w-full h-full object-cover" onerror="this.src='image/hero.jpg'">
+              </div>
+            </td>
+            <td class="py-3 px-4 max-w-xs">
+              <div class="font-extrabold text-gray-800 text-[13px] truncate">${escapeHtml(item.judul)}</div>
+              <div class="text-[11px] text-gray-500 line-clamp-1 mt-0.5">${escapeHtml(item.deskripsi || '-')}</div>
+            </td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-blue-100 text-blue-700 border border-blue-200">
+                ${escapeHtml(item.kategori)}
+              </span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex flex-wrap gap-1 max-w-xs">
+                ${techBadges || '<span class="text-gray-400 text-[10px]">-</span>'}
+              </div>
+            </td>
+            <td class="py-3 px-4 text-center">
+              <button onclick="toggleItemStatus(${item.id}, ${isActive ? 0 : 1})"
+                      class="px-2.5 py-1 rounded-full text-[10px] font-extrabold transition-all ${
+                        isActive
+                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-200 hover:bg-emerald-200'
+                          : 'bg-gray-200 text-gray-600 border border-gray-300 hover:bg-gray-300'
+                      }">
+                ${isActive ? '● Aktif' : '○ Draft'}
+              </button>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                ${item.link ? `
+                  <a href="${escapeHtml(item.link)}" target="_blank" class="neu-btn p-1.5 rounded-lg text-gray-500 hover:text-blue-600" title="Buka Link Proyek">
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </a>
+                ` : ''}
+                <button onclick="openEditModal(${item.id})" class="neu-btn p-1.5 rounded-lg text-blue-600 hover:text-blue-700" title="Edit Karya">
+                  <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                </button>
+                <button onclick="deleteItem(${item.id}, '${escapeHtml(item.judul)}')" class="neu-btn p-1.5 rounded-lg text-red-500 hover:text-red-700" title="Hapus Karya">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function openAddModal() {
+      document.getElementById('form-id').value = '';
+      document.getElementById('form-judul').value = '';
+      document.getElementById('form-kategori').value = '';
+      document.getElementById('form-deskripsi').value = '';
+      document.getElementById('form-gambar').value = '';
+      document.getElementById('form-link').value = '';
+      document.getElementById('form-tech').value = '';
+      document.getElementById('form-order').value = portfolioData.length + 1;
+      document.getElementById('form-active').checked = true;
+
+      document.getElementById('modal-title').textContent = 'Tambah Karya Baru';
+      document.getElementById('form-submit-label').textContent = 'Simpan ke Database';
+      updateModalPreviewImg();
+
+      document.getElementById('item-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function openEditModal(id) {
+      const item = portfolioData.find(x => x.id === id);
+      if (!item) return;
+
+      document.getElementById('form-id').value = item.id;
+      document.getElementById('form-judul').value = item.judul || '';
+      document.getElementById('form-kategori').value = item.kategori || '';
+      document.getElementById('form-deskripsi').value = item.deskripsi || '';
+      document.getElementById('form-gambar').value = item.gambar || '';
+      document.getElementById('form-link').value = item.link || '';
+      document.getElementById('form-tech').value = item.tech || '';
+      document.getElementById('form-order').value = item.order_index || 0;
+      document.getElementById('form-active').checked = item.is_active == 1;
+
+      document.getElementById('modal-title').textContent = `Edit Karya: ${item.judul}`;
+      document.getElementById('form-submit-label').textContent = 'Perbarui Data';
+      updateModalPreviewImg();
+
+      document.getElementById('item-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      document.getElementById('item-modal').classList.add('hidden');
+    }
+
+    function updateModalPreviewImg() {
+      const url = document.getElementById('form-gambar').value.trim();
+      const img = document.getElementById('modal-preview-img');
+      const srcTxt = document.getElementById('modal-preview-src');
+
+      if (url) {
+        img.src = url;
+        srcTxt.textContent = url;
+      } else {
+        img.src = 'image/hero.jpg';
+        srcTxt.textContent = 'Belum ada URL gambar';
+      }
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('form-id').value;
+      const isEdit = Boolean(id);
+      const submitBtn = document.getElementById('form-submit-btn');
+
+      const payload = {
+        judul: document.getElementById('form-judul').value.trim(),
+        kategori: document.getElementById('form-kategori').value.trim(),
+        deskripsi: document.getElementById('form-deskripsi').value.trim(),
+        gambar: document.getElementById('form-gambar').value.trim(),
+        link: document.getElementById('form-link').value.trim(),
+        tech: document.getElementById('form-tech').value.trim(),
+        order_index: parseInt(document.getElementById('form-order').value, 10) || 0,
+        is_active: document.getElementById('form-active').checked ? 1 : 0,
+      };
+
+      if (isEdit) {
+        payload.id = parseInt(id, 10);
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Menyimpan...</span>';
+
+      try {
+        const resp = await fetch(API_ENDPOINT, {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-PIN': adminToken,
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const json = await resp.json();
+        if (!resp.ok || !json.success) {
+          throw new Error(json.error || 'Gagal menyimpan perubahan');
+        }
+
+        showToast(json.message || 'Data berhasil disimpan!', 'success');
+        closeModal();
+        await fetchPortfolioAll();
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>' + (isEdit ? 'Perbarui Data' : 'Simpan ke Database') + '</span>';
+        lucide.createIcons();
+      }
+    }
+
+    async function toggleItemStatus(id, newStatus) {
+      const item = portfolioData.find(x => x.id === id);
+      if (!item) return;
+
+      try {
+        const payload = { ...item, is_active: newStatus };
+        const resp = await fetch(API_ENDPOINT, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-PIN': adminToken,
+          },
+          body: JSON.stringify(payload)
+        });
+        const json = await resp.json();
+        if (!resp.ok || !json.success) throw new Error(json.error || 'Gagal update status');
+        
+        showToast(`Status karya diperbarui menjadi ${newStatus === 1 ? 'Aktif' : 'Draft'}.`, 'success');
+        await fetchPortfolioAll();
+      } catch (err) {
+        showToast('Gagal update status: ' + err.message, 'error');
+      }
+    }
+
+    async function deleteItem(id, judul) {
+      const confirmDelete = confirm(`Apakah Anda yakin ingin menghapus karya:\n"${judul}"?\n\nTindakan ini permanen di Cloudflare D1.`);
+      if (!confirmDelete) return;
+
+      try {
+        const resp = await fetch(`${API_ENDPOINT}?id=${id}`, {
+          method: 'DELETE',
+          headers: { 'X-Admin-PIN': adminToken }
+        });
+        const json = await resp.json();
+        if (!resp.ok || !json.success) throw new Error(json.error || 'Gagal menghapus');
+
+        showToast(json.message || 'Karya berhasil dihapus.', 'info');
+        await fetchPortfolioAll();
+      } catch (err) {
+        showToast('Gagal menghapus karya: ' + err.message, 'error');
+      }
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      let borderClass = 'border-blue-300 text-blue-800';
+      let icon = 'info';
+      if (type === 'success') {
+        borderClass = 'border-emerald-300 text-emerald-800 bg-emerald-50';
+        icon = 'check-circle';
+      } else if (type === 'error') {
+        borderClass = 'border-red-300 text-red-800 bg-red-50';
+        icon = 'alert-triangle';
+      } else {
+        borderClass = 'border-blue-300 text-blue-800 bg-blue-50';
+      }
+
+      toast.className = `neu-flat px-4 py-3 rounded-2xl flex items-center gap-3 text-xs font-bold shadow-lg border ${borderClass} transition-all duration-300 opacity-0 translate-y-2 pointer-events-auto`;
+      toast.innerHTML = `
+        <i data-lucide="${icon}" class="w-4 h-4 shrink-0"></i>
+        <span>${escapeHtml(message)}</span>
+      `;
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>

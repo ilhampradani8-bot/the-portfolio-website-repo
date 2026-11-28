@@ -1,3 +1,4 @@
+window.initPillarsDeck = function() { if (typeof initOptionsAccordion === 'function') initOptionsAccordion(); };
 /* ============================================================
    INDEX PAGE LOGIC
    ============================================================ */
@@ -359,31 +360,118 @@ function initCategoryDetailsTabs(tabsListId, contentPanelId, bgImages) {
     }, { passive: true });
 }
 
-function initServicesTabs() {
-    const serviceBgImages = [
-        "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop"
-    ];
-    const productBgImages = [
-        "https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1563013544-824ae1d704d3?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1547658719-da2b81169d7a?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=1200&auto=format&fit=crop"
-    ];
+function initOptionsAccordion() {
+    const options = document.querySelectorAll('.options .option');
+    if (!options.length) return;
+    options.forEach(opt => {
+        const activate = () => {
+            if (opt.classList.contains('active')) return;
+            options.forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+        };
+        // Auto open when cursor hovers over card
+        opt.addEventListener('mouseenter', activate);
+        // Also support click (for mobile/touch devices)
+        opt.addEventListener('click', activate);
+    });
+}
 
-    initCategoryDetailsTabs('services-tabs-list', 'services-content-panel', serviceBgImages);
-    initCategoryDetailsTabs('products-tabs-list', 'products-content-panel', productBgImages);
+window.nextPillarOption = function(direction) {
+    const options = Array.from(document.querySelectorAll('.options .option'));
+    if (!options.length) return;
+    const activeIdx = options.findIndex(o => o.classList.contains('active'));
+    let nextIdx = (activeIdx === -1 ? 0 : activeIdx) + direction;
+    if (nextIdx < 0) nextIdx = options.length - 1;
+    if (nextIdx >= options.length) nextIdx = 0;
+    options.forEach(o => o.classList.remove('active'));
+    options[nextIdx].classList.add('active');
+    if (window.innerWidth <= 768) {
+        options[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+};
+
+function initServicesTabs() {
+    initDeckScroll('productDeckWrapper');
+    initDeckScroll('servicesDeckWrapper');
+    if (window.location.hash === '#products') {
+        window.switchCategoryTab('products');
+    } else if (window.location.hash === '#services-tab') {
+        window.switchCategoryTab('services');
+    }
     if (window.lucide) lucide.createIcons();
+}
+
+window.scrollActiveDeck = function(direction) {
+    const s = document.getElementById('services-stack-container');
+    const isServices = s && !s.classList.contains('hidden');
+    const wrapper = isServices ? document.getElementById('servicesDeckWrapper') : document.getElementById('productDeckWrapper');
+    if (!wrapper) return;
+
+    const step = 320 * direction;
+    const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+
+    if (maxScroll <= 10) {
+        const track = wrapper.querySelector('.product-stack-track');
+        if (track) {
+            track.style.transition = 'transform 0.25s ease';
+            track.style.transform = 'translateX(' + (-20 * direction) + 'px)';
+            setTimeout(() => {
+                track.style.transform = 'none';
+            }, 250);
+        }
+        return;
+    }
+
+    if (direction > 0 && wrapper.scrollLeft >= maxScroll - 20) {
+        wrapper.scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+    }
+    if (direction < 0 && wrapper.scrollLeft <= 20) {
+        wrapper.scrollTo({ left: maxScroll, behavior: 'smooth' });
+        return;
+    }
+
+    try {
+        wrapper.scrollBy({ left: step, behavior: 'smooth' });
+    } catch (e) {
+        wrapper.scrollLeft += step;
+    }
+};
+
+window.scrollProductDeck = function(direction) {
+    window.scrollActiveDeck(direction);
+};
+
+window.scrollServicesDeck = function(direction) {
+    window.scrollActiveDeck(direction);
+};
+
+function initDeckScroll(wrapperId) {
+    const wrapper = document.getElementById(wrapperId);
+    if (!wrapper) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+    });
+    wrapper.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+    wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        wrapper.scrollLeft = scrollLeft - walk;
+    });
 }
 
 window.switchCategoryTab = function(category) {
@@ -412,36 +500,18 @@ window.switchCategoryTab = function(category) {
         );
     }
 
+    const servicesStackContainer = document.getElementById('services-stack-container');
+    const productsStackContainer = document.getElementById('products-stack-container');
+
     if (category === 'services') {
-        document.getElementById('services-tabs-list').classList.remove('hidden');
-        document.getElementById('services-content-panel').classList.remove('hidden');
-        document.getElementById('products-tabs-list').classList.add('hidden');
-        document.getElementById('products-content-panel').classList.add('hidden');
-        
-        const activeCard = document.querySelector('#services-content-panel > div:not(.hidden)');
-        if (activeCard && activeCard.style.backgroundImage) {
-            const bgUrl = activeCard.style.backgroundImage.split('url("')[1]?.split('")')[0];
-            const bgOverlay = document.getElementById('services-bg-overlay');
-            if (bgOverlay && bgUrl) {
-                bgOverlay.style.backgroundImage = `url('${bgUrl}')`;
-            }
-        }
+        if (servicesStackContainer) servicesStackContainer.classList.remove('hidden');
+        if (productsStackContainer) productsStackContainer.classList.add('hidden');
     } else {
-        document.getElementById('services-tabs-list').classList.add('hidden');
-        document.getElementById('services-content-panel').classList.add('hidden');
-        document.getElementById('products-tabs-list').classList.remove('hidden');
-        document.getElementById('products-content-panel').classList.remove('hidden');
-        
-        const activeCard = document.querySelector('#products-content-panel > div:not(.hidden)');
-        if (activeCard && activeCard.style.backgroundImage) {
-            const bgUrl = activeCard.style.backgroundImage.split('url("')[1]?.split('")')[0];
-            const bgOverlay = document.getElementById('services-bg-overlay');
-            if (bgOverlay && bgUrl) {
-                bgOverlay.style.backgroundImage = `url('${bgUrl}')`;
-            }
-        }
+        if (servicesStackContainer) servicesStackContainer.classList.add('hidden');
+        if (productsStackContainer) productsStackContainer.classList.remove('hidden');
     }
-}
+    if (window.lucide) lucide.createIcons();
+};
 
 function initClassicSwipers() {
     if (!window.Swiper) return;
@@ -602,36 +672,133 @@ function initClassicScrollSpy() {
     onScroll();
 }
 
-let allPortfolioData = [];
+const DEFAULT_PORTFOLIO_DATA = [
+  {
+    "id": "6",
+    "kategori": "playstore",
+    "judul": "APK BUKU TULIS",
+    "deskripsi": "Aplikasi buku tulis digital yang simpel, efisien, dan praktis untuk pencatatan harian.",
+    "gambar": "image/artikel-1.jpg",
+    "link": "https://play.google.com/store/apps/details?id=com.ilham.bukutulis",
+    "tech": "Kotlin, Java, Flutter, Google Ads"
+  },
+  {
+    "id": "7",
+    "kategori": "Aplikasi Offline",
+    "judul": "Telur Barokah POS System",
+    "deskripsi": "Aplikasi manajemen stok & kasir berbasis Web PWA yang cepat dan efisien untuk UMKM.",
+    "gambar": "image/Screenshot 2026-04-11 at 19-21-33 Instagram.png",
+    "link": "https://www.instagram.com/p/DTnhYtkE3Nm/?img_index=1",
+    "tech": "Java, PWA, Web POS"
+  },
+  {
+    "id": "8",
+    "kategori": "Aplikasi Offline",
+    "judul": "SimpelKas Pro!",
+    "deskripsi": "Aplikasi kasir mobile Android profesional dengan nota WA otomatis dan database cloud.",
+    "gambar": "image/apksimplecash.png",
+    "link": "https://www.instagram.com/p/DTXSywUlJq0/?img_index=3",
+    "tech": "Java, Android, Cloud DB"
+  },
+  {
+    "id": "9",
+    "kategori": "Certificate",
+    "judul": "Sertifikat Keamanan Siber",
+    "deskripsi": "5+ Sertifikasi internasional dalam vulnerability assessment dan pertahanan siber.",
+    "gambar": "image/Screenshot 2026-04-12 at 15-38-17 Ilham Pradani C.L. (@doc_n_porto_iilham_pradani_c.l) • Instagram photos and videos.png",
+    "link": "https://www.instagram.com/p/DTAHv5YAUOJ/?img_index=1",
+    "tech": "Cyber Security, Ethical Hacking"
+  },
+  {
+    "id": "10",
+    "kategori": "Aplikasi Offline",
+    "judul": "Membangun Aplikasi PPOB",
+    "deskripsi": "Web-Based Application untuk manajemen transaksi digital dan pembayaran tagihan.",
+    "gambar": "image/Screenshot 2026-04-12 at 15-50-17 Ilham Pradani C.L. (@doc_n_porto_iilham_pradani_c.l) • Instagram photos and videos.png",
+    "link": "https://www.instagram.com/p/DS2dfn-FKXY/?img_index=2",
+    "tech": "HTML5, CSS3, JavaScript, REST API"
+  },
+  {
+    "id": "11",
+    "kategori": "Aplikasi Offline",
+    "judul": "APK Management Stock & Penjualan",
+    "deskripsi": "Aplikasi manajemen persediaan barang dan point of sales multi-cabang terintegrasi.",
+    "gambar": "image/Screenshot 2026-04-12 at 15-52-16 Ilham Pradani C.L. (@doc_n_porto_iilham_pradani_c.l) • Instagram photos and videos.png",
+    "link": "https://www.instagram.com/p/DS2dfn-FKXY/?img_index=2",
+    "tech": "Java, CSS, POS System"
+  },
+  {
+    "id": "13",
+    "kategori": "E-commerce/marketplace",
+    "judul": "GRAFISA Marketplace",
+    "deskripsi": "Platform penghubung antara penjual dan pembeli jasa desain grafis pertama di Indonesia.",
+    "gambar": "image/grafisa-ss.png",
+    "link": "https://www.grafisa.id/index.html",
+    "tech": "JavaScript, React, Node.js, Express"
+  },
+  {
+    "id": "14",
+    "kategori": "Bot script - github",
+    "judul": "TradingSafe Algo Crypto Trading",
+    "deskripsi": "Platform trading algoritmik kripto mandiri dengan backend Rust Axum berkinerja tinggi.",
+    "gambar": "https://bpb-eu-w2.wpmucdn.com/blogs.city.ac.uk/dist/1/2063/files/2024/02/markus-spiske-cvBBO4PzWPg-unsplash-f3c2c366d8f32be1-676x441.jpg",
+    "link": "https://github.com/ilhampradani8-bot/bottrade",
+    "tech": "Rust, TypeScript, PHP, Binance API"
+  },
+  {
+    "id": "15",
+    "kategori": "Bot script - github",
+    "judul": "Threads App Automation Post",
+    "deskripsi": "Sistem otomatisasi posting konten Threads menggunakan Buffer API dan Groq AI.",
+    "gambar": "https://bpb-eu-w2.wpmucdn.com/blogs.city.ac.uk/dist/1/2063/files/2024/02/markus-spiske-cvBBO4PzWPg-unsplash-f3c2c366d8f32be1-676x441.jpg",
+    "link": "https://github.com/ilhampradani8-bot/botthreads",
+    "tech": "Python, Shell, Buffer API, Groq AI"
+  },
+  {
+    "id": "16",
+    "kategori": "Bot script - github",
+    "judul": "Bot Trading Mandiri Rust V1",
+    "deskripsi": "Bot trading mandiri dengan kecepatan eksekusi kode Rust ultra cepat 0,0006 milidetik.",
+    "gambar": "https://bpb-eu-w2.wpmucdn.com/blogs.city.ac.uk/dist/1/2063/files/2024/02/markus-spiske-cvBBO4PzWPg-unsplash-f3c2c366d8f32be1-676x441.jpg",
+    "link": "https://github.com/ilhampradani8-bot/bot_cuan",
+    "tech": "Rust, C, Makefile, Assembly"
+  }
+];
+
+let allPortfolioData = DEFAULT_PORTFOLIO_DATA;
 
 async function loadPortofolio() {
-    // 1. Instant Cache Load (0ms)
-    const cached = localStorage.getItem('ilham_portfolio_cache');
+    // 1. Instant Cache/Default Load (0ms)
+    const cached = localStorage.getItem("ilham_portfolio_cache");
     if (cached) {
         try {
             const parsed = JSON.parse(cached);
             if (Array.isArray(parsed) && parsed.length > 0) {
                 allPortfolioData = parsed;
-                renderPortfolioTabs(parsed);
-                renderPortfolioGrid(parsed);
             }
         } catch (_) {}
     }
+    renderPortfolioTabs(allPortfolioData);
 
-    // 2. Non-blocking Background Fetch
+    // 2. Non-blocking Background Fetch from Cloudflare D1 SQL API (with fallback)
     try {
-        const sheetId = '1eD1ElFcjBpVrS8DGShVlPrmuLI1bZIo4QEcxG1kBCAc';
         let res;
         try {
-            res = await fetch('/api/sheets?tab=Portofolio');
-            if (!res.ok) throw new Error('local api fallback');
+            res = await fetch("/api/portfolio");
+            if (!res.ok) throw new Error("D1 API fallback");
         } catch (_) {
-            res = await fetch(`https://opensheet.elk.sh/${sheetId}/Portofolio`);
+            try {
+                res = await fetch("/api/sheets?tab=Portofolio");
+                if (!res.ok) throw new Error("local api fallback");
+            } catch (_) {
+                const sheetId = "1eD1ElFcjBpVrS8DGShVlPrmuLI1bZIo4QEcxG1kBCAc";
+                res = await fetch(`https://opensheet.elk.sh/${sheetId}/Portofolio`);
+            }
         }
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
             allPortfolioData = data;
-            localStorage.setItem('ilham_portfolio_cache', JSON.stringify(data));
+            localStorage.setItem("ilham_portfolio_cache", JSON.stringify(data));
             renderPortfolioTabs(data);
             renderPortfolioGrid(data);
         }
@@ -641,249 +808,306 @@ async function loadPortofolio() {
 }
 
 function renderPortfolioTabs(data) {
-    const tabContainer = document.getElementById('portofolio-tabs');
+    const tabContainer = document.getElementById("portofolio-tabs");
     if (!tabContainer) return;
-    const categories = ['Semua', ...new Set(data.map(item => item.kategori))];
+    const categories = ["Semua", ...new Set(data.map(item => item.kategori))];
     tabContainer.innerHTML = categories.map(cat => {
-        const count = cat === 'Semua' ? data.length : data.filter(item => item.kategori === cat).length;
+        const count = cat === "Semua" ? data.length : data.filter(item => item.kategori === cat).length;
+        const safeId = "tab-" + cat.replace(/[^a-zA-Z0-9]/g, "-");
+        const safeCatArg = cat.replace(/'/g, "\\x27");
         return `
-            <button onclick="filterPortfolio('${cat}')" 
-                    class="port-tab-btn px-3 sm:px-6 py-2 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest bg-[#ecf0f3] rounded-full transition-all text-gray-600 shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff] hover:shadow-[inset_1px_1px_3px_#b8bec9,inset_-1px_-1px_3px_#ffffff] flex items-center justify-center gap-1.5"
-                    id="tab-${cat.replace(/\s+/g, '-')}">
+            <button onclick="filterPortfolio('${safeCatArg}')"
+                    class="port-tab-btn shrink-0 px-3.5 sm:px-5 py-2 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest bg-[#ecf0f3] rounded-full transition-all text-gray-600 shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff] hover:shadow-[inset_1px_1px_3px_#b8bec9,inset_-1px_-1px_3px_#ffffff] flex items-center justify-center gap-1.5 whitespace-nowrap"
+                    id="${safeId}">
                 <span>${cat}</span>
                 <span class="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-600 font-mono border border-blue-100 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.05)]">${count}</span>
             </button>
         `;
-    }).join('');
-    filterPortfolio('Semua');
+    }).join("");
+    filterPortfolio("Semua");
 }
 
 window.filterPortfolio = function (category) {
-    document.querySelectorAll('.port-tab-btn').forEach(btn => {
-        btn.classList.remove('shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff]', 'text-blue-600', 'font-black');
-        btn.classList.add('shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff]', 'text-gray-600');
+    document.querySelectorAll(".port-tab-btn").forEach(btn => {
+        btn.classList.remove("shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff]", "text-blue-600", "font-black");
+        btn.classList.add("shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff]", "text-gray-600");
     });
-    const activeBtn = document.getElementById(`tab-${category.replace(/\s+/g, '-')}`);
+    const safeId = "tab-" + category.replace(/[^a-zA-Z0-9]/g, "-");
+    const activeBtn = document.getElementById(safeId);
     if (activeBtn) {
-        activeBtn.classList.remove('shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff]', 'text-gray-600');
-        activeBtn.classList.add('shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff]', 'text-blue-600', 'font-black');
+        activeBtn.classList.remove("shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff]", "text-gray-600");
+        activeBtn.classList.add("shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff]", "text-blue-600", "font-black");
     }
-    const filtered = category === 'Semua' ? allPortfolioData : allPortfolioData.filter(item => item.kategori === category);
+    const filtered = category === "Semua" ? allPortfolioData : allPortfolioData.filter(item => item.kategori === category);
     renderPortfolioGrid(filtered);
 };
 
-function init3DCarousel(container) {
-    const items = container.querySelectorAll('.portfolio-3d-item');
-    if (!items.length) return;
-    
-    const count = items.length;
-    let activeIndex = 0;
-    
-    const animate = (active) => {
-        const screenWidth = window.innerWidth;
-        const isMobile = screenWidth < 768;
-        const shiftX = isMobile ? (screenWidth * 0.45) : 220;
-        const shiftY = isMobile ? 25 : 40;
-        const hiddenShiftX = isMobile ? (screenWidth * 0.75) : 340;
-
-        items.forEach((item, index) => {
-            const diff = index - active;
-            const zIndex = diff === 0 ? count : count - Math.abs(diff);
-            
-            let translateX = 0;
-            let translateY = 0;
-            let rotate = 0;
-            let scale = 1;
-            let opacity = 1;
-
-            if (diff === 0) {
-                translateX = 0;
-                translateY = 0;
-                rotate = 0;
-                scale = 1;
-                opacity = 1;
-            } else if (diff === -1) {
-                translateX = -shiftX;
-                translateY = -shiftY;
-                rotate = -12;
-                scale = 0.9;
-                opacity = 0.85;
-            } else if (diff === 1) {
-                translateX = shiftX;
-                translateY = shiftY;
-                rotate = 12;
-                scale = 0.9;
-                opacity = 0.85;
-            } else if (diff < -1) {
-                translateX = -hiddenShiftX;
-                translateY = -shiftY * 1.8;
-                rotate = -20;
-                scale = 0.8;
-                opacity = 0;
-            } else if (diff > 1) {
-                translateX = hiddenShiftX;
-                translateY = shiftY * 1.8;
-                rotate = 20;
-                scale = 0.8;
-                opacity = 0;
-            }
-
-            item.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(${rotate}deg)`;
-            item.style.opacity = opacity;
-            item.style.zIndex = zIndex;
-        });
-    };
-    
-    animate(activeIndex);
-    
-    // Bind click events on items
-    items.forEach((item, i) => {
-        item.addEventListener('click', (e) => {
-            if (e.target.closest('a')) return;
-            activeIndex = i;
-            animate(activeIndex);
-        });
-    });
-
-    const prevBtn = document.getElementById('portfolio-prev');
-    const nextBtn = document.getElementById('portfolio-next');
-    if (prevBtn) {
-        prevBtn.onclick = (e) => {
-            e.preventDefault();
-            if (activeIndex > 0) {
-                activeIndex--;
-            } else {
-                activeIndex = count - 1;
-            }
-            animate(activeIndex);
-        };
-    }
-    if (nextBtn) {
-        nextBtn.onclick = (e) => {
-            e.preventDefault();
-            if (activeIndex < count - 1) {
-                activeIndex++;
-            } else {
-                activeIndex = 0;
-            }
-            animate(activeIndex);
-        };
-    }
-    
-    // Explicitly reset any previous handlers
-    container.onwheel = null;
-    container.onmousedown = null;
-    container.onmousemove = null;
-    container.onmouseup = null;
-    container.onmouseleave = null;
-    let startX = 0;
-    let isSwiping = false;
-
-    container.ontouchstart = (e) => {
-        startX = e.touches[0].clientX;
-        isSwiping = true;
-    };
-
-    container.ontouchmove = (e) => {
-        if (!isSwiping) return;
-        const currentX = e.touches[0].clientX;
-        const diffX = currentX - startX;
-        if (Math.abs(diffX) > 50) {
-            isSwiping = false;
-            if (diffX > 0) {
-                if (activeIndex > 0) {
-                    activeIndex--;
-                    animate(activeIndex);
-                }
-            } else {
-                if (activeIndex < count - 1) {
-                    activeIndex++;
-                    animate(activeIndex);
-                }
-            }
-        }
-    };
-
-    container.ontouchend = () => {
-        isSwiping = false;
-    };
-
-    if (container._cleanupResize) {
-        window.removeEventListener('resize', container._cleanupResize);
-    }
-    const handleResize = () => animate(activeIndex);
-    window.addEventListener('resize', handleResize);
-    container._cleanupResize = handleResize;
-}
+let currentPortfolioList = [];
+let currentCarouselIndex = 0;
+let isCarouselAnimating = false;
 
 function renderPortfolioGrid(data) {
-    const container = document.getElementById('portofolio-container');
-    if (!container) return;
-    
-    container.className = "portfolio-3d-container reveal-el transition-all duration-500";
-    
-    container.innerHTML = data.map((item, index) => {
-        const numStr = String(index + 1).padStart(2, '0');
-        const techBadges = item.tech.split(',').map(t => `
-            <span class="text-[8px] px-2 py-0.5 bg-gray-200/70 text-gray-700 rounded-md font-mono border border-white/60 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.05)]">
-                ${t.trim()}
-            </span>
-        `).join('');
+    const track = document.getElementById("portofolio-container");
+    const dotsContainer = document.getElementById("portfolio-dots");
+    if (!track) return;
+
+    currentPortfolioList = data || [];
+    currentCarouselIndex = 0;
+    isCarouselAnimating = false;
+
+    if (currentPortfolioList.length === 0) {
+        track.innerHTML = `<div class="text-center text-gray-500 py-10 font-bold">Tidak ada karya dalam kategori ini.</div>`;
+        if (dotsContainer) dotsContainer.innerHTML = "";
+        return;
+    }
+
+    const count = currentPortfolioList.length;
+
+    // Render cards with initial 3D stack classes already assigned!
+    track.innerHTML = currentPortfolioList.map((item, index) => {
+        const safeImg = encodeURI(item.gambar || "").replace(/#/g, "%23");
+        let initialClass = "hidden";
+        if (count === 1) {
+            initialClass = "center";
+        } else if (count === 2) {
+            initialClass = (index === 0) ? "center" : "down-1";
+        } else if (count === 3) {
+            if (index === 0) initialClass = "center";
+            else if (index === 1) initialClass = "down-1";
+            else initialClass = "up-1";
+        } else if (count === 4) {
+            if (index === 0) initialClass = "center";
+            else if (index === 1) initialClass = "down-1";
+            else if (index === 2) initialClass = "down-2";
+            else initialClass = "up-1";
+        } else {
+            if (index === 0) initialClass = "center";
+            else if (index === 1) initialClass = "down-1";
+            else if (index === 2) initialClass = "down-2";
+            else if (index === count - 1) initialClass = "up-1";
+            else if (index === count - 2) initialClass = "up-2";
+            else initialClass = "hidden";
+        }
 
         return `
-            <div class="portfolio-3d-item group" data-index="${index}">
-                <div class="portfolio-3d-box relative flex flex-col p-4 h-full w-full">
-                    <!-- Image Card Area -->
-                    <div class="w-full h-[120px] sm:h-[150px] md:h-[220px] overflow-hidden rounded-2xl bg-gray-200 relative shadow-[inset_2px_2px_5px_#b8bec9,inset_-2px_-2px_5px_#ffffff] mb-4 flex-shrink-0">
-                        <img src="${item.gambar}" 
-                             alt="${item.judul}" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 pointer-events-none">
-                        
-                        <!-- Top Category Badge & Number -->
-                        <div class="absolute top-3 left-3 right-3 flex justify-between items-center pointer-events-none">
-                            <span class="text-[8px] font-extrabold text-white bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full uppercase tracking-widest border border-white/10 shadow-sm">
-                                ${item.kategori}
-                            </span>
-                            <span class="text-xl font-bold font-mono text-white/40">
-                                ${numStr}
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <!-- Content Card Area -->
-                    <div class="flex-1 flex flex-col justify-between overflow-hidden">
-                        <div>
-                            <h3 class="text-sm md:text-base font-extrabold text-gray-900 mb-1 leading-tight group-hover:text-blue-600 transition-colors">
-                                ${item.judul}
-                            </h3>
-                            
-                            <!-- Tech badges -->
-                            <div class="flex flex-wrap gap-1 mb-2">
-                                ${techBadges}
-                            </div>
-                            
-                            <!-- Description -->
-                            <p class="text-gray-600 text-[10px] md:text-[11px] leading-relaxed font-semibold line-clamp-3">
-                                ${item.deskripsi}
-                            </p>
-                        </div>
-                        
-                        <!-- CTA Link -->
-                        <div class="mt-3 flex justify-between items-center flex-shrink-0">
-                            <a href="${item.link}" target="_blank" class="inline-flex items-center gap-1.5 text-[9px] font-black text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-widest">
-                                <span>View Project</span>
-                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="card ${initialClass}" data-index="${index}">
+                <img src="${safeImg}" alt="${item.judul}" onerror="this.onerror=null; this.src='image/apksimplecash.png';" loading="lazy">
+                <div class="card-badge">${item.kategori}</div>
             </div>
         `;
-    }).join('');
-    
+    }).join("");
+
+    // Render dots
+    if (dotsContainer) {
+        dotsContainer.innerHTML = currentPortfolioList.map((_, index) => {
+            return `<div class="dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`;
+        }).join("");
+    }
+
     if (window.lucide) lucide.createIcons();
-    init3DCarousel(container);
+    initSideCarousel();
 }
+
+function initSideCarousel() {
+    const section = document.getElementById("portofolio");
+    if (!section) return;
+
+    const cards = section.querySelectorAll(".carousel-track .card");
+    const dots = section.querySelectorAll(".dots .dot");
+    const memberName = section.querySelector(".member-name");
+    const memberRole = section.querySelector(".member-role");
+    const memberDesc = section.querySelector(".member-desc");
+    const memberTech = section.querySelector(".member-tech");
+    const memberLink = section.querySelector(".member-link");
+    const upArrows = section.querySelectorAll(".nav-arrow.up");
+    const downArrows = section.querySelectorAll(".nav-arrow.down");
+    const container = section.querySelector(".carousel-container");
+
+    if (!cards.length) return;
+    isCarouselAnimating = false;
+
+    function updateCarousel(newIndex, isDirect = false) {
+        if (isCarouselAnimating && !isDirect) return;
+        isCarouselAnimating = true;
+
+        const count = cards.length;
+        currentCarouselIndex = (newIndex + count) % count;
+
+        cards.forEach((card, i) => {
+            const offset = (i - currentCarouselIndex + count) % count;
+
+            card.classList.remove(
+                "center",
+                "up-1",
+                "up-2",
+                "down-1",
+                "down-2",
+                "hidden"
+            );
+
+            if (count === 1) {
+                card.classList.add("center");
+            } else if (count === 2) {
+                if (offset === 0) card.classList.add("center");
+                else card.classList.add("down-1");
+            } else if (count === 3) {
+                if (offset === 0) card.classList.add("center");
+                else if (offset === 1) card.classList.add("down-1");
+                else card.classList.add("up-1");
+            } else if (count === 4) {
+                if (offset === 0) card.classList.add("center");
+                else if (offset === 1) card.classList.add("down-1");
+                else if (offset === 2) card.classList.add("down-2");
+                else card.classList.add("up-1");
+            } else {
+                if (offset === 0) {
+                    card.classList.add("center");
+                } else if (offset === 1) {
+                    card.classList.add("down-1");
+                } else if (offset === 2) {
+                    card.classList.add("down-2");
+                } else if (offset === count - 1) {
+                    card.classList.add("up-1");
+                } else if (offset === count - 2) {
+                    card.classList.add("up-2");
+                } else {
+                    card.classList.add("hidden");
+                }
+            }
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentCarouselIndex);
+        });
+
+        const activeItem = currentPortfolioList[currentCarouselIndex];
+        if (activeItem) {
+            if (memberName) memberName.style.opacity = "0";
+            if (memberRole) memberRole.style.opacity = "0";
+            if (memberDesc) memberDesc.style.opacity = "0";
+            if (memberTech) memberTech.style.opacity = "0";
+            if (memberLink) memberLink.style.opacity = "0";
+
+            setTimeout(() => {
+                if (memberName) {
+                    memberName.textContent = activeItem.judul;
+                    memberName.style.opacity = "1";
+                }
+                if (memberRole) {
+                    memberRole.textContent = activeItem.kategori;
+                    memberRole.style.opacity = "1";
+                }
+                if (memberDesc) {
+                    memberDesc.textContent = activeItem.deskripsi || "";
+                    memberDesc.style.opacity = "1";
+                }
+                if (memberTech) {
+                    const cleanTech = (activeItem.tech || "")
+                        .split(/[\n,]+/)
+                        .map(t => t.replace(/[\d.]+%?/g, "").trim())
+                        .filter(t => t.length > 0 && t.toLowerCase() !== "other" && !t.includes("/"))
+                        .slice(0, 4);
+                    memberTech.innerHTML = cleanTech.map(t => `
+                        <span class="text-[9px] px-2.5 py-0.5 bg-[#ecf0f3] text-gray-700 rounded-md font-mono border border-white/60 shadow-[inset_1px_1px_2px_#b8bec9,inset_-1px_-1px_2px_#ffffff]">
+                            ${t}
+                        </span>
+                    `).join("");
+                    memberTech.style.opacity = "1";
+                }
+                if (memberLink) {
+                    memberLink.href = activeItem.link || "#";
+                    memberLink.style.opacity = "1";
+                }
+            }, 250);
+        }
+
+        setTimeout(() => {
+            isCarouselAnimating = false;
+        }, 700);
+    }
+
+    // Bind arrows
+    upArrows.forEach(arrow => {
+        arrow.onclick = (e) => {
+            e.preventDefault();
+            updateCarousel(currentCarouselIndex - 1);
+        };
+    });
+
+    downArrows.forEach(arrow => {
+        arrow.onclick = (e) => {
+            e.preventDefault();
+            updateCarousel(currentCarouselIndex + 1);
+        };
+    });
+
+    // Bind dots
+    dots.forEach((dot, i) => {
+        dot.onclick = (e) => {
+            e.preventDefault();
+            updateCarousel(i);
+        };
+    });
+
+    // Bind cards
+    cards.forEach((card, i) => {
+        card.onclick = (e) => {
+            if (e.target.closest("a")) return;
+            if (i === currentCarouselIndex) {
+                const item = currentPortfolioList[i];
+                if (item && item.link && item.link !== "#") {
+                    window.open(item.link, "_blank");
+                }
+            } else {
+                updateCarousel(i);
+            }
+        };
+    });
+
+    // Touch Swipe handling on carousel
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    if (container) {
+        container.ontouchstart = (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        };
+        container.ontouchend = (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            const diff = touchStartY - touchEndY;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) {
+                    updateCarousel(currentCarouselIndex + 1);
+                } else {
+                    updateCarousel(currentCarouselIndex - 1);
+                }
+            }
+        };
+
+        // Mouse wheel over carousel container
+        let wheelTimeout = null;
+        container.onwheel = (e) => {
+            if (Math.abs(e.deltaY) > 20) {
+                e.preventDefault();
+                if (!wheelTimeout && !isCarouselAnimating) {
+                    if (e.deltaY > 0) {
+                        updateCarousel(currentCarouselIndex + 1);
+                    } else {
+                        updateCarousel(currentCarouselIndex - 1);
+                    }
+                    wheelTimeout = setTimeout(() => {
+                        wheelTimeout = null;
+                    }, 500);
+                }
+            }
+        };
+    }
+
+    // Direct initial update without lock
+    updateCarousel(0, true);
+}
+
+
 
 // Floating Page Navigation Indicator
 function initPageNavIndicator() {
@@ -895,7 +1119,7 @@ function initPageNavIndicator() {
         document.body.appendChild(container);
     }
 
-    const sections = Array.from(document.querySelectorAll('main > section.scroll-section'));
+    const sections = Array.from(document.querySelectorAll('main section.scroll-section'));
     if (sections.length === 0) return;
 
     let sectionOffsets = [];
@@ -919,26 +1143,30 @@ function initPageNavIndicator() {
     const sectionNames = {
         id: {
             'home': 'Beranda',
+            'cooperation': 'Mitra',
             'services': 'Layanan',
-            'partnership': 'Mitra',
+            'partnership': 'Pilar',
             'teacher': 'Akademis',
             'portofolio': 'Karya',
             'reviews': 'Ulasan',
             'artikel': 'Artikel',
             'daftar-jurnal': 'Jurnal',
             'awards': 'Sertifikat',
+            'penelitian': 'Riset',
             'contact': 'Kontak'
         },
         en: {
             'home': 'Home',
+            'cooperation': 'Partners',
             'services': 'Services',
-            'partnership': 'Partnership',
+            'partnership': 'Pillars',
             'teacher': 'Academic',
             'portofolio': 'Portfolio',
             'reviews': 'Reviews',
             'artikel': 'Articles',
             'daftar-jurnal': 'Journals',
             'awards': 'Certificates',
+            'penelitian': 'Research',
             'contact': 'Contact'
         }
     };
@@ -994,180 +1222,200 @@ function initPageNavIndicator() {
     window.updateActiveDotByIndex(0);
 }
 
-// EXECUTION (Mode Classic: Instant First-Paint & Zero-Blocking UI)
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Instant UI & Slider Initialization (0ms delay)
-    initServicesTabs();
-    initClassicSwipers();
-    initClassicScrollSpy();
-    initScrollAnimations();
-
-    // 2. Load cached articles & portfolio immediately (0ms first-paint, updates in background)
-    loadArtikel();
-    loadPortofolio();
-    loadPenelitian();
-
-    // 3. Components & Translations in parallel
-    loadComponent('header-placeholder', 'include/header');
-    loadComponent('footer-placeholder', 'include/footer');
-    applyTranslations();
-
-    // 4. Journal Scroll Navigation
-    const jUpBtn = document.getElementById('journal-scroll-up');
-    const jDownBtn = document.getElementById('journal-scroll-down');
-    const jContainer = document.getElementById('jurnal-list-container');
-    if (jUpBtn && jContainer) {
-        jUpBtn.onclick = (e) => {
-            e.preventDefault();
-            jContainer.scrollBy({ top: -180, behavior: 'smooth' });
-        };
-    }
-    if (jDownBtn && jContainer) {
-        jDownBtn.onclick = (e) => {
-            e.preventDefault();
-            jContainer.scrollBy({ top: 180, behavior: 'smooth' });
-        };
-    }
-});
-
-window.switchPartnerTab = function(tabName) {
-    // Hide all grids
-    document.querySelectorAll('.partner-grid').forEach(grid => {
-        grid.classList.add('hidden');
-    });
-    // Show selected grid
-    const targetGrid = document.getElementById(`partner-grid-${tabName}`);
-    if (targetGrid) {
-        targetGrid.classList.remove('hidden');
-    }
-    
-    // Update button styles
-    const tabBtns = document.querySelectorAll('.partner-tab-btn');
-    tabBtns.forEach(btn => {
-        btn.classList.remove(
-            'shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff]', 
-            'text-blue-600', 
-            'font-black'
-        );
-        btn.classList.add(
-            'shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff]', 
-            'text-gray-600'
-        );
-    });
-    
-    const activeBtn = document.getElementById(`partner-tab-${tabName}`);
-    if (activeBtn) {
-        activeBtn.classList.remove(
-            'shadow-[2px_2px_5px_#b8bec9,-2px_-2px_5px_#ffffff]', 
-            'text-gray-600'
-        );
-        activeBtn.classList.add(
-            'shadow-[inset_2px_2px_4px_#b8bec9,inset_-2px_-2px_4px_#ffffff]', 
-            'text-blue-600', 
-            'font-black'
-        );
-    }
-};
-
+// ==========================================
+// PENELITIAN & PUBLIKASI ILMIAH (ZENODO REAL-TIME SYNC)
+// ==========================================
 async function loadPenelitian() {
-    const grid = document.getElementById('penelitian-cards-grid');
-    if (!grid) return;
+    const container = document.getElementById('penelitian-cards-grid');
+    if (!container) return;
 
-    // 1. Instant Cache Render (0ms)
+    // 1. Instant Cache Render (0ms First-Paint)
     const cached = localStorage.getItem('ilham_zenodo_cache');
     if (cached) {
         try {
             const parsed = JSON.parse(cached);
             if (Array.isArray(parsed) && parsed.length > 0) {
-                renderHomePenelitianCards(parsed);
+                renderHomePenelitian(parsed);
+                updateZenodoBadge(parsed.length);
             }
         } catch (_) {}
     }
 
-    // 2. Fetch Fresh Data from Cloudflare Pages API (/api/zenodo)
+    // 2. Non-blocking Realtime Fetch from Cloudflare Pages API (/api/zenodo) with Fallbacks
     try {
-        const res = await fetch('/api/zenodo');
+        let res;
+        try {
+            res = await fetch('/api/zenodo');
+            if (!res.ok) throw new Error('local api fallback');
+        } catch (_) {
+            res = await fetch('https://zenodo.org/api/records?q=metadata.creators.person_or_org.name:%22Pradani,%20Ilham%22&sort=-mostrecent&size=50');
+        }
+
         if (res.ok) {
             const json = await res.json();
-            if (json && Array.isArray(json.data) && json.data.length > 0) {
-                localStorage.setItem('ilham_zenodo_cache', JSON.stringify(json.data));
-                renderHomePenelitianCards(json.data);
+            const papers = Array.isArray(json.data) ? json.data : (json.hits?.hits?.map(h => ({
+                id: String(h.id),
+                title: h.metadata?.title || 'Karya Ilmiah',
+                doi: h.doi || '',
+                doi_url: h.doi_url || `https://zenodo.org/records/${h.id}`,
+                url: h.links?.html || `https://zenodo.org/records/${h.id}`,
+                publication_date: h.metadata?.publication_date || h.created?.split('T')[0] || '2026',
+                year: h.metadata?.publication_date ? h.metadata.publication_date.split('-')[0] : '2026',
+                authors: h.metadata?.creators?.map(c => c.name) || ['Dr. Ilham Pradani C.L.'],
+                abstract: h.metadata?.description ? h.metadata.description.replace(/<[^>]+>/g, '').trim() : '',
+                keywords: h.metadata?.keywords || []
+            })) || []);
+
+            if (Array.isArray(papers) && papers.length > 0) {
+                localStorage.setItem('ilham_zenodo_cache', JSON.stringify(papers));
+                renderHomePenelitian(papers);
+                updateZenodoBadge(papers.length);
             }
         }
     } catch (e) {
-        console.warn('Home penelitian sync note:', e);
+        console.warn('Real-time Zenodo sync notice:', e);
     }
 }
 
-function renderHomePenelitianCards(papers) {
-    const grid = document.getElementById('penelitian-cards-grid');
-    if (!grid || !papers.length) return;
+function updateZenodoBadge(totalCount) {
+    const badge = document.getElementById('zenodo-live-badge');
+    if (badge && totalCount) {
+        badge.textContent = `${totalCount} Riset Zenodo Live`;
+    }
+}
 
-    const topPapers = papers.slice(0, 4);
-    grid.innerHTML = topPapers.map((paper, idx) => {
+function renderHomePenelitian(papers) {
+    const container = document.getElementById('penelitian-cards-grid');
+    if (!container || !papers || !papers.length) return;
+
+    // Show top 6 most recent published papers on the homepage
+    const displayPapers = papers.slice(0, 6);
+
+    const lang = localStorage.getItem('preferred_lang') || 'id';
+    const isZh = lang === 'zh';
+    const isEn = lang !== 'id' && !isZh;
+
+    container.innerHTML = displayPapers.map((paper, idx) => {
+        const title = paper.title || 'Publikasi Ilmiah';
         const doi = paper.doi || '';
-        const doiUrl = paper.doi_url || (doi ? `https://doi.org/${doi}` : paper.url);
+        const doiUrl = paper.doi_url || (doi ? `https://doi.org/${doi}` : paper.url || `https://zenodo.org/records/${paper.id}`);
         const year = paper.year || '2026';
-        const title = paper.title || 'Karya Ilmiah';
-        const abstract = paper.abstract || 'Kajian ilmiah terverifikasi oleh Dr. Ilham Pradani C.L. Terdaftar resmi di Zenodo (CERN / OpenAIRE) dengan DOI.';
-        
-        let catId = 'Hukum Siber & AI';
-        let catEn = 'Cyber Law & AI';
-        let catZh = '网络法与人工智能';
+        const date = paper.publication_date || year;
+        const authors = Array.isArray(paper.authors) ? paper.authors.join(', ') : (paper.authors || 'Dr. Ilham Pradani C.L.');
+        const rawAbstract = paper.abstract || 'Kajian ilmiah terverifikasi oleh Dr. Ilham Pradani C.L. Terdaftar resmi di repositori terbuka Zenodo (CERN / OpenAIRE) dengan DOI terverifikasi.';
+        const cleanAbstract = rawAbstract.replace(/<[^>]+>/g, '').trim();
+
+        // Categorize paper
+        let catLabel = isZh ? '网络法与AI' : (isEn ? 'Cyber Law & AI' : 'Hukum Siber & AI');
         let catColor = 'text-blue-600 bg-blue-50 border-blue-200/50';
-        const lower = title.toLowerCase();
-        if (lower.includes('arbitrage') || lower.includes('futures') || lower.includes('token')) {
-            catId = 'Fintech & DeFi';
-            catEn = 'Fintech & DeFi';
-            catZh = '金融科技与DeFi';
+        const lowerTitle = title.toLowerCase();
+        if (lowerTitle.includes('arbitrage') || lowerTitle.includes('futures') || lowerTitle.includes('token') || lowerTitle.includes('credit') || lowerTitle.includes('financing')) {
+            catLabel = isZh ? '金融科技与DeFi' : (isEn ? 'Fintech & DeFi' : 'Fintech & DeFi');
             catColor = 'text-emerald-700 bg-emerald-50 border-emerald-200/50';
-        } else if (lower.includes('thermal') || lower.includes('twin')) {
-            catId = 'Forensik & Digital-Twin';
-            catEn = 'Forensics & Digital-Twin';
-            catZh = '数字取证与数字孪生';
+        } else if (lowerTitle.includes('forensik') || lowerTitle.includes('thermal') || lowerTitle.includes('twin') || lowerTitle.includes('stochastic') || lowerTitle.includes('iot')) {
+            catLabel = isZh ? '数字取证与安全' : (isEn ? 'Digital Forensics' : 'Digital Twin & Forensik');
             catColor = 'text-purple-700 bg-purple-50 border-purple-200/50';
-        } else if (lower.includes('logistik') || lower.includes('kontrak')) {
-            catId = 'Hukum Kontrak 3T';
-            catEn = '3T Contract Law';
-            catZh = '3T合同法与物流';
+        } else if (lowerTitle.includes('logistik') || lowerTitle.includes('kontrak') || lowerTitle.includes('krui') || lowerTitle.includes('enterprise')) {
+            catLabel = isZh ? '企业架构战略' : (isEn ? 'Enterprise Strategy' : 'Hukum Kontrak & 3T');
             catColor = 'text-amber-700 bg-amber-50 border-amber-200/50';
         }
 
+        const lblDetail = isZh ? '论文详情' : (isEn ? 'Paper Details' : 'Detail Paper');
+        const lblZenodo = isZh ? 'Zenodo DOI' : 'Zenodo DOI';
+
         return `
-        <div class="border-b border-gray-300/70 pb-4 pt-2 flex flex-col justify-between">
-            <div>
-                <div class="flex items-center justify-between gap-2 mb-2">
-                    <span class="text-[9px] font-black uppercase tracking-wider ${catColor} px-2 py-0.5 rounded border">
-                        <span class="lang-id">${catId}</span>
-                        <span class="lang-en hidden">${catEn}</span>
-                        <span class="lang-zh hidden">${catZh}</span>
-                    </span>
-                    <span class="text-[10px] font-mono font-bold text-gray-500">${year} • Zenodo DOI</span>
+            <div class="border-b border-gray-300/70 pb-4 pt-2 flex flex-col justify-between group transition-colors">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="text-[9px] font-black uppercase tracking-wider ${catColor} px-2 py-0.5 rounded border">
+                                ${catLabel}
+                            </span>
+                            ${doi ? `<span class="text-[9px] font-mono font-bold text-gray-500 bg-white/70 px-1.5 py-0.5 rounded border border-gray-200/70 hidden sm:inline-block">DOI: ${doi}</span>` : ''}
+                        </div>
+                        <span class="text-[10px] font-mono font-bold text-gray-500 flex items-center gap-1 shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>${date}</span>
+                        </span>
+                    </div>
+
+                    <h3 class="text-sm sm:text-base font-extrabold text-gray-900 mb-1.5 leading-snug group-hover:text-blue-600 transition-colors">
+                        <a href="${doiUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                            ${title}
+                        </a>
+                    </h3>
+
+                    <p class="text-xs text-gray-600 leading-relaxed font-medium mb-3 line-clamp-3">
+                        ${cleanAbstract}
+                    </p>
                 </div>
-                <h3 class="text-sm sm:text-base font-extrabold text-gray-900 mb-1.5 leading-snug line-clamp-2" title="${title}">
-                    ${title}
-                </h3>
-                <p class="text-xs text-gray-600 leading-relaxed font-medium mb-3 line-clamp-3">
-                    ${abstract}
-                </p>
+
+                <div class="pt-2 border-t border-gray-300/40 flex items-center justify-between gap-2">
+                    <span class="text-[10px] font-mono text-gray-500 font-semibold truncate max-w-[180px] sm:max-w-xs">
+                        <i data-lucide="user" class="w-3 h-3 inline-block text-blue-600 mr-0.5"></i>
+                        <span>${authors}</span>
+                    </span>
+
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <a href="${doiUrl}" target="_blank" rel="noopener noreferrer"
+                            class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-[11px] font-bold border border-emerald-200/60 shadow-sm transition-all flex items-center gap-1"
+                            title="Buka di Zenodo (CERN / OpenAIRE)">
+                            <img src="image/zenodo.svg" alt="Zenodo" class="w-3.5 h-3.5 object-contain">
+                            <span>${lblZenodo}</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+
+                        <a href="penelitian.html#paper-zenodo-${idx + 1}"
+                            class="px-2.5 py-1 rounded-lg bg-[#ecf0f3] text-blue-600 hover:text-blue-800 text-xs font-bold shadow-[2px_2px_4px_#b8bec9,-2px_-2px_4px_#ffffff] active:shadow-[inset_1px_1px_2px_#b8bec9] transition-all flex items-center gap-1 cursor-pointer">
+                            <span>${lblDetail}</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="pt-2 border-t border-gray-300/40 flex items-center justify-between">
-                <span class="text-[10px] font-mono text-gray-500 font-semibold truncate max-w-[55%]">
-                    <span class="lang-id">Penulis: Dr. Ilham Pradani C.L.</span>
-                    <span class="lang-en hidden">Author: Dr. Ilham Pradani C.L.</span>
-                    <span class="lang-zh hidden">作者: Ilham Pradani C.L. 博士</span>
-                </span>
-                <a href="${doiUrl}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-[#ecf0f3] text-blue-600 hover:text-blue-800 text-xs font-bold shadow-[2px_2px_4px_#b8bec9,-2px_-2px_4px_#ffffff] active:shadow-[inset_1px_1px_2px_#b8bec9] transition-all flex items-center gap-1 shrink-0 cursor-pointer">
-                    <span class="lang-id">Lihat di Zenodo</span>
-                    <span class="lang-en hidden">View on Zenodo</span>
-                    <span class="lang-zh hidden">在 Zenodo 查看</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                </a>
-            </div>
-        </div>
         `;
     }).join('');
 
-    if (window.applyTranslations) window.applyTranslations();
     if (window.lucide) lucide.createIcons();
+    if (window.applyTranslations) window.applyTranslations();
+}
+
+// EXECUTION (Mode Classic: Instant First-Paint & Zero-Blocking UI)
+// Safe Global Execution (Mode Classic: Instant First-Paint & Zero-Blocking UI)
+function runInitApp() {
+    // 1. Immediately load components FIRST so the page shell is never missing header or footer!
+    try { loadComponent('header-placeholder', 'include/header'); } catch (e) { console.warn("Header load error:", e); }
+    try { loadComponent('footer-placeholder', 'include/footer'); } catch (e) { console.warn("Footer load error:", e); }
+    try { applyTranslations(); } catch (e) { console.warn("Translation error:", e); }
+
+    // 2. UI Interactive Components (isolated in try-catch so one never breaks another)
+    try { initServicesTabs(); } catch (e) { console.warn(e); }
+    try { initOptionsAccordion(); } catch (e) { console.warn(e); }
+    try { initClassicSwipers(); } catch (e) { console.warn(e); }
+    try { initClassicScrollSpy(); } catch (e) { console.warn(e); }
+    try { initScrollAnimations(); } catch (e) { console.warn(e); }
+
+    // 3. Data Loaders
+    try { loadArtikel(); } catch (e) { console.warn(e); }
+    try { loadPortofolio(); } catch (e) { console.warn(e); }
+    try { loadPenelitian(); } catch (e) { console.warn("Penelitian load error:", e); }
+
+    // 4. Journal Scroll Navigation
+    try {
+        const jUpBtn = document.getElementById('journal-scroll-up');
+        const jDownBtn = document.getElementById('journal-scroll-down');
+        const jContainer = document.getElementById('jurnal-list-container');
+        if (jUpBtn && jContainer) {
+            jUpBtn.onclick = (e) => { e.preventDefault(); jContainer.scrollBy({ top: -180, behavior: 'smooth' }); };
+        }
+        if (jDownBtn && jContainer) {
+            jDownBtn.onclick = (e) => { e.preventDefault(); jContainer.scrollBy({ top: 180, behavior: 'smooth' }); };
+        }
+    } catch (e) { console.warn(e); }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runInitApp);
+} else {
+    runInitApp();
 }

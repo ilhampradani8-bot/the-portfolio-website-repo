@@ -35,11 +35,20 @@ let allPortfolioData = [];
 
         async function fetchPortfolioData() {
             try {
-                const sheetId = '1eD1ElFcjBpVrS8DGShVlPrmuLI1bZIo4QEcxG1kBCAc';
-                const res = await fetch(`https://opensheet.elk.sh/${sheetId}/Portofolio`);
+                let res;
+                try {
+                    res = await fetch('/api/portfolio');
+                    if (!res.ok) throw new Error('D1 api fallback');
+                } catch (_) {
+                    try {
+                        res = await fetch('/api/sheets?tab=Portofolio');
+                        if (!res.ok) throw new Error('local api fallback');
+                    } catch (_) {
+                        const sheetId = '1eD1ElFcjBpVrS8DGShVlPrmuLI1bZIo4QEcxG1kBCAc';
+                        res = await fetch(`https://opensheet.elk.sh/${sheetId}/Portofolio`);
+                    }
+                }
                 allPortfolioData = await res.json();
-                
-                // Initialize filters & lists
                 renderCategoryFilters(allPortfolioData);
                 filterPortfolio('Semua');
             } catch (e) {

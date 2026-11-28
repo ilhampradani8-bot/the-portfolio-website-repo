@@ -139,10 +139,8 @@ async function applyTranslations() {
     // 2. Fetch and apply dictionary [data-t] translations
     try {
         if (!cachedTranslations || cachedLang !== lang) {
-            const isDev = window.location.hostname === 'localhost' || 
-                          window.location.hostname === '127.0.0.1' || 
-                          window.location.port === '5501' || 
-                          window.location.hostname.includes('139.59.122.230');
+            const host = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
+            const isDev = host === 'localhost' || host === '127.0.0.1' || host.includes('139.59.122.230');
             const url = `lang/${lang}.json` + (isDev ? `?t=${Date.now()}` : '');
             const response = await fetch(url);
             if (!response.ok) return;
@@ -849,910 +847,524 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* ==========================================================================
-   FLOATING ACTION HUB (Telegram Chat UI: Contact, Pages, & Live Search)
+   SIMPLECHAT WHITE FLOATING CHAT BUBBLE (Clean White Theme msger)
    ========================================================================== */
-(function initFloatingActionHub() {
-    function setupHub() {
-        if (document.getElementById('floating-action-hub')) return;
+(function initSimpleChatBubble() {
+    function setupChat() {
+        if (document.getElementById("floating-action-hub")) return;
 
-        let cachedSearchArticles = [];
-        let isArticlesFetched = false;
+        // 1. Inject Styles
+        const styleId = "msger-chat-styles";
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement("style");
+            style.id = styleId;
+            style.textContent = `
+:root {
+  --msger-bg: #ffffff;
+  --msger-border: 1px solid #e2e8f0;
+  --left-msg-bg: #ececec;
+  --right-msg-bg: #579ffb;
+}
 
-        // Preload articles from /api/sheets in background for instantaneous search
-        async function prefetchArticles() {
-            if (isArticlesFetched) return;
-            try {
-                const res = await fetch('/api/sheets?tab=Sheet1');
-                if (res.ok) {
-                    cachedSearchArticles = await res.json();
-                    isArticlesFetched = true;
-                }
-            } catch (e) {
-                console.warn("Hub prefetch notice:", e);
-            }
+#floating-action-hub {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 99999 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.65rem;
+  pointer-events: none;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#floating-msger-panel {
+  pointer-events: auto;
+  position: relative;
+  width: 360px;
+  max-width: calc(100vw - 28px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: bottom right;
+}
+
+.msger {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 520px;
+  max-height: calc(100vh - 110px);
+  border: var(--msger-border);
+  border-radius: 16px;
+  background: var(--msger-bg);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.22), 0 0 1px 1px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.msger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.msger-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #111827;
+  font-weight: 800;
+}
+
+.msger-header-options {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.msger-opt-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  padding: 0;
+  text-decoration: none;
+}
+
+.msger-opt-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.msger-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  background-color: #fcfcfe;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23dddddd' fill-opacity='0.4'%3E%3Cpath d='M24.37 16c.2.65.39 1.32.54 2H21.17l1.17 2.34.45.9-.24.11V28a5 5 0 0 1-2.23 8.94l-.02.06a8 8 0 0 1-7.75 6h-20a8 8 0 0 1-7.74-6l-.02-.06A5 5 0 0 1-17.45 28v-6.76l-.79-1.58-.44-.9.9-.44.63-.32H-20a23.01 23.01 0 0 1 44.37-2zm-36.82 2a1 1 0 0 0-.44.1l-3.1 1.56.89 1.79 1.31-.66a3 3 0 0 1 2.69 0l2.2 1.1a1 1 0 0 0 .9 0l2.21-1.1a3 3 0 0 1 2.69 0l2.2 1.1a1 1 0 0 0 .9 0l2.21-1.1a3 3 0 0 1 2.69 0l2.2 1.1a1 1 0 0 0 .86.02l2.88-1.27a3 3 0 0 1 2.43 0l2.88 1.27a1 1 0 0 0 .85-.02l3.1-1.55-.89-1.79-1.42.71a3 3 0 0 1-2.56.06l-2.77-1.23a1 1 0 0 0-.4-.09h-.01a1 1 0 0 0-.4.09l-2.78 1.23a3 3 0 0 1-2.56-.06l-2.3-1.15a1 1 0 0 0-.45-.11h-.01a1 1 0 0 0-.44.1L.9 19.22a3 3 0 0 1-2.69 0l-2.2-1.1a1 1 0 0 0-.45-.11h-.01a1 1 0 0 0-.44.1l-2.21 1.11a3 3 0 0 1-2.69 0l-2.2-1.1a1 1 0 0 0-.45-.11h-.01zm0-2h-4.9a21.01 21.01 0 0 1 39.61 0h-2.09l-.06-.13-.26.13h-32.31zm30.35 7.68l1.36-.68h1.3v2h-36v-1.15l.34-.17 1.36-.68h2.59l1.36.68a3 3 0 0 0 2.69 0l1.36-.68h2.59l1.36.68a3 3 0 0 0 2.69 0L2.26 23h2.59l1.36.68a3 3 0 0 0 2.56.06l1.67-.74h3.23l1.67.74a3 3 0 0 0 2.56-.06zM-13.82 27l16.37 4.91L18.93 27h-32.75zm-.63 2h.34l16.66 5 16.67-5h.33a3 3 0 1 1 0 6h-34a3 3 0 1 1 0-6zm1.35 8a6 6 0 0 0 5.65 4h20a6 6 0 0 0 5.66-4H-13.1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.msger-chat::-webkit-scrollbar {
+  width: 5px;
+}
+.msger-chat::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.msger-chat::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+.msg {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+.msg:last-of-type {
+  margin: 0;
+}
+.msg-img {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  margin-right: 10px;
+  background: #e2e8f0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+.msg-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 15px;
+  background: var(--left-msg-bg, #ececec);
+  font-size: 12px;
+  line-height: 1.45;
+  color: #1f2937;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.msg-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.msg-info-name {
+  margin-right: 10px;
+  font-weight: 700;
+  font-size: 11px;
+}
+.msg-info-time {
+  font-size: 10px;
+  opacity: 0.65;
+}
+
+.left-msg .msg-bubble {
+  border-bottom-left-radius: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+}
+
+.right-msg {
+  flex-direction: row-reverse;
+}
+.right-msg .msg-bubble {
+  background: var(--right-msg-bg, #579ffb);
+  color: #ffffff;
+  border-bottom-right-radius: 0;
+}
+.right-msg .msg-info-name {
+  color: rgba(255, 255, 255, 0.95);
+}
+.right-msg .msg-info-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+.right-msg .msg-img {
+  margin: 0 0 0 10px;
+}
+
+.msger-chips-bar {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-top: 1px solid #f1f5f9;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.msger-chips-bar::-webkit-scrollbar {
+  display: none;
+}
+.msger-chip {
+  padding: 4px 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.msger-chip:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.msger-inputarea {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+.msger-input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  background: #f9fafb;
+  outline: none;
+  color: #111827;
+  transition: border-color 0.2s;
+}
+.msger-input:focus {
+  border-color: #579ffb;
+  background: #ffffff;
+}
+.msger-send-btn {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  background: rgb(0, 196, 65);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.msger-send-btn:hover {
+  background: rgb(0, 180, 50);
+}
+.msger-send-btn:active {
+  transform: scale(0.97);
+}
+`;
+            document.head.appendChild(style);
         }
-        setTimeout(prefetchArticles, 1000);
 
-        // Copy feedback helper for Telegram inline buttons
-        function hubCopyFeedback(btn, textToCopy) {
-            if (!btn || !textToCopy) return;
-            const originalHtml = btn.innerHTML;
-            const originalClasses = btn.className;
-
-            const onDone = () => {
-                btn.className = "py-1.5 px-2.5 rounded-xl bg-emerald-600 text-white font-extrabold text-[10.5px] uppercase tracking-wider shadow-sm flex items-center justify-center gap-1 transition-all";
-                btn.innerHTML = `
-                    <svg class="w-3.5 h-3.5 text-white shrink-0 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <span>Tersalin!</span>
-                `;
-                setTimeout(() => {
-                    btn.innerHTML = originalHtml;
-                    btn.className = originalClasses;
-                }, 1800);
-            };
-
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(textToCopy).then(onDone).catch(() => {
-                    fallbackCopy(textToCopy);
-                    onDone();
-                });
-            } else {
-                fallbackCopy(textToCopy);
-                onDone();
-            }
+        function formatTime(date) {
+            const h = "0" + date.getHours();
+            const m = "0" + date.getMinutes();
+            return `${h.slice(-2)}:${m.slice(-2)}`;
         }
 
-        function fallbackCopy(text) {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.setAttribute('readonly', '');
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            ta.style.left = '-9999px';
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand('copy'); } catch (e) {}
-            document.body.removeChild(ta);
-        }
-
-        // Highlight matching query keywords
-        function highlightMatch(text, query) {
-            if (!query || !text) return text;
-            const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(`(${escaped})`, 'gi');
-            return text.replace(regex, '<mark class="bg-amber-300 dark:bg-amber-400/30 text-gray-900 dark:text-amber-200 px-0.5 rounded font-bold">$1</mark>');
-        }
-
-        // Get current local time in HH:mm format for Telegram timestamp
-        function getTgTimestamp() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            return `${h}:${m}`;
-        }
-
-        // Construct HTML markup for Telegram Chat Floating Hub
+        // 2. Inject HTML Markup
         const hubHtml = `
-        <div id="floating-action-hub" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-[9990] flex flex-col items-end gap-2.5 font-sans pointer-events-none select-none">
-            
-            <!-- 1. Tombol Melayang ke Atas (Telegram Floating Scroll-to-Top) -->
+        <div id="floating-action-hub">
+            <!-- Scroll to top button -->
             <button type="button" id="hub-scroll-top-btn" 
-                    class="pointer-events-auto opacity-0 translate-y-3 pointer-events-none transition-all duration-300 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 dark:bg-[#17212b]/95 backdrop-blur-xl border border-slate-200/90 dark:border-[#2b3a4a] shadow-[0_8px_25px_rgba(0,0,0,0.18)] flex items-center justify-center text-[#2481cc] dark:text-[#64b5f6] hover:bg-[#2481cc] hover:text-white dark:hover:bg-[#2481cc] dark:hover:text-white hover:scale-105 active:scale-95 cursor-pointer group"
-                    aria-label="Kembali ke atas" title="Scroll ke Atas">
+                    class="pointer-events-auto opacity-0 translate-y-3 pointer-events-none transition-all duration-300 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer group" 
+                    aria-label="Scroll to top" title="Scroll ke Atas">
                 <svg class="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/>
                 </svg>
             </button>
 
-            <!-- 2. Telegram Chat Window Panel -->
-            <div id="floating-hub-panel" 
-                 class="pointer-events-auto relative w-[345px] xs:w-[385px] sm:w-[415px] max-w-[calc(100vw-28px)] bg-[#eef2f5] dark:bg-[#0e1621] border border-slate-200/90 dark:border-[#242f3d] rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.45)] flex flex-col overflow-hidden transition-all duration-300 transform scale-95 opacity-0 translate-y-4 pointer-events-none origin-bottom-right mb-1">
-                
-                <!-- Telegram App Header -->
-                <div class="px-3.5 sm:px-4 py-3 bg-[#2481cc] dark:bg-[#17212b] text-white flex items-center justify-between shadow-md">
-                    <div class="flex items-center gap-3 min-w-0">
-                        <!-- Telegram Avatar with Online Badge -->
-                        <div class="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white/20 border-2 border-white/60 dark:border-slate-600 shrink-0 shadow-sm">
-                            <img src="image/hero-removebg-preview.png" alt="Ilham Pradani" class="w-full h-full object-cover object-top scale-110">
-                            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-[#2481cc] dark:border-[#17212b] rounded-full"></span>
+            <!-- Floating msger Panel -->
+            <div id="floating-msger-panel" class="scale-95 opacity-0 translate-y-4 pointer-events-none mb-1">
+                <section class="msger">
+                    <header class="msger-header">
+                        <div class="msger-header-title">
+                            <i class="fas fa-comment-alt" style="color: #579ffb;"></i>
+                            <span>SimpleChat</span>
                         </div>
-                        <div class="min-w-0">
-                            <div class="flex items-center gap-1.5">
-                                <h4 class="font-extrabold text-white text-xs sm:text-sm leading-tight truncate">Ilham Pradani, S.H. (cand.)</h4>
-                                <!-- Telegram Verified Badge -->
-                                <svg class="w-4 h-4 text-white shrink-0 fill-current" viewBox="0 0 24 24" aria-label="Verified">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        <div class="msger-header-options">
+                            <a href="https://wa.me/6288971071138?text=Halo%20Ilham%20Pradani,%20saya%20ingin%20berkonsultasi" target="_blank" rel="noopener noreferrer" class="msger-opt-btn" title="Hubungi via WhatsApp">
+                                <img src="image/wa_clean.svg" class="w-4 h-4 object-contain" alt="WA">
+                            </a>
+                            <a href="https://t.me/ilhampradani_sh" target="_blank" rel="noopener noreferrer" class="msger-opt-btn" title="Hubungi via Telegram">
+                                <img src="image/tg_clean.png" class="w-4 h-4 object-contain" alt="TG">
+                            </a>
+                            <button type="button" id="msger-close-btn" class="msger-opt-btn" title="Tutup Chat" aria-label="Tutup">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
-                            </div>
-                            <p class="text-[10.5px] font-medium text-blue-100 dark:text-gray-400 flex items-center gap-1.5 mt-0.5 truncate">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 dark:bg-emerald-400 animate-pulse"></span>
-                                <span>online • Konsultan Hukum & AI</span>
-                            </p>
+                            </button>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-1 shrink-0">
-                        <a href="https://t.me/ilhampradani_sh" target="_blank" rel="noopener noreferrer" 
-                           class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-                           title="Buka Langsung di Telegram">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-                            </svg>
-                        </a>
-                        <button type="button" id="hub-panel-close-btn" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer" aria-label="Tutup">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+                    </header>
 
-                <!-- Telegram Pinned Segment Tabs Bar -->
-                <div class="px-3 sm:px-4 py-2 bg-white/90 dark:bg-[#17212b]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-[#242f3d] flex items-center gap-1.5">
-                    <button type="button" data-hub-tab="kontak" class="hub-tab-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-[#2481cc] text-white shadow-xs">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                        <span>Chat & Kontak</span>
-                    </button>
-                    <button type="button" data-hub-tab="halaman" class="hub-tab-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-                        <span>Menu Web</span>
-                    </button>
-                    <button type="button" data-hub-tab="cari" class="hub-tab-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        <span>Cari Pesan</span>
-                    </button>
-                </div>
+                    <main class="msger-chat" id="msger-chat">
+                        <div class="msg left-msg">
+                            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+                            <div class="msg-bubble">
+                                <div class="msg-info">
+                                    <div class="msg-info-name">BOT</div>
+                                    <div class="msg-info-time">${formatTime(new Date())}</div>
+                                </div>
+                                <div class="msg-text">
+                                    Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+                                </div>
+                            </div>
+                        </div>
 
-                <!-- Telegram Chat Conversation Viewport -->
-                <div class="p-3 sm:p-4 max-h-[58vh] overflow-y-auto space-y-3" id="hub-chat-body">
-                    
-                    <!-- Center Date Pill -->
-                    <div class="flex justify-center">
-                        <span class="px-2.5 py-0.5 rounded-full bg-black/15 dark:bg-black/35 text-slate-600 dark:text-slate-300 font-bold text-[10px] uppercase tracking-wider backdrop-blur-xs">
-                            Hari Ini
-                        </span>
+                        <div class="msg right-msg">
+                            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
+                            <div class="msg-bubble">
+                                <div class="msg-info">
+                                    <div class="msg-info-name">Sajad</div>
+                                    <div class="msg-info-time">${formatTime(new Date())}</div>
+                                </div>
+                                <div class="msg-text">
+                                    You can change your name in JS section!
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    <div class="msger-chips-bar">
+                        <button type="button" class="msger-chip" data-msg="Halo, saya ingin konsultasi hukum siber & TI">⚖️ Konsultasi Hukum</button>
+                        <button type="button" class="msger-chip" data-msg="Bagaimana cara order bot trading / sistem AI?">🤖 Custom AI Bot</button>
+                        <button type="button" class="msger-chip" data-msg="Boleh minta kontak WhatsApp dan Telegram resmi?">📞 Info Kontak</button>
                     </div>
 
-                    <!-- Incoming Welcome Message Bubble from Ilham -->
-                    <div class="flex items-start gap-2 max-w-[94%]">
-                        <div class="w-7 h-7 rounded-full overflow-hidden shrink-0 mt-1 border border-white dark:border-slate-700 shadow-xs">
-                            <img src="image/hero-removebg-preview.png" alt="Ilham" class="w-full h-full object-cover object-top scale-110">
-                        </div>
-                        <div class="relative bg-white dark:bg-[#182533] p-3 rounded-2xl rounded-tl-xs shadow-xs border border-slate-200/70 dark:border-[#242f3d] text-slate-800 dark:text-slate-100">
-                            <div class="flex items-center gap-1 mb-1">
-                                <span class="font-bold text-[11px] text-[#2481cc] dark:text-[#64b5f6]">Ilham Pradani</span>
-                                <svg class="w-3 h-3 text-[#2481cc] dark:text-[#64b5f6] fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            </div>
-                            <p class="text-xs leading-relaxed">
-                                Halo! Selamat datang di portal resmi saya. Silakan pilih tombol kontak di bawah untuk konsultasi langsung, jelajahi pintasan menu, atau cari arsip riset hukum & AI.
-                            </p>
-                            <div class="flex items-center justify-end gap-1 mt-1.5 text-[9.5px] text-slate-400 dark:text-slate-400">
-                                <span id="hub-tg-time">${getTgTimestamp()}</span>
-                                <span class="text-[#2481cc] dark:text-[#64b5f6] font-bold tracking-tighter">✓✓</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab 1: Kontak (Telegram Bot Inline Keyboard Cards) -->
-                    <div id="hub-tab-pane-kontak" class="hub-tab-pane space-y-2.5">
-                        <div class="text-[10.5px] font-bold text-slate-500 dark:text-slate-400 px-1 flex items-center gap-1.5">
-                            <svg class="w-3.5 h-3.5 text-[#2481cc]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <span>Pilih tombol aksi di bawah untuk menghubungi atau menyalin:</span>
-                        </div>
-
-                        <!-- 1. WA Inline Card -->
-                        <div class="p-2.5 rounded-2xl bg-white dark:bg-[#182533] border border-slate-200/80 dark:border-[#242f3d] shadow-xs space-y-2">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 p-1.5 shrink-0 flex items-center justify-center">
-                                    <img src="image/wa_clean.svg" alt="WA" class="w-full h-full object-contain">
-                                </div>
-                                <div class="min-w-0">
-                                    <h5 class="text-xs font-black text-slate-900 dark:text-white truncate">WhatsApp Bisnis</h5>
-                                    <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">+62 889-7107-1138</p>
-                                </div>
-                            </div>
-                            <!-- Telegram Inline Buttons Grid -->
-                            <div class="grid grid-cols-3 gap-1.5 pt-1">
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="+6288971071138" title="Salin ID WhatsApp">📋 Salin ID</button>
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="https://wa.me/6288971071138" title="Salin Link WhatsApp">🔗 Link</button>
-                                <button type="button" class="hub-contact-row py-1.5 px-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[10.5px] font-extrabold text-center transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center justify-center gap-1"
-                                        data-url="https://wa.me/6288971071138?text=Halo%20Sir%20Ilham%20Pradani,%20saya%20tertarik%20untuk%20berkonsultasi" data-type="whatsapp">
-                                    <span>🚀 Chat</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 2. TG Inline Card -->
-                        <div class="p-2.5 rounded-2xl bg-white dark:bg-[#182533] border border-slate-200/80 dark:border-[#242f3d] shadow-xs space-y-2">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800 p-1.5 shrink-0 flex items-center justify-center">
-                                    <img src="image/tg_clean.png" alt="TG" class="w-full h-full object-contain">
-                                </div>
-                                <div class="min-w-0">
-                                    <h5 class="text-xs font-black text-slate-900 dark:text-white truncate">Telegram Official</h5>
-                                    <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">@ilhampradani_sh</p>
-                                </div>
-                            </div>
-                            <!-- Telegram Inline Buttons Grid -->
-                            <div class="grid grid-cols-3 gap-1.5 pt-1">
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="@ilhampradani_sh" title="Salin Handle Telegram">📋 Salin ID</button>
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="https://t.me/ilhampradani_sh" title="Salin Link Telegram">🔗 Link</button>
-                                <button type="button" class="hub-contact-row py-1.5 px-1 rounded-xl bg-[#2481cc] hover:bg-[#1c6eb3] text-white text-[10.5px] font-extrabold text-center transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center justify-center gap-1"
-                                        data-url="https://t.me/ilhampradani_sh" data-type="telegram">
-                                    <span>🚀 Chat</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 3. Email Inline Card -->
-                        <div class="p-2.5 rounded-2xl bg-white dark:bg-[#182533] border border-slate-200/80 dark:border-[#242f3d] shadow-xs space-y-2">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 p-1.5 shrink-0 flex items-center justify-center">
-                                    <img src="image/gravatar/mail.svg" alt="Email" class="w-full h-full object-contain">
-                                </div>
-                                <div class="min-w-0">
-                                    <h5 class="text-xs font-black text-slate-900 dark:text-white truncate">Email Profesional</h5>
-                                    <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">hello@ilhampradani.me</p>
-                                </div>
-                            </div>
-                            <!-- Telegram Inline Buttons Grid -->
-                            <div class="grid grid-cols-3 gap-1.5 pt-1">
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="hello@ilhampradani.me" title="Salin Email">📋 Salin ID</button>
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="mailto:hello@ilhampradani.me" title="Salin Full Mailto">🔗 Link</button>
-                                <button type="button" class="hub-contact-row py-1.5 px-1 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[10.5px] font-extrabold text-center transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center justify-center gap-1"
-                                        data-url="mailto:hello@ilhampradani.me" data-type="email">
-                                    <span>✉️ Email</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 4. Instagram Inline Card -->
-                        <div class="p-2.5 rounded-2xl bg-white dark:bg-[#182533] border border-slate-200/80 dark:border-[#242f3d] shadow-xs space-y-2">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-pink-50 dark:bg-pink-950/50 border border-pink-200 dark:border-pink-800 p-1.5 shrink-0 flex items-center justify-center">
-                                    <img src="image/ig_clean.png" alt="IG" class="w-full h-full object-contain">
-                                </div>
-                                <div class="min-w-0">
-                                    <h5 class="text-xs font-black text-slate-900 dark:text-white truncate">Instagram Official</h5>
-                                    <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">@ilhampradani_official</p>
-                                </div>
-                            </div>
-                            <!-- Telegram Inline Buttons Grid -->
-                            <div class="grid grid-cols-3 gap-1.5 pt-1">
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="@ilhampradani_official" title="Salin Handle Instagram">📋 Salin ID</button>
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="https://instagram.com/ilhampradani_official" title="Salin Link Instagram">🔗 Link</button>
-                                <button type="button" class="hub-contact-row py-1.5 px-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:opacity-90 text-white text-[10.5px] font-extrabold text-center transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center justify-center gap-1"
-                                        data-url="https://instagram.com/ilhampradani_official" data-type="instagram">
-                                    <span>📸 Buka</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 5. LinkedIn Inline Card -->
-                        <div class="p-2.5 rounded-2xl bg-white dark:bg-[#182533] border border-slate-200/80 dark:border-[#242f3d] shadow-xs space-y-2">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 p-1.5 shrink-0 flex items-center justify-center">
-                                    <img src="image/gravatar/linkedin.svg" alt="LinkedIn" class="w-full h-full object-contain">
-                                </div>
-                                <div class="min-w-0">
-                                    <h5 class="text-xs font-black text-slate-900 dark:text-white truncate">LinkedIn Network</h5>
-                                    <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">in/ilhampradani</p>
-                                </div>
-                            </div>
-                            <!-- Telegram Inline Buttons Grid -->
-                            <div class="grid grid-cols-3 gap-1.5 pt-1">
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="ilhampradani" title="Salin ID LinkedIn">📋 Salin ID</button>
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="https://www.linkedin.com/in/ilhampradani/" title="Salin Link LinkedIn">🔗 Link</button>
-                                <button type="button" class="hub-contact-row py-1.5 px-1 rounded-xl bg-sky-700 hover:bg-sky-800 text-white text-[10.5px] font-extrabold text-center transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center justify-center gap-1"
-                                        data-url="https://www.linkedin.com/in/ilhampradani/" data-type="linkedin">
-                                    <span>💼 Profil</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 6. Zenodo Inline Card -->
-                        <div class="p-2.5 rounded-2xl bg-white dark:bg-[#182533] border border-slate-200/80 dark:border-[#242f3d] shadow-xs space-y-2">
-                            <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-sky-50 dark:bg-sky-950/50 border border-sky-300 dark:border-sky-800 p-1.5 shrink-0 flex items-center justify-center">
-                                    <img src="image/zenodo.svg" alt="Zenodo" class="w-full h-full object-contain">
-                                </div>
-                                <div class="min-w-0">
-                                    <h5 class="text-xs font-black text-slate-900 dark:text-white truncate">Zenodo CERN Repository</h5>
-                                    <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">DOI Record: 18884976</p>
-                                </div>
-                            </div>
-                            <!-- Telegram Inline Buttons Grid -->
-                            <div class="grid grid-cols-3 gap-1.5 pt-1">
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="18884976" title="Salin Record ID Zenodo">📋 Salin ID</button>
-                                <button type="button" class="hub-copy-btn py-1.5 px-1 rounded-xl bg-[#f0f4f9] hover:bg-[#e2ebf5] dark:bg-[#242f3d] dark:hover:bg-[#2c394b] text-[#2481cc] dark:text-[#64b5f6] border border-[#d6e3f0] dark:border-[#38485c] text-[10.5px] font-bold text-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                                        data-copy-val="https://zenodo.org/records/18884976" title="Salin Link Zenodo">🔗 Link</button>
-                                <button type="button" class="hub-contact-row py-1.5 px-1 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-[10.5px] font-extrabold text-center transition-all cursor-pointer shadow-2xs active:scale-95 flex items-center justify-center gap-1"
-                                        data-url="https://zenodo.org/records/18884976" data-type="zenodo">
-                                    <span>📚 Riset</span>
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Tab 2: Menu Web (Telegram Bot Commands /commands) -->
-                    <div id="hub-tab-pane-halaman" class="hub-tab-pane hidden space-y-2">
-                        <div class="text-[10.5px] font-bold text-slate-500 dark:text-slate-400 px-1 flex items-center gap-1.5 mb-1">
-                            <span class="font-mono text-[#2481cc] dark:text-[#64b5f6]">/commands</span>
-                            <span>Pintasan halaman website:</span>
-                        </div>
-
-                        <!-- 12 Telegram Commands Cards -->
-                        <div class="grid grid-cols-1 gap-1.5">
-                            <a href="index.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/beranda</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Beranda Utama</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Ringkasan profil & layanan hukum AI</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="about.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/about</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Tentang Saya</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Biografi, filosofi hukum & riset</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="penelitian.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/penelitian</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Penelitian & Publikasi</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Arsip jurnal DOI Zenodo & riset AI</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="cv.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/cv</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Curriculum Vitae (CV)</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Pendidikan hukum & lisensi resmi</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="portofolio.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/portofolio</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Portofolio Proyek</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Showcase solusi enterprise & audit sistem</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="baca.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/artikel</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Artikel & Edukasi</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">110+ opini & analisis regulasi teknologi</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="tradingsafe.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/tradingsafe</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">TradingSafe AI</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Kepatuhan regulasi algoritma trading</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="ojekasia.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/ojekasia</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">OjekAsia Mobility</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Hukum mobilitas digital terdistribusi</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="easymarket.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/easymarket</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">EasyMarket Tech</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Kepatuhan POS kasir & data UMKM</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="certified.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/sertifikasi</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Sertifikasi Keamanan</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">CEH Master, CompTIA Sec+ & lisensi</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="career.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/karir</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Rekam Karir</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Riwayat jabatan Direktur & Konsultan AI</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-
-                            <a href="izin-usaha.html" class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <span class="font-mono text-[11px] font-bold text-[#2481cc] dark:text-[#64b5f6] shrink-0">/legalitas</span>
-                                    <div class="min-w-0 truncate">
-                                        <div class="text-xs font-bold text-slate-900 dark:text-white truncate">Izin Usaha & Legal</div>
-                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Legalitas NIB & KBLI PT Chain Asia Conect</div>
-                                    </div>
-                                </div>
-                                <span class="text-xs text-slate-400 group-hover:text-[#2481cc] transition-colors">→</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Tab 3: Cari (In-Chat Live Search Feed) -->
-                    <div id="hub-tab-pane-cari" class="hub-tab-pane hidden space-y-2.5">
-                        <!-- Quick Suggestions Hashtags -->
-                        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[10.5px] no-scrollbar">
-                            <span class="text-slate-400 text-[10px] font-bold uppercase shrink-0">Tag:</span>
-                            <button type="button" class="hub-chip px-2.5 py-0.5 rounded-full bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] hover:text-[#2481cc] text-slate-700 dark:text-slate-300 font-bold shrink-0 transition-colors cursor-pointer border border-slate-200/80 dark:border-[#242f3d]" data-keyword="AI">#AI</button>
-                            <button type="button" class="hub-chip px-2.5 py-0.5 rounded-full bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] hover:text-[#2481cc] text-slate-700 dark:text-slate-300 font-bold shrink-0 transition-colors cursor-pointer border border-slate-200/80 dark:border-[#242f3d]" data-keyword="UU PDP">#UU-PDP</button>
-                            <button type="button" class="hub-chip px-2.5 py-0.5 rounded-full bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] hover:text-[#2481cc] text-slate-700 dark:text-slate-300 font-bold shrink-0 transition-colors cursor-pointer border border-slate-200/80 dark:border-[#242f3d]" data-keyword="TradingSafe">#TradingSafe</button>
-                            <button type="button" class="hub-chip px-2.5 py-0.5 rounded-full bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] hover:text-[#2481cc] text-slate-700 dark:text-slate-300 font-bold shrink-0 transition-colors cursor-pointer border border-slate-200/80 dark:border-[#242f3d]" data-keyword="Smart Contract">#SmartContract</button>
-                            <button type="button" class="hub-chip px-2.5 py-0.5 rounded-full bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] hover:text-[#2481cc] text-slate-700 dark:text-slate-300 font-bold shrink-0 transition-colors cursor-pointer border border-slate-200/80 dark:border-[#242f3d]" data-keyword="Zenodo">#Zenodo</button>
-                            <button type="button" class="hub-chip px-2.5 py-0.5 rounded-full bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] hover:text-[#2481cc] text-slate-700 dark:text-slate-300 font-bold shrink-0 transition-colors cursor-pointer border border-slate-200/80 dark:border-[#242f3d]" data-keyword="Sertifikasi">#Sertifikasi</button>
-                        </div>
-
-                        <!-- Live Search Results Feed -->
-                        <div id="hub-search-results" class="space-y-2 max-h-[46vh] overflow-y-auto pr-0.5">
-                            <div class="py-6 text-center text-slate-400 dark:text-slate-500">
-                                <svg class="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                </svg>
-                                <p class="text-xs font-semibold">Ketik topik di bar bawah untuk mencari pesan</p>
-                                <p class="text-[10px] mt-0.5 opacity-75">110+ publikasi artikel, riset ilmiah, & seluruh halaman web</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Telegram Bottom Composer / Input Bar -->
-                <div class="p-2 sm:p-2.5 bg-white dark:bg-[#17212b] border-t border-slate-200/90 dark:border-[#242f3d] flex items-center gap-1.5">
-                    <!-- Attachment Clip Button (Cycles through tabs) -->
-                    <button type="button" id="hub-composer-clip-btn" 
-                            class="w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-[#242f3d] text-slate-400 hover:text-[#2481cc] dark:hover:text-[#64b5f6] flex items-center justify-center shrink-0 transition-colors cursor-pointer"
-                            title="Ganti Mode Tab">
-                        <svg class="w-5 h-5 -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
-                        </svg>
-                    </button>
-
-                    <!-- Text Input for Search / Message -->
-                    <div class="relative flex-1">
-                        <input type="text" id="hub-search-input" 
-                               placeholder="Ketik topik untuk mencari..." 
-                               class="w-full py-2 pl-3 pr-7 text-xs font-medium rounded-2xl bg-slate-100 dark:bg-[#242f3d] border-none focus:outline-none focus:ring-1 focus:ring-[#2481cc] text-slate-900 dark:text-white placeholder:text-slate-400">
-                        <button type="button" id="hub-search-clear-btn" 
-                                class="hidden absolute right-2 top-2 text-slate-400 hover:text-slate-700 dark:hover:text-white w-4 h-4 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-[10px] font-bold cursor-pointer">
-                            ✕
-                        </button>
-                    </div>
-
-                    <!-- Telegram Blue Paper Airplane Send Button -->
-                    <button type="button" id="hub-composer-send-btn" 
-                            class="w-9 h-9 rounded-full bg-[#2481cc] hover:bg-[#1c6eb3] text-white flex items-center justify-center shrink-0 shadow-md transition-all active:scale-95 cursor-pointer"
-                            title="Cari">
-                        <svg class="w-4 h-4 translate-x-0.5 -translate-y-0.5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
-                </div>
-
+                    <form class="msger-inputarea" id="msger-form">
+                        <input type="text" class="msger-input" id="msger-input" placeholder="Enter your message..." autocomplete="off">
+                        <button type="submit" class="msger-send-btn">Send</button>
+                    </form>
+                </section>
             </div>
 
-            <!-- 3. Tombol Melayang Bubble Chat Utama (Telegram Floating Action Button) -->
+            <!-- Floating Action Button Bubble -->
             <button type="button" id="btn-floating-bubble" 
-                    class="pointer-events-auto relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#2AABEE] hover:bg-[#229ED9] text-white shadow-[0_10px_35px_rgba(42,171,238,0.45)] hover:shadow-[0_15px_45px_rgba(42,171,238,0.65)] flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer group"
-                    aria-label="Buka Chat Telegram" title="Buka Chat & Hub Komunikasi">
-                
-                <!-- Pulse Glow Ring -->
-                <span class="absolute -inset-1 rounded-full bg-[#2AABEE]/30 animate-pulse pointer-events-none"></span>
-
-                <!-- Status Online Indicator -->
-                <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-400 border-2 border-white dark:border-[#0e1621] rounded-full z-10 shadow-xs">
-                    <span class="absolute inset-0 rounded-full bg-emerald-300 animate-ping opacity-75"></span>
+                    style="width: 58px; height: 58px;" class="pointer-events-auto relative w-14 h-14 rounded-full bg-white text-blue-600 shadow-[0_10px_35px_rgba(0,0,0,0.18)] border border-slate-200/90 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer group"
+                    aria-label="Buka SimpleChat" title="SimpleChat">
+                <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full z-10 shadow-xs">
+                    <span class="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75"></span>
                 </span>
-
-                <!-- Telegram Paper Airplane Icon (Shown when closed) -->
-                <div id="hub-icon-bubble" class="transition-all duration-300 transform group-hover:scale-110 flex items-center justify-center">
-                    <svg class="w-6 h-6 sm:w-7 sm:h-7 -translate-x-0.5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                <div id="msger-bubble-icon" class="transition-all duration-300 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
                     </svg>
                 </div>
-
-                <!-- Close Icon (Shown when open) -->
-                <div id="hub-icon-close" class="hidden transition-all duration-300 transform rotate-0 hover:rotate-90">
-                    <svg class="w-6 h-6 sm:w-6.5 sm:h-6.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div id="msger-bubble-close" class="hidden transition-all duration-300 text-gray-700">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </div>
             </button>
-
         </div>
         `;
 
-        document.body.insertAdjacentHTML('beforeend', hubHtml);
+        document.body.insertAdjacentHTML("beforeend", hubHtml);
 
-        // Bind DOM references
-        const hubScrollTopBtn = document.getElementById('hub-scroll-top-btn');
-        const btnFloatingBubble = document.getElementById('btn-floating-bubble');
-        const hubPanel = document.getElementById('floating-hub-panel');
-        const hubCloseBtn = document.getElementById('hub-panel-close-btn');
-        const hubIconBubble = document.getElementById('hub-icon-bubble');
-        const hubIconClose = document.getElementById('hub-icon-close');
-        const tabBtns = document.querySelectorAll('.hub-tab-btn');
-        const searchInput = document.getElementById('hub-search-input');
-        const searchClearBtn = document.getElementById('hub-search-clear-btn');
-        const searchResultsContainer = document.getElementById('hub-search-results');
-        const searchChips = document.querySelectorAll('.hub-chip');
-        const composerClipBtn = document.getElementById('hub-composer-clip-btn');
-        const composerSendBtn = document.getElementById('hub-composer-send-btn');
-        const hubChatBody = document.getElementById('hub-chat-body');
+        // 3. Bind Logic
+        const hubScrollTopBtn = document.getElementById("hub-scroll-top-btn");
+        const btnFloatingBubble = document.getElementById("btn-floating-bubble");
+        const msgerPanel = document.getElementById("floating-msger-panel");
+        const msgerCloseBtn = document.getElementById("msger-close-btn");
+        const msgerBubbleIcon = document.getElementById("msger-bubble-icon");
+        const msgerBubbleClose = document.getElementById("msger-bubble-close");
+        const msgerForm = document.getElementById("msger-form");
+        const msgerInput = document.getElementById("msger-input");
+        const msgerChat = document.getElementById("msger-chat");
+        const chips = document.querySelectorAll(".msger-chip");
 
-        // Scroll-to-Top Listener
-        window.addEventListener('scroll', () => {
+        // Scroll listener for top button
+        window.addEventListener("scroll", () => {
             if (window.scrollY > 220) {
-                hubScrollTopBtn?.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
-                hubScrollTopBtn?.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                hubScrollTopBtn?.classList.remove("opacity-0", "translate-y-3", "pointer-events-none");
+                hubScrollTopBtn?.classList.add("opacity-100", "translate-y-0", "pointer-events-auto");
             } else {
-                hubScrollTopBtn?.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
-                hubScrollTopBtn?.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                hubScrollTopBtn?.classList.add("opacity-0", "translate-y-3", "pointer-events-none");
+                hubScrollTopBtn?.classList.remove("opacity-100", "translate-y-0", "pointer-events-auto");
             }
         }, { passive: true });
 
-        hubScrollTopBtn?.addEventListener('click', () => {
+        hubScrollTopBtn?.addEventListener("click", () => {
             if (window.lenis) {
                 window.lenis.scrollTo(0, { duration: 0.9 });
             } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: "smooth" });
             }
         });
 
-        // Panel Toggle Logic
-        let isHubOpen = false;
-        function toggleHub(open) {
-            isHubOpen = typeof open === 'boolean' ? open : !isHubOpen;
-            if (isHubOpen) {
-                hubPanel?.classList.remove('scale-95', 'opacity-0', 'translate-y-4', 'pointer-events-none');
-                hubPanel?.classList.add('scale-100', 'opacity-100', 'translate-y-0', 'pointer-events-auto');
-                hubIconBubble?.classList.add('hidden');
-                hubIconClose?.classList.remove('hidden');
-                prefetchArticles();
+        // Toggle logic
+        let isOpen = false;
+        function toggleMsger(open) {
+            isOpen = typeof open === "boolean" ? open : !isOpen;
+            if (isOpen) {
+                msgerPanel?.classList.remove("scale-95", "opacity-0", "translate-y-4", "pointer-events-none");
+                msgerPanel?.classList.add("scale-100", "opacity-100", "translate-y-0", "pointer-events-auto");
+                msgerBubbleIcon?.classList.add("hidden");
+                msgerBubbleClose?.classList.remove("hidden");
+                setTimeout(() => msgerInput?.focus(), 150);
             } else {
-                hubPanel?.classList.add('scale-95', 'opacity-0', 'translate-y-4', 'pointer-events-none');
-                hubPanel?.classList.remove('scale-100', 'opacity-100', 'translate-y-0', 'pointer-events-auto');
-                hubIconBubble?.classList.remove('hidden');
-                hubIconClose?.classList.add('hidden');
+                msgerPanel?.classList.add("scale-95", "opacity-0", "translate-y-4", "pointer-events-none");
+                msgerPanel?.classList.remove("scale-100", "opacity-100", "translate-y-0", "pointer-events-auto");
+                msgerBubbleIcon?.classList.remove("hidden");
+                msgerBubbleClose?.classList.add("hidden");
             }
         }
 
-        btnFloatingBubble?.addEventListener('click', (e) => {
+        btnFloatingBubble?.addEventListener("click", (e) => {
             e.stopPropagation();
-            toggleHub();
+            toggleMsger();
         });
 
-        hubCloseBtn?.addEventListener('click', (e) => {
+        msgerCloseBtn?.addEventListener("click", (e) => {
             e.stopPropagation();
-            toggleHub(false);
+            toggleMsger(false);
         });
 
-        // Close on Escape or click outside
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isHubOpen) {
-                toggleHub(false);
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && isOpen) {
+                toggleMsger(false);
             }
         });
 
-        document.addEventListener('click', (e) => {
-            if (isHubOpen && !e.target.closest('#floating-hub-panel') && !e.target.closest('#btn-floating-bubble')) {
-                toggleHub(false);
+        document.addEventListener("click", (e) => {
+            if (isOpen && !e.target.closest("#floating-msger-panel") && !e.target.closest("#btn-floating-bubble")) {
+                toggleMsger(false);
             }
         });
 
-        // Tab Switching function
-        function switchHubTab(targetTab) {
-            // Update tab buttons style
-            tabBtns.forEach(b => {
-                const isCurrent = b.getAttribute('data-hub-tab') === targetTab;
-                if (isCurrent) {
-                    b.className = "hub-tab-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-[#2481cc] text-white shadow-xs";
-                } else {
-                    b.className = "hub-tab-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-slate-800";
-                }
-            });
-
-            // Show active tab pane
-            document.querySelectorAll('.hub-tab-pane').forEach(p => p.classList.add('hidden'));
-            const activePane = document.getElementById(`hub-tab-pane-${targetTab}`);
-            if (activePane) {
-                activePane.classList.remove('hidden');
-            }
-
-            if (targetTab === 'cari' && searchInput) {
-                setTimeout(() => searchInput.focus(), 150);
-            }
-        }
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const targetTab = btn.getAttribute('data-hub-tab');
-                switchHubTab(targetTab);
-            });
-        });
-
-        // Paperclip attachment cycles tabs: kontak -> halaman -> cari -> kontak
-        const tabOrder = ['kontak', 'halaman', 'cari'];
-        let currentTabIndex = 0;
-        composerClipBtn?.addEventListener('click', () => {
-            currentTabIndex = (currentTabIndex + 1) % tabOrder.length;
-            switchHubTab(tabOrder[currentTabIndex]);
-        });
-
-        // Send button triggers search tab & focuses
-        composerSendBtn?.addEventListener('click', () => {
-            switchHubTab('cari');
-            if (searchInput && searchInput.value.trim()) {
-                performSearch(searchInput.value.trim());
-            } else if (searchInput) {
-                searchInput.focus();
-            }
-        });
-
-        // Contact Tab: Copy Buttons & Row Click to Direct Modal
-        document.querySelectorAll('.hub-copy-btn').forEach(cBtn => {
-            cBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const text = cBtn.getAttribute('data-copy-val');
-                hubCopyFeedback(cBtn, text);
-            });
-        });
-
-        // Shift legacy floating capsule if present to avoid overlap
-        const existingCapsules = document.querySelectorAll('.floating-capsule');
-        existingCapsules.forEach(cap => {
-            const parentFixed = cap.closest('.fixed.bottom-6.right-6') || (cap.classList.contains('fixed') ? cap : null);
-            if (parentFixed) {
-                parentFixed.classList.remove('right-6');
-                parentFixed.classList.add('right-20', 'sm:right-24');
-            }
-        });
-
-        // Auto close hub when clicking navigation links inside
-        hubPanel?.addEventListener('click', (e) => {
-            const anchor = e.target.closest('a');
-            if (anchor && !anchor.classList.contains('hub-contact-row')) {
-                toggleHub(false);
-            }
-        });
-
-        document.querySelectorAll('.hub-contact-row').forEach(row => {
-            row.addEventListener('click', () => {
-                const url = row.getAttribute('data-url');
-                const type = row.getAttribute('data-type');
-                if (window.openRedirectModal) {
-                    window.openRedirectModal(url, type);
-                } else if (url) {
-                    window.open(url, '_blank', 'noopener,noreferrer');
-                }
-            });
-        });
-
-        // Live Search Engine
-        const staticPages = [
-            { title: "Beranda Utama", snippet: "Profil eksekutif, keahlian hukum, AI governance, dan layanan konsultasi Sir Ilham Pradani.", url: "index.html", cat: "Halaman Web" },
-            { title: "Tentang Saya (About)", snippet: "Biografi lengkap, latar belakang akademis hukum, dan dedikasi teknologi.", url: "about.html", cat: "Halaman Web" },
-            { title: "Penelitian & Publikasi Ilmiah", snippet: "Arsip riset hukum siber, AI governance, smart contracts, dan regulasi data pribadi ber-DOI.", url: "penelitian.html", cat: "Riset Ilmiah" },
-            { title: "Curriculum Vitae (CV)", snippet: "Riwayat pendidikan hukum, pengalaman kerja eksekutif, sertifikasi, dan lisensi.", url: "cv.html", cat: "Karir & CV" },
-            { title: "Portofolio Proyek", snippet: "Showcase sistem enterprise, audit keamanan siber, dan solusi legal-tech.", url: "portofolio.html", cat: "Portofolio" },
-            { title: "Artikel, Opini & Berita", snippet: "110+ publikasi artikel terkini seputar transformasi digital, AI, dan regulasi siber.", url: "baca.html", cat: "Publikasi" },
-            { title: "TradingSafe AI", snippet: "Kajian kepatuhan regulasi algoritma trading cerdas dan perlindungan konsumen keuangan.", url: "tradingsafe.html", cat: "Legal Tech" },
-            { title: "OjekAsia Tech", snippet: "Struktur hukum dan kepatuhan sistem mobilitas digital terdistribusi di Indonesia.", url: "ojekasia.html", cat: "Legal Tech" },
-            { title: "EasyMarket POS", snippet: "Kajian yuridis kepatuhan transaksi kasir digital dan perlindungan data keuangan UMKM.", url: "easymarket.html", cat: "Legal Tech" },
-            { title: "Sertifikasi & Lisensi Keamanan", snippet: "Kredensial CEH Master, CompTIA Security+, GIAC GPEN, dan lisensi standar internasional.", url: "certified.html", cat: "Sertifikasi" },
-            { title: "Rekam Karir & Pengalaman", snippet: "Perjalanan profesional sebagai Direktur Utama, Legal Counsel, dan Konsultan AI.", url: "career.html", cat: "Karir" },
-            { title: "Izin Usaha & Legal Standing", snippet: "Dokumentasi NIB, KBLI, dan legalitas resmi korporasi PT Chain Asia Conect.", url: "izin-usaha.html", cat: "Legalitas" }
+        // Chat functionality
+        const BOT_MSGS = [
+            "Hi, how are you?",
+            "Ohh... I can't understand what you trying to say. Sorry!",
+            "I like to play games... But I don't know how to play!",
+            "Sorry if my answers are not relevant. :))",
+            "I feel sleepy! :("
         ];
 
-        const academicPapers = [
-            { title: "Analisis Yuridis Penerapan Smart Contract dalam Transaksi Bisnis Digital", snippet: "Kajian keabsahan kontrak cerdas berbasis blockchain menurut KUHPerdata dan UU ITE.", url: "penelitian.html#paper-smart-contract", cat: "Riset Ilmiah (Zenodo DOI: 10.5281/zenodo.18884976)" },
-            { title: "Kajian Yuridis dan Regulasi AI dalam Perlindungan Data Pribadi di Indonesia", snippet: "Analisis kepatuhan model kecerdasan buatan terhadap UU No. 27 Tahun 2022 (UU PDP).", url: "penelitian.html#paper-ai-pdp", cat: "Riset Ilmiah (Zenodo DOI: 10.5281/zenodo.23997116)" },
-            { title: "Tanggung Jawab Hukum Terhadap Insiden Kebocoran Data pada Sistem Cloud", snippet: "Tinjauan pertanggungjawaban penyedia jasa komputasi awan dan subkontraktor data.", url: "penelitian.html#paper-cloud-security", cat: "Riset Ilmiah (Jurnal OJS)" },
-            { title: "Aspek Hukum Bukti Digital (Digital Evidence) dalam Tindak Pidana Siber", snippet: "Standar forensik digital dan penerimaan alat bukti elektronik di peradilan Indonesia.", url: "penelitian.html#paper-digital-forensics", cat: "Riset Ilmiah" },
-            { title: "Regulasi Artificial Intelligence dalam Hukum Internasional dan Komparasi Uni Eropa (EU AI Act)", snippet: "Perbandingan pendekatan berbasis risiko AI Act Uni Eropa dengan kerangka hukum Indonesia.", url: "penelitian.html#paper-eu-ai-act", cat: "Riset Ilmiah" }
-        ];
+        const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
+        const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
+        const BOT_NAME = "BOT";
+        const PERSON_NAME = "Sajad";
 
-        function performSearch(query) {
-            const q = query.trim().toLowerCase();
-            if (!q) {
-                searchClearBtn?.classList.add('hidden');
-                searchClearBtn?.classList.remove('flex');
-                searchResultsContainer.innerHTML = `
-                    <div class="py-6 text-center text-slate-400 dark:text-slate-500">
-                        <svg class="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                        <p class="text-xs font-semibold">Ketik topik di bar bawah untuk mencari pesan</p>
-                        <p class="text-[10px] mt-0.5 opacity-75">110+ publikasi artikel, riset ilmiah, & seluruh halaman web</p>
+        function appendMessage(name, img, side, text) {
+            const msgHTML = `
+                <div class="msg ${side}-msg">
+                    <div class="msg-img" style="background-image: url(${img})"></div>
+                    <div class="msg-bubble">
+                        <div class="msg-info">
+                            <div class="msg-info-name">${name}</div>
+                            <div class="msg-info-time">${formatTime(new Date())}</div>
+                        </div>
+                        <div class="msg-text">${text}</div>
                     </div>
-                `;
-                return;
-            }
-
-            searchClearBtn?.classList.remove('hidden');
-            searchClearBtn?.classList.add('flex');
-
-            const results = [];
-
-            // 1. Search Static Pages
-            staticPages.forEach(p => {
-                if (p.title.toLowerCase().includes(q) || p.snippet.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)) {
-                    results.push(p);
-                }
-            });
-
-            // 2. Search Academic Research Papers
-            academicPapers.forEach(p => {
-                if (p.title.toLowerCase().includes(q) || p.snippet.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)) {
-                    results.push(p);
-                }
-            });
-
-            // 3. Search Dynamic Articles from Sheets API
-            if (Array.isArray(cachedSearchArticles)) {
-                cachedSearchArticles.forEach(a => {
-                    const title = a.judul || '';
-                    const snippet = a.kutipan || '';
-                    const cat = a.kategori || 'Artikel Edukasi';
-                    if (title.toLowerCase().includes(q) || snippet.toLowerCase().includes(q) || cat.toLowerCase().includes(q)) {
-                        results.push({
-                            title: title,
-                            snippet: snippet.length > 115 ? snippet.substring(0, 115) + '...' : snippet,
-                            url: a.link || `baca.html?id=${a.id}`,
-                            cat: `Artikel: ${cat}`
-                        });
-                    }
-                });
-            }
-
-            if (results.length === 0) {
-                searchResultsContainer.innerHTML = `
-                    <div class="py-6 text-center text-slate-400 dark:text-slate-500">
-                        <div class="text-2xl mb-1">🔍</div>
-                        <p class="text-xs font-bold text-slate-700 dark:text-slate-300">Tidak menemukan pesan untuk "${query}"</p>
-                        <p class="text-[10px] mt-1 text-slate-500">Coba kata kunci seperti "AI", "Hukum", "UU PDP", "Trading", atau klik tagar di atas.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const total = results.length;
-            const shown = results.slice(0, 20); // render max 20 for fast response
-
-            let html = `
-                <div class="flex items-center justify-between pb-1 px-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-black/5 dark:border-white/5">
-                    <span>Hasil Pencarian</span>
-                    <span class="text-[#2481cc] dark:text-[#64b5f6]">${total} Ditemukan</span>
                 </div>
             `;
-
-            shown.forEach(item => {
-                html += `
-                <a href="${item.url}" class="block p-2.5 rounded-xl bg-white dark:bg-[#182533] hover:bg-blue-50 dark:hover:bg-[#242f3d] border border-slate-200/80 dark:border-[#242f3d] transition-all group">
-                    <div class="flex items-center justify-between gap-1 mb-1">
-                        <span class="inline-block px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-blue-100 dark:bg-blue-950/60 text-[#2481cc] dark:text-[#64b5f6]">
-                            ${item.cat}
-                        </span>
-                        <span class="text-[10px] text-slate-400 group-hover:text-[#2481cc] transition-colors">Buka →</span>
-                    </div>
-                    <h6 class="text-xs font-bold text-slate-900 dark:text-white leading-snug group-hover:text-[#2481cc] dark:group-hover:text-[#64b5f6] transition-colors">
-                        ${highlightMatch(item.title, query)}
-                    </h6>
-                    <p class="text-[10.5px] text-slate-500 dark:text-slate-400 leading-relaxed mt-1 line-clamp-2">
-                        ${highlightMatch(item.snippet, query)}
-                    </p>
-                </a>
-                `;
-            });
-
-            if (total > 20) {
-                html += `
-                    <div class="text-center py-2 text-[10px] font-bold text-slate-400">
-                        +${total - 20} hasil lainnya... Spesifikkan kata kunci untuk memfilter.
-                    </div>
-                `;
-            }
-
-            searchResultsContainer.innerHTML = html;
+            msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+            msgerChat.scrollTop = msgerChat.scrollHeight;
         }
 
-        let debounceTimer = null;
-        searchInput?.addEventListener('input', (e) => {
-            const val = e.target.value;
-            // If user types, auto switch to search tab to see live results
-            if (val.trim()) {
-                switchHubTab('cari');
+        function botResponse(userText) {
+            const lower = (userText || "").toLowerCase();
+            let msgText = "";
+
+            if (lower.includes("wa") || lower.includes("whatsapp") || lower.includes("kontak") || lower.includes("nomor")) {
+                msgText = "Hubungi Ilham Pradani via WhatsApp resmi di +62 889-7107-1138 atau kunjungi wa.me/6288971071138.";
+            } else if (lower.includes("tele") || lower.includes("tg")) {
+                msgText = "Telegram resmi: @ilhampradani_sh (t.me/ilhampradani_sh).";
+            } else if (lower.includes("hukum") || lower.includes("legal") || lower.includes("siber") || lower.includes("cyber")) {
+                msgText = "Layanan hukum siber kami mengintegrasikan kepatuhan regulasi digital, audit sistem, dan arsitektur TI presisi.";
+            } else if (lower.includes("bot") || lower.includes("ai") || lower.includes("trading")) {
+                msgText = "Kami membangun Custom AI Bot dan sistem Algorithmic Trading mutakhir berbasis Rust Axum berkinerja tinggi.";
+            } else {
+                const r = Math.floor(Math.random() * BOT_MSGS.length);
+                msgText = BOT_MSGS[r];
             }
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                performSearch(val);
-            }, 80);
+
+            const delay = Math.min(1200, Math.max(300, msgText.split(" ").length * 70));
+            setTimeout(() => {
+                appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+            }, delay);
+        }
+
+        msgerForm?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const msgText = msgerInput.value.trim();
+            if (!msgText) return;
+            appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+            msgerInput.value = "";
+            botResponse(msgText);
         });
 
-        searchClearBtn?.addEventListener('click', () => {
-            if (searchInput) {
-                searchInput.value = '';
-                searchInput.focus();
-                performSearch('');
-            }
-        });
-
-        searchChips.forEach(chip => {
-            chip.addEventListener('click', () => {
-                const kw = chip.getAttribute('data-keyword') || chip.textContent.replace('#', '');
-                switchHubTab('cari');
-                if (searchInput) {
-                    searchInput.value = kw;
-                    searchInput.focus();
-                    performSearch(kw);
-                }
+        chips.forEach(chip => {
+            chip.addEventListener("click", () => {
+                const msg = chip.getAttribute("data-msg") || chip.textContent;
+                appendMessage(PERSON_NAME, PERSON_IMG, "right", msg);
+                botResponse(msg);
             });
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupHub);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupChat);
     } else {
-        setupHub();
+        setupChat();
     }
 })();

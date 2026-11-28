@@ -663,14 +663,36 @@
                 } catch (_) {}
             }
 
-            // 2. Fetch Fresh Data from Cloudflare Pages API (/api/zenodo)
+            // 2. Fetch Fresh Data from Cloudflare Pages API (/api/zenodo) with Fallback
             try {
-                const res = await fetch('/api/zenodo');
+                let res;
+                try {
+                    res = await fetch('/api/zenodo');
+                    if (!res.ok) throw new Error('local api fallback');
+                } catch (_) {
+                    res = await fetch('https://zenodo.org/api/records?q=metadata.creators.person_or_org.name:%22Pradani,%20Ilham%22&sort=-mostrecent&size=50');
+                }
+
                 if (res.ok) {
                     const json = await res.json();
-                    if (json && Array.isArray(json.data) && json.data.length > 0) {
-                        localStorage.setItem('ilham_zenodo_cache', JSON.stringify(json.data));
-                        renderZenodoPapers(json.data);
+                    const papers = Array.isArray(json.data) ? json.data : (json.hits?.hits?.map(h => ({
+                        id: String(h.id),
+                        title: h.metadata?.title || 'Karya Ilmiah',
+                        doi: h.doi || '',
+                        doi_url: h.doi_url || `https://doi.org/${h.doi || h.id}`,
+                        url: h.links?.html || `https://zenodo.org/records/${h.id}`,
+                        publication_date: h.metadata?.publication_date || h.created?.split('T')[0] || '2026',
+                        year: h.metadata?.publication_date ? h.metadata.publication_date.split('-')[0] : '2026',
+                        authors: h.metadata?.creators?.map(c => c.name) || ['Dr. Ilham Pradani C.L.'],
+                        abstract: h.metadata?.description ? h.metadata.description.replace(/<[^>]+>/g, '').trim() : '',
+                        keywords: h.metadata?.keywords || []
+                    })) || []);
+
+                    if (Array.isArray(papers) && papers.length > 0) {
+                        localStorage.setItem('ilham_zenodo_cache', JSON.stringify(papers));
+                        renderZenodoPapers(papers);
+                        const countEl = document.getElementById('zenodo-paper-count');
+                        if (countEl) countEl.textContent = `${papers.length} Publikasi`;
                     }
                 }
             } catch (err) {
