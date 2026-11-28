@@ -2711,13 +2711,13 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "bagian, \nberapa liter air yang diperlukan?",
+      "question": "Tiga tim pendaki gunung harus dibentuk dengan masing-masing tim terdiri dari tiga orang. A harus berada dalam satu tim dengan D, B tidak boleh setim dengan G atau C, C tidak boleh dipisahkan dengan I, sedangkan F harus dipisahkan dengan A. Susunan tiap tim yang dapat dibentuk adalah ….",
       "options": {
-        "A": "6",
-        "B": "8",
-        "C": "9",
-        "D": "10",
-        "E": "12"
+        "A": "A, D, G – B, E, H – C, I, F",
+        "B": "A, B, G – D, E, H – C, I, F",
+        "C": "A, I, F – B, E, N – C, D, F",
+        "D": "A, D, I – B, E, H – C, G, F",
+        "E": "A, B, E – H, C, I – F, G, D"
       },
       "answer": "A",
       "points": {
@@ -2727,7 +2727,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Telaah satu per satu pilihan jawaban sesuai \nsyarat yang ada pada soal.\n ⇲ A harus berada dalam satu tim dengan \nD.\nPilihan jawaban yang tidak sesuai syarat tersebut adalah B, C, E. Jadi, pilihan \njawaban yang tersisa adalah A dan D.\n ⇲ B tidak boleh setim dengan G atau C.\nPilihan jawaban A dan D masih memenuhi syarat tersebut.\n ⇲ C tidak boleh dipisahkan dengan I.\nPilihan jawaban yang memenuhi adalah A saja.\nJadi, jawaban yang tepat adalah A."
+      "explanation": "Telaah satu per satu pilihan jawaban sesuai syarat pada soal:\n- A harus bersama D: terpenuhi di opsi A.\n- B tidak boleh bersama G atau C: B bersama E dan H, terpenuhi.\n- C harus bersama I: C bersama I dan F, terpenuhi.\n- F dipisahkan dari A: terpenuhi.\n▶ Jawaban: A"
     },
     {
       "id": "tiu-try-out-2-8",
@@ -2918,13 +2918,13 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "siswa menyukai pelajaran IPS, dan 12 siswa menyukai keduanya. Banyak siswa yang \ntidak menyukai kedua pelajaran tersebut \nadalah ....",
+      "question": "Sebuah kolam berukuran panjang 21 dm, lebar 18 dm, dan tinggi 14 dm. Jika kolam tersebut akan diisi air sebanyak 3/7 bagian, berapa liter air yang diperlukan?",
       "options": {
-        "A": "6 siswa",
-        "B": "8 siswa",
-        "C": "10 siswa",
-        "D": "12 siswa",
-        "E": "13 siswa"
+        "A": "2.268 liter",
+        "B": "2.746 liter",
+        "C": "2.864 liter",
+        "D": "2.966 liter",
+        "E": "3.046 liter"
       },
       "answer": "A",
       "points": {
@@ -2934,7 +2934,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "Diketahui p = 21 dm; l = 18 dm; dan t = 14 \ndm\n3Banyak air Volume kolam7"
+      "explanation": "Volume total kolam = 21 dm × 18 dm × 14 dm = 5.292 dm³ (liter).\nVolume air 3/7 bagian = 3/7 × 5.292 = 2.268 liter.\n▶ Jawaban: A"
     },
     {
       "id": "tiu-try-out-2-23",
@@ -6058,9 +6058,9 @@
     {
       "id": "pretest-12",
       "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "liter/menit. Dalam waktu 0,25 jam, bak \nmandi tersebut terisi air sebanyak .... liter.",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Sebuah bak mandi diisi air dengan debit 12 liter/menit. Dalam waktu 0,25 jam, bak mandi tersebut terisi air sebanyak .... liter.",
       "options": {
         "A": "145 liter",
         "B": "150 liter",
@@ -6068,38 +6068,38 @@
         "D": "180 liter",
         "E": "190 liter"
       },
-      "answer": "A",
+      "answer": "D",
       "points": {
-        "A": 5,
+        "A": 0,
         "B": 0,
         "C": 0,
-        "D": 0,
+        "D": 5,
         "E": 0
       },
-      "explanation": "Jawaban: C\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nC 5\nA 4\nB 3\nD 2\nE 1"
+      "explanation": "Waktu = 0,25 jam = 0,25 × 60 menit = 15 menit.\nVolume air = Debit × Waktu = 12 liter/menit × 15 menit = 180 liter.\n▶ Jawaban: D"
     },
     {
       "id": "pretest-30",
       "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "diminta untuk memberikan usulan terkait \npeningkatan kualitas pelayanan terhadap \npelanggan kedepannya agar banyak dari \npelanggan yang memakai jasa perusahaan \nAnda, sikap Anda adalah . . . .",
+      "category": "TKP",
+      "subtest": "Tes Karakteristik Pribadi",
+      "question": "Anda merupakan seorang karyawan pada sebuah perusahaan jasa yang bergerak dalam bidang transportasi. Siang ini diadakan diskusi singkat dengan pimpinan perusahaan, dan semua karyawan diminta memberikan usulan peningkatan kualitas pelayanan terhadap pelanggan. Sikap Anda adalah ....",
       "options": {
-        "A": "Memberikan usulan jika ingin meningkatkan pelayanan, perusahaan harus \nmemenuhi semua hal yang diinginkan \noleh pelanggan tanpa terkecuali.",
-        "B": "Mengusulkan adanya jalur khusus untuk ibu hamil dan menyusui dan para \nlansia.",
-        "C": "Mengusulkan agar pada hari libur masal biaya tiket didiskon hingga 50% \nsehingga banyak dari pelanggan yang \nakan menggunakan jasa perusahaan \nAnda.",
-        "D": "Memberikan usulan agar perusahaan \nmenyediakan fasilitas khusus bagi ibu \nhamil, menyusui dan lansia.",
-        "E": "Menyusulkan agar alat transportasi \nyang digunakan selalu bersih dengan \ncara merekrut karyawan baru dengan \ngaji tinggi."
+        "A": "Memberikan usulan bahwa jika ingin meningkatkan pelayanan, perusahaan harus memenuhi semua hal yang diinginkan pelanggan tanpa terkecuali.",
+        "B": "Mengusulkan adanya jalur khusus prioritas untuk ibu hamil, menyusui, dan para lansia.",
+        "C": "Mengusulkan agar pada hari libur massal biaya tiket didiskon hingga 50%.",
+        "D": "Memberikan usulan agar perusahaan menyediakan fasilitas ruang tunggu khusus ber-AC.",
+        "E": "Mengusulkan agar armada transportasi selalu bersih, aman, tepat waktu, dan memiliki saluran keluhan cepat tanggap."
       },
-      "answer": "A",
+      "answer": "E",
       "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
+        "E": 5,
+        "B": 4,
+        "D": 3,
+        "A": 2,
+        "C": 1
       },
-      "explanation": "Jawaban: E\nTopik: Integritas diri \nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab. \nPilihan Jawaban Poin Nilai\nE 5\nD 4\nC 3\nA 2\nB 1"
+      "explanation": "Topik: Pelayanan publik. Usulan terbaik berfokus pada standar kebersihan, keselamatan, ketepatan waktu, dan kemudahan pengaduan pelanggan secara berkelanjutan.\n▶ Jawaban: E (5 Poin)"
     },
     {
       "id": "pretest-32",
@@ -6127,25 +6127,25 @@
     {
       "id": "pretest-35",
       "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "rekan Anda tersebut harus meng-asembbly \npekerjaan tersebut terlebih dahulu sebe -\nlum dikumpulkan. Ditambah lagi semua \nrekan anggota tim mengumpulkan tugas \npribadi mereka juga terlambat sehingga \nrekan Anda yang bertugas untuk mengasembbly setiap pekerjaan jadi tidak me -\nnyelesaikan pekerjaannya tepat waktu. Sikap Anda adalah . . . .",
+      "category": "TKP",
+      "subtest": "Tes Karakteristik Pribadi",
+      "question": "Anda diminta oleh pimpinan untuk membuat sebuah laporan pelaksanaan tugas. Namun ketika hendak mencetak, file laporan tiba-tiba corrupt karena terkena virus, sedangkan pimpinan meminta laporan tersebut segera. Tindakan Anda adalah ....",
       "options": {
-        "A": "Mendengarkan saja rekan Anda dimarahi setelah itu memberikan semangat \nuntuk tidak dimasukkan ke hati ucap -\nan atasan.",
-        "B": "Minta maaf kepada teman karena ke -\nterlambatan juga disebabkan oleh \nanggota tim yang lain.",
-        "C": "Mengakui kesalahan kepada atasan \njika Anda juga turut berkontribusi \npada masalah tersebut.",
-        "D": "Mengakui kesalahan kepada teman \ndan berjanji tidak akan mengulanginya lagi.",
-        "E": "Mengajak rekan Anda untuk membicarakannya dan menghiburnya rekan \nyang dimarahi atasan."
+        "A": "Segera mencari solusi pemulihan data dari permasalahan tersebut melalui internet.",
+        "B": "Segera berkoordinasi dengan tim IT dan pimpinan untuk pemulihan cepat sembari merekonstruksi ringkasan dokumen cadangan.",
+        "C": "Segera memindahkan file ke dalam flash disk lain untuk diperiksa ulang.",
+        "D": "Segera melapor dengan jujur kepada pimpinan mengenai kendala teknis dan menyampaikan estimasi waktu perbaikan.",
+        "E": "Meminta rekan kerja lain untuk membantu menyelesaikan laporan baru dari awal."
       },
-      "answer": "A",
+      "answer": "B",
       "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
+        "B": 5,
+        "D": 4,
+        "A": 3,
+        "E": 2,
+        "C": 1
       },
-      "explanation": "Jawaban : B\nTopik: Kreativitas dan inovasi\nPilihlah jawaban yang menunjukkan ke -\nmampuan untuk menciptakan sesuatu ide \natau gagasan yang solutif untuk mengatasi \nsuatu permasalahan yang dihadapi. Ide/gagasan tersebut harapannya dapat terealisasi secara efektif dan efisien.\nPilihan Jawaban Poin Nilai\nB 5\nD 4\nA 3\nE 2\nC 1"
+      "explanation": "Topik: Tanggung jawab & pemecahan masalah (integritas). Tindakan tanggap dan profesional adalah berkoordinasi segera dengan unit teknis sembari menyusun solusi darurat.\n▶ Jawaban: B (5 Poin)"
     },
     {
       "id": "pretest-31",
@@ -6219,25 +6219,25 @@
     {
       "id": "pretest-38",
       "edition": "2027",
-      "category": "TIU",
-      "subtest": "Tes Intelegensia Umum",
-      "question": "laporan dimaksud, file laporan yang Anda \nbuat tiba-tiba corrupt karena terkena virus, \nsedangkan pimpinan Anda meminta laporan tersebut segera. Apa yang akan Anda \nlakukan?",
+      "category": "TKP",
+      "subtest": "Tes Karakteristik Pribadi",
+      "question": "Anda adalah seorang pegawai honorer di salah satu sekolah dasar dan telah mengabdi selama bertahun-tahun. Ketika ada pembukaan seleksi formasi tetap, Anda merasa memiliki peluang tetapi beban kerja harian sangat padat. Sikap Anda adalah ....",
       "options": {
-        "A": "Segera mencari solusi dari permasalahan tersebut melalui Google.",
-        "B": "Segera memanggil tim IT untuk menangani permasalahan tersebut.",
-        "C": "Segera memindahkan file ke dalam \nflash disk.",
-        "D": "Segera melapor kepada pimpinan \nbahwa file terkena virus.",
-        "E": "Segera meminta teman untuk membantu menangani permasalahan ter -\nsebut."
+        "A": "Membagi waktu belajar dengan disiplin di luar jam mengajar tanpa mengorbankan tugas pelayanan kepada murid.",
+        "B": "Fokus belajar penuh menghadapi ujian dan meminta izin mengurangi jam mengajar.",
+        "C": "Mengandalkan pengalaman bertahun-tahun tanpa perlu persiapan belajar khusus.",
+        "D": "Meminta dispensasi khusus kepada kepala sekolah agar dibebaskan dari beberapa tugas tambahan.",
+        "E": "Belajar hanya ketika memiliki waktu luang di sekolah di sela-sela jam istirahat."
       },
       "answer": "A",
       "points": {
         "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
+        "E": 4,
+        "D": 3,
+        "B": 2,
+        "C": 1
       },
-      "explanation": "Jawaban: A\nTopik: Integritas diri \nSoal tersebut menguji pemahaman me -\nngenai skala kematangan dari aspek inte -\ngritas. Pilihlah jawaban yang menggambarkan bahwaAnda adalah pribadi yang \nmemiliki karakter kuat.\nPilihan Jawaban Poin Nilai\nA 5\nC 4\nD 3"
+      "explanation": "Topik: Profesionalisme dan integritas kinerja. Tetap mengutamakan tanggung jawab utama sembari memanfaatkan waktu pribadi untuk persiapan belajar.\n▶ Jawaban: A (5 Poin)"
     },
     {
       "id": "pretest-36",
@@ -6886,9 +6886,9 @@
     {
       "id": "posttest-72",
       "edition": "2027",
-      "category": "TKP",
-      "subtest": "Tes Karakteristik Pribadi",
-      "question": "buah jeruk, dan 48 buah salak. Buah \ntersebut akan dibungkus plastik untuk dibagikan kepada tetangga dengan setiap \nbungkus terdiri atas tiga jenis buah dengan \njumlah setiap jenis buah sama banyak. Banyak tetangga yang akan mendapatkan \nbingkisan adalah ….",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Bu RT mempunyai 120 buah rambutan, 72 buah jeruk, dan 48 buah salak. Buah tersebut akan dibungkus plastik untuk dibagikan kepada tetangga dengan setiap bungkus terdiri atas tiga jenis buah dengan jumlah sama banyak. Banyak tetangga yang akan mendapatkan bingkisan adalah ….",
       "options": {
         "A": "8 orang",
         "B": "12 orang",
@@ -6896,15 +6896,15 @@
         "D": "36 orang",
         "E": "42 orang"
       },
-      "answer": "A",
+      "answer": "C",
       "points": {
-        "A": 5,
-        "B": 4,
-        "C": 3,
-        "D": 2,
-        "E": 1
+        "A": 0,
+        "B": 0,
+        "C": 5,
+        "D": 0,
+        "E": 0
       },
-      "explanation": "Pembahasan pada bank soal resmi."
+      "explanation": "Mencari FPB dari 120, 72, dan 48:\n120 = 2³ × 3 × 5\n72 = 2³ × 3²\n48 = 2⁴ × 3\nFPB = 2³ × 3 = 8 × 3 = 24 orang.\n▶ Jawaban: C"
     },
     {
       "id": "posttest-27",
@@ -7117,36 +7117,36 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "TES INTELEGENSIA UMUM2\nSOAL SKD CPNS \nTES INTELEGENSIA \nUMUM\nHitung Cepat/Nilai Setara\n1. Sebuah perusahaan percetakan menggunakan dua mesin untuk memproduksi kartu \nundangan. Mesin pertama mencetak 240 \nkartu per jam, sedangkan mesin kedua mencetak 180 kartu per jam. Pasangan operasi \nperkalian yang menghasilkan jumlah sama \ndengan 240 × 180 adalah ....",
+      "question": "Sebuah perusahaan manufaktur memproduksi barang dengan target hasil kali nilai tertentu sebesar 36.000 (yaitu 225 × 160 = 36.000). Pasangan operasi perkalian berikut yang menghasilkan nilai setara adalah ....",
       "options": {
         "A": "180 × 190",
         "B": "200 × 175",
         "C": "240 × 140",
         "D": "250 × 144",
-        "E": "300 × 110\n4. Sebuah pabrik elektronik menggunakan \ndua mesin perakitan untuk menghasilkan \nkomponen. Mesin pertama beroperasi se -\nlama 375 jam dan mampu menghasilkan"
+        "E": "300 × 110"
       },
-      "answer": "A",
+      "answer": "D",
       "points": {
-        "A": 5,
+        "A": 0,
         "B": 0,
         "C": 0,
-        "D": 0,
+        "D": 5,
         "E": 0
       },
-      "explanation": "Pembahasan resmi prediksi TIU 2027."
+      "explanation": "Hasil perkalian awal adalah 225 × 160 = 36.000.\nEvaluasi pilihan jawaban:\n- A: 180 × 190 = 34.200\n- B: 200 × 175 = 35.000\n- C: 240 × 140 = 33.600\n- D: 250 × 144 = 36.000 (Setara)\n- E: 300 × 110 = 33.000\n▶ Jawaban: D"
     },
     {
       "id": "prediksi-tiu-1-12",
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "pekerja dalam 15 hari. Jika pekerjaan \ntersebut harus selesai dalam 9 hari dan ke -\nmampuan setiap pekerja tetap sama, jumlah \npekerja yang diperlukan adalah ....",
+      "question": "Sebuah pekerjaan dapat diselesaikan oleh 12 pekerja dalam waktu 15 hari. Jika pekerjaan tersebut harus selesai dalam 9 hari dan kemampuan setiap pekerja dianggap sama, banyak tambahan pekerja yang diperlukan adalah ....",
       "options": {
-        "A": "5 Paket A",
-        "B": "3 Paket B",
-        "C": "2 Paket C",
-        "D": "1 Paket A dan 2 Paket B",
-        "E": "1 Paket B dan 1 Paket C\n20. Sebuah panitia akan menyediakan minimal"
+        "A": "5 orang",
+        "B": "6 orang",
+        "C": "8 orang",
+        "D": "10 orang",
+        "E": "12 orang"
       },
       "answer": "C",
       "points": {
@@ -7156,43 +7156,43 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "truk.\nJAWABAN DAN PEMBAHASAN 21\n• Volume barang pengiriman percepatan \n= 60% dari volume pengiriman reguler.\nWaktu yang dibutuhkan untuk menyelesaikan pengiriman adalah:\n0,6 6 10t 12\n36 3 jam12\n´´=\n==\nKarena pengiriman dapat diselesaikan dalam waktu 3 jam, sedangkan batas waktu \nmaksimal adalah 5 jam, pengiriman perce -\npatan dapat memenuhi target waktu.\nDengan demikian, dua pernyataan ber -\nsama-sama cukup untuk menjawab per -\ntanyaan, tetapi satu pernyataan saja tidak \ncukup.\n ▶ Jawaban: C\n27. Pembahasan:\nUnit reguler menggunakan 8 komputer selama 15 jam. Total beban kerja setara dengan:\n8 × 15 = 120 komputer-jam\nMenguji Pernyataan (1)\nVolume data sama dan kecepatan setiap \nkomputer sama. Jika Unit Percepatan menggunakan 20 komputer, waktu pemrosesan \nadalah:\n8 15t 6 jam20´==\nWaktu tepat 6 jam, sehingga jawabannya ya. \nPernyataan (1) saja cukup.\nMenguji Pernyataan (2)\nVolume data hanya 40% dari volume reguler \ndan jumlah komputer sama, yaitu 8 komputer.\nWaktu pemrosesan:\nt = 40% × 15 = 6 jam\nWaktu tepat 6 jam, sehingga jawabannya \njuga ya. Artinya, pernyataan (2) saja cukup.\n ▶ Jawaban: D\n28. Pembahasan:\nUnit reguler terdiri atas 10 orang dan me -\nnyelesaikan pekerjaan dalam 18 hari kerja.\nMenguji Pernyataan (1)\nVolume dokumen sama, produktivitas setiap orang sama, dan jumlah penyusun menjadi 20 orang.\n10 18t 9 hari20´==\nWaktu penyelesaian tepat 9 hari, sehingga \njawabannya ya. Pernyataan (1) saja cukup.\nMenguji Pernyataan (2)\nVolume dokumen sebesar 50% dari volume \nreguler, sedangkan\nt = 50% × 18 = 9 hari jumlah penyusun tetap"
+      "explanation": "Menggunakan rumus perbandingan berbalik nilai:\n12 pekerja × 15 hari = Total Pekerja × 9 hari\nTotal Pekerja = 180 / 9 = 20 pekerja.\nTambahan pekerja = 20 - 12 = 8 orang.\n▶ Jawaban: C"
     },
     {
       "id": "prediksi-tiu-1-8",
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "mesin 15 jam\nUnit \nProduksi \nPercepatan\n(n) mesin (t) jam\nPERTANYAAN UTAMA:\nApakah Unit Produksi Percepatan dapat \nmenghasilkan seluruh pesanan dalam wak -\ntu maksimal 8 jam?\nPERNYATAAN (1):\nSetiap mesin memiliki kapasitas produksi \nyang sama dan Unit Produksi Percepatan \nmenggunakan 15 mesin.\nPERNYATAAN (2):\nJumlah pesanan yang harus diproduksi Unit \nProduksi Percepatan adalah 80% dari jumlah \npesanan Unit Produksi Reguler.\nTES INTELEGENSIA UMUM 7",
+      "question": "Perhatikan tabel kecukupan data berikut:\n\n• Unit Produksi Reguler: 8 mesin, waktu produksi 15 jam\n• Unit Produksi Percepatan: (n) mesin, waktu produksi (t) jam\n\nPERTANYAAN UTAMA:\nApakah Unit Produksi Percepatan dapat menghasilkan seluruh pesanan dalam waktu maksimal 8 jam?\n\nPERNYATAAN (1):\nSetiap mesin memiliki kapasitas produksi yang sama dan Unit Produksi Percepatan menggunakan 15 mesin.\n\nPERNYATAAN (2):\nJumlah pesanan yang harus diproduksi Unit Produksi Percepatan adalah 80% dari jumlah pesanan Unit Produksi Reguler.",
       "options": {
-        "A": "▶ Jawaban: A\n3. Pembahasan:\nPerkalian awal adalah:\n225 × 160 = 36.000\nUntuk mempermudah perhitungan, kita dapat memecah angka 160 menjadi 16 × 10.\n= 225 × 160\n= 225 × 16 × 10\n= 3.600 × 10\n= 36.000\nSelanjutnya, periksa setiap pilihan jawaban.\n- A: 180 × 190 = 34.200\n- B: 200 × 175 = 35.000\n- C: 240 × 140 = 33.600\n- D: 250 × 144 = 36.000\n- E: 300 × 110 = 33.000\nJAWABAN DAN PEMBAHASAN",
-        "B": "42",
-        "C": "▶ Jawaban: C\n2. Pembahasan:\nPerkalian awal: 125 × 48 = 6.000\nSelanjutnya, periksa setiap pilihan jawab -\nan.\n- A: 150 × 40 = 6.000\n- B: 160 × 38 = 6.080\n- C: 180 × 32 = 5.760\n- D: 200 × 28 = 5.600\n- E: 240 × 24 = 5.760\nHanya pilihan A yang menghasilkan nilai \n6.000, sama dengan perkalian awal.\nJadi, pasangan perkalian yang setara adalah \npilihan",
-        "D": "48",
-        "E": "54\nFigural: Pencerminan lalu Diputar\n34. Perhatikan gambar berikut!\nJika gambar awal dicerminkan terhadap \nsumbu vertikal, kemudian diputar 90° searah jarum jam dengan pusat rotasi pada titik \npusat gambar, hasil akhirnya adalah ....\nFigural: Pola Isian Figural\n35. Perhatikan urutan gambar pada soal berikut!\nGambar selanjutnya adalah ….\nJAWABAN DAN PEMBAHASAN 11\n1. Pembahasan:\nUntuk menentukan pasangan perkalian \nyang setara, kita dapat menyederhanakan \nkedua faktor dengan membaginya dengan \n10. Cara ini membuat angka lebih mudah \ndibandingkan tanpa mengubah hubungan \nkesetaraan.\nPerkalian awal: 240 × 180\nSetelah kedua faktor dibagi 10, diperoleh:\n24 × 18 = 432\nSelanjutnya, sederhanakan setiap pilihan \ndengan cara yang sama.\n- A: 20 × 21 = 420\n- B: 24 × 16 = 384\n- C: 27 × 16 = 432\n- D: 30 × 15 = 450\n- E: 32 × 12,5 = 400\nHasil pemeriksaan menunjukkan bahwa hanya pilihan C yang menghasilkan 432, sama \ndengan hasil perkalian awal. Jadi, pasangan \nperkalian yang setara adalah pilihan"
+        "A": "Pernyataan (1) SAJA cukup untuk menjawab, tetapi pernyataan (2) SAJA tidak cukup",
+        "B": "Pernyataan (2) SAJA cukup untuk menjawab, tetapi pernyataan (1) SAJA tidak cukup",
+        "C": "DUA pernyataan BERSAMA-SAMA cukup untuk menjawab, tetapi SATU pernyataan SAJA tidak cukup",
+        "D": "Pernyataan (1) SAJA cukup DAN pernyataan (2) SAJA cukup",
+        "E": "Pernyataan (1) dan (2) bersama-sama TIDAK cukup untuk menjawab"
       },
-      "answer": "A",
+      "answer": "C",
       "points": {
-        "A": 5,
+        "A": 0,
         "B": 0,
-        "C": 0,
+        "C": 5,
         "D": 0,
         "E": 0
       },
-      "explanation": "Pembahasan resmi prediksi TIU 2027."
+      "explanation": "Total beban kerja reguler = 8 × 15 = 120 mesin-jam.\nPernyataan (1): Jika menggunakan 15 mesin, waktu belum dapat dihitung karena jumlah pesanan belum diketahui (tidak cukup).\nPernyataan (2): Beban kerja = 80% × 120 = 96 mesin-jam, namun jumlah mesin belum diketahui (tidak cukup).\nPenggabungan (1) dan (2): Waktu t = 96 / 15 = 6,4 jam. Karena 6,4 jam ≤ 8 jam, target waktu tercapai. DUA pernyataan bersama-sama cukup.\n▶ Jawaban: C"
     },
     {
       "id": "prediksi-tiu-2-2",
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "TAMBAHAN \nTES INTELEGENSIA \nDENGAN MODEL \nSOAL TERBARU\nSKD \nCPNS\nTES INTELEGENSIA UMUM2\nSOAL SKD CPNS \nTES INTELEGENSIA \nUMUM\nHitung Cepat/Nilai Setara\n1. Sebuah percetakan mampu mencetak se -\njumlah halaman yang dinyatakan dengan \nperkalian 125 × 72. Pasangan perkalian berikut yang menghasilkan nilai setara adalah ....",
+      "question": "Sebuah perusahaan percetakan menggunakan dua mesin untuk mencetak dokumen. Mesin pertama mencetak 240 lembar per jam, sedangkan mesin kedua mencetak 75 lembar per jam. Pasangan operasi perkalian yang menghasilkan jumlah sama dengan 240 × 75 adalah ….",
       "options": {
         "A": "180 × 100",
         "B": "200 × 85",
         "C": "250 × 70",
         "D": "300 × 55",
-        "E": "320 × 50\n3. Sebuah gudang penyimpanan menggunakan dua jenis armada untuk mendistribusikan barang. Armada pertama membawa 160 paket, dan setiap paket berisi 125 \nbarang. Pasangan operasi perkalian yang \nmenghasilkan jumlah sama dengan 160 ×"
+        "E": "320 × 50"
       },
       "answer": "A",
       "points": {
@@ -7202,7 +7202,7 @@
         "D": 0,
         "E": 0
       },
-      "explanation": "N"
+      "explanation": "Perkalian awal: 240 × 75 = 18.000.\nEvaluasi pilihan:\n- A: 180 × 100 = 18.000 (Setara)\n- B: 200 × 85 = 17.000\n- C: 250 × 70 = 17.500\n- D: 300 × 55 = 16.500\n- E: 320 × 50 = 16.000\n▶ Jawaban: A"
     },
     {
       "id": "klasik_skd_set7_002",
@@ -29579,7 +29579,7 @@
       "edition": "2024-2025",
       "category": "TKP",
       "subtest": "Materi TKP Klasik",
-      "question": "ketika banyak anggota tim kerja anda yang berbeda agama dengan anda, maka anda akan ...",
+      "question": "Ketika banyak anggota tim kerja Anda memiliki keyakinan/agama yang berbeda dengan Anda, sikap Anda adalah ....",
       "options": {
         "A": "bersikap toleran dan menghormati mereka",
         "B": "Menjaga jarak dengan mereka",
@@ -30176,7 +30176,7 @@
       "edition": "2024-2025",
       "category": "TKP",
       "subtest": "Materi TKP Klasik",
-      "question": "sudah diketehui secara umum bahwa proses belajar mengajar di perguruan tinggi dan sekolah menengah berbeda. Terhadap perbedaan tersebut saya akan...",
+      "question": "Sudah diketahui secara umum bahwa proses belajar mengajar di perguruan tinggi dan sekolah menengah berbeda. Sebagai mahasiswa baru, sikap Anda dalam beradaptasi adalah ....",
       "options": {
         "A": "Mengalami kesulitan untuk meninggalkan kebiasaan ini.",
         "B": "Membutuhkan waktu untuk mneyesuaikan diri.",
@@ -32442,8 +32442,8 @@
         "A": "Perjanjian ekstradisi",
         "B": "Perjanjian ekspor impor",
         "C": "Perubahan iklim dunia",
-        "D": "Kerjasama ekonomi gobal",
-        "E": "Krisis ekonomi global Bacaan untuk soal no. 32 s.d. 34. Tugas utama seorang guru adalah mengajar siswa di sekolah, bukan memberi les tambahan di rumah. Fokus pada pemberian les di rumah akan berpengaruh pada efisiensi pendidikan, dan bukan tidak mungkin akan menurunkan kualitas dedikasi seorang guru. Pemberian les tambahan sebaiknya dilakukan hanya untuk meningkatkan kualitas siswa yang kurang, dan bukan sebagai sarana menambah penghasilan."
+        "D": "Kerjasama ekonomi global",
+        "E": "Krisis ekonomi global"
       },
       "answer": "C",
       "points": null,
@@ -33911,7 +33911,7 @@
         "B": "Dekrit Presiden",
         "C": "Undang-undang",
         "D": "Batang Tubuh UUD 1945",
-        "E": "Pembahasan UUD 1945"
+        "E": "Ketetapan MPR"
       },
       "answer": "A",
       "points": null,
@@ -33941,11 +33941,11 @@
       "subtest": "Materi TWK Klasik",
       "question": "Setiap warga negara berhak memperoleh kesempatan yang sama dalam pemerintahan. Hal tersebut tercantum dalam UUD 1945 (amandemen) pasal ...",
       "options": {
-        "A": "27 A ayat 1",
-        "B": "22 C ayat 1",
-        "C": "22 D ayat 1 SOAL DAN PEMBAHASAN LATIHAN TWK TIU TKP Pembahasan Lihat Bagian Akhir",
-        "D": "28 D ayat 3",
-        "E": "25 A ayat 1"
+        "A": "Pasal 27 ayat 1",
+        "B": "Pasal 22 C ayat 1",
+        "C": "Pasal 22 D ayat 1",
+        "D": "Pasal 28 D ayat 3",
+        "E": "Pasal 25 A ayat 1"
       },
       "answer": "D",
       "points": null,
@@ -34619,7 +34619,7 @@
       "edition": "2024-2025",
       "category": "TIU",
       "subtest": "Materi TIU Klasik",
-      "question": "jika (x = n.1.1), (y = n + 1 + 1) dan n adalah bilangan positif, manakah pernyataan berikut yang benar?",
+      "question": "Jika (x = n × 1 × 1), (y = n + 1 + 1) dan n adalah bilangan bulat positif, manakah pernyataan berikut yang benar?",
       "options": {
         "A": "x > y",
         "B": "x < y",
@@ -34687,7 +34687,7 @@
       "edition": "2024-2025",
       "category": "TIU",
       "subtest": "Materi TIU Klasik",
-      "question": "seekor kambing dapat menghabiskan rumput di suatu lapangan dalam waktu 4 minggu. Jika seekor sapi mampu menghabiskan rumput di lapangan yang sama dalam 3 minggu, berapa lama rumput akan habis jika kambing dan sapi makan bersama-sama di lapangan tersebut?",
+      "question": "Seekor kambing dapat menghabiskan rumput di suatu lapangan dalam waktu 4 minggu. Jika seekor sapi mampu menghabiskan rumput di lapangan yang sama dalam waktu 3 minggu, berapa harikah rumput akan habis jika dimakan bersama oleh kambing dan sapi tersebut?",
       "options": {
         "A": "12 hari",
         "D": "24 hari",
