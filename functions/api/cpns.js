@@ -209,20 +209,16 @@ export async function onRequestGet(context) {
         totalVisits = visitRes.results?.[0]?.metric_value || 1;
       } catch (e) {}
 
-      // Hitungan baseline sejak debut 28 Nov 2026
-      const baselineVisits = 1250;
-      const baselineUsers = 150;
-      const baselineSessions = 380;
-
+      // Hitungan murni organik real-time dari database Cloudflare D1
       return jsonResponse({
         success: true,
         data: {
           debut_date: "2026-11-28",
           debut_display: "28 November 2026",
-          active_online: activeOnline,
-          total_visits: totalVisits + baselineVisits,
-          total_users: totalUsers + baselineUsers,
-          total_sessions: totalSessions + baselineSessions,
+          active_online: Math.max(1, activeOnline),
+          total_visits: totalVisits,
+          total_users: totalUsers,
+          total_sessions: totalSessions,
           active_bank_questions: 1848,
           questions_2027: 316,
           platform_version: "v2027.1.0-release",
