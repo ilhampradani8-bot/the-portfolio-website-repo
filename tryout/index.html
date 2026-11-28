@@ -958,7 +958,183 @@
 
     </section>
 
-    <!-- 2. SCREEN: EXAM WORKSPACE (CAT INTERFACE DENGAN NAVIGASI LEBAR & TTS) -->
+    <!-- 2. SCREEN: KONFIRMASI & PERSIAPAN SIMULASI CAT BKN (HALAMAN LENGKAP & LUAS) -->
+    <section id="screen-confirmation" class="hidden space-y-6 animate-fade-in max-w-4xl mx-auto w-full">
+      <!-- Breadcrumb & Back Button -->
+      <div class="flex items-center justify-between pb-2">
+        <button onclick="closePreExamModal()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm">
+          <i class="ph-bold ph-arrow-left"></i>
+          <span>Kembali ke Pilihan Paket</span>
+        </button>
+        <div class="inline-flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+          <a href="#simulasi" onclick="switchView('simulasi')" class="hover:underline">beranda</a>
+          <span>/</span>
+          <span class="text-blue-600 dark:text-blue-400 font-bold">konfirmasi</span>
+        </div>
+      </div>
+
+      <!-- Main Spacious Confirmation Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-xl space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-xs uppercase tracking-wider">
+                <i class="ph-bold ph-shield-check text-blue-600"></i> Ruang Persiapan Ujian
+              </span>
+              <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                <i class="ph-fill ph-check-circle"></i> Tersimpan Otomatis
+              </span>
+            </div>
+            <h1 id="pre-exam-title" class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
+              Konfirmasi Simulasi CAT
+            </h1>
+            <p id="pre-exam-subtitle" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              Periksa dan sesuaikan durasi waktu, jumlah butir soal, dan fokus materi sesuai kesiapan belajar Anda sebelum memulai.
+            </p>
+          </div>
+          
+          <!-- Candidate Profile Card -->
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center gap-3 shrink-0">
+            <div id="pre-exam-avatar" class="w-11 h-11 rounded-2xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm overflow-hidden shadow-sm">
+              ASN
+            </div>
+            <div>
+              <div id="pre-exam-user-name" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Calon ASN Hebat</div>
+              <div id="pre-exam-user-id" class="text-[11px] text-slate-400 font-mono">ID: Guest User</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-Column Responsive Grid Form -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
+          
+          <!-- LEFT COLUMN: WAKTU & JUMLAH SOAL -->
+          <div class="space-y-6">
+            <!-- Setting 1: Durasi Waktu Ujian -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 text-sm">
+                  <i class="ph-bold ph-clock text-amber-500 text-base"></i> Durasi Waktu Ujian
+                </span>
+                <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                  <input type="checkbox" id="pre-exam-untimed" onchange="toggleUntimedMode(this)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700">
+                  <span class="font-bold text-blue-600 dark:text-blue-400">Waktu Bebas (Tanpa Batas)</span>
+                </label>
+              </div>
+
+              <div id="pre-exam-timer-wrapper" class="space-y-3">
+                <div class="relative">
+                  <input type="number" id="pre-exam-duration-input" min="1" max="300" value="100" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-slate-800 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500">
+                  <span class="absolute right-4 top-3 text-slate-400 font-medium">Menit</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <button type="button" onclick="setPreExamDuration(30)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">30 Menit</button>
+                  <button type="button" onclick="setPreExamDuration(60)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">60 Menit</button>
+                  <button type="button" onclick="setPreExamDuration(100)" class="py-2 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 font-bold transition">100m (Umum)</button>
+                  <button type="button" onclick="setPreExamDuration(130)" class="py-2 px-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-bold transition">130m (Disabilitas)</button>
+                </div>
+              </div>
+              <p id="pre-exam-duration-hint" class="text-[11px] text-slate-500 dark:text-slate-400">
+                Standar BKN: 100 menit untuk umum, 130 menit untuk formasi disabilitas.
+              </p>
+            </div>
+
+            <!-- Setting 2: Jumlah Butir Soal -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 text-sm">
+                  <i class="ph-bold ph-list-numbers text-blue-600 text-base"></i> Jumlah Butir Soal
+                </span>
+                <span id="pre-exam-qcount-display" class="font-extrabold text-blue-600 text-sm">110 Soal</span>
+              </div>
+
+              <div class="space-y-3">
+                <input type="number" id="pre-exam-qcount-input" min="5" max="150" value="110" oninput="onPreExamQCountChange(this.value)" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-slate-800 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <button type="button" onclick="setPreExamQCount(15)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">15 Soal</button>
+                  <button type="button" onclick="setPreExamQCount(30)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">30 Soal</button>
+                  <button type="button" onclick="setPreExamQCount(50)" class="py-2 px-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold transition">50 Soal</button>
+                  <button type="button" onclick="setPreExamQCount(110)" class="py-2 px-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 font-bold transition">110 (Full CAT)</button>
+                </div>
+              </div>
+              <p id="pre-exam-distribution-hint" class="text-[11px] text-slate-500 dark:text-slate-400">
+                Proporsi otomatis: 30 TWK • 35 TIU • 45 TKP (atau proporsional jika jumlah disesuaikan).
+              </p>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: PILIHAN MATERI & PETUNJUK -->
+          <div class="space-y-6">
+            <!-- Setting 3: Fokus Materi & Opsi Repetisi -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 space-y-4">
+              <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 text-sm">
+                <i class="ph-bold ph-target text-rose-500 text-base"></i> Pilihan Materi & Logika Ujian
+              </span>
+
+              <div class="space-y-3">
+                <div class="space-y-1.5">
+                  <label for="pre-exam-edition-select" class="text-slate-700 dark:text-slate-300 font-bold">Koleksi Bank Soal:</label>
+                  <select id="pre-exam-edition-select" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 dark:text-slate-200 text-xs shadow-sm">
+                    <option value="PRIORITY_2027">Utamakan Soal Baru 2027 (HOTS - Disarankan)</option>
+                    <option value="ONLY_2027">Hanya Soal Baru 2027 (HOTS)</option>
+                    <option value="ONLY_KLASIK">Soal Latihan Dasar (2024-2025)</option>
+                    <option value="RANDOM_ALL">Acak Semua Soal</option>
+                  </select>
+                </div>
+
+                <label class="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-slate-900 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition shadow-xs">
+                  <input type="checkbox" id="pre-exam-remedial-only" class="mt-0.5 w-4 h-4 rounded text-rose-600 focus:ring-rose-500 border-slate-300 dark:border-slate-700">
+                  <div>
+                    <span class="font-bold text-slate-800 dark:text-slate-200 block">Latihan Ulang Soal yang Pernah Salah</span>
+                    <span class="text-[11px] text-slate-500 dark:text-slate-400">Khusus mengerjakan kembali soal yang sebelumnya dijawab keliru agar bisa diperbaiki.</span>
+                  </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-slate-900 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition shadow-xs">
+                  <input type="checkbox" id="pre-exam-include-mastered" class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 dark:border-slate-700">
+                  <div>
+                    <span class="font-bold text-slate-800 dark:text-slate-200 block">Tetap Tampilkan Soal yang Sudah Dikuasai</span>
+                    <span class="text-[11px] text-slate-500 dark:text-slate-400">Soal yang sudah pernah Anda jawab benar akan tetap muncul kembali untuk memperdalam pemahaman.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Card 4: Petunjuk Pelaksanaan Ujian CAT -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-blue-50/50 dark:bg-blue-950/20 space-y-3">
+              <span class="font-bold text-blue-900 dark:text-blue-200 flex items-center gap-2 text-sm">
+                <i class="ph-bold ph-info text-blue-600 text-base"></i> Ketentuan Simulasi CAT BKN
+              </span>
+              <ul class="space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed list-disc list-inside">
+                <li>Ujian berjalan secara real-time dengan timer otomatis di bagian atas layar.</li>
+                <li>Gunakan tombol <strong>Ragu-ragu</strong> untuk menandai soal yang ingin ditinjau kembali.</li>
+                <li>Navigasi soal dapat menggunakan tombol panah atau tombol nomor di panel kanan.</li>
+                <li>Sesi ujian otomatis tersimpan sehingga Anda dapat meninjau pembahasan lengkap setelah selesai.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Large Action Bar -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <button onclick="closePreExamModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm flex items-center justify-center gap-2">
+            <i class="ph-bold ph-arrow-left"></i>
+            <span>Batal / Pilih Paket Lain</span>
+          </button>
+          <button onclick="confirmAndStartExam()" class="w-full sm:flex-1 py-3.5 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-xl shadow-blue-600/30 transition flex items-center justify-center gap-2.5">
+            <i class="ph-bold ph-play text-base"></i>
+            <span>Mulai Ujian Sekarang</span>
+            <i class="ph-bold ph-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. SCREEN: EXAM WORKSPACE (CAT INTERFACE DENGAN NAVIGASI LEBAR & TTS) -->
     <section id="screen-exam" class="hidden space-y-6">
       
       <!-- Exam Control Bar -->
@@ -1503,151 +1679,6 @@
           Ya, Selesaikan
         </button>
       </div>
-    </div>
-  </div>
-
-  <!-- MODAL 4: KONFIRMASI & KUSTOMISASI SEBELUM MULAI TRYOUT -->
-  <div id="modal-pre-exam" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 animate-scale-in my-8">
-      
-      <!-- Modal Header -->
-      <div class="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
-        <div>
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-[11px] uppercase tracking-wider">
-            <i class="ph-bold ph-sliders"></i> Kustomisasi Ujian
-          </span>
-          <h3 id="pre-exam-title" class="text-xl font-black text-slate-900 dark:text-slate-100 mt-1">
-            Konfirmasi Simulasi CAT
-          </h3>
-          <p id="pre-exam-subtitle" class="text-xs text-slate-500 dark:text-slate-400">
-            Sesuaikan parameter waktu, jumlah soal, dan fokus materi sebelum memulai ujian.
-          </p>
-        </div>
-        <button onclick="closePreExamModal()" class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition">
-          <i class="ph-bold ph-x text-lg"></i>
-        </button>
-      </div>
-
-      <!-- User Account Info Banner -->
-      <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center justify-between text-xs">
-        <div class="flex items-center gap-2.5">
-          <div id="pre-exam-avatar" class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs overflow-hidden">
-            ASN
-          </div>
-          <div>
-            <div id="pre-exam-user-name" class="font-bold text-slate-800 dark:text-slate-200">Calon ASN Hebat</div>
-            <div id="pre-exam-user-id" class="text-[11px] text-slate-400 font-mono">ID: Guest User</div>
-          </div>
-        </div>
-        <span class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 font-medium">
-          Tersimpan Otomatis
-        </span>
-      </div>
-
-      <!-- Controls Form -->
-      <div class="space-y-4 text-xs">
-        
-        <!-- Setting 1: Durasi Waktu & Toggle Untimed -->
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-sm">
-              <i class="ph-bold ph-clock text-amber-500"></i> Durasi Waktu Ujian
-            </span>
-            <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-              <input type="checkbox" id="pre-exam-untimed" onchange="toggleUntimedMode(this)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700">
-              <span class="font-bold text-blue-600 dark:text-blue-400">Waktu Bebas (Tanpa Batas)</span>
-            </label>
-          </div>
-
-          <div id="pre-exam-timer-wrapper" class="flex items-center gap-3">
-            <div class="relative flex-1">
-              <input type="number" id="pre-exam-duration-input" min="1" max="300" value="100" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-bold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
-              <span class="absolute right-3.5 top-2.5 text-slate-400 font-medium">Menit</span>
-            </div>
-            <div class="flex gap-1.5">
-              <button type="button" onclick="setPreExamDuration(30)" class="px-2.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-medium">30m</button>
-              <button type="button" onclick="setPreExamDuration(60)" class="px-2.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-medium">60m</button>
-              <button type="button" onclick="setPreExamDuration(100)" class="px-2.5 py-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 text-blue-600 font-bold">100m (Umum)</button>
-              <button type="button" onclick="setPreExamDuration(130)" class="px-2.5 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 text-emerald-600 font-bold">130m (Disabilitas)</button>
-            </div>
-          </div>
-          <p id="pre-exam-duration-hint" class="text-[11px] text-slate-400">
-            Standar BKN: 100 menit untuk umum, 130 menit untuk formasi disabilitas.
-          </p>
-        </div>
-
-        <!-- Setting 2: Jumlah Butir Soal -->
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-sm">
-              <i class="ph-bold ph-list-numbers text-blue-600"></i> Jumlah Butir Soal
-            </span>
-            <span id="pre-exam-qcount-display" class="font-extrabold text-blue-600">110 Soal</span>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <input type="number" id="pre-exam-qcount-input" min="5" max="150" value="110" oninput="onPreExamQCountChange(this.value)" class="w-28 px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-bold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
-            
-            <div class="flex flex-wrap gap-1.5 flex-1">
-              <button type="button" onclick="setPreExamQCount(15)" class="px-2.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-medium">15 Soal</button>
-              <button type="button" onclick="setPreExamQCount(30)" class="px-2.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-medium">30 Soal</button>
-              <button type="button" onclick="setPreExamQCount(50)" class="px-2.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-medium">50 Soal</button>
-              <button type="button" onclick="setPreExamQCount(110)" class="px-2.5 py-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 text-blue-600 font-bold">110 (Full CAT)</button>
-            </div>
-          </div>
-          <p id="pre-exam-distribution-hint" class="text-[11px] text-slate-400">
-            Proporsi otomatis: 30 TWK • 35 TIU • 45 TKP (atau proporsional jika jumlah disesuaikan).
-          </p>
-        </div>
-
-        <!-- Setting 3: Fokus Materi & Remedial Sesi Gagal -->
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 space-y-3">
-          <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-sm">
-            <i class="ph-bold ph-target text-rose-500"></i> Fokus & Pilihan Materi
-          </span>
-
-          <div class="space-y-2">
-            <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-rose-50/50 dark:hover:bg-rose-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition">
-              <input type="checkbox" id="pre-exam-remedial-only" class="mt-0.5 w-4 h-4 rounded text-rose-600 focus:ring-rose-500 border-slate-300 dark:border-slate-700">
-              <div>
-                <span class="font-bold text-slate-800 dark:text-slate-200 block">Latihan Ulang Soal yang Pernah Salah</span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">Khusus mengerjakan kembali soal yang sebelumnya dijawab keliru agar bisa diperbaiki.</span>
-              </div>
-            </label>
-
-            <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 border border-slate-200 dark:border-slate-700 cursor-pointer transition">
-              <input type="checkbox" id="pre-exam-include-mastered" class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 dark:border-slate-700">
-              <div>
-                <span class="font-bold text-slate-800 dark:text-slate-200 block">Tetap Tampilkan Soal yang Sudah Dikuasai</span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">Soal yang sudah pernah Anda jawab benar akan tetap muncul kembali untuk memperdalam pemahaman.</span>
-              </div>
-            </label>
-
-            <div class="flex items-center justify-between pt-1">
-              <label for="pre-exam-edition-select" class="text-slate-600 dark:text-slate-300 font-medium">Pilihan Materi:</label>
-              <select id="pre-exam-edition-select" class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-bold text-slate-800 dark:text-slate-200">
-                <option value="PRIORITY_2027">Utamakan Soal Baru 2027 (HOTS - Disarankan)</option>
-                <option value="ONLY_2027">Hanya Soal Baru 2027 (HOTS)</option>
-                <option value="ONLY_KLASIK">Soal Latihan Dasar (2024-2025)</option>
-                <option value="RANDOM_ALL">Acak Semua Soal</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex gap-3 pt-2">
-        <button onclick="closePreExamModal()" class="flex-1 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-          Batal
-        </button>
-        <button onclick="confirmAndStartExam()" class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2">
-          <span>Mulai Ujian Sekarang</span>
-          <i class="ph-bold ph-play"></i>
-        </button>
-      </div>
-
     </div>
   </div>
 

@@ -98,7 +98,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function handleHashNavigation() {
   const hash = window.location.hash.replace('#', '').toLowerCase();
-  if (['simulasi', 'peringkat', 'riwayat', 'pengaturan'].includes(hash)) {
+  if (hash === 'konfirmasi') {
+    openPreExamModal(pendingPreExamPacket || 'full_simulation');
+  } else if (['simulasi', 'peringkat', 'riwayat', 'pengaturan'].includes(hash)) {
+    const confirmScreen = document.getElementById('screen-confirmation');
+    if (confirmScreen && !confirmScreen.classList.contains('hidden')) {
+      switchToScreen('lobby');
+    }
     switchView(hash);
   }
 }
@@ -1873,6 +1879,7 @@ function checkOngoingSession() {
 // 17. SCREEN SWITCHING HELPER
 function switchToScreen(screenName) {
   const lobby = document.getElementById('screen-lobby');
+  const confirmation = document.getElementById('screen-confirmation');
   const exam = document.getElementById('screen-exam');
   const result = document.getElementById('screen-result');
   const headerStatus = document.getElementById('header-exam-status');
@@ -1880,6 +1887,7 @@ function switchToScreen(screenName) {
   const mobNavTabs = document.getElementById('mobile-nav-tabs');
 
   lobby.classList.add('hidden');
+  if (confirmation) confirmation.classList.add('hidden');
   exam.classList.add('hidden');
   result.classList.add('hidden');
   headerStatus.classList.add('hidden');
@@ -1890,6 +1898,12 @@ function switchToScreen(screenName) {
     lobby.classList.remove('hidden');
     if (navTabs) navTabs.classList.remove('hidden');
     if (mobNavTabs) mobNavTabs.classList.remove('hidden');
+  } else if (screenName === 'confirmation') {
+    if (confirmation) confirmation.classList.remove('hidden');
+    if (navTabs) navTabs.classList.remove('hidden');
+    if (mobNavTabs) mobNavTabs.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', '#konfirmasi');
   } else if (screenName === 'exam') {
     exam.classList.remove('hidden');
     headerStatus.classList.remove('hidden');
@@ -2144,18 +2158,12 @@ function openPreExamModal(packetType) {
 
   toggleUntimedMode(untimedCb);
 
-  if (modal) {
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-  }
+  switchToScreen('confirmation');
 }
 
 function closePreExamModal() {
-  const modal = document.getElementById('modal-pre-exam');
-  if (modal) {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
+  switchToScreen('lobby');
+  history.replaceState(null, '', '#simulasi');
 }
 
 function toggleUntimedMode(checkbox) {
