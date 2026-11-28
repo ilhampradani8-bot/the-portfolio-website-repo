@@ -9,7 +9,7 @@
  * Author: Dr. Ilham Pradani Hub
  */
 
-const GOOGLE_CLIENT_ID = "812430784237-ipa8k92fujeoirmi47vefbrekgqv46op.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = "812430784237-70vet0sepo0f0eti0cs62nnjd4s89ia8.apps.googleusercontent.com";
 
 let bankData = null;
 let userProfile = {
