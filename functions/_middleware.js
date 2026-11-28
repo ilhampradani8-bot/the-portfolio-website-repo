@@ -9,6 +9,11 @@ export async function onRequest(context) {
   const url = new URL(context.request.url);
   const hostname = url.hostname.toLowerCase();
 
+  // 0. Pass-through all API requests directly to Pages Functions backend
+  if (url.pathname.startsWith("/api/")) {
+    return context.next();
+  }
+
   // 1. If accessed via tryout subdomain (e.g. tryout.ilhampradani.me)
   if (hostname.startsWith("tryout.")) {
     if (url.pathname === "/" || url.pathname === "") {
