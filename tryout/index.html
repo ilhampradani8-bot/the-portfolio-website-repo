@@ -813,6 +813,115 @@
           </div>
 
         </div>
+
+        <!-- SECTION: DRILL SPESIFIK PER JENIS / TIPE SOAL (SUB-TOPIK) -->
+        <div class="pt-4 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                <i class="ph-bold ph-crosshair text-rose-500"></i> Latihan Terarah per Sub-Jenis Soal
+              </h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">
+                Fokus perdalam materi tertentu yang paling Anda butuhkan (khusus Numerik, Silogisme, Figural, Verbal, dll).
+              </p>
+            </div>
+            <span class="text-[11px] px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold self-start sm:self-auto">
+              Mode Latihan Terarah
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <!-- Drill 1: Numerik -->
+            <button onclick="openPreExamModal('drill_numerik')" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 shadow-xs hover:shadow-md transition text-left group flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-lg mb-2.5 group-hover:scale-105 transition">
+                  <i class="ph-bold ph-calculator"></i>
+                </div>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-blue-600 transition">Numerik & Hitung</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Kecepatan, aljabar, persen & deret angka</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] font-bold text-blue-600">
+                <span>Mulai Drill</span>
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </button>
+
+            <!-- Drill 2: Silogisme -->
+            <button onclick="openPreExamModal('drill_silogisme')" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 shadow-xs hover:shadow-md transition text-left group flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center text-lg mb-2.5 group-hover:scale-105 transition">
+                  <i class="ph-bold ph-tree-structure"></i>
+                </div>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 transition">Silogisme & Logika</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Penarikan kesimpulan premis mayor & minor</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] font-bold text-indigo-600">
+                <span>Mulai Drill</span>
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </button>
+
+            <!-- Drill 3: Figural -->
+            <button onclick="openPreExamModal('drill_figural')" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-500 shadow-xs hover:shadow-md transition text-left group flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center text-lg mb-2.5 group-hover:scale-105 transition">
+                  <i class="ph-bold ph-shapes"></i>
+                </div>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-purple-600 transition">Figural (Pola)</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Pola gambar, rotasi, pencerminan & kubus</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] font-bold text-purple-600">
+                <span>Mulai Drill</span>
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </button>
+
+            <!-- Drill 4: Verbal -->
+            <button onclick="openPreExamModal('drill_verbal')" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-sky-500 dark:hover:border-sky-500 shadow-xs hover:shadow-md transition text-left group flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-950/60 text-sky-600 flex items-center justify-center text-lg mb-2.5 group-hover:scale-105 transition">
+                  <i class="ph-bold ph-textbox"></i>
+                </div>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-sky-600 transition">Verbal & Analogi</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Sinonim, antonim, dan hubungan kata</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] font-bold text-sky-600">
+                <span>Mulai Drill</span>
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </button>
+
+            <!-- Drill 5: Analitis -->
+            <button onclick="openPreExamModal('drill_analitis')" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-500 dark:hover:border-amber-500 shadow-xs hover:shadow-md transition text-left group flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg mb-2.5 group-hover:scale-105 transition">
+                  <i class="ph-bold ph-sort-ascending"></i>
+                </div>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-amber-600 transition">Penalaran Analitis</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Urutan tempat duduk, posisi & komparasi</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] font-bold text-amber-600">
+                <span>Mulai Drill</span>
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </button>
+
+            <!-- Drill 6: TWK Pilar Negara -->
+            <button onclick="openPreExamModal('drill_pilar_negara')" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-rose-500 dark:hover:border-rose-500 shadow-xs hover:shadow-md transition text-left group flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 flex items-center justify-center text-lg mb-2.5 group-hover:scale-105 transition">
+                  <i class="ph-bold ph-flag"></i>
+                </div>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 transition">Pilar & Integritas</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Pancasila, UUD 1945, NKRI & Bela Negara</p>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] font-bold text-rose-600">
+                <span>Mulai Drill</span>
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
       </div><!-- End #view-simulasi -->
 
@@ -1331,6 +1440,23 @@
               </span>
 
               <div class="space-y-3">
+                <div class="space-y-1.5">
+                  <label for="pre-exam-subtype-select" class="text-slate-700 dark:text-slate-300 font-bold flex items-center justify-between">
+                    <span>Fokus Sub-Jenis Soal (Drill):</span>
+                    <span class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">Bisa Filter Khusus</span>
+                  </label>
+                  <select id="pre-exam-subtype-select" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 dark:text-slate-200 text-xs shadow-sm">
+                    <option value="ALL">Semua Jenis Soal (Sesuai Paket)</option>
+                    <option value="drill_numerik">🔢 Khusus Numerik & Berhitung (TIU)</option>
+                    <option value="drill_silogisme">🌲 Khusus Silogisme & Logika (TIU)</option>
+                    <option value="drill_figural">🧩 Khusus Penalaran Figural / Gambar (TIU)</option>
+                    <option value="drill_verbal">📖 Khusus Verbal & Analogi Kata (TIU)</option>
+                    <option value="drill_analitis">📊 Khusus Penalaran Analitis & Posisi (TIU)</option>
+                    <option value="drill_pilar_negara">🇮🇩 Khusus Pilar Negara & UUD 1945 (TWK)</option>
+                    <option value="drill_integritas">🛡️ Khusus Integritas & Bela Negara (TWK)</option>
+                  </select>
+                </div>
+
                 <div class="space-y-1.5">
                   <label for="pre-exam-edition-select" class="text-slate-700 dark:text-slate-300 font-bold">Koleksi Bank Soal:</label>
                   <select id="pre-exam-edition-select" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 dark:text-slate-200 text-xs shadow-sm">

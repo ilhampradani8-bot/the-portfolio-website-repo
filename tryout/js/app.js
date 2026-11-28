@@ -801,14 +801,171 @@ async function loadBankData() {
   }
 }
 
-// 6B. SMART QUESTION SELECTION ALGORITHM
+// 6B. QUESTION SUBTYPE CLASSIFIER & DRILL FILTER
+function getQuestionSubtype(q) {
+  if (!q) return 'other';
+  const cat = q.category || '';
+  const rawQ = q.question || '';
+  const text = (rawQ + ' ' + (q.explanation || '')).toLowerCase();
+
+  if (cat === 'TIU') {
+    // 1. Figural (Pola gambar, rotasi, pencerminan, kubus, bentuk)
+    if (
+      text.includes('gambar') ||
+      text.includes('rotasi') ||
+      text.includes('pola gambar') ||
+      text.includes('cermin') ||
+      text.includes('pencerminan') ||
+      text.includes('kubus') ||
+      text.includes('jaring-jaring') ||
+      text.includes('figural') ||
+      text.includes('pola bentuk') ||
+      text.includes('simetri') ||
+      text.includes('segi lima') ||
+      text.includes('segi enam')
+    ) {
+      return 'drill_figural';
+    }
+
+    // 2. Silogisme (Logika premis mayor & minor, penarikan kesimpulan)
+    if (
+      (text.includes('silogisme') ||
+       text.includes('kesimpulan yang sah') ||
+       text.includes('premis') ||
+       text.includes('modus ponens') ||
+       text.includes('modus tollens') ||
+       (text.includes('semua ') && (text.includes('sebagian ') || text.includes('beberapa ') || text.includes('tidak ada ')))) &&
+      (text.includes('kesimpulan') || text.includes('maka,') || text.includes('maka ') || text.includes('dapat disimpulkan'))
+    ) {
+      return 'drill_silogisme';
+    }
+
+    // 3. Penalaran Analitis (Urutan, posisi duduk, komparasi bertingkat)
+    if (
+      text.includes('urutan') ||
+      text.includes('duduk') ||
+      text.includes('berada di sebelah') ||
+      text.includes('lebih tinggi dari') ||
+      text.includes('lebih tua dari') ||
+      text.includes('paling tinggi') ||
+      text.includes('paling tua') ||
+      text.includes('berdampingan') ||
+      text.includes('antrean') ||
+      text.includes('posisi') ||
+      text.includes('peringkat') ||
+      text.includes('lantai gedung') ||
+      text.includes('paling barat') ||
+      text.includes('paling timur')
+    ) {
+      return 'drill_analitis';
+    }
+
+    // 4. Numerik & Berhitung (Aljabar, pecahan, perbandingan, kecepatan, deret angka)
+    if (
+      text.includes('kecepatan') ||
+      text.includes('jarak') ||
+      text.includes('deret') ||
+      text.includes('pecahan') ||
+      text.includes('persentase') ||
+      text.includes('persen') ||
+      text.includes('keuntungan') ||
+      text.includes('kerugian') ||
+      text.includes('aljabar') ||
+      text.includes('pekerja') ||
+      text.includes('waktu yang diperlukan') ||
+      text.includes('rata-rata') ||
+      text.includes('median') ||
+      text.includes('modus') ||
+      text.includes('nilai dari') ||
+      text.includes('x =') ||
+      text.includes('y =') ||
+      text.includes('hitunglah') ||
+      text.includes('berapa banyak') ||
+      text.includes('selisih') ||
+      text.includes('perbandingan') ||
+      /\d+\s*[\+\-\*\/×÷=]\s*\d+/.test(rawQ) ||
+      /\d+,\s*\d+,\s*\d+/.test(rawQ)
+    ) {
+      return 'drill_numerik';
+    }
+
+    // 5. Verbal & Analogi Kata (Sinonim, antonim, padanan hubungan kata)
+    if (
+      rawQ.includes(' = …') ||
+      rawQ.includes(' = ...') ||
+      rawQ.includes(' >< ') ||
+      rawQ.includes(' : ') ||
+      text.includes('sinonim') ||
+      text.includes('antonim') ||
+      text.includes('analogi') ||
+      text.includes('padanan kata') ||
+      text.includes('lawan kata') ||
+      text.includes('arti kata') ||
+      text.includes('hubungan kata')
+    ) {
+      return 'drill_verbal';
+    }
+
+    // Fallback TIU: Berdasarkan ada tidaknya angka
+    return /\d/.test(rawQ) ? 'drill_numerik' : 'drill_verbal';
+  }
+
+  if (cat === 'TWK') {
+    if (
+      text.includes('bela negara') ||
+      text.includes('integritas') ||
+      text.includes('korupsi') ||
+      text.includes('kpk') ||
+      text.includes('nasionalisme') ||
+      text.includes('patriotisme') ||
+      text.includes('cinta tanah air')
+    ) {
+      return 'drill_integritas';
+    }
+    return 'drill_pilar_negara';
+  }
+
+  if (cat === 'TKP') {
+    return 'drill_tkp';
+  }
+
+  return 'other';
+}
+
+function getSubtypeLabel(subtype) {
+  const map = {
+    'drill_numerik': 'Numerik & Berhitung',
+    'drill_silogisme': 'Silogisme & Logika',
+    'drill_figural': 'Penalaran Figural (Pola)',
+    'drill_verbal': 'Verbal & Analogi',
+    'drill_analitis': 'Penalaran Analitis',
+    'drill_pilar_negara': 'Pilar Negara & UUD 1945',
+    'drill_integritas': 'Integritas & Bela Negara',
+    'drill_tkp': 'Karakteristik Pribadi'
+  };
+  return map[subtype] || '';
+}
+
+// 6C. SMART QUESTION SELECTION ALGORITHM
 function selectQuestionsForCategory(category, requiredCount, options = {}) {
   if (!bankData || !bankData.questions) return [];
 
   const remedialOnly = !!options.remedialOnly;
   const activeEditionMode = options.editionMode || examSettings.editionMode;
+  const targetSubtype = options.subtype;
 
-  let catAll = bankData.questions.filter(q => q.category === category);
+  let catAll = bankData.questions.filter(q => q && q.category === category);
+
+  // Filter kebersihan data: Singkirkan soal rusak / tanpa opsi
+  catAll = catAll.filter(q => q && q.question && q.question.trim().length >= 10 && q.options && Object.keys(q.options).length >= 4);
+
+  // Jika sub-tipe spesifik dipilih (Numerik, Silogisme, Figural, dsb)
+  if (targetSubtype && targetSubtype !== 'ALL') {
+    const subPool = catAll.filter(q => getQuestionSubtype(q) === targetSubtype);
+    if (subPool.length > 0) {
+      catAll = subPool;
+    }
+  }
 
   // Jika opsi remedial aktif, prioritaskan soal yang salah
   if (remedialOnly) {
@@ -907,15 +1064,26 @@ function startExam(packetType, customOptions = {}) {
   const remedialOnly = !!customOptions.remedialOnly;
   const editionMode = customOptions.editionMode || examSettings.editionMode;
   const includeMastered = (customOptions.includeMastered !== undefined) ? customOptions.includeMastered : examSettings.includeMastered;
+  const subtype = customOptions.subtype || (packetType.startsWith('drill_') ? packetType : 'ALL');
 
   let questions = [];
 
-  if (packetType === 'twk_only') {
-    questions = selectQuestionsForCategory('TWK', targetQCount || 30, { remedialOnly, editionMode, includeMastered });
+  // Mode Latihan Terarah Spesifik Sub-Jenis Soal (Drill)
+  if (packetType.startsWith('drill_')) {
+    let cat = 'TIU';
+    if (packetType === 'drill_pilar_negara' || packetType === 'drill_integritas') {
+      cat = 'TWK';
+    } else if (packetType === 'drill_tkp') {
+      cat = 'TKP';
+    }
+    const drillCount = targetQCount || (packetType === 'drill_figural' ? 10 : (packetType === 'drill_silogisme' || packetType === 'drill_analitis' ? 15 : 20));
+    questions = selectQuestionsForCategory(cat, drillCount, { remedialOnly, editionMode, includeMastered, subtype });
+  } else if (packetType === 'twk_only') {
+    questions = selectQuestionsForCategory('TWK', targetQCount || 30, { remedialOnly, editionMode, includeMastered, subtype });
   } else if (packetType === 'tiu_only') {
-    questions = selectQuestionsForCategory('TIU', targetQCount || 35, { remedialOnly, editionMode, includeMastered });
+    questions = selectQuestionsForCategory('TIU', targetQCount || 35, { remedialOnly, editionMode, includeMastered, subtype });
   } else if (packetType === 'tkp_only') {
-    questions = selectQuestionsForCategory('TKP', targetQCount || 45, { remedialOnly, editionMode, includeMastered });
+    questions = selectQuestionsForCategory('TKP', targetQCount || 45, { remedialOnly, editionMode, includeMastered, subtype });
   } else {
     // Multi-category (Full Simulation, Posttest, Prediksi, dll)
     let twkCount = 30;
@@ -928,9 +1096,9 @@ function startExam(packetType, customOptions = {}) {
       tkpCount = Math.max(1, targetQCount - twkCount - tiuCount);
     }
 
-    const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode, includeMastered });
-    const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode, includeMastered });
-    const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode, includeMastered });
+    const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode, includeMastered, subtype });
+    const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode, includeMastered, subtype });
+    const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode, includeMastered, subtype });
 
     questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
   }
@@ -1073,21 +1241,23 @@ function renderCurrentQuestion() {
   const ruleSub = document.getElementById('subtest-scoring-rule');
 
   badgeCat.textContent = q.category || 'SKD';
+  const subLabel = getSubtypeLabel(getQuestionSubtype(q));
+
   if (q.category === 'TWK') {
     badgeCat.className = 'px-3.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold uppercase tracking-wider';
-    titleSub.textContent = 'Tes Wawasan Kebangsaan (TWK)';
+    titleSub.textContent = subLabel ? `Tes Wawasan Kebangsaan (TWK) • ${subLabel}` : 'Tes Wawasan Kebangsaan (TWK)';
     ruleSub.textContent = userProfile.formasi === 'DISABILITAS' 
       ? 'Nilai: Benar +5, Salah 0 • Formasi Disabilitas: Kumulatif SKD ≥ 286' 
       : 'Nilai: Benar +5, Salah 0, Kosong 0 • Passing Grade: 65';
   } else if (q.category === 'TIU') {
     badgeCat.className = 'px-3.5 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wider';
-    titleSub.textContent = 'Tes Intelegensia Umum (TIU)';
+    titleSub.textContent = subLabel ? `Tes Intelegensia Umum (TIU) • ${subLabel}` : 'Tes Intelegensia Umum (TIU)';
     ruleSub.textContent = userProfile.formasi === 'DISABILITAS' 
       ? 'Nilai: Benar +5, Salah 0 • Ambang Batas Disabilitas: 60' 
       : 'Nilai: Benar +5, Salah 0, Kosong 0 • Passing Grade: 80';
   } else {
     badgeCat.className = 'px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider';
-    titleSub.textContent = 'Tes Karakteristik Pribadi (TKP)';
+    titleSub.textContent = subLabel ? `Tes Karakteristik Pribadi (TKP) • ${subLabel}` : 'Tes Karakteristik Pribadi (TKP)';
     ruleSub.textContent = userProfile.formasi === 'DISABILITAS' 
       ? 'Nilai: Pilihan bernilai 1 s.d. 5 Poin, Kosong 0' 
       : 'Nilai: Pilihan bernilai 1 s.d. 5 Poin, Kosong 0 • Passing Grade: 166';
@@ -1594,6 +1764,13 @@ function calculateResultsWithOfficialRules() {
   else if (currentExam.packetType === 'tkp_only') packetReadableName = 'Tryout Khusus TKP';
   else if (currentExam.packetType === 'posttest') packetReadableName = 'Paket Post-Test Paten';
   else if (currentExam.packetType === 'prediksi') packetReadableName = 'Prediksi Soal Baru 2027';
+  else if (currentExam.packetType === 'drill_numerik') packetReadableName = 'Latihan Terarah: Numerik & Berhitung';
+  else if (currentExam.packetType === 'drill_silogisme') packetReadableName = 'Latihan Terarah: Silogisme & Logika';
+  else if (currentExam.packetType === 'drill_figural') packetReadableName = 'Latihan Terarah: Penalaran Figural';
+  else if (currentExam.packetType === 'drill_verbal') packetReadableName = 'Latihan Terarah: Verbal & Analogi';
+  else if (currentExam.packetType === 'drill_analitis') packetReadableName = 'Latihan Terarah: Penalaran Analitis';
+  else if (currentExam.packetType === 'drill_pilar_negara') packetReadableName = 'Latihan Terarah: Pilar Negara & Integritas';
+  else if (currentExam.packetType === 'drill_integritas') packetReadableName = 'Latihan Terarah: Bela Negara & Integritas';
 
   const sessionRecord = {
     id: 'ses_' + Date.now(),
@@ -1613,7 +1790,7 @@ function calculateResultsWithOfficialRules() {
     correctQuestionIds: correctQuestionIds
   };
 
-  const isPracticeOnly = ['twk_only', 'tiu_only', 'tkp_only'].includes(currentExam.packetType);
+  const isPracticeOnly = ['twk_only', 'tiu_only', 'tkp_only'].includes(currentExam.packetType) || currentExam.packetType.startsWith('drill_');
 
   if (isPracticeOnly) {
     // Sesi Latihan Mandiri: Beri pilihan simpan atau buang
@@ -2221,26 +2398,70 @@ function openPreExamModal(packetType) {
   let defaultCount = 110;
   let packetName = 'Simulasi Lengkap SKD CAT (Standar BKN)';
 
+  const subSelect = document.getElementById('pre-exam-subtype-select');
+
   if (packetType === 'twk_only') {
     defaultDuration = 25;
     defaultCount = 30;
     packetName = 'Tryout Khusus TWK';
+    if (subSelect) subSelect.value = 'ALL';
   } else if (packetType === 'tiu_only') {
     defaultDuration = isDisabilitas ? 45 : 35;
     defaultCount = 35;
     packetName = 'Tryout Khusus TIU';
+    if (subSelect) subSelect.value = 'ALL';
   } else if (packetType === 'tkp_only') {
     defaultDuration = isDisabilitas ? 50 : 40;
     defaultCount = 45;
     packetName = 'Tryout Khusus TKP';
+    if (subSelect) subSelect.value = 'ALL';
   } else if (packetType === 'posttest') {
     defaultDuration = isDisabilitas ? 130 : 100;
     defaultCount = 110;
     packetName = 'Paket Post-Test Paten';
+    if (subSelect) subSelect.value = 'ALL';
   } else if (packetType === 'prediksi') {
     defaultDuration = 35;
     defaultCount = 35;
     packetName = 'Prediksi Soal Baru 2027';
+    if (subSelect) subSelect.value = 'ALL';
+  } else if (packetType === 'drill_numerik') {
+    defaultDuration = 25;
+    defaultCount = 20;
+    packetName = 'Latihan Terarah: Numerik & Berhitung';
+    if (subSelect) subSelect.value = 'drill_numerik';
+  } else if (packetType === 'drill_silogisme') {
+    defaultDuration = 20;
+    defaultCount = 15;
+    packetName = 'Latihan Terarah: Silogisme & Logika';
+    if (subSelect) subSelect.value = 'drill_silogisme';
+  } else if (packetType === 'drill_figural') {
+    defaultDuration = 15;
+    defaultCount = 10;
+    packetName = 'Latihan Terarah: Penalaran Figural (Pola Gambar)';
+    if (subSelect) subSelect.value = 'drill_figural';
+  } else if (packetType === 'drill_verbal') {
+    defaultDuration = 20;
+    defaultCount = 20;
+    packetName = 'Latihan Terarah: Verbal & Analogi Kata';
+    if (subSelect) subSelect.value = 'drill_verbal';
+  } else if (packetType === 'drill_analitis') {
+    defaultDuration = 25;
+    defaultCount = 15;
+    packetName = 'Latihan Terarah: Penalaran Analitis & Urutan';
+    if (subSelect) subSelect.value = 'drill_analitis';
+  } else if (packetType === 'drill_pilar_negara') {
+    defaultDuration = 20;
+    defaultCount = 20;
+    packetName = 'Latihan Terarah: Pilar Negara & UUD 1945';
+    if (subSelect) subSelect.value = 'drill_pilar_negara';
+  } else if (packetType === 'drill_integritas') {
+    defaultDuration = 20;
+    defaultCount = 20;
+    packetName = 'Latihan Terarah: Integritas & Bela Negara';
+    if (subSelect) subSelect.value = 'drill_integritas';
+  } else {
+    if (subSelect) subSelect.value = 'ALL';
   }
 
   if (titleEl) titleEl.textContent = `Konfirmasi: ${packetName}`;
@@ -2345,6 +2566,7 @@ function confirmAndStartExam() {
   const remedialOnly = document.getElementById('pre-exam-remedial-only')?.checked || false;
   const includeMastered = document.getElementById('pre-exam-include-mastered')?.checked || false;
   const editionMode = document.getElementById('pre-exam-edition-select')?.value || 'PRIORITY_2027';
+  const subtype = document.getElementById('pre-exam-subtype-select')?.value || 'ALL';
 
   closePreExamModal();
 
@@ -2354,7 +2576,8 @@ function confirmAndStartExam() {
     targetQCount,
     remedialOnly,
     includeMastered,
-    editionMode
+    editionMode,
+    subtype
   });
 }
 

@@ -2595,7 +2595,7 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "buah mesin B?",
+      "question": "Mesin A dapat menyelesaikan suatu pekerjaan dalam waktu 24 jam, sedangkan mesin B dapat menyelesaikan dalam waktu 6 jam. Berapa lama waktu yang diperlukan untuk menyelesaikan pekerjaan tersebut jika dikerjakan dengan 3 buah mesin A dan 2 buah mesin B?",
       "options": {
         "A": "2 jam",
         "B": "2,5 jam",
@@ -2641,11 +2641,13 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "",
+      "question": "Pilihlah gambar yang merupakan kelanjutan analogi logis dari pola bentuk geometri berikut: Lingkaran di tengah pada gambar pertama membesar, dan elemen lainnya mengalami rotasi berurutan searah jarum jam berada di dalam lingkaran utama.",
       "options": {
-        "A": "B.",
-        "C": "D.",
-        "E": "?29."
+        "A": "Gambar bentuk A dengan rotasi 45 derajat",
+        "B": "Gambar bentuk B dengan rotasi 90 derajat",
+        "C": "Gambar bentuk C dengan rotasi 135 derajat",
+        "D": "Gambar bentuk D dengan rotasi elemen tepat searah jarum jam di dalam lingkaran",
+        "E": "Gambar bentuk E tanpa perubahan elemen"
       },
       "answer": "D",
       "points": {
@@ -6906,20 +6908,21 @@
       "edition": "2027",
       "category": "TIU",
       "subtest": "Tes Intelegensia Umum",
-      "question": "",
+      "question": "Perusahaan tempat Anda bekerja sedang mengalami penurunan omzet dan beberapa karyawan mengeluhkan kesulitan finansial. Sebagai bagian dari manajemen, langkah bijak yang Anda usulkan adalah...",
       "options": {
-        "B": "Memberikan bonus pada karyawan \nyang berkinerja bagus.",
-        "C": "Membuat kebijakan baru, pinjaman \nkaryawan.",
-        "D": "Meminta setiap pimpinan divisi mau \nmembantu bawahan yang sedang \nbermasalah dalam keuangan.",
-        "E": "Memberikan akses untuk karyawan \nberbisnis sampingan di perusahaan."
+        "A": "Membuka program tabungan bersama dan evaluasi efisiensi biaya operasional perusahaan.",
+        "B": "Memberikan bonus kepada karyawan yang berkinerja unggul agar termotivasi.",
+        "C": "Membuat kebijakan baru bantuan pinjaman darurat karyawan secara terukur.",
+        "D": "Meminta setiap pimpinan divisi mendampingi bawahan yang sedang mengalami kendala finansial.",
+        "E": "Memberikan kesempatan fleksibilitas bagi karyawan untuk mencari penghasilan tambahan tanpa mengganggu jam kerja."
       },
-      "answer": "A",
+      "answer": "C",
       "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
+        "C": 5,
+        "A": 4,
+        "D": 3,
+        "B": 2,
+        "E": 1
       },
       "explanation": "Jawaban: D\nPilihlah jawaban yang menggambarkan \nbahwaAnda adalah pribadi yang memiliki \nkarakter kuat dan rasa tanggung jawab.\nPilihan Jawaban Poin Nilai\nD 5\nC 4\nB 3\nA 2\nE 1"
     },
@@ -8374,23 +8377,23 @@
     {
       "id": "posttest-2",
       "edition": "2027",
-      "category": "TWK",
-      "subtest": "Tes Wawasan Kebangsaan",
-      "question": "buah mesin B?",
+      "category": "TKP",
+      "subtest": "Tes Karakteristik Pribadi",
+      "question": "Seorang ibu tua datang dan kebingungan tidak memahami prosedur penggunaan BPJS untuk rawat inap, padahal petugas loket telah menjelaskan berulang kali. Sebagai aparatur sipil negara di unit pelayanan publik, tindakan Anda adalah...",
       "options": {
-        "A": "32 jam11",
-        "B": "32 jam11",
-        "C": "32 jam11",
-        "D": "32 jam11",
-        "E": "32 jam11"
+        "A": "Menjelaskan kepada anggota keluarga lain yang mendampingi dengan bahasa santun dan mudah dipahami.",
+        "B": "Menyarankan ibu tersebut membaca brosur alur pelayanan BPJS yang ada di meja informasi.",
+        "C": "Meminta rekan petugas lain untuk mengulangi penjelasan dari awal.",
+        "D": "Menjelaskan langsung dengan ramah serta mendampingi keluarga sampai prosedur pendaftaran tuntas.",
+        "E": "Mengarahkan ibu tersebut untuk menunggu nomor antrean berikutnya."
       },
-      "answer": "A",
+      "answer": "D",
       "points": {
-        "A": 5,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0
+        "D": 5,
+        "A": 4,
+        "C": 3,
+        "B": 2,
+        "E": 1
       },
       "explanation": "Jawaban: D\nTopik: Pelayanan publik.\nIndikator daya tanggap terhadap pelayanan terhadap masyarakat adalah memenuhi \nkebutuhan penerima layanan dan segera \nmungkin. Pada permasalahan pada seo -\nrang ibu tua yang tidak paham prosedur \npenggunaan BPJS untuk rawat inap padahal sudah dijelaskan bahkan dengan bahasa yang mudah dimengerti tapi sang ibu \ntetap tidak paham, solusinya adalah menjelaskan kepada anggota kelurga yang lain.\nPilihan Jawaban Poin Nilai\nD 5\nE 4\nC 3\nA 2\nB 1"
     },
