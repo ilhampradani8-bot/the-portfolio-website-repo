@@ -238,6 +238,7 @@
     header.cat-mode-navbar #header-brand-subtitle,
     header.cat-mode-navbar #header-search-links,
     header.cat-mode-navbar #user-profile-text,
+    header.cat-mode-navbar #btn-mobile-menu,
     header.cat-mode-navbar #header-divider-right {
       display: none !important;
     }
@@ -364,33 +365,72 @@
           </div>
         </div>
 
+        <!-- Tombol Menu Hamburger Mobile -->
+        <button id="btn-mobile-menu" onclick="toggleMobileMenu()" title="Buka Menu Navigasi" class="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <i class="ph-bold ph-list text-2xl"></i>
+        </button>
+
       </div>
     </div>
   </header>
 
-  <!-- Mobile Sub-Navigation Bar (Sticky Top for Mobile) -->
-  <nav id="mobile-nav-tabs" class="md:hidden flex items-center justify-around bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-2 py-1.5 sticky top-16 z-30 shadow-xs no-print">
-    <button onclick="switchView('simulasi')" id="mob-nav-simulasi" class="flex flex-col items-center gap-0.5 font-bold text-blue-600 dark:text-blue-400 py-1 px-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 transition">
-      <i class="ph-bold ph-cards text-base"></i>
-      <span class="text-[9px]">Simulasi</span>
-    </button>
-    <button onclick="switchView('peringkat')" id="mob-nav-peringkat" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2 rounded-xl transition">
-      <i class="ph-bold ph-trophy text-base"></i>
-      <span class="text-[9px]">Peringkat</span>
-    </button>
-    <button onclick="switchView('riwayat')" id="mob-nav-riwayat" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2 rounded-xl transition">
-      <i class="ph-bold ph-clock-counter-clockwise text-base"></i>
-      <span class="text-[9px]">Riwayat</span>
-    </button>
-    <button onclick="switchView('analitik')" id="mob-nav-analitik" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2 rounded-xl transition">
-      <i class="ph-bold ph-chart-line-up text-base"></i>
-      <span class="text-[9px]">Analitik</span>
-    </button>
-    <button onclick="switchView('pengaturan')" id="mob-nav-pengaturan" class="flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2 rounded-xl transition">
-      <i class="ph-bold ph-sliders-horizontal text-base"></i>
-      <span class="text-[9px]">Set</span>
-    </button>
-  </nav>
+  <!-- Mobile Navigation Drawer & Backdrop -->
+  <div id="mobile-menu-backdrop" onclick="toggleMobileMenu(false)" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden transition-opacity duration-300 md:hidden"></div>
+  <aside id="mobile-menu-drawer" class="fixed top-0 right-0 bottom-0 z-50 w-72 max-w-[85vw] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col md:hidden">
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5JAlrVz9vd9IingQ8dQYX6PHLYSVGVg8qEHiVGSM7IQ&s=10" alt="Logo" class="w-8 h-8 object-contain">
+        <div>
+          <span class="font-extrabold text-sm text-slate-900 dark:text-slate-100 block">CAT CPNS 2027</span>
+          <span class="text-[10px] text-blue-600 dark:text-blue-400 font-bold">Portal Mandiri</span>
+        </div>
+      </div>
+      <button onclick="toggleMobileMenu(false)" class="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition text-lg">
+        <i class="ph-bold ph-x"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Navigation Links -->
+    <div class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+      <button onclick="mobileNavigate('simulasi')" id="drawer-nav-simulasi" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 transition">
+        <i class="ph-bold ph-cards text-lg"></i>
+        <span>Simulasi Ujian</span>
+      </button>
+      <button onclick="mobileNavigate('peringkat')" id="drawer-nav-peringkat" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+        <i class="ph-bold ph-trophy text-lg"></i>
+        <span>Papan Peringkat</span>
+      </button>
+      <button onclick="mobileNavigate('riwayat')" id="drawer-nav-riwayat" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+        <i class="ph-bold ph-clock-counter-clockwise text-lg"></i>
+        <span>Riwayat Sesi</span>
+      </button>
+      <button onclick="mobileNavigate('analitik')" id="drawer-nav-analitik" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+        <i class="ph-bold ph-chart-line-up text-lg"></i>
+        <span>Analitik & Metrik</span>
+      </button>
+      <button onclick="mobileNavigate('pengaturan')" id="drawer-nav-pengaturan" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+        <i class="ph-bold ph-sliders-horizontal text-lg"></i>
+        <span>Pengaturan Akun</span>
+      </button>
+    </div>
+
+    <!-- Drawer Footer: Profil & Formasi -->
+    <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
+      <button onclick="openProfileModal(); toggleMobileMenu(false);" class="w-full flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xs">
+        <div class="flex items-center gap-2.5 text-left">
+          <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-xs">
+            👤
+          </div>
+          <div>
+            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 block">Atur Profil Peserta</span>
+            <span class="text-[10px] text-slate-500">Formasi & Google Sign-In</span>
+          </div>
+        </div>
+        <i class="ph-bold ph-caret-right text-slate-400"></i>
+      </button>
+    </div>
+  </aside>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">

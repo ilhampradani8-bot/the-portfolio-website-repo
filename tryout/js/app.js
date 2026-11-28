@@ -152,20 +152,21 @@ function switchView(viewName) {
     }
   });
 
-  const mobTabs = {
-    simulasi: document.getElementById('mob-nav-simulasi'),
-    peringkat: document.getElementById('mob-nav-peringkat'),
-    riwayat: document.getElementById('mob-nav-riwayat'),
-    analitik: document.getElementById('mob-nav-analitik'),
-    pengaturan: document.getElementById('mob-nav-pengaturan')
+  // Drawer active style
+  const drawerLinks = {
+    simulasi: document.getElementById('drawer-nav-simulasi'),
+    peringkat: document.getElementById('drawer-nav-peringkat'),
+    riwayat: document.getElementById('drawer-nav-riwayat'),
+    analitik: document.getElementById('drawer-nav-analitik'),
+    pengaturan: document.getElementById('drawer-nav-pengaturan')
   };
 
-  Object.keys(mobTabs).forEach(k => {
-    if (mobTabs[k]) {
+  Object.keys(drawerLinks).forEach(k => {
+    if (drawerLinks[k]) {
       if (k === viewName) {
-        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-bold text-blue-600 dark:text-blue-400 py-1 px-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 transition';
+        drawerLinks[k].className = 'w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 transition';
       } else {
-        mobTabs[k].className = 'flex flex-col items-center gap-0.5 font-medium text-slate-500 dark:text-slate-400 py-1 px-2 rounded-xl transition';
+        drawerLinks[k].className = 'w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition';
       }
     }
   });
@@ -185,6 +186,35 @@ function switchView(viewName) {
   } else if (viewName === 'pengaturan') {
     syncSettingsToView();
   }
+}
+
+// 2A. MOBILE HAMBURGER MENU DRAWER CONTROLLER
+function toggleMobileMenu(isOpen) {
+  const drawer = document.getElementById('mobile-menu-drawer');
+  const backdrop = document.getElementById('mobile-menu-backdrop');
+  if (!drawer || !backdrop) return;
+
+  const shouldOpen = (isOpen !== undefined) 
+    ? isOpen 
+    : drawer.classList.contains('translate-x-full');
+
+  if (shouldOpen) {
+    backdrop.classList.remove('hidden');
+    // Request animation frame for smooth slide-in
+    requestAnimationFrame(() => {
+      drawer.classList.remove('translate-x-full');
+    });
+    document.body.style.overflow = 'hidden';
+  } else {
+    drawer.classList.add('translate-x-full');
+    backdrop.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+}
+
+function mobileNavigate(viewName) {
+  switchView(viewName);
+  toggleMobileMenu(false);
 }
 
 // 2B. PLATFORM REAL-TIME ANALYTICS (DEBUT 28 NOV 2026)
@@ -1911,7 +1941,7 @@ function switchToScreen(screenName) {
   const result = document.getElementById('screen-result');
   const headerStatus = document.getElementById('header-exam-status');
   const navTabs = document.getElementById('header-nav-tabs');
-  const mobNavTabs = document.getElementById('mobile-nav-tabs');
+  const btnMobileMenu = document.getElementById('btn-mobile-menu');
   const mainHeader = document.getElementById('main-header');
 
   lobby.classList.add('hidden');
@@ -1920,7 +1950,7 @@ function switchToScreen(screenName) {
   result.classList.add('hidden');
   headerStatus.classList.add('hidden');
   if (navTabs) navTabs.classList.add('hidden');
-  if (mobNavTabs) mobNavTabs.classList.add('hidden');
+  if (btnMobileMenu) btnMobileMenu.classList.add('hidden');
 
   // Otomatis mengecilkan navbar 50% saat Mode CAT aktif
   if (mainHeader) {
@@ -1934,11 +1964,11 @@ function switchToScreen(screenName) {
   if (screenName === 'lobby') {
     lobby.classList.remove('hidden');
     if (navTabs) navTabs.classList.remove('hidden');
-    if (mobNavTabs) mobNavTabs.classList.remove('hidden');
+    if (btnMobileMenu) btnMobileMenu.classList.remove('hidden');
   } else if (screenName === 'confirmation') {
     if (confirmation) confirmation.classList.remove('hidden');
     if (navTabs) navTabs.classList.remove('hidden');
-    if (mobNavTabs) mobNavTabs.classList.remove('hidden');
+    if (btnMobileMenu) btnMobileMenu.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     history.replaceState(null, '', '#konfirmasi');
   } else if (screenName === 'exam') {
@@ -1948,7 +1978,7 @@ function switchToScreen(screenName) {
   } else if (screenName === 'result') {
     result.classList.remove('hidden');
     if (navTabs) navTabs.classList.remove('hidden');
-    if (mobNavTabs) mobNavTabs.classList.remove('hidden');
+    if (btnMobileMenu) btnMobileMenu.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
