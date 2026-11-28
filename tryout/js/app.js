@@ -1075,14 +1075,20 @@ function renderReviewList() {
           </span>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-400">${q.category}</span>
         </div>
-        ${statusPill}
+        <div class="flex items-center gap-2">
+          ${statusPill}
+          <button onclick="copySingleReviewQuestion(${idx})" id="btn-copy-${idx}" class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-1.5 shadow-sm" title="Salin Soal & Pembahasan">
+            <i class="ph-bold ph-copy text-xs"></i>
+            <span>Salin</span>
+          </button>
+        </div>
       </div>
 
-      <div class="text-slate-800 dark:text-slate-100 text-base leading-relaxed whitespace-pre-line">
+      <div class="text-slate-800 dark:text-slate-100 text-base leading-relaxed whitespace-pre-line select-text">
         ${q.question}
       </div>
 
-      <div class="grid grid-cols-1 gap-2 pt-2 text-sm">
+      <div class="grid grid-cols-1 gap-2 pt-2 text-sm select-text">
         ${['A', 'B', 'C', 'D', 'E'].map(optKey => {
           if (!q.options || !q.options[optKey]) return '';
           const isUser = userAns === optKey;
@@ -1116,7 +1122,7 @@ function renderReviewList() {
         }).join('')}
       </div>
 
-      <div class="mt-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-xs text-slate-700 dark:text-slate-300 space-y-1.5">
+      <div class="mt-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-xs text-slate-700 dark:text-slate-300 space-y-1.5 select-text">
         <div class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
           <i class="ph-bold ph-lightbulb text-amber-500 text-sm"></i> Pembahasan Resmi:
         </div>
@@ -1133,6 +1139,116 @@ function renderReviewList() {
   if (typeof renderMathInElement === 'function') {
     renderMathInElement(listContainer, { throwOnError: false });
   }
+}
+
+// 15B. CLIPBOARD COPY FUNCTIONS (SALIN SOAL & PEMBAHASAN)
+function copySingleReviewQuestion(idx) {
+  const q = currentExam.questions[idx];
+  if (!q) return;
+
+  const qNum = idx + 1;
+  let text = `[SOAL CAT CPNS 2027 - ${q.category} No. ${qNum}]\n\n`;
+  text += `${q.question}\n\n`;
+  text += `Pilihan Jawaban:\n`;
+  ['A', 'B', 'C', 'D', 'E'].forEach(opt => {
+    if (q.options && q.options[opt]) {
+      text += `${opt}. ${q.options[opt]}\n`;
+    }
+  });
+
+  if (q.category === 'TKP') {
+    text += `\nPembobotan Poin TKP:\n`;
+    ['A', 'B', 'C', 'D', 'E'].forEach(opt => {
+      const pt = (q.points && q.points[opt] !== undefined) ? q.points[opt] : '-';
+      text += `${opt}: ${pt} Poin | `;
+    });
+    text += `\n`;
+  } else {
+    text += `\nKunci Jawaban Resmi: ${q.answer}\n`;
+  }
+
+  text += `\nPembahasan Resmi:\n${q.explanation || '-'}\n`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(`btn-copy-${idx}`);
+    if (btn) {
+      btn.innerHTML = `<i class="ph-bold ph-check text-emerald-600 text-xs"></i> <span class="text-emerald-600">Tersalin!</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<i class="ph-bold ph-copy text-xs"></i> <span>Salin</span>`;
+      }, 2000);
+    }
+  }).catch(err => {
+    console.error('Copy error:', err);
+    fallbackCopyText(text);
+  });
+}
+
+function copyAllReviewQuestions() {
+  const filter = document.getElementById('review-filter').value;
+  let text = `=== REKAP SOAL & PEMBAHASAN RESMI CAT CPNS 2027 ===\n`;
+  text += `Portal: https://tryout.ilhampradani.me\n`;
+  text += `Peserta: ${userProfile.name} (${userProfile.formasi})\n\n`;
+
+  let count = 0;
+  currentExam.questions.forEach((q, idx) => {
+    const qNum = idx + 1;
+    const userAns = currentExam.answers[q.id];
+    const isCorrect = (q.category === 'TKP') ? (userAns && q.points && q.points[userAns] >= 4) : (userAns === q.answer);
+
+    if (filter === 'WRONG' && isCorrect) return;
+    if (filter === 'TWK' && q.category !== 'TWK') return;
+    if (filter === 'TIU' && q.category !== 'TIU') return;
+    if (filter === 'TKP' && q.category !== 'TKP') return;
+
+    count++;
+    text += `==================================================\n`;
+    text += `SOAL NO. ${qNum} [${q.category} - ${q.subtest}]\n`;
+    text += `==================================================\n`;
+    text += `${q.question}\n\n`;
+    text += `Pilihan Jawaban:\n`;
+    ['A', 'B', 'C', 'D', 'E'].forEach(opt => {
+      if (q.options && q.options[opt]) {
+        text += `${opt}. ${q.options[opt]}\n`;
+      }
+    });
+
+    if (q.category === 'TKP') {
+      text += `\nPoin Opsi: A=${q.points?.A || '-'}, B=${q.points?.B || '-'}, C=${q.points?.C || '-'}, D=${q.points?.D || '-'}, E=${q.points?.E || '-'}\n`;
+    } else {
+      text += `\nKunci Jawaban: ${q.answer}\n`;
+    }
+    text += `Jawaban Anda: ${userAns || 'Tidak Dijawab'}\n\n`;
+    text += `Pembahasan:\n${q.explanation || '-'}\n\n`;
+  });
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn-copy-all');
+    if (btn) {
+      btn.innerHTML = `<i class="ph-bold ph-check text-emerald-600 text-sm"></i> <span class="text-emerald-600">Semua Tersalin!</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<i class="ph-bold ph-copy text-sm"></i> <span>Salin Semua Pembahasan</span>`;
+      }, 2500);
+    }
+    alert(`📋 Sebanyak ${count} butir soal beserta kunci dan pembahasannya berhasil disalin ke clipboard!`);
+  }).catch(err => {
+    console.error('Copy error:', err);
+    fallbackCopyText(text);
+  });
+}
+
+function fallbackCopyText(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand('copy');
+    alert('📋 Berhasil disalin ke clipboard!');
+  } catch (err) {
+    alert('Silakan blok teks pada layar lalu tekan Ctrl+C untuk menyalin.');
+  }
+  document.body.removeChild(textArea);
 }
 
 // 16. SESSION RESUME & STATE PERSISTENCE
