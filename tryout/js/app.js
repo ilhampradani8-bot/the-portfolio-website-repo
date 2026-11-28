@@ -39,6 +39,45 @@ let activeCategoryFilter = 'ALL';
 let activeNavView = 'grid'; // 'grid' or 'list'
 let speechUtterance = null;
 
+// SMART CAT ALGORITHM & PERSISTENT PROGRESS STATE
+let examSettings = {
+  editionMode: 'PRIORITY_2027', // 'PRIORITY_2027', 'ONLY_2027', 'ONLY_KLASIK', 'RANDOM_ALL'
+  alwaysNew: true,              // Selalu utamakan soal baru (belum tuntas)
+  repeatWrong: true             // Ulangi soal salah di tryout kedua
+};
+
+let userProgress = {
+  seenQuestions: {},     // { questionId: true }
+  masteredQuestions: {}, // { questionId: true }
+  wrongQuestions: {},    // { questionId: true }
+  history: []
+};
+
+function loadLocalSettingsAndProgress() {
+  try {
+    const savedSet = localStorage.getItem('cat_exam_settings');
+    if (savedSet) examSettings = { ...examSettings, ...JSON.parse(savedSet) };
+
+    const savedProg = localStorage.getItem('cat_user_progress');
+    if (savedProg) {
+      const p = JSON.parse(savedProg);
+      userProgress.seenQuestions = p.seenQuestions || {};
+      userProgress.masteredQuestions = p.masteredQuestions || {};
+      userProgress.wrongQuestions = p.wrongQuestions || {};
+      userProgress.history = p.history || [];
+    }
+  } catch (err) {
+    console.warn('Failed loading local progress:', err);
+  }
+}
+
+function saveLocalProgress() {
+  try {
+    localStorage.setItem('cat_user_progress', JSON.stringify(userProgress));
+    localStorage.setItem('cat_exam_settings', JSON.stringify(examSettings));
+  } catch (err) {}
+}
+
 // 1. INITIALIZATION ON DOM READY
 document.addEventListener('DOMContentLoaded', async () => {
   loadStoredProfile();
@@ -242,6 +281,9 @@ function handleGoogleCredentialResponse(response) {
       localStorage.setItem('cat_user_profile', JSON.stringify(userProfile));
       updateProfileHeader();
       alert(`🎉 Berhasil Masuk dengan Akun Google!\nSelamat datang, ${userProfile.name}`);
+
+      // Sync user data with Cloudflare D1
+      syncUserProgressWithBackend();
     }
   } catch (err) {
     console.error('Google decode error:', err);
@@ -364,25 +406,130 @@ function stopTTS() {
   }
 }
 
-// 6. LOAD BANK DATA
+// 6. LOAD BANK DATA (SMART D1 & COMBINED DATASET)
 async function loadBankData() {
   try {
-    const res = await fetch('data/cpns_bank_soal.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    bankData = await res.json();
-    
-    const totalCountEl = document.getElementById('total-bank-count');
-    if (totalCountEl && bankData.metadata && bankData.metadata.counts) {
-      totalCountEl.textContent = bankData.metadata.counts.total || 399;
+    let res = await fetch('data/cpns_bank_soal_combined.json');
+    if (!res.ok) {
+      res = await fetch('data/cpns_bank_soal.json');
     }
+    const data = await res.json();
+    
+    if (data.questions && Array.isArray(data.questions)) {
+      bankData = {
+        total: data.total || data.questions.length,
+        questions: data.questions,
+        q2027: data.questions.filter(q => q.edition === '2027'),
+        qKlasik: data.questions.filter(q => q.edition === '2024-2025'),
+        twk: data.questions.filter(q => q.category === 'TWK'),
+        tiu: data.questions.filter(q => q.category === 'TIU'),
+        tkp: data.questions.filter(q => q.category === 'TKP')
+      };
+    } else {
+      const allQs = data.all || [];
+      bankData = {
+        total: allQs.length,
+        questions: allQs,
+        q2027: allQs,
+        qKlasik: [],
+        twk: data.twk || allQs.filter(q => q.category === 'TWK'),
+        tiu: data.tiu || allQs.filter(q => q.category === 'TIU'),
+        tkp: data.tkp || allQs.filter(q => q.category === 'TKP')
+      };
+    }
+
+    loadLocalSettingsAndProgress();
+    updateMasteryDashboardUI();
+
+    // Async sync with Cloudflare D1
+    syncUserProgressWithBackend();
   } catch (err) {
     console.error('Gagal memuat bank soal:', err);
   }
 }
 
-// 7. START EXAM / PAKET UJIAN
+// 6B. SMART QUESTION SELECTION ALGORITHM
+function selectQuestionsForCategory(category, requiredCount) {
+  if (!bankData || !bankData.questions) return [];
+
+  const catAll = bankData.questions.filter(q => q.category === category);
+  const q2027 = catAll.filter(q => q.edition === '2027');
+  const qKlasik = catAll.filter(q => q.edition === '2024-2025');
+
+  function calculatePriority(q) {
+    const isWrong = !!userProgress.wrongQuestions[q.id];
+    const isMastered = !!userProgress.masteredQuestions[q.id];
+    const isSeen = !!userProgress.seenQuestions[q.id];
+
+    // Priority 1: Soal salah di tryout sebelumnya (Remedial)
+    if (examSettings.repeatWrong && isWrong) {
+      return 1000 + Math.random();
+    }
+    // Priority 2: Soal fresh (belum pernah dilihat)
+    if (!isSeen && !isMastered) {
+      return 500 + Math.random();
+    }
+    // Priority 3: Pernah dilihat tapi belum tuntas
+    if (isSeen && !isMastered) {
+      return 200 + Math.random();
+    }
+    // Priority 4: Soal sudah tuntas
+    if (examSettings.alwaysNew && isMastered) {
+      return -1000 + Math.random(); // Dihindari jika mode alwaysNew aktif
+    }
+    return 10 + Math.random();
+  }
+
+  let selected = [];
+
+  if (examSettings.editionMode === 'ONLY_2027') {
+    const sorted = [...q2027].sort((a, b) => calculatePriority(b) - calculatePriority(a));
+    selected = sorted.slice(0, requiredCount);
+  } else if (examSettings.editionMode === 'ONLY_KLASIK') {
+    const sorted = [...qKlasik].sort((a, b) => calculatePriority(b) - calculatePriority(a));
+    selected = sorted.slice(0, requiredCount);
+  } else if (examSettings.editionMode === 'RANDOM_ALL') {
+    const sorted = [...catAll].sort((a, b) => calculatePriority(b) - calculatePriority(a));
+    selected = sorted.slice(0, requiredCount);
+  } else {
+    // Mode Default: 'PRIORITY_2027'
+    const sorted2027 = [...q2027].sort((a, b) => calculatePriority(b) - calculatePriority(a));
+    let pool2027 = sorted2027;
+    if (examSettings.alwaysNew) {
+      pool2027 = sorted2027.filter(q => !userProgress.masteredQuestions[q.id]);
+    }
+    selected = pool2027.slice(0, requiredCount);
+
+    // Jika kuota kategori belum tercukupi (misal butuh 35 TIU), lengkapi dari bank soal Klasik
+    if (selected.length < requiredCount) {
+      const needed = requiredCount - selected.length;
+      const sortedKlasik = [...qKlasik].sort((a, b) => calculatePriority(b) - calculatePriority(a));
+      let poolKlasik = sortedKlasik;
+      if (examSettings.alwaysNew) {
+        poolKlasik = sortedKlasik.filter(q => !userProgress.masteredQuestions[q.id]);
+      }
+      const fillKlasik = poolKlasik.slice(0, needed);
+      selected = [...selected, ...fillKlasik];
+
+      // Jika seluruh bank soal baru & klasik sudah tuntas semua, ambil fallback soal tersisa
+      if (selected.length < requiredCount) {
+        const remaining = [...catAll].filter(q => !selected.some(s => s.id === q.id));
+        selected = [...selected, ...remaining.slice(0, requiredCount - selected.length)];
+      }
+    }
+  }
+
+  // Jika tetap kurang dari target, ambil sembarang yang ada di kategori
+  if (selected.length < requiredCount && catAll.length > 0) {
+    selected = catAll.slice(0, requiredCount);
+  }
+
+  return selected;
+}
+
+// 7. START EXAM / PAKET UJIAN DENGAN LOGIKA CERDAS
 function startExam(packetType) {
-  if (!bankData) {
+  if (!bankData || !bankData.questions) {
     alert('Bank soal sedang disiapkan, tunggu 2 detik lalu klik kembali.');
     return;
   }
@@ -394,29 +541,26 @@ function startExam(packetType) {
   const isDisabilitas = userProfile.formasi === 'DISABILITAS';
 
   if (packetType === 'full_simulation') {
-    const twkPool = [...(bankData.twk || [])];
-    const tiuPool = [...(bankData.tiu || []), ...(bankData.prediksi_tiu || [])];
-    const tkpPool = [...(bankData.tkp || [])];
-
-    questions = [...twkPool.slice(0, 30), ...tiuPool.slice(0, 35), ...tkpPool.slice(0, 45)];
+    const twkQuestions = selectQuestionsForCategory('TWK', 30);
+    const tiuQuestions = selectQuestionsForCategory('TIU', 35);
+    const tkpQuestions = selectQuestionsForCategory('TKP', 45);
+    questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
     durationMinutes = isDisabilitas ? 130 : 100;
   } else if (packetType === 'twk_only') {
-    questions = (bankData.twk || []).slice(0, 30);
+    questions = selectQuestionsForCategory('TWK', 30);
     durationMinutes = 25;
   } else if (packetType === 'tiu_only') {
-    questions = [...(bankData.tiu || []), ...(bankData.prediksi_tiu || [])].slice(0, 35);
+    questions = selectQuestionsForCategory('TIU', 35);
     durationMinutes = isDisabilitas ? 45 : 35;
   } else if (packetType === 'tkp_only') {
-    questions = (bankData.tkp || []).slice(0, 45);
+    questions = selectQuestionsForCategory('TKP', 45);
     durationMinutes = isDisabilitas ? 50 : 40;
-  } else if (packetType === 'posttest') {
-    questions = (bankData.posttest || []).length > 0 ? bankData.posttest : (bankData.all || []).slice(0, 110);
-    durationMinutes = isDisabilitas ? 130 : 100;
-  } else if (packetType === 'prediksi') {
-    questions = [...(bankData.prediksi_tiu || []), ...(bankData.tiu || []).slice(0, 30)];
-    durationMinutes = 35;
   } else {
-    questions = (bankData.pretest || []).length > 0 ? bankData.pretest : (bankData.all || []).slice(0, 110);
+    // Prediksi, Pretest, Posttest
+    const twkQuestions = selectQuestionsForCategory('TWK', 30);
+    const tiuQuestions = selectQuestionsForCategory('TIU', 35);
+    const tkpQuestions = selectQuestionsForCategory('TKP', 45);
+    questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
     durationMinutes = isDisabilitas ? 130 : 100;
   }
 
@@ -1013,6 +1157,46 @@ function calculateResultsWithOfficialRules() {
       : 'Sesuai aturan BKN, seluruh subtes harus melampaui passing grade sekaligus. Silakan pelajari kembali analisis pembahasan soal.';
   }
 
+  // 15C. UPDATE USER PROGRESS & MASTERY TRACKING
+  currentExam.questions.forEach(q => {
+    userProgress.seenQuestions[q.id] = true;
+    const userAns = currentExam.answers[q.id];
+
+    if (q.category === 'TKP') {
+      const pt = (userAns && q.points && q.points[userAns] !== undefined) ? q.points[userAns] : 0;
+      if (pt >= 4) {
+        userProgress.masteredQuestions[q.id] = true;
+        delete userProgress.wrongQuestions[q.id];
+      } else {
+        userProgress.wrongQuestions[q.id] = true;
+        delete userProgress.masteredQuestions[q.id];
+      }
+    } else {
+      if (userAns && userAns === q.answer) {
+        userProgress.masteredQuestions[q.id] = true;
+        delete userProgress.wrongQuestions[q.id];
+      } else {
+        userProgress.wrongQuestions[q.id] = true;
+        delete userProgress.masteredQuestions[q.id];
+      }
+    }
+  });
+
+  userProgress.history.push({
+    date: new Date().toISOString(),
+    packetType: currentExam.packetType,
+    totalScore,
+    twkScore,
+    tiuScore,
+    tkpScore,
+    isAllPassed,
+    formasi: userProfile.formasi
+  });
+
+  saveLocalProgress();
+  saveProgressToBackend();
+  updateMasteryDashboardUI();
+
   switchToScreen('result');
 }
 
@@ -1316,4 +1500,140 @@ function returnToLobby() {
   stopTTS();
   if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
   switchToScreen('lobby');
+}
+
+// 18. SMART CAT MASTERY DASHBOARD & D1 SYNC HELPERS
+function updateMasteryDashboardUI() {
+  if (!bankData || !bankData.questions) return;
+  const totalPool = bankData.questions.length;
+  const masteredCount = Object.keys(userProgress.masteredQuestions || {}).length;
+  const wrongCount = Object.keys(userProgress.wrongQuestions || {}).length;
+  const seenCount = Object.keys(userProgress.seenQuestions || {}).length;
+  const freshCount = Math.max(0, totalPool - seenCount);
+
+  const pct = totalPool > 0 ? Math.min(100, Math.round((masteredCount / totalPool) * 100)) : 0;
+
+  const totalPoolEl = document.getElementById('stat-total-pool');
+  if (totalPoolEl) totalPoolEl.textContent = totalPool.toLocaleString('id-ID');
+
+  const freshEl = document.getElementById('stat-fresh-count');
+  if (freshEl) freshEl.textContent = freshCount.toLocaleString('id-ID');
+
+  const masteredEl = document.getElementById('stat-mastered-count');
+  if (masteredEl) masteredEl.textContent = masteredCount.toLocaleString('id-ID');
+
+  const wrongEl = document.getElementById('stat-wrong-count');
+  if (wrongEl) wrongEl.textContent = wrongCount.toLocaleString('id-ID');
+
+  const pctEl = document.getElementById('stat-mastery-percentage');
+  if (pctEl) pctEl.textContent = `${pct}% Tuntas Dikuasai`;
+
+  const barEl = document.getElementById('stat-mastery-bar');
+  if (barEl) barEl.style.width = `${pct}%`;
+
+  const totalCountEl = document.getElementById('total-bank-count');
+  if (totalCountEl) totalCountEl.textContent = totalPool.toLocaleString('id-ID');
+
+  // Sync settings dropdown and toggles
+  const edModeEl = document.getElementById('setting-edition-mode');
+  if (edModeEl && examSettings.editionMode) edModeEl.value = examSettings.editionMode;
+
+  const alwaysNewEl = document.getElementById('setting-always-new');
+  if (alwaysNewEl) alwaysNewEl.checked = !!examSettings.alwaysNew;
+
+  const repeatWrongEl = document.getElementById('setting-repeat-wrong');
+  if (repeatWrongEl) repeatWrongEl.checked = !!examSettings.repeatWrong;
+}
+
+function updateExamSettings() {
+  const edModeEl = document.getElementById('setting-edition-mode');
+  const alwaysNewEl = document.getElementById('setting-always-new');
+  const repeatWrongEl = document.getElementById('setting-repeat-wrong');
+
+  if (edModeEl) examSettings.editionMode = edModeEl.value;
+  if (alwaysNewEl) examSettings.alwaysNew = alwaysNewEl.checked;
+  if (repeatWrongEl) examSettings.repeatWrong = repeatWrongEl.checked;
+
+  saveLocalProgress();
+  saveProgressToBackend();
+}
+
+async function resetMasteredQuestions() {
+  const confirmed = confirm(
+    'Mulai ulang status soal yang sudah tuntas?\n\n' +
+    'Semua soal akan kembali berstatus baru dan dapat dimunculkan kembali pada simulasi ujian berikutnya.\n' +
+    '(Catatan: Riwayat skor dan sertifikat nilai tryout Anda tetap aman).'
+  );
+  if (!confirmed) return;
+
+  userProgress.masteredQuestions = {};
+  userProgress.wrongQuestions = {};
+  userProgress.seenQuestions = {};
+  saveLocalProgress();
+  updateMasteryDashboardUI();
+
+  const userId = userProfile.email || 'anonymous_user';
+  try {
+    await fetch('/api/cpns?action=reset_mastery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId })
+    });
+  } catch (err) {
+    console.warn('Reset D1 backend error:', err);
+  }
+
+  alert('✅ Status soal tuntas berhasil direset! Seluruh butir soal kini siap diuji kembali.');
+}
+
+async function syncUserProgressWithBackend() {
+  const userId = userProfile.email || 'anonymous_user';
+  try {
+    const res = await fetch(`/api/cpns?action=user_stats&user_id=${encodeURIComponent(userId)}`);
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && json.data) {
+        const d = json.data;
+        if (Array.isArray(d.seen_questions) && d.seen_questions.length > 0) {
+          d.seen_questions.forEach(id => userProgress.seenQuestions[id] = true);
+        }
+        if (Array.isArray(d.mastered_questions) && d.mastered_questions.length > 0) {
+          d.mastered_questions.forEach(id => userProgress.masteredQuestions[id] = true);
+        }
+        if (Array.isArray(d.wrong_questions) && d.wrong_questions.length > 0) {
+          d.wrong_questions.forEach(id => userProgress.wrongQuestions[id] = true);
+        }
+        if (d.settings && Object.keys(d.settings).length > 0) {
+          examSettings = { ...examSettings, ...d.settings };
+        }
+        if (Array.isArray(d.history) && d.history.length > 0) {
+          userProgress.history = d.history;
+        }
+        saveLocalProgress();
+        updateMasteryDashboardUI();
+      }
+    }
+  } catch (err) {
+    console.warn('Sync D1 worker backend error:', err);
+  }
+}
+
+async function saveProgressToBackend() {
+  const userId = userProfile.email || 'anonymous_user';
+  try {
+    await fetch('/api/cpns?action=sync_progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: userId,
+        seen_questions: Object.keys(userProgress.seenQuestions || {}),
+        mastered_questions: Object.keys(userProgress.masteredQuestions || {}),
+        wrong_questions: Object.keys(userProgress.wrongQuestions || {}),
+        history: userProgress.history || [],
+        settings: examSettings
+      })
+    });
+  } catch (err) {
+    console.warn('Save to D1 worker backend error:', err);
+  }
 }

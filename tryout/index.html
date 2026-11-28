@@ -306,13 +306,123 @@
         </div>
       </div>
 
+      <!-- SMART CAT ENGINE & MASTERY DASHBOARD -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold text-xs uppercase tracking-wider">
+                Smart CAT Algorithm
+              </span>
+              <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                <i class="ph-fill ph-check-circle"></i> Cloudflare D1 Database Synced
+              </span>
+            </div>
+            <h2 class="text-xl font-black text-slate-900 dark:text-slate-100 mt-1 flex items-center gap-2">
+              <i class="ph-bold ph-chart-pie-slice text-blue-600"></i> Penguasaan Soal & Logika Tryout
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+              Sistem pintar memantau soal yang sudah tuntas, belum pernah dilihat, serta otomatis mengulang soal yang salah pada tryout berikutnya.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="resetMasteredQuestions()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-slate-600 dark:text-slate-300 hover:text-rose-600 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-1.5 shadow-sm" title="Mulai ulang status soal agar semua soal muncul kembali">
+              <i class="ph-bold ph-arrow-counter-clockwise"></i>
+              <span>Reset Soal Tuntas</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mastery Stat Counters -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
+            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Bank Soal</div>
+            <div class="text-2xl font-black text-slate-800 dark:text-slate-100 mt-1">
+              <span id="stat-total-pool">1.848</span> <span class="text-xs font-normal text-slate-400">Soal</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">316 Edisi 2027 • 1.532 Klasik</div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-900/40">
+            <div class="text-[11px] font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wider flex items-center gap-1">
+              <i class="ph-bold ph-sparkle"></i> Belum Dilihat
+            </div>
+            <div class="text-2xl font-black text-sky-900 dark:text-sky-100 mt-1">
+              <span id="stat-fresh-count">1.848</span> <span class="text-xs font-normal text-sky-600 dark:text-sky-400">Fresh</span>
+            </div>
+            <div class="text-[10px] text-sky-600/70 dark:text-sky-400/70 mt-0.5">Prioritas uji pertama</div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40">
+            <div class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+              <i class="ph-bold ph-check-circle"></i> Sudah Tuntas
+            </div>
+            <div class="text-2xl font-black text-emerald-900 dark:text-emerald-100 mt-1">
+              <span id="stat-mastered-count">0</span> <span class="text-xs font-normal text-emerald-600 dark:text-emerald-400">Dikuasai</span>
+            </div>
+            <div class="text-[10px] text-emerald-600/70 dark:text-emerald-400/70 mt-0.5">Tidak muncul lagi (Mode Baru)</div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40">
+            <div class="text-[11px] font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1">
+              <i class="ph-bold ph-warning-circle"></i> Pernah Salah
+            </div>
+            <div class="text-2xl font-black text-amber-900 dark:text-amber-100 mt-1">
+              <span id="stat-wrong-count">0</span> <span class="text-xs font-normal text-amber-600 dark:text-amber-400">Remedial</span>
+            </div>
+            <div class="text-[10px] text-amber-600/70 dark:text-amber-400/70 mt-0.5">Diulang di tryout ke-2</div>
+          </div>
+        </div>
+
+        <!-- Mastery Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-700 dark:text-slate-300">Tingkat Penguasaan Bank Soal CPNS</span>
+            <span id="stat-mastery-percentage" class="font-extrabold text-blue-600 dark:text-blue-400">0% Selesai</span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700">
+            <div id="stat-mastery-bar" class="h-full bg-gradient-to-r from-blue-600 to-emerald-500 transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Settings Bar: Prioritas Edisi & Logika Pemilihan Soal -->
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1">
+              <i class="ph-bold ph-sliders-horizontal text-blue-600"></i> Pengaturan Distribusi Soal:
+            </span>
+            <div class="flex items-center gap-1.5">
+              <label for="setting-edition-mode" class="text-slate-500 dark:text-slate-400">Edisi:</label>
+              <select id="setting-edition-mode" onchange="updateExamSettings()" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-bold text-slate-700 dark:text-slate-200 shadow-sm focus:ring-2 focus:ring-blue-500">
+                <option value="PRIORITY_2027">🌟 Prioritas Edisi 2027 (Rekomendasi Utama)</option>
+                <option value="ONLY_2027">⚡ Eksklusif Edisi 2027 Saja</option>
+                <option value="ONLY_KLASIK">🏛️ Edisi Klasik (2024-2025) Saja</option>
+                <option value="RANDOM_ALL">🎲 Acak Campur Semua Edisi (Random)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+              <input type="checkbox" id="setting-always-new" onchange="updateExamSettings()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Selalu Tampilkan Soal Baru</span>
+            </label>
+            <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+              <input type="checkbox" id="setting-repeat-wrong" onchange="updateExamSettings()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700" checked>
+              <span class="text-slate-700 dark:text-slate-300 font-medium">Ulangi Soal Salah di Tryout ke-2</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <!-- Pilihan Paket Ujian -->
       <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <i class="ph-bold ph-stack text-blue-600"></i> Pilih Mode Ujian / Tryout
           </h2>
-          <span class="text-xs text-slate-500">Tersedia <span id="total-bank-count" class="font-bold text-blue-600">399</span> Soal Aktif</span>
+          <span class="text-xs text-slate-500">Tersedia <span id="total-bank-count" class="font-bold text-blue-600">1.848</span> Soal Aktif (2027 & Klasik 2024-2025)</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
