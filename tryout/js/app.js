@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadBankData();
   checkOngoingSession();
   updateFormasiUI();
+  renderSessionHistory();
 });
 
 // 2. PROFILE & FORMASI MANAGEMENT
@@ -449,10 +450,22 @@ async function loadBankData() {
 }
 
 // 6B. SMART QUESTION SELECTION ALGORITHM
-function selectQuestionsForCategory(category, requiredCount) {
+function selectQuestionsForCategory(category, requiredCount, options = {}) {
   if (!bankData || !bankData.questions) return [];
 
-  const catAll = bankData.questions.filter(q => q.category === category);
+  const remedialOnly = !!options.remedialOnly;
+  const activeEditionMode = options.editionMode || examSettings.editionMode;
+
+  let catAll = bankData.questions.filter(q => q.category === category);
+
+  // Jika opsi remedial aktif, prioritaskan soal yang salah
+  if (remedialOnly) {
+    const wrongPool = catAll.filter(q => !!userProgress.wrongQuestions[q.id]);
+    if (wrongPool.length > 0) {
+      catAll = wrongPool;
+    }
+  }
+
   const q2027 = catAll.filter(q => q.edition === '2027');
   const qKlasik = catAll.filter(q => q.edition === '2024-2025');
 
@@ -462,7 +475,7 @@ function selectQuestionsForCategory(category, requiredCount) {
     const isSeen = !!userProgress.seenQuestions[q.id];
 
     // Priority 1: Soal salah di tryout sebelumnya (Remedial)
-    if (examSettings.repeatWrong && isWrong) {
+    if (isWrong) {
       return 1000 + Math.random();
     }
     // Priority 2: Soal fresh (belum pernah dilihat)
@@ -474,7 +487,7 @@ function selectQuestionsForCategory(category, requiredCount) {
       return 200 + Math.random();
     }
     // Priority 4: Soal sudah tuntas
-    if (examSettings.alwaysNew && isMastered) {
+    if (examSettings.alwaysNew && isMastered && !remedialOnly) {
       return -1000 + Math.random(); // Dihindari jika mode alwaysNew aktif
     }
     return 10 + Math.random();
@@ -482,20 +495,20 @@ function selectQuestionsForCategory(category, requiredCount) {
 
   let selected = [];
 
-  if (examSettings.editionMode === 'ONLY_2027') {
+  if (activeEditionMode === 'ONLY_2027') {
     const sorted = [...q2027].sort((a, b) => calculatePriority(b) - calculatePriority(a));
     selected = sorted.slice(0, requiredCount);
-  } else if (examSettings.editionMode === 'ONLY_KLASIK') {
+  } else if (activeEditionMode === 'ONLY_KLASIK') {
     const sorted = [...qKlasik].sort((a, b) => calculatePriority(b) - calculatePriority(a));
     selected = sorted.slice(0, requiredCount);
-  } else if (examSettings.editionMode === 'RANDOM_ALL') {
+  } else if (activeEditionMode === 'RANDOM_ALL') {
     const sorted = [...catAll].sort((a, b) => calculatePriority(b) - calculatePriority(a));
     selected = sorted.slice(0, requiredCount);
   } else {
     // Mode Default: 'PRIORITY_2027'
     const sorted2027 = [...q2027].sort((a, b) => calculatePriority(b) - calculatePriority(a));
     let pool2027 = sorted2027;
-    if (examSettings.alwaysNew) {
+    if (examSettings.alwaysNew && !remedialOnly) {
       pool2027 = sorted2027.filter(q => !userProgress.masteredQuestions[q.id]);
     }
     selected = pool2027.slice(0, requiredCount);
@@ -505,7 +518,7 @@ function selectQuestionsForCategory(category, requiredCount) {
       const needed = requiredCount - selected.length;
       const sortedKlasik = [...qKlasik].sort((a, b) => calculatePriority(b) - calculatePriority(a));
       let poolKlasik = sortedKlasik;
-      if (examSettings.alwaysNew) {
+      if (examSettings.alwaysNew && !remedialOnly) {
         poolKlasik = sortedKlasik.filter(q => !userProgress.masteredQuestions[q.id]);
       }
       const fillKlasik = poolKlasik.slice(0, needed);
@@ -527,51 +540,57 @@ function selectQuestionsForCategory(category, requiredCount) {
   return selected;
 }
 
-// 7. START EXAM / PAKET UJIAN DENGAN LOGIKA CERDAS
-function startExam(packetType) {
+// 7. START EXAM / PAKET UJIAN DENGAN PARAMETER KUSTOM & PRE-EXAM LOGIC
+function startExam(packetType, customOptions = {}) {
   if (!bankData || !bankData.questions) {
     alert('Bank soal sedang disiapkan, tunggu 2 detik lalu klik kembali.');
     return;
   }
 
-  let questions = [];
-  let durationMinutes = 100;
-
-  // Khusus Jalur Disabilitas Resmi BKN: 130 Menit untuk Full Test
   const isDisabilitas = userProfile.formasi === 'DISABILITAS';
+  const isUntimed = !!customOptions.isUntimed;
+  const durationMinutes = isUntimed ? 0 : (customOptions.durationMinutes || (isDisabilitas ? 130 : 100));
+  const targetQCount = customOptions.targetQCount || 110;
+  const remedialOnly = !!customOptions.remedialOnly;
+  const editionMode = customOptions.editionMode || examSettings.editionMode;
 
-  if (packetType === 'full_simulation') {
-    const twkQuestions = selectQuestionsForCategory('TWK', 30);
-    const tiuQuestions = selectQuestionsForCategory('TIU', 35);
-    const tkpQuestions = selectQuestionsForCategory('TKP', 45);
-    questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
-    durationMinutes = isDisabilitas ? 130 : 100;
-  } else if (packetType === 'twk_only') {
-    questions = selectQuestionsForCategory('TWK', 30);
-    durationMinutes = 25;
+  let questions = [];
+
+  if (packetType === 'twk_only') {
+    questions = selectQuestionsForCategory('TWK', targetQCount || 30, { remedialOnly, editionMode });
   } else if (packetType === 'tiu_only') {
-    questions = selectQuestionsForCategory('TIU', 35);
-    durationMinutes = isDisabilitas ? 45 : 35;
+    questions = selectQuestionsForCategory('TIU', targetQCount || 35, { remedialOnly, editionMode });
   } else if (packetType === 'tkp_only') {
-    questions = selectQuestionsForCategory('TKP', 45);
-    durationMinutes = isDisabilitas ? 50 : 40;
+    questions = selectQuestionsForCategory('TKP', targetQCount || 45, { remedialOnly, editionMode });
   } else {
-    // Prediksi, Pretest, Posttest
-    const twkQuestions = selectQuestionsForCategory('TWK', 30);
-    const tiuQuestions = selectQuestionsForCategory('TIU', 35);
-    const tkpQuestions = selectQuestionsForCategory('TKP', 45);
+    // Multi-category (Full Simulation, Posttest, Prediksi, dll)
+    let twkCount = 30;
+    let tiuCount = 35;
+    let tkpCount = 45;
+
+    if (targetQCount !== 110) {
+      twkCount = Math.max(1, Math.round(targetQCount * (30 / 110)));
+      tiuCount = Math.max(1, Math.round(targetQCount * (35 / 110)));
+      tkpCount = Math.max(1, targetQCount - twkCount - tiuCount);
+    }
+
+    const twkQuestions = selectQuestionsForCategory('TWK', twkCount, { remedialOnly, editionMode });
+    const tiuQuestions = selectQuestionsForCategory('TIU', tiuCount, { remedialOnly, editionMode });
+    const tkpQuestions = selectQuestionsForCategory('TKP', tkpCount, { remedialOnly, editionMode });
+
     questions = [...twkQuestions, ...tiuQuestions, ...tkpQuestions];
-    durationMinutes = isDisabilitas ? 130 : 100;
   }
 
   currentExam = {
     packetType: packetType,
+    customOptions: customOptions,
     questions: questions,
     currentIndex: 0,
     answers: {},
     ragu: {},
-    durationSeconds: durationMinutes * 60,
-    secondsLeft: durationMinutes * 60,
+    isUntimed: isUntimed,
+    durationSeconds: isUntimed ? 0 : durationMinutes * 60,
+    secondsLeft: isUntimed ? 0 : durationMinutes * 60,
     timerInterval: null,
     isFinished: false,
     isPaused: false,
@@ -585,11 +604,34 @@ function startExam(packetType) {
   startTimer();
 }
 
-// 8. TIMER ENGINE
+// 8. TIMER ENGINE (MENDUKUNG WAKTU BEBAS / UNTIMED)
 function startTimer() {
   if (currentExam.timerInterval) clearInterval(currentExam.timerInterval);
 
   const timerDisplay = document.getElementById('exam-timer');
+
+  // MODE WAKTU BEBAS (LATIHAN SANTAI TANPA BATAS WAKTU)
+  if (currentExam.isUntimed) {
+    let elapsed = 0;
+    const updateUntimed = () => {
+      const mins = Math.floor(elapsed / 60);
+      const secs = elapsed % 60;
+      const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      if (timerDisplay) {
+        timerDisplay.innerHTML = `<span class="flex items-center gap-1.5 text-sky-400 font-bold"><i class="ph-bold ph-infinity text-sm"></i> ${str}</span>`;
+      }
+    };
+
+    updateUntimed();
+    currentExam.timerInterval = setInterval(() => {
+      if (currentExam.isPaused) return;
+      elapsed++;
+      updateUntimed();
+    }, 1000);
+    return;
+  }
+
+  // MODE HITUNG MUNDUR RESMI CAT BKN
   const updateDisplay = () => {
     const mins = Math.floor(currentExam.secondsLeft / 60);
     const secs = currentExam.secondsLeft % 60;
@@ -1158,6 +1200,7 @@ function calculateResultsWithOfficialRules() {
   }
 
   // 15C. UPDATE USER PROGRESS & MASTERY TRACKING
+  const wrongQuestionIds = [];
   currentExam.questions.forEach(q => {
     userProgress.seenQuestions[q.id] = true;
     const userAns = currentExam.answers[q.id];
@@ -1170,6 +1213,7 @@ function calculateResultsWithOfficialRules() {
       } else {
         userProgress.wrongQuestions[q.id] = true;
         delete userProgress.masteredQuestions[q.id];
+        wrongQuestionIds.push(q.id);
       }
     } else {
       if (userAns && userAns === q.answer) {
@@ -1178,24 +1222,39 @@ function calculateResultsWithOfficialRules() {
       } else {
         userProgress.wrongQuestions[q.id] = true;
         delete userProgress.masteredQuestions[q.id];
+        wrongQuestionIds.push(q.id);
       }
     }
   });
 
+  let packetReadableName = 'Simulasi Resmi SKD CAT BKN';
+  if (currentExam.packetType === 'twk_only') packetReadableName = 'Tryout Khusus TWK';
+  else if (currentExam.packetType === 'tiu_only') packetReadableName = 'Tryout Khusus TIU';
+  else if (currentExam.packetType === 'tkp_only') packetReadableName = 'Tryout Khusus TKP';
+  else if (currentExam.packetType === 'posttest') packetReadableName = 'Paket Post-Test Paten';
+  else if (currentExam.packetType === 'prediksi') packetReadableName = 'Prediksi Soal Baru 2027';
+
   userProgress.history.push({
+    id: 'ses_' + Date.now(),
     date: new Date().toISOString(),
     packetType: currentExam.packetType,
+    packetName: packetReadableName,
+    totalQuestions: currentExam.questions.length,
+    durationMinutes: currentExam.isUntimed ? 'Waktu Bebas' : Math.round(currentExam.durationSeconds / 60),
+    isUntimed: !!currentExam.isUntimed,
     totalScore,
     twkScore,
     tiuScore,
     tkpScore,
     isAllPassed,
-    formasi: userProfile.formasi
+    formasi: userProfile.formasi,
+    wrongQuestionIds: wrongQuestionIds
   });
 
   saveLocalProgress();
   saveProgressToBackend();
   updateMasteryDashboardUI();
+  renderSessionHistory();
 
   switchToScreen('result');
 }
@@ -1611,6 +1670,7 @@ async function syncUserProgressWithBackend() {
         }
         saveLocalProgress();
         updateMasteryDashboardUI();
+        renderSessionHistory();
       }
     }
   } catch (err) {
@@ -1635,5 +1695,275 @@ async function saveProgressToBackend() {
     });
   } catch (err) {
     console.warn('Save to D1 worker backend error:', err);
+  }
+}
+
+// 19. PRE-EXAM CONFIRMATION & CUSTOMIZATION MODAL ENGINE
+let pendingPreExamPacket = 'full_simulation';
+
+function openPreExamModal(packetType) {
+  pendingPreExamPacket = packetType;
+  const isDisabilitas = userProfile.formasi === 'DISABILITAS';
+
+  const modal = document.getElementById('modal-pre-exam');
+  const titleEl = document.getElementById('pre-exam-title');
+  const durInput = document.getElementById('pre-exam-duration-input');
+  const qInput = document.getElementById('pre-exam-qcount-input');
+  const qDisplay = document.getElementById('pre-exam-qcount-display');
+  const untimedCb = document.getElementById('pre-exam-untimed');
+  const remedialCb = document.getElementById('pre-exam-remedial-only');
+  const edSelect = document.getElementById('pre-exam-edition-select');
+
+  // Set user display in modal
+  const nameEl = document.getElementById('pre-exam-user-name');
+  const idEl = document.getElementById('pre-exam-user-id');
+  const avatarEl = document.getElementById('pre-exam-avatar');
+  if (nameEl) nameEl.textContent = userProfile.name;
+  if (idEl) idEl.textContent = `User ID: ${userProfile.email || 'guest_' + (userProfile.name || 'asn').toLowerCase().replace(/\s+/g, '_')}`;
+  if (avatarEl) {
+    if (userProfile.avatar) {
+      avatarEl.innerHTML = `<img src="${userProfile.avatar}" class="w-full h-full object-cover">`;
+    } else {
+      avatarEl.textContent = (userProfile.name || 'ASN').substring(0, 2).toUpperCase();
+    }
+  }
+
+  // Set defaults based on packet
+  let defaultDuration = isDisabilitas ? 130 : 100;
+  let defaultCount = 110;
+  let packetName = 'Simulasi Resmi SKD CAT BKN';
+
+  if (packetType === 'twk_only') {
+    defaultDuration = 25;
+    defaultCount = 30;
+    packetName = 'Tryout Khusus TWK';
+  } else if (packetType === 'tiu_only') {
+    defaultDuration = isDisabilitas ? 45 : 35;
+    defaultCount = 35;
+    packetName = 'Tryout Khusus TIU';
+  } else if (packetType === 'tkp_only') {
+    defaultDuration = isDisabilitas ? 50 : 40;
+    defaultCount = 45;
+    packetName = 'Tryout Khusus TKP';
+  } else if (packetType === 'posttest') {
+    defaultDuration = isDisabilitas ? 130 : 100;
+    defaultCount = 110;
+    packetName = 'Paket Post-Test Paten';
+  } else if (packetType === 'prediksi') {
+    defaultDuration = 35;
+    defaultCount = 35;
+    packetName = 'Prediksi Soal Baru 2027';
+  }
+
+  if (titleEl) titleEl.textContent = `Konfirmasi: ${packetName}`;
+  if (durInput) durInput.value = defaultDuration;
+  if (qInput) qInput.value = defaultCount;
+  if (qDisplay) qDisplay.textContent = `${defaultCount} Soal`;
+  if (untimedCb) untimedCb.checked = false;
+  if (remedialCb) remedialCb.checked = false;
+  if (edSelect) edSelect.value = examSettings.editionMode || 'PRIORITY_2027';
+
+  toggleUntimedMode(untimedCb);
+
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closePreExamModal() {
+  const modal = document.getElementById('modal-pre-exam');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function toggleUntimedMode(checkbox) {
+  const durInput = document.getElementById('pre-exam-duration-input');
+  const timerWrapper = document.getElementById('pre-exam-timer-wrapper');
+  const hint = document.getElementById('pre-exam-duration-hint');
+
+  if (checkbox && checkbox.checked) {
+    if (durInput) durInput.disabled = true;
+    if (timerWrapper) timerWrapper.classList.add('opacity-40', 'pointer-events-none');
+    if (hint) hint.textContent = 'Mode Waktu Bebas Aktif: Ujian santai tanpa batas waktu (cocok untuk pendalaman materi).';
+  } else {
+    if (durInput) durInput.disabled = false;
+    if (timerWrapper) timerWrapper.classList.remove('opacity-40', 'pointer-events-none');
+    if (hint) hint.textContent = 'Standar BKN: 100 menit untuk umum, 130 menit untuk formasi disabilitas.';
+  }
+}
+
+function setPreExamDuration(mins) {
+  const untimedCb = document.getElementById('pre-exam-untimed');
+  if (untimedCb) untimedCb.checked = false;
+  toggleUntimedMode(untimedCb);
+
+  const durInput = document.getElementById('pre-exam-duration-input');
+  if (durInput) durInput.value = mins;
+}
+
+function setPreExamQCount(count) {
+  const qInput = document.getElementById('pre-exam-qcount-input');
+  const qDisplay = document.getElementById('pre-exam-qcount-display');
+  if (qInput) qInput.value = count;
+  if (qDisplay) qDisplay.textContent = `${count} Soal`;
+}
+
+function onPreExamQCountChange(val) {
+  const qDisplay = document.getElementById('pre-exam-qcount-display');
+  if (qDisplay) qDisplay.textContent = `${val || 0} Soal`;
+}
+
+function confirmAndStartExam() {
+  const isUntimed = document.getElementById('pre-exam-untimed')?.checked || false;
+  const durationMinutes = parseInt(document.getElementById('pre-exam-duration-input')?.value) || 100;
+  const targetQCount = parseInt(document.getElementById('pre-exam-qcount-input')?.value) || 110;
+  const remedialOnly = document.getElementById('pre-exam-remedial-only')?.checked || false;
+  const editionMode = document.getElementById('pre-exam-edition-select')?.value || 'PRIORITY_2027';
+
+  closePreExamModal();
+
+  startExam(pendingPreExamPacket, {
+    isUntimed,
+    durationMinutes,
+    targetQCount,
+    remedialOnly,
+    editionMode
+  });
+}
+
+// 20. SESSION HISTORY PER ACCOUNT ENGINE
+let activeHistoryFilter = 'ALL';
+
+function renderSessionHistory() {
+  const container = document.getElementById('session-history-container');
+  const userDisplay = document.getElementById('history-user-display');
+  const countAll = document.getElementById('count-hist-all');
+  const countPassed = document.getElementById('count-hist-passed');
+  const countFailed = document.getElementById('count-hist-failed');
+
+  const userId = userProfile.email || 'guest_' + (userProfile.name || 'asn').toLowerCase().replace(/\s+/g, '_');
+  if (userDisplay) userDisplay.textContent = userId;
+
+  const history = userProgress.history || [];
+  const passedCount = history.filter(h => h.isAllPassed).length;
+  const failedCount = history.filter(h => !h.isAllPassed).length;
+
+  if (countAll) countAll.textContent = history.length;
+  if (countPassed) countPassed.textContent = passedCount;
+  if (countFailed) countFailed.textContent = failedCount;
+
+  // Filter tabs styling
+  const btnAll = document.getElementById('btn-hist-all');
+  const btnPassed = document.getElementById('btn-hist-passed');
+  const btnFailed = document.getElementById('btn-hist-failed');
+
+  [btnAll, btnPassed, btnFailed].forEach(b => {
+    if (b) {
+      b.classList.remove('bg-blue-600', 'bg-rose-600', 'text-white', 'shadow-sm');
+      b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+    }
+  });
+
+  if (activeHistoryFilter === 'ALL' && btnAll) {
+    btnAll.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+    btnAll.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+  } else if (activeHistoryFilter === 'PASSED' && btnPassed) {
+    btnPassed.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+    btnPassed.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+  } else if (activeHistoryFilter === 'FAILED' && btnFailed) {
+    btnFailed.classList.add('bg-rose-600', 'text-white', 'shadow-sm');
+    btnFailed.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+  }
+
+  if (!container) return;
+
+  const filtered = history.filter(h => {
+    if (activeHistoryFilter === 'PASSED') return h.isAllPassed;
+    if (activeHistoryFilter === 'FAILED') return !h.isAllPassed;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-8 p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 text-slate-400 space-y-2">
+        <i class="ph-bold ph-calendar-blank text-3xl"></i>
+        <p class="text-xs">Belum ada riwayat sesi yang cocok dengan filter. Selesaikan simulasi tryout untuk melihat histori per akun.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Render from latest to oldest
+  container.innerHTML = filtered.slice().reverse().map((ses, idx) => {
+    const originalIdx = history.indexOf(ses);
+    const dateStr = new Date(ses.date).toLocaleString('id-ID', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    });
+    const statusBadge = ses.isAllPassed
+      ? `<span class="px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold text-[11px] flex items-center gap-1"><i class="ph-bold ph-check-circle"></i> LULUS PASSING GRADE</span>`
+      : `<span class="px-2.5 py-1 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-bold text-[11px] flex items-center gap-1"><i class="ph-bold ph-x-circle"></i> BELUM MEMENUHI</span>`;
+
+    const wrongCount = (ses.wrongQuestionIds && Array.isArray(ses.wrongQuestionIds)) ? ses.wrongQuestionIds.length : 0;
+
+    return `
+      <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 flex flex-col md:flex-row md:items-center justify-between gap-4 transition hover:border-blue-400">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2">
+            ${statusBadge}
+            <span class="font-bold text-sm text-slate-900 dark:text-slate-100">${ses.packetName || ses.packetType}</span>
+            <span class="text-xs text-slate-400">• ${dateStr} WIB</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+            <span>Total Skor: <strong class="text-blue-600 text-sm font-black">${ses.totalScore}</strong></span>
+            <span>TWK: <strong>${ses.twkScore}</strong></span>
+            <span>TIU: <strong>${ses.tiuScore}</strong></span>
+            <span>TKP: <strong>${ses.tkpScore}</strong></span>
+            <span>• Soal: ${ses.totalQuestions || 110} Butir</span>
+            <span>• Durasi: ${ses.durationMinutes === 'Waktu Bebas' ? 'Waktu Bebas' : ses.durationMinutes + 'm'}</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="retestSession('${ses.packetType}')" class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-600 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-1.5 shadow-sm">
+            <i class="ph-bold ph-arrows-clockwise text-xs"></i>
+            <span>Uji Ulang</span>
+          </button>
+          ${!ses.isAllPassed || wrongCount > 0 ? `
+            <button onclick="remedialSession(${originalIdx})" class="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 text-rose-700 dark:text-rose-300 font-bold text-xs border border-rose-200 dark:border-rose-900/60 transition flex items-center gap-1.5 shadow-sm">
+              <i class="ph-bold ph-target text-xs"></i>
+              <span>Remedial Soal Gagal</span>
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterSessionHistory(filter) {
+  activeHistoryFilter = filter;
+  renderSessionHistory();
+}
+
+function retestSession(packetType) {
+  openPreExamModal(packetType);
+}
+
+function remedialSession(historyIndex) {
+  const ses = userProgress.history[historyIndex];
+  if (!ses) return;
+
+  openPreExamModal(ses.packetType);
+
+  const remedialCb = document.getElementById('pre-exam-remedial-only');
+  if (remedialCb) remedialCb.checked = true;
+
+  const wrongCount = ses.wrongQuestionIds ? ses.wrongQuestionIds.length : 30;
+  if (wrongCount > 0) {
+    setPreExamQCount(Math.min(wrongCount, 110));
   }
 }
