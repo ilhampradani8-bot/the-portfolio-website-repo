@@ -149,6 +149,96 @@ function updateProfileHeader() {
     if (noteEl) noteEl.textContent = 'Umum: 100m • Disabilitas: 130m';
     if (fullDurBadge) fullDurBadge.textContent = '100 Menit';
   }
+
+  // Handle Google Login Button Visibility (Hide button if already logged in)
+  const gContainerLobby = document.getElementById('g_id_signin_container');
+  const gContainerModal = document.getElementById('modal-google-btn-wrapper');
+  let loggedInPill = document.getElementById('user-logged-in-pill');
+
+  if (userProfile.isGoogleAuth) {
+    if (gContainerLobby) gContainerLobby.classList.add('hidden');
+
+    if (!loggedInPill && gContainerLobby && gContainerLobby.parentNode) {
+      loggedInPill = document.createElement('div');
+      loggedInPill.id = 'user-logged-in-pill';
+      loggedInPill.className = 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold text-white shadow-sm';
+      gContainerLobby.parentNode.insertBefore(loggedInPill, gContainerLobby.nextSibling);
+    }
+    if (loggedInPill) {
+      loggedInPill.classList.remove('hidden');
+      loggedInPill.innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="truncate max-w-[160px]">${userProfile.name}</span>
+        <i class="ph-bold ph-check-circle text-emerald-300"></i>
+      `;
+    }
+
+    if (gContainerModal) {
+      gContainerModal.innerHTML = `
+        <button type="button" onclick="logoutGoogleAccount()" class="px-3.5 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 text-rose-600 dark:text-rose-400 font-bold text-xs border border-rose-200 dark:border-rose-900/60 transition flex items-center gap-1.5 shadow-sm">
+          <i class="ph-bold ph-sign-out"></i>
+          <span>Keluar Akun Google</span>
+        </button>
+      `;
+    }
+  } else {
+    if (gContainerLobby) gContainerLobby.classList.remove('hidden');
+    if (loggedInPill) loggedInPill.classList.add('hidden');
+
+    if (gContainerModal && window.google && google.accounts && google.accounts.id) {
+      gContainerModal.innerHTML = '';
+      google.accounts.id.renderButton(gContainerModal, {
+        theme: 'outline',
+        size: 'medium',
+        shape: 'pill',
+        text: 'signin'
+      });
+    }
+  }
+}
+
+function logoutGoogleAccount() {
+  if (!confirm('Apakah Anda yakin ingin keluar dari akun Google?')) return;
+
+  userProfile.name = 'Calon ASN Hebat';
+  userProfile.email = '';
+  userProfile.avatar = '';
+  userProfile.isGoogleAuth = false;
+
+  localStorage.setItem('cat_user_profile', JSON.stringify(userProfile));
+
+  if (window.google && google.accounts && google.accounts.id) {
+    google.accounts.id.disableAutoSelect();
+  }
+
+  updateProfileHeader();
+  renderSessionHistory();
+
+  const gContainerLobby = document.getElementById('g_id_signin_container');
+  const gContainerModal = document.getElementById('modal-google-btn-wrapper');
+  if (window.google && google.accounts && google.accounts.id) {
+    if (gContainerLobby) {
+      gContainerLobby.innerHTML = '';
+      google.accounts.id.renderButton(gContainerLobby, {
+        theme: 'filled_blue',
+        size: 'medium',
+        shape: 'pill',
+        text: 'signin_with',
+        logo_alignment: 'left'
+      });
+    }
+    if (gContainerModal) {
+      gContainerModal.innerHTML = '';
+      google.accounts.id.renderButton(gContainerModal, {
+        theme: 'outline',
+        size: 'medium',
+        shape: 'pill',
+        text: 'signin'
+      });
+    }
+  }
+
+  alert('👋 Anda berhasil keluar dari akun Google.');
 }
 
 function openProfileModal() {
@@ -260,6 +350,9 @@ function initGoogleAuth() {
           text: 'signin'
         });
       }
+
+      // Update visibility based on auth status
+      updateProfileHeader();
     }
   };
 
