@@ -608,6 +608,12 @@ function renderCurrentQuestion() {
 
   renderNavigation();
   updateProgressStats();
+
+  // Render KaTeX math equations if present
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.getElementById('question-text'), { throwOnError: false });
+    renderMathInElement(document.getElementById('options-container'), { throwOnError: false });
+  }
 }
 
 // 11. SELECT OPTION & TOGGLE RAGU
@@ -630,6 +636,12 @@ function toggleRaguRagu() {
   saveSessionToStorage();
   renderNavigation();
   updateProgressStats();
+
+  // Render KaTeX math equations if present
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.getElementById('question-text'), { throwOnError: false });
+    renderMathInElement(document.getElementById('options-container'), { throwOnError: false });
+  }
 }
 
 function navigateQuestion(offset) {
@@ -1116,6 +1128,11 @@ function renderReviewList() {
 
     listContainer.appendChild(card);
   });
+
+  // Render KaTeX in review cards
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(listContainer, { throwOnError: false });
+  }
 }
 
 // 16. SESSION RESUME & STATE PERSISTENCE
