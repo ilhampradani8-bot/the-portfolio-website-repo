@@ -37309,7 +37309,75 @@
         "E": 0
       },
       "explanation": "Objek bagian atas bertambah satu garis dan elemen bawah menyesuaikan pola. Gambar yang tepat adalah gambar D.\n▶ Jawaban: D"
+    },
+    {
+      "id": "prediksi-tiu-1-34",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan gambar berikut!\nJika gambar awal dicerminkan terhadap sumbu vertikal, kemudian diputar 90° searah jarum jam dengan pusat rotasi pada titik pusat gambar, hasil akhirnya adalah ....",
+      "image": "images/questions/pred1_q34.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "D",
+      "explanation": "Langkah 1: Pencerminan terhadap sumbu vertikal (setiap bagian gambar berpindah ke sisi berlawanan dengan jarak yang sama dari garis vertikal).\nLangkah 2: Rotasi 90° searah jarum jam.\nLangkah 3: Hasil akhir susunan segitiga dan lingkaran gelap sesuai dengan pilihan D.\n▶ Jawaban: D"
+    },
+    {
+      "id": "prediksi-tiu-1-35",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan urutan gambar pada soal berikut!\nKelanjutan bentuk pola gambar selanjutnya adalah ....",
+      "image": "images/questions/pred1_q35.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "E",
+      "explanation": "Pola penambahan bangun bertahap pada setiap langkah:\n1) Tahap 1: Lingkaran\n2) Tahap 2: Ditambah Segitiga di luarnya\n3) Tahap 3: Ditambah Persegi yang membungkusnya\n4) Tahap 4: Ditambah Segilima di bagian terluar\nSemua bentuk sebelumnya tetap dipertahankan. Pilihan yang tepat adalah E.\n▶ Jawaban: E"
+    },
+    {
+      "id": "prediksi-tiu-2-34",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan gambar berikut!\nJika gambar berikut dicerminkan secara vertikal dan diputar 90° searah jarum jam, hasilnya adalah ....",
+      "image": "images/questions/pred2_q34.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "D",
+      "explanation": "Transformasi dilakukan dengan mencerminkan bangun terhadap sumbu vertikal lalu memutarnya 90° searah jarum jam. Hasil orientasi elemen bangun sesuai dengan pilihan D.\n▶ Jawaban: D"
+    },
+    {
+      "id": "prediksi-tiu-2-35",
+      "edition": "2027",
+      "category": "TIU",
+      "subtest": "Tes Intelegensia Umum",
+      "question": "Perhatikan pola kotak gambar berikut!\nGambar yang tepat untuk menggantikan kotak tanda tanya (?) adalah ....",
+      "image": "images/questions/pred2_q35.png",
+      "options": {
+        "A": "Gambar A",
+        "B": "Gambar B",
+        "C": "Gambar C",
+        "D": "Gambar D",
+        "E": "Gambar E"
+      },
+      "answer": "C",
+      "explanation": "Pola analogi pasangan bangun pembungkus:\n- Kotak 1: Segitiga (sisi 3)\n- Kotak 2: Segitiga berada di dalam, dibungkus segiempat (sisi 4 = 3 + 1)\n- Kotak 3: Lingkaran di dalam\n- Kotak 4: Mengikuti pola sebelumnya, lingkaran berada di dalam, lalu dibungkus oleh segilima di luarnya.\nJadi, gambar yang tepat adalah C.\n▶ Jawaban: C"
     }
   ],
-  "total_questions": 1852
+  "total_questions": 1856
 }
