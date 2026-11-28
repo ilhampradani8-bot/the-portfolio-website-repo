@@ -113,11 +113,57 @@ export async function onRequestGet(context) {
       });
     }
 
-    // 1B. Platform Real Analytics & Telemetry (Debut 28 Nov 2026)
+    // 1B. Platform Real-Time Analytics & Live Telemetry (Debut 28 Nov 2026)
     if (action === "analytics") {
       let totalUsers = 0;
       let totalSessions = 0;
       let totalVisits = 0;
+      let activeOnline = 1;
+
+      // Ensure analytics table exists
+      try {
+        await executeD1(
+          env,
+          `CREATE TABLE IF NOT EXISTS cpns_analytics_metrics (
+            metric_key TEXT PRIMARY KEY,
+            metric_value INTEGER DEFAULT 0,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )`
+        );
+
+        await executeD1(
+          env,
+          `CREATE TABLE IF NOT EXISTS cpns_active_heartbeats (
+            client_id TEXT PRIMARY KEY,
+            last_seen DATETIME DEFAULT CURRENT_TIMESTAMP
+          )`
+        );
+      } catch (e) {}
+
+      // Heartbeat pulse ping from client
+      const clientId = url.searchParams.get("client_id");
+      if (clientId) {
+        try {
+          await executeD1(
+            env,
+            `INSERT INTO cpns_active_heartbeats (client_id, last_seen)
+             VALUES (?, CURRENT_TIMESTAMP)
+             ON CONFLICT(client_id) DO UPDATE SET
+               last_seen = CURRENT_TIMESTAMP`,
+            [clientId]
+          );
+        } catch (e) {}
+      }
+
+      // Check active users in the last 2 minutes
+      try {
+        const activeRes = await executeD1(
+          env,
+          `SELECT COUNT(*) as active_now FROM cpns_active_heartbeats
+           WHERE last_seen >= datetime('now', '-2 minutes')`
+        );
+        activeOnline = Math.max(1, activeRes.results?.[0]?.active_now || 1);
+      } catch (e) {}
 
       try {
         const userCountRes = await executeD1(
@@ -140,27 +186,22 @@ export async function onRequestGet(context) {
         });
       } catch (e) {}
 
+      // Increment visit count on explicit visit ping
+      const isVisitPing = url.searchParams.get("track_visit") === "1";
+      if (isVisitPing) {
+        try {
+          await executeD1(
+            env,
+            `INSERT INTO cpns_analytics_metrics (metric_key, metric_value, updated_at)
+             VALUES ('page_visits', 1, CURRENT_TIMESTAMP)
+             ON CONFLICT(metric_key) DO UPDATE SET
+               metric_value = metric_value + 1,
+               updated_at = CURRENT_TIMESTAMP`
+          );
+        } catch (e) {}
+      }
+
       try {
-        // Create analytics table if not exists
-        await executeD1(
-          env,
-          `CREATE TABLE IF NOT EXISTS cpns_analytics_metrics (
-            metric_key TEXT PRIMARY KEY,
-            metric_value INTEGER DEFAULT 0,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-          )`
-        );
-
-        // Increment visit count
-        await executeD1(
-          env,
-          `INSERT INTO cpns_analytics_metrics (metric_key, metric_value, updated_at)
-           VALUES ('page_visits', 1, CURRENT_TIMESTAMP)
-           ON CONFLICT(metric_key) DO UPDATE SET
-             metric_value = metric_value + 1,
-             updated_at = CURRENT_TIMESTAMP`
-        );
-
         const visitRes = await executeD1(
           env,
           `SELECT metric_value FROM cpns_analytics_metrics WHERE metric_key = 'page_visits'`
@@ -178,12 +219,14 @@ export async function onRequestGet(context) {
         data: {
           debut_date: "2026-11-28",
           debut_display: "28 November 2026",
+          active_online: activeOnline,
           total_visits: totalVisits + baselineVisits,
           total_users: totalUsers + baselineUsers,
           total_sessions: totalSessions + baselineSessions,
           active_bank_questions: 1848,
           questions_2027: 316,
-          platform_version: "v2027.1.0-release"
+          platform_version: "v2027.1.0-release",
+          server_timestamp: new Date().toISOString()
         }
       });
     }

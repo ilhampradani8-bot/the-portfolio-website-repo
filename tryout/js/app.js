@@ -182,7 +182,7 @@ function switchView(viewName) {
   } else if (viewName === 'riwayat') {
     renderSessionHistory();
   } else if (viewName === 'analitik') {
-    loadPlatformAnalytics();
+    startAnalyticsRealtimePolling();
   } else if (viewName === 'pengaturan') {
     syncSettingsToView();
   }
@@ -217,14 +217,24 @@ function mobileNavigate(viewName) {
   toggleMobileMenu(false);
 }
 
-// 2B. PLATFORM REAL-TIME ANALYTICS (DEBUT 28 NOV 2026)
-async function loadPlatformAnalytics() {
+// 2B. PLATFORM REAL-TIME ANALYTICS & LIVE HEARTBEAT (DEBUT 28 NOV 2026)
+let platformClientId = localStorage.getItem('cpns_client_uuid') || '';
+if (!platformClientId) {
+  platformClientId = 'user_' + Math.random().toString(36).substring(2, 12) + '_' + Date.now();
+  try { localStorage.setItem('cpns_client_uuid', platformClientId); } catch (e) {}
+}
+
+let analyticsPollingInterval = null;
+
+async function loadPlatformAnalytics(isManual = false) {
   const vEl = document.getElementById('analytic-total-visits');
   const uEl = document.getElementById('analytic-total-users');
   const sEl = document.getElementById('analytic-total-sessions');
+  const aEl = document.getElementById('analytic-active-online');
 
   try {
-    const res = await fetch('/api/cpns?action=analytics');
+    const url = `/api/cpns?action=analytics&client_id=${encodeURIComponent(platformClientId)}${isManual ? '' : ''}`;
+    const res = await fetch(url);
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.data) {
@@ -232,11 +242,31 @@ async function loadPlatformAnalytics() {
         if (vEl) vEl.textContent = Number(d.total_visits || 0).toLocaleString('id-ID');
         if (uEl) uEl.textContent = Number(d.total_users || 0).toLocaleString('id-ID');
         if (sEl) sEl.textContent = Number(d.total_sessions || 0).toLocaleString('id-ID');
+        if (aEl) aEl.innerHTML = `${Number(d.active_online || 1).toLocaleString('id-ID')} <span class="text-[10px] text-emerald-700 dark:text-emerald-300 font-normal">Aktif</span>`;
       }
     }
   } catch (err) {
     console.warn('Gagal memuat analitik platform:', err);
   }
+}
+
+// Background Heartbeat pulse per 45 detik
+setInterval(() => {
+  fetch(`/api/cpns?action=analytics&client_id=${encodeURIComponent(platformClientId)}`).catch(() => {});
+}, 45000);
+
+// Active Live Polling saat membuka view analitik
+function startAnalyticsRealtimePolling() {
+  if (analyticsPollingInterval) clearInterval(analyticsPollingInterval);
+  loadPlatformAnalytics();
+  analyticsPollingInterval = setInterval(() => {
+    if (activeLobbyView === 'analitik') {
+      loadPlatformAnalytics();
+    } else {
+      clearInterval(analyticsPollingInterval);
+      analyticsPollingInterval = null;
+    }
+  }, 10000);
 }
 
 function syncSettingsToView() {
